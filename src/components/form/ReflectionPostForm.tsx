@@ -11,6 +11,7 @@ import {
   ReflectionTemplatePopupAreaContainer,
 } from "./popup/reflection-template";
 import { PublishSettingPopupAreaContainer } from "./popup/publish-setting";
+import ReflectionTemplateInstruct from "./popup/reflection-template/ReflectionTemplateInstruct";
 
 type FormValues = {
   title: string;
@@ -67,7 +68,20 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
 
   return (
     <Box component={"form"} onSubmit={onSubmit}>
-      <Box display={"flex"} position={"fixed"} top={25} right={35}>
+      <Box
+        display={"flex"}
+        justifyContent={"flex-start"}
+        alignItems={"flex-start"}
+        position={"fixed"}
+        top={25}
+        right={35}
+      >
+        <ReflectionTemplateInstruct
+          title={"ヒント"}
+          description={"これ使え"}
+          position="right"
+          fadeOut
+        />
         <ReflectionTemplatePopupAreaContainer
           onInsertTemplate={handleInsertTemplate}
           onClearContent={handleClearContent}
