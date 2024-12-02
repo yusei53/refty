@@ -4,6 +4,7 @@ import Link from "next/link";
 import { theme } from "@/src/utils/theme";
 import { Reflection } from "@/src/api/reflection-api";
 import { formatDate } from "@/src/utils/date-helper";
+import Image from "next/image";
 
 type ReflectionCardProps = {
   username: string;
@@ -58,20 +59,33 @@ const ReflectionCard: React.FC<ReflectionCardProps> = ({
           >
             <Typography fontSize={33}>{reflection.charStamp}</Typography>
           </Box>
-          <Box
-            component={"time"}
-            display={"flex"}
-            alignItems={"center"}
-            position={"absolute"}
-            bottom={{ xs: 12, sm: 15 }}
-          >
-            <CalendarTodayIcon
-              fontSize={"small"}
-              sx={{ color: theme.palette.grey[600] }}
-            />
-            <Typography color={theme.palette.grey[600]} ml={0.8}>
-              {formatDate(reflection.createdAt)}
-            </Typography>
+          <Box position={"absolute"} bottom={{ xs: 12, sm: 15 }}>
+            <Box display={"flex"} alignItems={"center"}>
+              <Box
+                component={"time"}
+                display={"flex"}
+                alignItems={"center"}
+                mr={2}
+              >
+                <Image
+                  src={"/calendar.svg"}
+                  alt={"カレンダーアイコン"}
+                  width={20}
+                  height={20}
+                />
+                <Typography color={theme.palette.grey[600]} ml={0.8} pt={0.2}>
+                  {formatDate(reflection.createdAt)}
+                </Typography>
+              </Box>
+              {!reflection.isPublic && (
+                <Image
+                  src="/lock-google.svg"
+                  alt="非公開マーク"
+                  width={20}
+                  height={20}
+                />
+              )}
+            </Box>
           </Box>
         </Box>
       </Box>
