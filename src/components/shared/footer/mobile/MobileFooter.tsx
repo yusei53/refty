@@ -16,7 +16,7 @@ export const MobileFooter = () => {
       justifyContent={"center"}
       gap={5}
       pt={1}
-      pb={2.5}
+      pb={3.5}
       position={"sticky"}
       bottom={0}
     >
