@@ -1,4 +1,4 @@
-import MobileFooter from "@/src/components/shared/footer/MobileFooter";
+import { Footer } from "@/src/components/shared/footer";
 import { Container } from "@mui/material";
 
 export default function MainLayout({
@@ -11,7 +11,7 @@ export default function MainLayout({
       <Container maxWidth="md" sx={{ my: 6 }}>
         {children}
       </Container>
-      <MobileFooter username="" />
+      <Footer />
     </>
   );
 }
