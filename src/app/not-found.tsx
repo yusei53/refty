@@ -20,6 +20,7 @@ const NotFound = () => {
           alt={"閲覧できる投稿がありません"}
           width={200}
           height={200}
+          priority
         />
         <Typography component={"h2"} mb={1} fontSize={18}>
           ページが見つかりませんでした
