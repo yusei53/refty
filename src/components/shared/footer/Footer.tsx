@@ -2,10 +2,10 @@
 import { theme } from "@/src/utils/theme";
 import { useMediaQuery } from "@mui/material";
 import { MobileFooter } from "./mobile";
-import { PCFooter } from "./pc";
+import { DefaultFooter } from "./default";
 
 export const Footer = () => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
-  return isSmallScreen ? <MobileFooter /> : <PCFooter />;
+  return isSmallScreen ? <MobileFooter /> : <DefaultFooter />;
 };

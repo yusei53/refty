@@ -6,7 +6,7 @@ import LogoutButton from "../../../auth/LogoutButton";
 import { CustomLink } from "./CustomLink";
 import { useSession } from "next-auth/react";
 
-export const PCFooter = () => {
+export const DefaultFooter = () => {
   const { data: session } = useSession();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 

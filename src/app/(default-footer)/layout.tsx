@@ -1,4 +1,4 @@
-import { PCFooter } from "@/src/components/shared/footer/pc";
+import { DefaultFooter } from "@/src/components/shared/footer/default";
 import { Container } from "@mui/material";
 
 export default function PostLayout({
@@ -11,7 +11,7 @@ export default function PostLayout({
       <Container maxWidth="md" sx={{ my: 6 }}>
         {children}
       </Container>
-      <PCFooter />
+      <DefaultFooter />
     </>
   );
 }
