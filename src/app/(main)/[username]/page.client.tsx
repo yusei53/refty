@@ -12,6 +12,7 @@ import {
 import { User } from "@prisma/client";
 import { GoodJobModal } from "@/src/components/reflection-list/modal";
 import { Box } from "@mui/material";
+import HaveNotPost from "@/src/components/reflection-list/no-post/HaveNotPost";
 
 type UserReflectionListPageProps = {
   currentUsername: User["username"];
@@ -63,8 +64,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
         reflectionCount={reflectionCount}
       />
       {reflections.length === 0 ? (
-        // TODO: 自分が0の場合と、他人が0の場合でメッセージを変える
-        <div>このユーザーはまだ投稿をしていません。</div>
+        <HaveNotPost />
       ) : (
         <>
           {totalPage > 1 && (

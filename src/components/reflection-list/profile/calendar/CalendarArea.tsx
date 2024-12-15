@@ -49,7 +49,7 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
     useToggleJapaneseLabels();
 
   return (
-    <Box my={5} mx={3}>
+    <Box mt={5} mb={3} mx={3}>
       {isSmallScreen && (
         <ToggleJapaneseLabel onToggleLabel={handleToggleLabels} />
       )}
