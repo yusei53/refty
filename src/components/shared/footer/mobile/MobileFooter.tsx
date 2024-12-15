@@ -14,9 +14,9 @@ export const MobileFooter = () => {
       width={"100vw"}
       display={"flex"}
       justifyContent={"center"}
-      gap={5}
+      gap={8}
       pt={1}
-      pb={3.5}
+      pb={4}
       position={"sticky"}
       bottom={0}
     >
@@ -24,21 +24,24 @@ export const MobileFooter = () => {
         href={"/"}
         imagePass={"home.svg"}
         alt={"ホームへ行くボタン"}
-        title={"ホーム"}
+      />
+      <MobileFooterButton
+        href={`/welcome`}
+        imagePass={"contents.svg"}
+        alt={"リフティのランディングページへ行くボタン"}
       />
       {session?.user.username ? (
         <>
           <MobileFooterButton
-            href={`/${session?.user.username}`}
-            imagePass={"user.svg"}
-            alt={"マイページへ行くボタン"}
-            title={"マイページ"}
-          />
-          <MobileFooterButton
             href={`/post`}
             imagePass={"post.svg"}
             alt={"投稿ページへ行くボタン"}
-            title={"投稿"}
+          />
+          <MobileFooterButton
+            href={`/${session?.user.username}`}
+            imagePass={`${session.user.image}`}
+            alt={"マイページへ行くボタン"}
+            isAvatar
           />
         </>
       ) : (
@@ -46,15 +49,8 @@ export const MobileFooter = () => {
           href={`/login`}
           imagePass={"login.svg"}
           alt={"ログインページへ行くボタン"}
-          title={"ログイン"}
         />
       )}
-      <MobileFooterButton
-        href={`/welcome`}
-        imagePass={"contents.svg"}
-        alt={"リフティのランディングページへ行くボタン"}
-        title={"リフティとは"}
-      />
     </Box>
   );
 };
