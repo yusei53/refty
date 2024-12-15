@@ -1,30 +1,45 @@
-import { Button, Typography, Box } from "@mui/material";
+"use client";
+import { Typography, Box, styled } from "@mui/material";
+import { Footer } from "../components/shared/footer";
+import Image from "next/image";
+import { Button } from "../components/shared/button";
+import { theme } from "../utils/theme";
 
 const NotFound = () => {
   return (
-    <Box
-      display={"flex"}
-      textAlign={"center"}
-      justifyContent={"center"}
-      flexDirection={"column"}
-      height={"100vh"}
-    >
-      <Typography fontWeight={"bold"} fontSize={35}>
-        404 Not Found
-      </Typography>
-      <Typography mb={1}>お探しのページは見つかりませんでした</Typography>
-      <Button
-        sx={{
-          backgroundColor: "#13396E",
-          color: "white",
-          alignSelf: "center",
-        }}
-        href="/"
+    <>
+      <Box
+        display={"flex"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        flexDirection={"column"}
+        height={"90vh"}
       >
-        ホームに戻る
-      </Button>
-    </Box>
+        <CustomImage
+          src={"/not-found/404.png"}
+          alt={"閲覧できる投稿がありません"}
+          width={200}
+          height={200}
+        />
+        <Typography component={"h2"} mb={1} fontSize={18}>
+          ページが見つかりませんでした
+        </Typography>
+        <Typography color={`${theme.palette.grey[600]}`} mb={3} mx={3}>
+          お探しのページはアクセスができないか、削除された可能性があります。
+        </Typography>
+        <Button>ホームに戻る</Button>
+      </Box>
+      <Footer />
+    </>
   );
 };
+
+const CustomImage = styled(Image)(({ theme }) => ({
+  [theme.breakpoints.down("sm")]: {
+    width: 140,
+    height: 140,
+    marginRight: 10,
+  },
+}));
 
 export default NotFound;
