@@ -9,6 +9,7 @@ export const MobileFooter = () => {
 
   return (
     <Box
+      component={"footer"}
       bgcolor={"white"}
       borderTop={`0.5px solid ${theme.palette.grey[300]}`}
       width={"100vw"}
