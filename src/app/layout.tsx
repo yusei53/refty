@@ -3,6 +3,7 @@ import { NextAuthProvider } from "../providers";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { theme } from "../utils/theme/theme";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Snowfall } from "../utils/snow-fall";
 
 const GA_TAG_ID = process.env.NEXT_PUBLIC_GA_ID as string;
 
@@ -56,6 +57,7 @@ export default async function RootLayout({
         <NextAuthProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
+            <Snowfall />
             {children}
           </ThemeProvider>
         </NextAuthProvider>
