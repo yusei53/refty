@@ -86,7 +86,7 @@ const LoginForm = () => {
           }
         />
         <AuthButton
-          label="Twitter"
+          label="X"
           icon={FaSquareXTwitter}
           iconColor={"#000000"}
           onClick={() =>
