@@ -3,6 +3,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
 import DiscordProvider from "next-auth/providers/discord";
 import LineProvider from "next-auth/providers/line";
+import TwitterProvider from "next-auth/providers/twitter";
 import prisma from "@/src/lib/prisma";
 
 const authOptions: NextAuthOptions = {
@@ -19,6 +20,11 @@ const authOptions: NextAuthOptions = {
     LineProvider({
       clientId: process.env.LINE_CLIENT_ID as string,
       clientSecret: process.env.LINE_CLIENT_SECRET as string,
+    }),
+    TwitterProvider({
+      clientId: process.env.TWITTER_CLIENT_ID as string,
+      clientSecret: process.env.TWITTER_CLIENT_SECRET as string,
+      version: "2.0",
     }),
   ],
   session: {

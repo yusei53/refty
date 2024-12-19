@@ -5,6 +5,7 @@ const nextConfig = {
       "lh3.googleusercontent.com",
       "cdn.discordapp.com",
       "profile.line-scdn.net",
+      "pbs.twimg.com",
     ],
   },
 };

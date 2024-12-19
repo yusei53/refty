@@ -2,6 +2,7 @@ import { Box, Typography, Divider, Stack } from "@mui/material";
 import { AuthButton } from "./AuthButton";
 import { FaDiscord, FaLine } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import { FaSquareXTwitter } from "react-icons/fa6";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 
@@ -80,6 +81,16 @@ const LoginForm = () => {
           iconColor={"#00b900"}
           onClick={() =>
             signIn("line", {
+              callbackUrl: "/setting/username",
+            })
+          }
+        />
+        <AuthButton
+          label="Twitter"
+          icon={FaSquareXTwitter}
+          iconColor={"#000000"}
+          onClick={() =>
+            signIn("twitter", {
               callbackUrl: "/setting/username",
             })
           }
