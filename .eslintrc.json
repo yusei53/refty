@@ -8,8 +8,8 @@
   "plugins": ["import", "@typescript-eslint"],
   "extends": [
     "next/core-web-vitals",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
   ],
   "rules": {
     "import/order": [
@@ -26,17 +26,22 @@
         ],
         "pathGroups": [
           {
-            "pattern": "@mui/**",
+            "pattern": "react",
             "group": "external",
             "position": "before"
           },
           {
             "pattern": "next",
             "group": "external",
-            "position": "after"
+            "position": "before"
           },
           {
             "pattern": "next/**",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "@mui/**",
             "group": "external",
             "position": "after"
           },
@@ -47,16 +52,16 @@
           }
         ],
         "pathGroupsExcludedImportTypes": ["builtin"],
-        "newlines-between": "always",
-        "alphabetical": false
+        "alphabetize": {
+          "order": "asc"
+        }
       }
     ],
-
     "@typescript-eslint/consistent-type-imports": [
       "error",
       {
         "prefer": "type-imports",
-        "disallowTypeAnnotations": false
+        "fixStyle": "separate-type-imports"
       }
     ]
   }
