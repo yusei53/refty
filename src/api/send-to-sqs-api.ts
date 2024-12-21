@@ -3,15 +3,18 @@ import { Result } from "../utils/types/result";
 
 export const SendToSqsAPI = {
   async handleSendToSQS({
-    content,
+      content,
+      reflectionCUID,
   }: {
-    content: string;
+          content: string;
+        reflectionCUID: string;
   }): Promise<Result<void, 400 | 401 | 403>> {
     const path = `/api/send-to-sqs`;
     const options: FetchURLOptions = {
       method: "POST",
       body: {
-        content,
+          content,
+          reflectionCUID,
       },
       headers: {
         "Content-Type": "application/json",

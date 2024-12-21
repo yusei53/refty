@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
 
-  const {  content } = await req.json();
+  const {  content, reflectionCUID } = await req.json();
 
   // AWS環境変数のチェックなど
   const { AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, SQS_QUEUE_URL } = process.env;
@@ -24,7 +24,8 @@ export async function POST(req: NextRequest) {
 
   // 送信するメッセージBody
   const messageBody = JSON.stringify({
-    content,
+      content,
+      reflectionCUID,
   });
 
   try {

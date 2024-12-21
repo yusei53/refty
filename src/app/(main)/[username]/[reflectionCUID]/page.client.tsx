@@ -3,10 +3,11 @@ import { Box } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { ReflectionArticle } from "@/src/components/reflection-detail/article";
 import { UserInformationSection } from "@/src/components/reflection-detail/user-information/UserInformationSection";
-import { useSearchParams } from "next/navigation";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { animation } from "@/src/components/ui/shared/animation";
 import { SendToSqsAPI } from "@/src/api/send-to-sqs-api";
+import { use } from "react";
 
 type ReflectionDetailPageProps = {
   title: string;
@@ -25,7 +26,10 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
   username,
   reflectionCount,
 }) => {
-  const router = useRouter();
+    const router = useRouter();
+    const reflectionCUID = usePathname().split("/").pop();
+    if(!reflectionCUID) return null;
+    console.log(reflectionCUID);
   const searchParams = useSearchParams();
 
   const handleBackNavigation = () => {
@@ -40,7 +44,8 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
   };
   const handleSendToSQS = async () => {
     const response = await SendToSqsAPI.handleSendToSQS({
-      content,
+        content,
+        reflectionCUID,
     });
     if (response === 400 || response === 401 || response === 403) return;
     alert("送信しました");
