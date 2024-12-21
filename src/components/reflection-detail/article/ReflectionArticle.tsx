@@ -4,6 +4,8 @@ import { theme } from "@/src/utils/theme";
 import { Box, Typography } from "@mui/material";
 import { formatDate } from "@/src/utils/date-helper";
 import { StyledMarkdown } from "./mark-down";
+import { SendToSqsAPI } from "@/src/api/send-to-sqs-api";
+import { on } from "events";
 
 type ReflectionArticleProps = {
   username: string;
@@ -11,6 +13,7 @@ type ReflectionArticleProps = {
   createdAt: string;
   title: string;
   content: string;
+  onSendToSQS: () => Promise<void>;
 };
 
 // TODO: 内製Linkコンポーネント作ってもいいかも
@@ -37,7 +40,12 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
   createdAt,
   title,
   content,
+  onSendToSQS,
 }) => {
+  const handleSendToSQS = async () => {
+    onSendToSQS();
+  };
+
   return (
     <Box component={"article"}>
       <Box display={"flex"} alignItems={"center"} my={0.5}>
@@ -75,6 +83,9 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
         {title}
       </Typography>
       <StyledMarkdown dangerouslySetInnerHTML={{ __html: content }} />
+
+      {/* 2. フィードバックボタンを設置 */}
+      <button onClick={handleSendToSQS}>Send To SQS</button>
     </Box>
   );
 };

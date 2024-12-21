@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import opengraphAPI from "@/src/api/opengraph-api";
 import dynamic from "next/dynamic";
 import Loading from "./loading";
+import { SendToSqsAPI } from "@/src/api/send-to-sqs-api";
 
 const ReflectionDetailPage = dynamic(
   () => import("./page.client").then((mod) => mod.default),
@@ -69,6 +70,7 @@ const page = async ({ params }: PageProps) => {
   ) {
     return notFound();
   }
+  
 
   return (
     <ReflectionDetailPage

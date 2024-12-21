@@ -6,6 +6,7 @@ import { UserInformationSection } from "@/src/components/reflection-detail/user-
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { animation } from "@/src/components/ui/shared/animation";
+import { SendToSqsAPI } from "@/src/api/send-to-sqs-api";
 
 type ReflectionDetailPageProps = {
   title: string;
@@ -37,6 +38,13 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
       router.push(`/${username}`);
     }
   };
+  const handleSendToSQS = async () => {
+    const response = await SendToSqsAPI.handleSendToSQS({
+      content,
+    });
+    if (response === 400 || response === 401 || response === 403) return;
+    alert("送信しました");
+  };
 
   return (
     <Box
@@ -61,6 +69,7 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
         createdAt={createdAt}
         title={title}
         content={content}
+        onSendToSQS={handleSendToSQS}
       />
       <UserInformationSection
         username={username}
