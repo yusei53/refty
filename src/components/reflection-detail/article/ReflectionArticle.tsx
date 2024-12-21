@@ -14,7 +14,7 @@ type ReflectionArticleProps = {
 };
 
 // TODO: 内製Linkコンポーネント作ってもいいかも
-const link = {
+export const link = {
   color: "black",
   textDecoration: "none",
   "&:hover": {

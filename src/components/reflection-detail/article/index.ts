@@ -1,1 +1,1 @@
-export { ReflectionArticle } from "./ReflectionArticle";
+export { ReflectionArticle, link } from "./ReflectionArticle";
