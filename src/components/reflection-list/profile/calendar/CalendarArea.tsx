@@ -1,13 +1,13 @@
-import { ReflectionPerDate } from "@/src/api/reflections-count-api";
-import { useToggleJapaneseLabels } from "@/src/hooks/calendar/useToggleJapaneseLabels";
-import { theme } from "@/src/utils/theme";
-import { Box, Typography, useMediaQuery } from "@mui/material";
 import { memo, useEffect, useRef } from "react";
-import { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
+import { Box, Typography, useMediaQuery } from "@mui/material";
+import type { ReflectionPerDate } from "@/src/api/reflections-count-api";
+import type { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 import Calendar from "./Calendar";
 import "./calendar.css";
 import ToggleJapaneseLabel from "./ToggleJapaneseLabel";
+import { useToggleJapaneseLabels } from "@/src/hooks/calendar/useToggleJapaneseLabels";
+import { theme } from "@/src/utils/theme";
 
 type CalendarAreaProps = {
   startDate: Date;
@@ -28,7 +28,7 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
   values,
   classForValue,
   tooltipDataAttrs,
-  totalReflections
+  totalReflections,
 }) => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -78,7 +78,7 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
         <Box
           ref={scrollContainerRef}
           sx={{
-            overflowX: isSmallScreen ? "auto" : "visible"
+            overflowX: isSmallScreen ? "auto" : "visible",
           }}
         >
           <Box minWidth={isSmallScreen ? "780px" : "100%"}>
