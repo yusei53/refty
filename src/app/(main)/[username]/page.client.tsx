@@ -4,15 +4,15 @@ import UserProfileArea from "@/src/components/reflection-list/profile/UserProfil
 import ReflectionCardListArea from "@/src/components/reflection-list/list/ReflectionCardListArea";
 import { Reflection } from "@/src/api/reflection-api";
 import { ReflectionsCount } from "@/src/api/reflections-count-api";
-import { PostNavigationButton } from "@/src/components/shared/button";
-import {
-  ArrowPagination,
-  NumberedPagination,
-} from "@/src/components/shared/pagination";
 import { User } from "@prisma/client";
 import { GoodJobModal } from "@/src/components/reflection-list/modal";
 import { Box } from "@mui/material";
 import HaveNotPost from "@/src/components/reflection-list/no-post/HaveNotPost";
+import {
+  ArrowPagination,
+  NumberedPagination,
+} from "@/src/components/ui/shared/pagination";
+import { PostNavigationButton } from "@/src/components/ui/shared/button";
 
 type UserReflectionListPageProps = {
   currentUsername: User["username"];

@@ -4,7 +4,7 @@ import getCurrentUser from "@/src/utils/actions/get-current-user";
 import { Metadata } from "next";
 import opengraphAPI from "@/src/api/opengraph-api";
 import dynamic from "next/dynamic";
-import { Loading } from "@/src/components/shared/loading";
+import Loading from "./loading";
 
 const ReflectionDetailPage = dynamic(
   () => import("./page.client").then((mod) => mod.default),

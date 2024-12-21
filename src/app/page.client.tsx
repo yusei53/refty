@@ -4,8 +4,8 @@ import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import ReflectionAllArea from "../components/reflection-all-list/list/ReflectionAllListArea";
 import SettingUsernameModalContainer from "../components/setting-username/SettingUsernameModalContainer";
-import { PostNavigationButton } from "../components/shared/button";
-import { Footer } from "../components/shared/footer";
+import { PostNavigationButton } from "../components/ui/shared/button";
+import { Footer } from "../components/ui/shared/footer";
 
 type RootPageProps = {
   open: boolean;

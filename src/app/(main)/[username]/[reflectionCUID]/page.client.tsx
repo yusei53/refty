@@ -3,9 +3,9 @@ import { Box } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { ReflectionArticle } from "@/src/components/reflection-detail/article";
 import { UserInformationSection } from "@/src/components/reflection-detail/user-information/UserInformationSection";
-import { animation } from "@/src/components/shared/animation";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { animation } from "@/src/components/ui/shared/animation";
 
 type ReflectionDetailPageProps = {
   title: string;

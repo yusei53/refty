@@ -4,7 +4,7 @@ import { FaDiscord, FaLine } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
-import { AuthButton } from "@/src/components/auth-button/AuthButton";
+import { AuthButton } from "@/src/components/ui/auth-button";
 
 const LoginFormPage = () => {
   return (

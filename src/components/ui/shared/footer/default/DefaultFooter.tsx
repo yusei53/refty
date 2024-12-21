@@ -2,9 +2,9 @@
 import { Box, Container, Typography, useMediaQuery } from "@mui/material";
 import { theme } from "@/src/utils/theme";
 import Image from "next/image";
-import LogoutButton from "../../../auth-button/LogoutButton";
 import { CustomLink } from "./CustomLink";
 import { useSession } from "next-auth/react";
+import { LogoutButton } from "../../../auth-button";
 
 export const DefaultFooter = () => {
   const { data: session } = useSession();

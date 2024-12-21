@@ -3,8 +3,7 @@ import { theme } from "@/src/utils/theme";
 import { Button } from "@mui/material";
 import { signOut } from "next-auth/react";
 
-// TODO: 内製Buttonコンポーネントを使う
-const LogoutButton = () => {
+export const LogoutButton = () => {
   return (
     <Button
       sx={{
