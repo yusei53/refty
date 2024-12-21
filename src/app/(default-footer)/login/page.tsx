@@ -1,5 +1,5 @@
-import { Metadata } from "next";
 import getCurrentUser from "@/src/utils/actions/get-current-user";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import LoginFormPage from "./page.client";
 
@@ -11,12 +11,12 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://www.refty.jp/login",
     title: "ログイン | リフティ",
-    description: description,
+    description: description
   },
   twitter: {
     title: "ログイン | リフティ",
-    description: description,
-  },
+    description: description
+  }
 };
 
 const page = async () => {

@@ -1,8 +1,8 @@
-import { Box, Fade, Popper, Divider } from "@mui/material";
-import Image from "next/image";
-import { theme } from "@/src/utils/theme";
-import PublishStatusOptionButton from "./PublishStatusOptionButton";
 import { Button } from "@/src/components/ui/shared/button";
+import { theme } from "@/src/utils/theme";
+import { Box, Divider, Fade, Popper } from "@mui/material";
+import Image from "next/image";
+import PublishStatusOptionButton from "./PublishStatusOptionButton";
 
 type PublishSettingPopupAreaProps = {
   value: boolean;
@@ -19,7 +19,7 @@ const PublishSettingPopupArea: React.FC<PublishSettingPopupAreaProps> = ({
   open,
   anchorEl,
   onToggle,
-  onClose,
+  onClose
 }) => {
   return (
     <>
@@ -31,7 +31,7 @@ const PublishSettingPopupArea: React.FC<PublishSettingPopupAreaProps> = ({
           border: "none",
           display: "flex",
           alignItems: "center",
-          whiteSpace: "nowrap",
+          whiteSpace: "nowrap"
         }}
       >
         <Image

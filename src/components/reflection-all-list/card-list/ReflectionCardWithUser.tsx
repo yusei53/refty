@@ -1,9 +1,9 @@
-import { Box, Typography } from "@mui/material";
-import Link from "next/link";
-import Image from "next/image";
-import { theme } from "@/src/utils/theme";
 import { ReflectionWithUser } from "@/src/api/reflection-api";
 import { formatDate } from "@/src/utils/date-helper";
+import { theme } from "@/src/utils/theme";
+import { Box, Typography } from "@mui/material";
+import Image from "next/image";
+import Link from "next/link";
 
 type ReflectionCardWithUserProps = {
   reflection: ReflectionWithUser;
@@ -11,7 +11,7 @@ type ReflectionCardWithUserProps = {
 
 // MEMO: ここ書き換えたら、../reflection-list/reflection-list/ReflectionCard.tsxも書き換える
 const ReflectionCardWithUser: React.FC<ReflectionCardWithUserProps> = ({
-  reflection,
+  reflection
 }) => {
   return (
     <Box component={"article"}>
@@ -24,7 +24,7 @@ const ReflectionCardWithUser: React.FC<ReflectionCardWithUserProps> = ({
             left: 0,
             width: "100%",
             height: "100%",
-            zIndex: 1,
+            zIndex: 1
           }}
         />
         <Box display={"flex"} mt={1.2}>
@@ -39,7 +39,7 @@ const ReflectionCardWithUser: React.FC<ReflectionCardWithUserProps> = ({
             sx={{
               // MEMO: 2行で切り捨てるためのcss
               WebkitBoxOrient: "vertical",
-              WebkitLineClamp: 2,
+              WebkitLineClamp: 2
             }}
           >
             {reflection.title}
@@ -70,7 +70,7 @@ const ReflectionCardWithUser: React.FC<ReflectionCardWithUserProps> = ({
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  textDecoration: "none",
+                  textDecoration: "none"
                 }}
               >
                 <Image
@@ -86,8 +86,8 @@ const ReflectionCardWithUser: React.FC<ReflectionCardWithUserProps> = ({
                   zIndex={1}
                   sx={{
                     "&:hover": {
-                      textDecoration: "underline",
-                    },
+                      textDecoration: "underline"
+                    }
                   }}
                 >
                   {reflection.user.username}
@@ -130,7 +130,7 @@ const article = {
   textDecoration: "none",
   "&:hover": {
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04)",
-    transform: "translateY(-3px)",
-  },
+    transform: "translateY(-3px)"
+  }
 };
 export default ReflectionCardWithUser;

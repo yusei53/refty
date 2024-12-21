@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
     const offset = (page - 1) * COUNT_PER_PAGE;
 
     const reflectionCount = await prisma.reflection.count({
-      where: { isPublic: true },
+      where: { isPublic: true }
     });
 
     const totalPage = Math.ceil(reflectionCount / COUNT_PER_PAGE);
@@ -31,10 +31,10 @@ export async function GET(req: NextRequest) {
         user: {
           select: {
             username: true,
-            image: true,
-          },
-        },
-      },
+            image: true
+          }
+        }
+      }
     });
 
     if (!reflections) {
@@ -45,7 +45,7 @@ export async function GET(req: NextRequest) {
     }
     return NextResponse.json({
       reflections,
-      totalPage,
+      totalPage
     });
   } catch (error) {
     console.error(error);
@@ -72,8 +72,8 @@ export async function POST(req: NextRequest) {
         charStamp,
         isPublic,
         createdAt: jstDate,
-        userId: currentUser.id,
-      },
+        userId: currentUser.id
+      }
     });
 
     revalidateTag(`reflections-${currentUser.username}`);

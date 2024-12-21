@@ -1,5 +1,5 @@
-import { Result } from "../utils/types/result";
 import { fetchURL, FetchURLOptions } from "../utils/fetchURL";
+import { Result } from "../utils/types/result";
 
 type UserInformation = {
   totalReflections: string;
@@ -23,7 +23,7 @@ const opengraphAPI = {
     const path = `/api/${username}/ogp`;
     const options: FetchURLOptions = {
       method: "GET",
-      cache: "no-store",
+      cache: "no-store"
     };
     return await fetchURL<UserInformation, 404>(path, options);
   },
@@ -34,10 +34,10 @@ const opengraphAPI = {
     const path = `/api/ogp/${refectionCUID}`;
     const options: FetchURLOptions = {
       method: "GET",
-      cache: "no-store",
+      cache: "no-store"
     };
     return await fetchURL<ReflectionInformation, 404>(path, options);
-  },
+  }
 };
 
 export default opengraphAPI;

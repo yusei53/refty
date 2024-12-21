@@ -9,7 +9,7 @@ type UserAvatarProps = {
 
 export const UserAvatar: React.FC<UserAvatarProps> = ({
   userImage,
-  username,
+  username
 }) => {
   return (
     <Box

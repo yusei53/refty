@@ -1,12 +1,12 @@
-import { useForm } from "react-hook-form";
+import { reflectionAPI } from "@/src/api/reflection-api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { notFound, useRouter } from "next/navigation";
-import { reflectionAPI } from "@/src/api/reflection-api";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import {
   createReflectionSchema,
-  CreateReflectionSchemaType,
+  CreateReflectionSchemaType
 } from "./useCreateReflectionForm";
-import { useState } from "react";
 
 type useUpdateReflectionFormProps = {
   reflectionCUID: string;
@@ -23,7 +23,7 @@ export const useUpdateReflectionForm = ({
   title,
   content,
   charStamp,
-  isPublic,
+  isPublic
 }: useUpdateReflectionFormProps) => {
   const router = useRouter();
   const [selectedEmoji, setSelectedEmoji] = useState(charStamp);
@@ -32,15 +32,15 @@ export const useUpdateReflectionForm = ({
     handleSubmit,
     control,
     setValue,
-    formState: { isSubmitting, isSubmitSuccessful, errors },
+    formState: { isSubmitting, isSubmitSuccessful, errors }
   } = useForm<CreateReflectionSchemaType>({
     resolver: zodResolver(createReflectionSchema),
     defaultValues: {
       title: title,
       content: content,
       charStamp: charStamp,
-      isPublic: isPublic,
-    },
+      isPublic: isPublic
+    }
   });
 
   const handleEmojiChange = (emoji: string) => {
@@ -55,7 +55,7 @@ export const useUpdateReflectionForm = ({
         title: formData.title,
         content: formData.content,
         charStamp: formData.charStamp,
-        isPublic: formData.isPublic,
+        isPublic: formData.isPublic
       });
 
       if (res === 401) {
@@ -75,6 +75,6 @@ export const useUpdateReflectionForm = ({
     errors,
     onSubmit,
     selectedEmoji,
-    handleEmojiChange,
+    handleEmojiChange
   };
 };

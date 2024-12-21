@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/src/lib/prisma";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
@@ -30,7 +30,7 @@ export async function GET(
     const offset = (page - 1) * COUNT_PER_PAGE;
 
     const reflectionCount = await prisma.reflection.count({
-      where: { userId },
+      where: { userId }
     });
 
     const totalPage = Math.ceil(reflectionCount / COUNT_PER_PAGE);
@@ -50,10 +50,10 @@ export async function GET(
             charStamp: true,
             createdAt: true,
             isPublic: true,
-            isPinned: true,
-          },
-        },
-      },
+            isPinned: true
+          }
+        }
+      }
     });
 
     if (!userWithReflections) {
@@ -66,7 +66,7 @@ export async function GET(
     return NextResponse.json({
       reflections: userWithReflections.reflections,
       userImage: userWithReflections.image,
-      totalPage,
+      totalPage
     });
   } catch (error) {
     console.error("Error fetching user reflections:", error);

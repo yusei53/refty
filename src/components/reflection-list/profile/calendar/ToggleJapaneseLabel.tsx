@@ -8,7 +8,7 @@ type ToggleJapaneseLabelProps = {
 };
 
 const ToggleJapaneseLabel: React.FC<ToggleJapaneseLabelProps> = ({
-  onToggleLabel,
+  onToggleLabel
 }) => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 

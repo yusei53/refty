@@ -11,12 +11,12 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://www.refty.jp/welcome",
     title: "リフティとは | リフティ",
-    description: description,
+    description: description
   },
   twitter: {
     title: "リフティとは | リフティ",
-    description: description,
-  },
+    description: description
+  }
 };
 
 const page = () => {

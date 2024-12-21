@@ -15,13 +15,13 @@ export const LogoutButton = () => {
         p: 0,
         transform: "none",
         "&:hover": {
-          textDecoration: "underline",
-        },
+          textDecoration: "underline"
+        }
       }}
       disableRipple
       onClick={() =>
         signOut({
-          callbackUrl: "/",
+          callbackUrl: "/"
         })
       }
     >

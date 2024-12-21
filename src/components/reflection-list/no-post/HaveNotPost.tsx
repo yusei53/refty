@@ -26,8 +26,8 @@ const CustomImage = styled(Image)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     width: 140,
     height: 140,
-    marginRight: 10,
-  },
+    marginRight: 10
+  }
 }));
 
 export default HaveNotPost;

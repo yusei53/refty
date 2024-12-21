@@ -1,18 +1,18 @@
 "use client";
-import { useSearchParams, useRouter } from "next/navigation";
-import UserProfileArea from "@/src/components/reflection-list/profile/UserProfileArea";
-import ReflectionCardListArea from "@/src/components/reflection-list/card-list/ReflectionCardListArea";
 import { Reflection } from "@/src/api/reflection-api";
 import { ReflectionsCount } from "@/src/api/reflections-count-api";
-import { User } from "@prisma/client";
+import ReflectionCardListArea from "@/src/components/reflection-list/card-list/ReflectionCardListArea";
 import { GoodJobModal } from "@/src/components/reflection-list/modal";
-import { Box } from "@mui/material";
 import HaveNotPost from "@/src/components/reflection-list/no-post/HaveNotPost";
+import UserProfileArea from "@/src/components/reflection-list/profile/UserProfileArea";
+import { PostNavigationButton } from "@/src/components/ui/shared/button";
 import {
   ArrowPagination,
-  NumberedPagination,
+  NumberedPagination
 } from "@/src/components/ui/shared/pagination";
-import { PostNavigationButton } from "@/src/components/ui/shared/button";
+import { Box } from "@mui/material";
+import { User } from "@prisma/client";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type UserReflectionListPageProps = {
   currentUsername: User["username"];
@@ -31,7 +31,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   reflectionCount,
   reflections,
   currentPage,
-  totalPage,
+  totalPage
 }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -93,7 +93,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           sx={{
             position: "fixed",
             right: { sm: 130 },
-            bottom: { sm: 50 },
+            bottom: { sm: 50 }
           }}
         />
       )}

@@ -8,7 +8,7 @@ type ReflectionAllHeaderProps = {
 };
 
 export const ReflectionAllHeader: React.FC<ReflectionAllHeaderProps> = ({
-  currentUsername,
+  currentUsername
 }) => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   return (

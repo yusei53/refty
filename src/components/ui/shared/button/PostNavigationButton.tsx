@@ -1,12 +1,12 @@
-import { Tooltip, IconButton, SxProps } from "@mui/material";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { IconButton, SxProps, Tooltip } from "@mui/material";
 
 type PostNavigationButtonProps = {
   sx?: SxProps;
 };
 
 export const PostNavigationButton: React.FC<PostNavigationButtonProps> = ({
-  sx,
+  sx
 }) => {
   return (
     <Tooltip
@@ -18,11 +18,11 @@ export const PostNavigationButton: React.FC<PostNavigationButtonProps> = ({
             {
               name: "offset",
               options: {
-                offset: [0, -5],
-              },
-            },
-          ],
-        },
+                offset: [0, -5]
+              }
+            }
+          ]
+        }
       }}
     >
       <IconButton
@@ -32,7 +32,7 @@ export const PostNavigationButton: React.FC<PostNavigationButtonProps> = ({
           border: "1px solid #DCDFE3",
           borderRadius: 10,
           boxShadow: 1,
-          ...sx,
+          ...sx
         }}
         href={"/post"}
       >

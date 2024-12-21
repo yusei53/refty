@@ -17,7 +17,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
   title,
   description,
   isEvenNumber = false,
-  isShareSection = false,
+  isShareSection = false
 }) => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -26,7 +26,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
       display={"flex"}
       flexDirection={{
         xs: "column",
-        md: isEvenNumber ? "row-reverse" : "row",
+        md: isEvenNumber ? "row-reverse" : "row"
       }}
       gap={4}
       my={{ xs: 6, md: 12 }}
@@ -80,7 +80,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
             style={{
               color: "black",
               marginTop: 15,
-              fontSize: 14,
+              fontSize: 14
             }}
           >
             みんなの振り返りはこちら
@@ -95,8 +95,8 @@ const CustomImage = styled(Image)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     width: 170,
     height: 170,
-    margin: "15px 0px",
-  },
+    margin: "15px 0px"
+  }
 }));
 
 export default EffectSection;

@@ -1,13 +1,13 @@
 "use client";
-import { useCreateReflectionForm } from "@/src/hooks/reflection/useCreateReflectionForm";
 import ReflectionPostForm from "@/src/components/post-form/ReflectionPostForm";
+import { useCreateReflectionForm } from "@/src/hooks/reflection/useCreateReflectionForm";
 
 type ReflectionPostFormPageProps = {
   username: string;
 };
 
 const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
-  username,
+  username
 }) => {
   const {
     control,
@@ -16,7 +16,7 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
     errors,
     onSubmit,
     selectedEmoji,
-    handleEmojiChange,
+    handleEmojiChange
   } = useCreateReflectionForm(username);
 
   const handleSubmit = async (e: React.FormEvent) => {

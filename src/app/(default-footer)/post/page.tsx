@@ -1,7 +1,7 @@
-import { Metadata } from "next";
-import ReflectionPostFormPage from "./page.client";
 import getCurrentUser from "@/src/utils/actions/get-current-user";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
+import ReflectionPostFormPage from "./page.client";
 
 const description = "リフティの投稿作成ページ";
 export const metadata: Metadata = {
@@ -11,12 +11,12 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://www.refty.jp/post",
     title: "投稿作成 | リフティ",
-    description: description,
+    description: description
   },
   twitter: {
     title: "投稿作成 | リフティ",
-    description: description,
-  },
+    description: description
+  }
 };
 
 const page = async () => {

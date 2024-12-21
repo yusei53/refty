@@ -1,12 +1,12 @@
-import { useRouter } from "next/navigation";
 import { reflectionAPI } from "@/src/api/reflection-api";
+import { useRouter } from "next/navigation";
 
 type useDeleteReflectionProps = {
   reflectionCUID: string;
 };
 
 export const useDeleteReflection = ({
-  reflectionCUID,
+  reflectionCUID
 }: useDeleteReflectionProps) => {
   const router = useRouter();
 
@@ -21,6 +21,6 @@ export const useDeleteReflection = ({
   };
 
   return {
-    handleDeleteReflection,
+    handleDeleteReflection
   };
 };

@@ -1,20 +1,20 @@
-import { getOneYearAgo } from "@/src/utils/date-helper/date-helpers";
-import { getColor } from "@/src/utils/calendar/get-color";
-import { Tooltip } from "react-tooltip";
-import { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
 import {
   ReflectionPerDate,
-  ReflectionsCount,
+  ReflectionsCount
 } from "@/src/api/reflections-count-api";
-import CalendarArea from "./CalendarArea";
+import { getColor } from "@/src/utils/calendar/get-color";
+import { getOneYearAgo } from "@/src/utils/date-helper/date-helpers";
 import { useCallback } from "react";
+import { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
+import { Tooltip } from "react-tooltip";
+import CalendarArea from "./CalendarArea";
 
 type CalendarAreaFetcherProps = {
   reflectionCount: ReflectionsCount;
 };
 
 export const CalendarAreaFetcher: React.FC<CalendarAreaFetcherProps> = ({
-  reflectionCount,
+  reflectionCount
 }) => {
   const startDate = getOneYearAgo();
   const endDate = new Date();
@@ -40,7 +40,7 @@ export const CalendarAreaFetcher: React.FC<CalendarAreaFetcherProps> = ({
       }
       return {
         "data-tooltip-id": "tooltip-data-attrs",
-        "data-tooltip-content": `${reflectionValue.date} の投稿数: ${reflectionValue.countReflections}`,
+        "data-tooltip-content": `${reflectionValue.date} の投稿数: ${reflectionValue.countReflections}`
       };
     },
     []

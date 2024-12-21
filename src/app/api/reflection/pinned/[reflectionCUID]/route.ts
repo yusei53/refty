@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/src/lib/prisma";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function PATCH(
   req: NextRequest,
@@ -11,11 +11,11 @@ export async function PATCH(
 
     const response = await prisma.reflection.update({
       where: {
-        reflectionCUID,
+        reflectionCUID
       },
       data: {
-        isPinned,
-      },
+        isPinned
+      }
     });
 
     return NextResponse.json(

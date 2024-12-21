@@ -1,11 +1,10 @@
 "use client";
-import { Box } from "@mui/material";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { ReflectionArticle } from "@/src/components/reflection-detail/article";
 import { UserInformationSection } from "@/src/components/reflection-detail/user-information/UserInformationSection";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
 import { animation } from "@/src/components/ui/shared/animation";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { Box } from "@mui/material";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type ReflectionDetailPageProps = {
   title: string;
@@ -22,7 +21,7 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
   createdAt,
   userImage,
   username,
-  reflectionCount,
+  reflectionCount
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -52,7 +51,7 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
           position: { xs: "absolute", md: "fixed" },
           left: { xs: 0, md: 20 },
           top: { xs: -60, md: 20 },
-          cursor: "pointer",
+          cursor: "pointer"
         }}
       />
       <ReflectionArticle

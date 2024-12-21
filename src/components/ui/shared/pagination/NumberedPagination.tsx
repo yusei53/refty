@@ -10,7 +10,7 @@ type NumberedPaginationProps = {
 export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
   currentPage,
   totalPage,
-  onChange,
+  onChange
 }) => {
   return (
     <Box display={"flex"} justifyContent={"center"} mb={5}>
@@ -20,8 +20,8 @@ export const NumberedPagination: React.FC<NumberedPaginationProps> = ({
         onChange={onChange}
         sx={{
           "& .Mui-selected": {
-            backgroundColor: "#f0f7ff",
-          },
+            backgroundColor: "#f0f7ff"
+          }
         }}
       />
     </Box>

@@ -1,16 +1,16 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useRouter } from "next/navigation";
 import usernameAPI from "@/src/api/username-api";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const updateUsernameSchema = z.object({
   username: z
     .string()
     .min(4, { message: "4文字以上の英数字のみで入力してください。" })
     .regex(/^[a-zA-Z0-9]+$/, {
-      message: "英数字のみで入力してください。",
-    }),
+      message: "英数字のみで入力してください。"
+    })
 });
 
 type UpdateUsernameSchemaType = z.infer<typeof updateUsernameSchema>;
@@ -21,10 +21,10 @@ export const useUpdateUsernameForm = (username: string | null) => {
   const {
     handleSubmit,
     control,
-    formState: { isSubmitting, isSubmitSuccessful, errors },
+    formState: { isSubmitting, isSubmitSuccessful, errors }
   } = useForm<UpdateUsernameSchemaType>({
     resolver: zodResolver(updateUsernameSchema),
-    defaultValues: { username: username || "" },
+    defaultValues: { username: username || "" }
   });
 
   const onSubmit = handleSubmit(async (formData: UpdateUsernameSchemaType) => {
@@ -43,6 +43,6 @@ export const useUpdateUsernameForm = (username: string | null) => {
     isSubmitting,
     isSubmitSuccessful,
     errors,
-    onSubmit,
+    onSubmit
   };
 };

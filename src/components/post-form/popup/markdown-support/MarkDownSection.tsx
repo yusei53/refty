@@ -11,7 +11,7 @@ export type MarkdownSectionType = {
 const MarkDownSection: React.FC<MarkdownSectionType> = ({
   image,
   title,
-  description,
+  description
 }) => {
   return (
     <>

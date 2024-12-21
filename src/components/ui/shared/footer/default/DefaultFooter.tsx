@@ -1,10 +1,10 @@
 "use client";
-import { Box, Container, Typography, useMediaQuery } from "@mui/material";
 import { theme } from "@/src/utils/theme";
-import Image from "next/image";
-import { CustomLink } from "./CustomLink";
+import { Box, Container, Typography, useMediaQuery } from "@mui/material";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import { LogoutButton } from "../../../auth-button";
+import { CustomLink } from "./CustomLink";
 
 export const DefaultFooter = () => {
   const { data: session } = useSession();

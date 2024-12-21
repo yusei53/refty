@@ -14,11 +14,11 @@ export async function PATCH(req: NextRequest) {
 
     const response = await prisma.user.update({
       where: {
-        id: currentUser.id,
+        id: currentUser.id
       },
       data: {
-        username: username,
-      },
+        username: username
+      }
     });
 
     return NextResponse.json(response, { status: 201 });

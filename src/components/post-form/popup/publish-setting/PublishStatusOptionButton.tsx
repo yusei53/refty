@@ -1,8 +1,8 @@
+import { Button } from "@/src/components/ui/shared/button";
 import { theme } from "@/src/utils/theme";
+import CheckIcon from "@mui/icons-material/Check";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
-import CheckIcon from "@mui/icons-material/Check";
-import { Button } from "@/src/components/ui/shared/button";
 
 type PublishStatusOptionButtonProps = {
   isActive: boolean;
@@ -17,7 +17,7 @@ const PublishStatusOptionButton: React.FC<PublishStatusOptionButtonProps> = ({
   onClick,
   icon,
   text,
-  description,
+  description
 }) => (
   <Button
     onClick={onClick}
@@ -27,7 +27,7 @@ const PublishStatusOptionButton: React.FC<PublishStatusOptionButtonProps> = ({
       textAlign: "left",
       width: "100%",
       borderRadius: "none",
-      "&:hover": { backgroundColor: theme.palette.primary.contrastText },
+      "&:hover": { backgroundColor: theme.palette.primary.contrastText }
     }}
   >
     <Box display={"flex"} alignItems={"center"}>

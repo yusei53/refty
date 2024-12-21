@@ -1,15 +1,15 @@
-import Grid from "@mui/material/Grid2";
 import { ReflectionWithUser } from "@/src/api/reflection-api";
-import ReflectionCardWithUser from "./ReflectionCardWithUser";
 import { Box, Container } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import { User } from "@prisma/client";
 import { ChangeEvent } from "react";
-import { ReflectionAllHeader } from "../header";
+import { animation } from "../../ui/shared/animation";
 import {
   ArrowPagination,
-  NumberedPagination,
+  NumberedPagination
 } from "../../ui/shared/pagination";
-import { animation } from "../../ui/shared/animation";
+import { ReflectionAllHeader } from "../header";
+import ReflectionCardWithUser from "./ReflectionCardWithUser";
 
 type ReflectionAllAreaProps = {
   currentUsername: User["username"];
@@ -24,7 +24,7 @@ const ReflectionAllArea: React.FC<ReflectionAllAreaProps> = ({
   reflections,
   currentPage,
   totalPage,
-  onChange,
+  onChange
 }) => {
   return (
     // MEMO: rootのpageにあたるこのコンポーネントはroute-groupで崩れてしまうのでContainerをここ設定

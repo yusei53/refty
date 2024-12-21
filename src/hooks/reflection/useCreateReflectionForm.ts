@@ -1,9 +1,9 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useRouter } from "next/navigation";
 import { reflectionAPI } from "@/src/api/reflection-api";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 export const createReflectionSchema = z.object({
   title: z
@@ -14,7 +14,7 @@ export const createReflectionSchema = z.object({
     .string()
     .min(1, { message: "本文は1文字以上で入力してください。" }),
   charStamp: z.string(),
-  isPublic: z.boolean(),
+  isPublic: z.boolean()
 });
 
 export type CreateReflectionSchemaType = z.infer<typeof createReflectionSchema>;
@@ -27,15 +27,15 @@ export const useCreateReflectionForm = (username: string | undefined) => {
     handleSubmit,
     control,
     setValue,
-    formState: { isSubmitting, isSubmitSuccessful, errors },
+    formState: { isSubmitting, isSubmitSuccessful, errors }
   } = useForm<CreateReflectionSchemaType>({
     resolver: zodResolver(createReflectionSchema),
     defaultValues: {
       title: "",
       content: "",
       charStamp: selectedEmoji,
-      isPublic: true,
-    },
+      isPublic: true
+    }
   });
 
   const handleEmojiChange = (emoji: string) => {
@@ -75,6 +75,6 @@ export const useCreateReflectionForm = (username: string | undefined) => {
     errors,
     onSubmit,
     selectedEmoji,
-    handleEmojiChange,
+    handleEmojiChange
   };
 };

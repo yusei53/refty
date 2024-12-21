@@ -13,7 +13,7 @@ const AppealCard: React.FC<AppealCardProps> = ({
   image,
   title,
   description,
-  isComingSoon = false,
+  isComingSoon = false
 }) => {
   return (
     <Box
@@ -71,8 +71,8 @@ const CustomImage = styled(Image)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     width: 70,
     height: 70,
-    marginRight: 10,
-  },
+    marginRight: 10
+  }
 }));
 
 export default AppealCard;

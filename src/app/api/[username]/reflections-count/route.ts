@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/src/lib/prisma";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
+import { NextRequest, NextResponse } from "next/server";
 
 // MEMO: 結構複雑なので、コメント多め
 export async function GET(
@@ -21,17 +21,17 @@ export async function GET(
 
     const totalReflections = await prisma.reflection.count({
       where: {
-        userId,
-      },
+        userId
+      }
     });
 
     const reflectionsDateByUsername = await prisma.reflection.findMany({
       where: {
-        userId,
+        userId
       },
       select: {
-        createdAt: true,
-      },
+        createdAt: true
+      }
     });
 
     type DateCountMap = Record<string, number>;
@@ -64,7 +64,7 @@ export async function GET(
     return NextResponse.json(
       {
         totalReflections, // 全体の投稿数
-        reflectionsPerDate, // 日付ごとの投稿数
+        reflectionsPerDate // 日付ごとの投稿数
       },
       { status: 200 }
     );

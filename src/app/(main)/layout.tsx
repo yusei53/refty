@@ -2,7 +2,7 @@ import { Footer } from "@/src/components/ui/shared/footer";
 import { Container } from "@mui/material";
 
 export default function MainLayout({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) {

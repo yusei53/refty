@@ -1,9 +1,9 @@
-import { Box, Typography, Popper, Fade, Tooltip } from "@mui/material";
 import { theme } from "@/src/utils/theme";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { Box, Fade, Popper, Tooltip, Typography } from "@mui/material";
+import { useState } from "react";
 import { markdownList } from "./markdown-list";
 import MarkdownSection from "./MarkDownSection";
-import { useState } from "react";
 
 type MarkdownSupportPopupAreaProps = {
   anchorEl: HTMLElement | null;
@@ -16,7 +16,7 @@ const MarkdownSupportPopupArea: React.FC<MarkdownSupportPopupAreaProps> = ({
   anchorEl,
   open,
   onClick,
-  onClose,
+  onClose
 }) => {
   const [showInitialTooltip, setShowInitialTooltip] = useState(true);
   const [hasRendered, setHasRendered] = useState(false);
@@ -45,11 +45,11 @@ const MarkdownSupportPopupArea: React.FC<MarkdownSupportPopupAreaProps> = ({
               {
                 name: "offset",
                 options: {
-                  offset: [0, -10],
-                },
-              },
-            ],
-          },
+                  offset: [0, -10]
+                }
+              }
+            ]
+          }
         }}
       >
         <Box
@@ -65,7 +65,7 @@ const MarkdownSupportPopupArea: React.FC<MarkdownSupportPopupAreaProps> = ({
         >
           <InfoOutlinedIcon
             sx={{
-              color: `${theme.palette.grey[600]}`,
+              color: `${theme.palette.grey[600]}`
             }}
           />
         </Box>
@@ -90,12 +90,12 @@ const MarkdownSupportPopupArea: React.FC<MarkdownSupportPopupAreaProps> = ({
           {
             name: "offset",
             options: {
-              offset: [0, 10],
-            },
-          },
+              offset: [0, 10]
+            }
+          }
         ]}
         sx={{
-          zIndex: 2,
+          zIndex: 2
         }}
       >
         {({ TransitionProps }) => (
@@ -112,15 +112,15 @@ const MarkdownSupportPopupArea: React.FC<MarkdownSupportPopupAreaProps> = ({
               sx={{
                 "&::-webkit-scrollbar": {
                   width: "4px",
-                  height: "4px",
+                  height: "4px"
                 },
                 "&::-webkit-scrollbar-thumb": {
                   backgroundColor: theme.palette.grey[400],
-                  borderRadius: "4px",
+                  borderRadius: "4px"
                 },
                 "&::-webkit-scrollbar-thumb:hover": {
-                  backgroundColor: theme.palette.grey[600],
-                },
+                  backgroundColor: theme.palette.grey[600]
+                }
               }}
               onClick={(e) => e.stopPropagation()}
             >

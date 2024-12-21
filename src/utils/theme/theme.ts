@@ -3,7 +3,7 @@ import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
   typography: {
-    fontSize: 13.5,
+    fontSize: 13.5
   },
   palette: {
     // mainが背景色で、lightがaタグ, contrastTextがhover
@@ -11,6 +11,6 @@ export const theme = createTheme({
     // 400がborder, 500がplaceholder, 600で文字色
     grey: { 400: "#ededed", 500: "#adb5bd" },
     // リセットボタンのhoverで使用
-    warning: { main: "#FCECEC" },
-  },
+    warning: { main: "#FCECEC" }
+  }
 });

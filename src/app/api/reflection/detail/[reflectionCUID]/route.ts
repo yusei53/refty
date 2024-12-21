@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/src/lib/prisma";
 import getCurrentUser from "@/src/utils/actions/get-current-user";
 import { revalidateTag } from "next/cache";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   request: NextRequest,
@@ -12,7 +12,7 @@ export async function GET(
 
     const reflection = await prisma.reflection.findUnique({
       where: {
-        reflectionCUID,
+        reflectionCUID
       },
       select: {
         title: true,
@@ -22,9 +22,9 @@ export async function GET(
         createdAt: true,
         userId: true,
         user: {
-          select: { image: true, username: true },
-        },
-      },
+          select: { image: true, username: true }
+        }
+      }
     });
 
     if (!reflection) {
@@ -36,14 +36,14 @@ export async function GET(
 
     const reflectionCount = await prisma.reflection.count({
       where: {
-        userId: reflection.userId,
-      },
+        userId: reflection.userId
+      }
     });
 
     return NextResponse.json({
       ...reflection,
       reflectionCount,
-      createdAt: reflection.createdAt.toISOString(),
+      createdAt: reflection.createdAt.toISOString()
     });
   } catch (error) {
     console.error("Error fetching reflection:", error);
@@ -76,7 +76,7 @@ export async function PATCH(
     }
 
     const reflection = await prisma.reflection.findUnique({
-      where: { reflectionCUID },
+      where: { reflectionCUID }
     });
 
     if (!reflection) {
@@ -96,8 +96,8 @@ export async function PATCH(
         title,
         content,
         charStamp,
-        isPublic,
-      },
+        isPublic
+      }
     });
 
     revalidateTag(`reflections-${currentUser.username}`);
@@ -127,7 +127,7 @@ export async function DELETE(
     }
 
     const reflection = await prisma.reflection.delete({
-      where: { reflectionCUID },
+      where: { reflectionCUID }
     });
 
     if (!reflection) {

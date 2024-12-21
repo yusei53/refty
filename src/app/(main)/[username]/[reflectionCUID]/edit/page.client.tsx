@@ -17,7 +17,7 @@ const ReflectionUpdateFormPage: React.FC<ReflectionUpdateFormPageProps> = ({
   title,
   content,
   charStamp,
-  isPublic,
+  isPublic
 }) => {
   const {
     control,
@@ -26,14 +26,14 @@ const ReflectionUpdateFormPage: React.FC<ReflectionUpdateFormPageProps> = ({
     errors,
     onSubmit,
     selectedEmoji,
-    handleEmojiChange,
+    handleEmojiChange
   } = useUpdateReflectionForm({
     reflectionCUID,
     username,
     title,
     content,
     charStamp,
-    isPublic,
+    isPublic
   });
 
   const handleSubmit = async (e: React.FormEvent) => {

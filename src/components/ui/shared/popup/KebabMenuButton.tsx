@@ -53,8 +53,8 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
         sx={{
           cursor: "pointer",
           "&:hover": {
-            bgcolor: `${theme.palette.primary.contrastText}`,
-          },
+            bgcolor: `${theme.palette.primary.contrastText}`
+          }
         }}
       >
         <Image

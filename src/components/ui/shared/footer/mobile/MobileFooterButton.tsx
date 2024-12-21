@@ -1,8 +1,8 @@
-import { Box } from "@mui/material";
-import Link from "next/link";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
 import { theme } from "@/src/utils/theme";
+import { Box } from "@mui/material";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type MobileFooterButtonProps = {
   href: string;
@@ -15,7 +15,7 @@ export const MobileFooterButton: React.FC<MobileFooterButtonProps> = ({
   href,
   imagePass,
   alt,
-  isAvatar = false,
+  isAvatar = false
 }) => {
   const pathname = usePathname();
   const isActive = pathname === href;
@@ -26,8 +26,8 @@ export const MobileFooterButton: React.FC<MobileFooterButtonProps> = ({
   const displayedImage = isAvatar
     ? imagePass
     : isActive
-    ? activeImagePass
-    : defaultImagePass;
+      ? activeImagePass
+      : defaultImagePass;
 
   return (
     <Box textAlign={"center"} lineHeight={0.8}>
@@ -42,7 +42,7 @@ export const MobileFooterButton: React.FC<MobileFooterButtonProps> = ({
             border:
               isAvatar && isActive
                 ? `1px solid ${theme.palette.grey[600]}`
-                : undefined,
+                : undefined
           }}
         />
       </Link>

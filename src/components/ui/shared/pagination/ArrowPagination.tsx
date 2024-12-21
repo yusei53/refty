@@ -9,7 +9,7 @@ type ArrowPaginationProps = {
 export const ArrowPagination: React.FC<ArrowPaginationProps> = ({
   currentPage,
   totalPage,
-  onChange,
+  onChange
 }) => {
   return (
     <Box display={"flex"} justifyContent={"flex-end"} mt={6} mr={2}>
@@ -24,8 +24,8 @@ export const ArrowPagination: React.FC<ArrowPaginationProps> = ({
         }
         sx={{
           "& .MuiPaginationItem-page": {
-            display: "none",
-          },
+            display: "none"
+          }
         }}
       />
     </Box>

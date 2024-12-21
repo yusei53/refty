@@ -1,8 +1,8 @@
 import { reflectionAPI } from "@/src/api/reflection-api";
 import getCurrentUser from "@/src/utils/actions/get-current-user";
+import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import RootPage from "../../../page.client";
-import { Metadata } from "next";
 
 const description = "リフティのユーザーネーム設定ページ";
 export const metadata: Metadata = {
@@ -12,12 +12,12 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://www.refty.jp/setting/username",
     title: "ユーザーネーム設定 | リフティ",
-    description: description,
+    description: description
   },
   twitter: {
     title: "ユーザーネーム設定 | リフティ",
-    description: description,
-  },
+    description: description
+  }
 };
 
 const page = async ({ searchParams }: { searchParams: { page?: string } }) => {

@@ -1,10 +1,10 @@
-import { Modal, Box, Typography } from "@mui/material";
+import { theme } from "@/src/utils/theme";
+import { Box, Modal, Typography } from "@mui/material";
 import Image from "next/image";
 import { Control, Controller, FieldErrors } from "react-hook-form";
-import { theme } from "@/src/utils/theme";
-import { CustomInput } from "../ui/shared/input";
 import { ErrorMessage } from "../ui/shared/alert";
 import { Button } from "../ui/shared/button";
+import { CustomInput } from "../ui/shared/input";
 
 type FormValues = {
   username: string;
@@ -32,7 +32,7 @@ const modal = {
   bgcolor: "background.paper",
   boxShadow: 4,
   p: 4,
-  borderRadius: 5,
+  borderRadius: 5
 };
 
 const SettingUsernameModal: React.FC<SettingUsernameModalProps> = ({
@@ -41,7 +41,7 @@ const SettingUsernameModal: React.FC<SettingUsernameModalProps> = ({
   errors,
   open,
   isSubmitting,
-  isSubmitSuccessful,
+  isSubmitSuccessful
 }) => {
   return (
     <Modal open={open} disableEscapeKeyDown>
@@ -97,7 +97,7 @@ const SettingUsernameModal: React.FC<SettingUsernameModalProps> = ({
                       style={{
                         fontSize: "0.9rem",
                         borderBottom: `1.5px solid ${theme.palette.grey[400]}`,
-                        marginTop: "0.5px", // MEMO: URLとinputの間の隙間を調整
+                        marginTop: "0.5px" // MEMO: URLとinputの間の隙間を調整
                       }}
                     />
                   )}

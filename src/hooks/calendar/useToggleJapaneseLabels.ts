@@ -12,13 +12,13 @@ const monthMapJP = {
   Sep: "9月",
   Oct: "10月",
   Nov: "11月",
-  Dec: "12月",
+  Dec: "12月"
 };
 
 const weekdayMapJP = {
   Mon: "月",
   Wed: "水",
-  Fri: "金",
+  Fri: "金"
 };
 
 export const useToggleJapaneseLabels = () => {

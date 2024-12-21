@@ -5,22 +5,22 @@ const HighlightMark = Mark.create({
 
   addOptions() {
     return {
-      HTMLAttributes: {},
+      HTMLAttributes: {}
     };
   },
 
   parseHTML() {
     return [
       {
-        tag: "mark",
-      },
+        tag: "mark"
+      }
     ];
   },
 
   renderHTML({ HTMLAttributes }) {
     return [
       "mark",
-      mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+      mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)
     ];
   },
 
@@ -30,15 +30,15 @@ const HighlightMark = Mark.create({
         () =>
         ({ commands }) => {
           return commands.toggleMark(this.name);
-        },
+        }
     };
   },
 
   addKeyboardShortcuts() {
     return {
-      "Mod-u": () => this.editor.commands.toggleHighlight(),
+      "Mod-u": () => this.editor.commands.toggleHighlight()
     };
-  },
+  }
 });
 
 export default HighlightMark;

@@ -19,7 +19,7 @@ export const CustomInput: React.FC<CustomInputProps> = ({
   onEnter,
   onCompositionStart,
   onCompositionEnd,
-  style,
+  style
 }) => {
   return (
     // MEMO: MUIのTextFieldを使うとEditor用の入力ボックスがデザイン的に実現できないため、inputタグを使用し、CSSファイルでスタイルを設定

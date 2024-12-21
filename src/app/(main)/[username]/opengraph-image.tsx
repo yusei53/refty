@@ -3,12 +3,12 @@ import { ImageResponse } from "next/og";
 
 export const size = {
   width: 100,
-  height: 100,
+  height: 100
 };
 export const contentType = "image/png";
 
 export default async function Image({
-  params,
+  params
 }: {
   params: { username: string };
 }) {
@@ -19,13 +19,13 @@ export default async function Image({
     {
       // TODO: 存在しないユーザーのOGP画像を返す
       return new ImageResponse(<OgImage userImage={""} />, {
-        ...size,
+        ...size
       });
     }
   }
 
   return new ImageResponse(<OgImage userImage={userInformation.user.image} />, {
-    ...size,
+    ...size
   });
 }
 
@@ -42,7 +42,7 @@ const OgImage = ({ userImage }: OgImageProps) => (
       width: "100%",
       display: "flex",
       flexDirection: "column",
-      justifyContent: "center",
+      justifyContent: "center"
     }}
   />
 );
