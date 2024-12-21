@@ -6,61 +6,64 @@
     "sourceType": "module"
   },
   "plugins": ["import", "@typescript-eslint"],
-  "extends": [
-    // 必要に応じて推奨ルールなど
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   "rules": {
-    // ---- インポート順ルール ----
     "import/order": [
       "error",
       {
-        // グループの並び順
-        // ここでは:
-        //  1. "external" (=> next や mui など)
-        //  2. "internal" (=> ui/shared 等)
-        //  3. "type"      (タイプ専用インポートを後ろに固める)
-        //  4. "parent", "sibling", "index" ...適宜
+        // 並べる順番を下記のように再構成:
+        //  1. builtin
+        //  2. external
+        //  3. type (型専用インポート)
+        //  4. parent
+        //  5. sibling
+        //  6. index
+        //  7. internal ← 最後にまとめ、@src をここで最下位に
         "groups": [
+          "builtin",
           "external",
-          "internal",
           "type",
           "parent",
           "sibling",
-          "index"
+          "index",
+          "internal"
         ],
-        // 特定パターンをさらに細分化して順序を指定
         "pathGroups": [
-          // next/hogehoge を external の中でも最優先で一番上に置く
-          {
-            "pattern": "next/**",
-            "group": "external",
-            "position": "before"
-          },
-          // MUI は next/** の次に置く
+          // ---- MUI は external グループの先頭へ ----
           {
             "pattern": "@mui/**",
             "group": "external",
-            "position": "after"
+            "position": "before"
           },
-          // ui/shared/** は internal の中でも最優先で置く
+          // ---- ui/shared/** は internal グループの先頭へ ----
           {
             "pattern": "ui/shared/**",
             "group": "internal",
             "position": "before"
+          },
+          // ---- next/** は external の最後へ ----
+          {
+            "pattern": "next/**",
+            "group": "external",
+            "position": "after"
+          },
+          // ---- @src/** は internal グループの最後へ (プロジェクト内で最終) ----
+          {
+            "pattern": "@src/**",
+            "group": "internal",
+            "position": "after"
           }
         ],
-        // builtin はあまり複雑にしないよう除外（Node.jsの fs, path など）
+        // Node.js組み込み (builtin) は除外
         "pathGroupsExcludedImportTypes": ["builtin"],
         // グループ間で空行を挟む
         "newlines-between": "always",
-        // アルファベットソートをしない（false にする）
+        // アルファベット順はオフ
         "alphabetical": false
       }
     ],
 
-    // ---- TypeScript の型専用インポートを「import type」に統一 ----
+    // TypeScript の型専用インポートを import type に統一
     "@typescript-eslint/consistent-type-imports": [
       "error",
       {
