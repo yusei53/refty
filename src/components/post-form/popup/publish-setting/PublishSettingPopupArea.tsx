@@ -2,7 +2,7 @@ import { Box, Fade, Popper, Divider } from "@mui/material";
 import Image from "next/image";
 import { theme } from "@/src/utils/theme";
 import PublishStatusOptionButton from "./PublishStatusOptionButton";
-import { Button } from "@/src/components/shared/button";
+import { Button } from "@/src/components/ui/shared/button";
 
 type PublishSettingPopupAreaProps = {
   value: boolean;

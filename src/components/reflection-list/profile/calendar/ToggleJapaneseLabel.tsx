@@ -1,4 +1,4 @@
-import { IOSSwitch } from "@/src/components/shared/switch";
+import { IOSSwitch } from "@/src/components/ui/shared/switch";
 import { theme } from "@/src/utils/theme";
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import React from "react";

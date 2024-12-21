@@ -1,4 +1,4 @@
-import { DefaultFooter } from "@/src/components/shared/footer/default";
+import { DefaultFooter } from "@/src/components/ui/shared/footer/default";
 import { Container } from "@mui/material";
 
 export default function PostLayout({

@@ -1,11 +1,11 @@
 import { Box, Popper, Fade, Divider, Typography } from "@mui/material";
-import { Button } from "@/src/components/shared/button";
 import {
   ReflectionTemplateType,
   getReflectionTemplateName,
 } from "./reflection-templates";
 import { theme } from "@/src/utils/theme";
 import { Fragment } from "react";
+import { Button } from "@/src/components/ui/shared/button";
 
 type ReflectionTemplatePopupAreaProps = {
   anchorEl: HTMLElement | null;
