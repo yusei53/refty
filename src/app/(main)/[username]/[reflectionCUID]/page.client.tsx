@@ -5,7 +5,7 @@ import { ReflectionArticle } from "@/src/components/reflection-detail/article";
 import { UserInformationSection } from "@/src/components/reflection-detail/user-information/UserInformationSection";
 import { animation } from "@/src/components/shared/animation";
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 type ReflectionDetailPageProps = {
   title: string;
