@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { NextAuthProvider } from "../providers";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { theme } from "../utils/theme/theme";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { NextAuthProvider } from "../providers";
 import { Snowfall } from "../utils/snow-fall";
+import { theme } from "../utils/theme/theme";
 
 const GA_TAG_ID = process.env.NEXT_PUBLIC_GA_ID as string;
 
@@ -12,7 +12,7 @@ const description = "日々の振り返りを手助けする振り返りプラ�
 export const metadata: Metadata = {
   title: {
     default: siteName,
-    template: "%s | リフティ",
+    template: "%s | リフティ"
   },
   description: description,
   openGraph: {
@@ -20,17 +20,17 @@ export const metadata: Metadata = {
     url: "https://www.refty.jp/",
     title: siteName,
     description: description,
-    siteName: "リフティ",
+    siteName: "リフティ"
   },
   twitter: {
     title: siteName,
     description: description,
-    card: "summary",
-  },
+    card: "summary"
+  }
 };
 
 export default async function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {

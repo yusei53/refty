@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
-import { reflectionAPI } from "../api/reflection-api";
-import RootPage from "./page.client";
 import { getServerSession } from "next-auth";
+import { reflectionAPI } from "../api/reflection-api";
 import authOptions from "./api/auth/[...nextauth]/options";
+import RootPage from "./page.client";
 
 // MEMO: routePageのみmetadataをlayout.tsxで設定
 

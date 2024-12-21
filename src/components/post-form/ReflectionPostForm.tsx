@@ -1,17 +1,19 @@
-import { Box, Stack } from "@mui/material";
-import { Controller, Control, FieldErrors } from "react-hook-form";
-import { MarkdownEditor, MarkdownEditorRef } from "./markdown-editor";
 import { useRef, useState } from "react";
-import EmojiPicker from "./EmojiPicker";
-import { MarkdownSupportPopupAreaContainer } from "./popup/markdown-support";
-import {
-  REFLECTION_TEMPLATES,
-  ReflectionTemplatePopupAreaContainer,
-} from "./popup/reflection-template";
-import { PublishSettingPopupAreaContainer } from "./popup/publish-setting";
+import { Controller } from "react-hook-form";
+import { Box, Stack } from "@mui/material";
+import type { MarkdownEditorRef } from "./markdown-editor";
+import type { Control, FieldErrors } from "react-hook-form";
+import { ErrorMessage } from "../ui/shared/alert";
 import { Button } from "../ui/shared/button";
 import { CustomInput } from "../ui/shared/input";
-import { ErrorMessage } from "../ui/shared/alert";
+import EmojiPicker from "./EmojiPicker";
+import { MarkdownEditor } from "./markdown-editor";
+import { MarkdownSupportPopupAreaContainer } from "./popup/markdown-support";
+import { PublishSettingPopupAreaContainer } from "./popup/publish-setting";
+import {
+  REFLECTION_TEMPLATES,
+  ReflectionTemplatePopupAreaContainer
+} from "./popup/reflection-template";
 
 type FormValues = {
   title: string;
@@ -38,7 +40,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   errors,
   onSubmit,
   selectedEmoji,
-  onEmojiChange,
+  onEmojiChange
 }) => {
   const [isComposing, setIsComposing] = useState(false);
   const editorRef = useRef<MarkdownEditorRef>(null);

@@ -1,6 +1,6 @@
-import { Modal, Box, Typography, IconButton } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
+import CloseIcon from "@mui/icons-material/Close";
+import { Box, IconButton, Modal, Typography } from "@mui/material";
 
 type GoodJobModalProps = {
   open: boolean;
@@ -21,12 +21,12 @@ const modal = {
   boxShadow: 4,
   p: 4,
   borderRadius: 5,
-  outline: "none",
+  outline: "none"
 };
 
 export const GoodJobModal: React.FC<GoodJobModalProps> = ({
   open,
-  onClose,
+  onClose
 }) => {
   return (
     <Modal open={open} disableEscapeKeyDown>
@@ -36,7 +36,7 @@ export const GoodJobModal: React.FC<GoodJobModalProps> = ({
           sx={{
             position: "absolute",
             top: 10,
-            right: 10,
+            right: 10
           }}
         >
           <CloseIcon />

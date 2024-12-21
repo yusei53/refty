@@ -1,6 +1,7 @@
+import type { NextRequest} from "next/server";
+import { NextResponse } from "next/server";
 import prisma from "@/src/lib/prisma";
 import getCurrentUser from "@/src/utils/actions/get-current-user";
-import { NextRequest, NextResponse } from "next/server";
 
 export async function PATCH(req: NextRequest) {
   try {
@@ -14,11 +15,11 @@ export async function PATCH(req: NextRequest) {
 
     const response = await prisma.user.update({
       where: {
-        id: currentUser.id,
+        id: currentUser.id
       },
       data: {
-        username: username,
-      },
+        username: username
+      }
     });
 
     return NextResponse.json(response, { status: 201 });

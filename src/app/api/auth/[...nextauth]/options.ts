@@ -1,8 +1,8 @@
-import { NextAuthOptions } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import GoogleProvider from "next-auth/providers/google";
 import DiscordProvider from "next-auth/providers/discord";
+import GoogleProvider from "next-auth/providers/google";
 import LineProvider from "next-auth/providers/line";
+import type { NextAuthOptions } from "next-auth";
 import prisma from "@/src/lib/prisma";
 
 const authOptions: NextAuthOptions = {
@@ -10,19 +10,19 @@ const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
     }),
     DiscordProvider({
       clientId: process.env.AUTH_DISCORD_ID as string,
-      clientSecret: process.env.AUTH_DISCORD_SECRET as string,
+      clientSecret: process.env.AUTH_DISCORD_SECRET as string
     }),
     LineProvider({
       clientId: process.env.LINE_CLIENT_ID as string,
-      clientSecret: process.env.LINE_CLIENT_SECRET as string,
-    }),
+      clientSecret: process.env.LINE_CLIENT_SECRET as string
+    })
   ],
   session: {
-    strategy: "jwt",
+    strategy: "jwt"
   },
   callbacks: {
     async jwt({ token, user }) {
@@ -38,9 +38,9 @@ const authOptions: NextAuthOptions = {
         session.user.username = token.username as string;
       }
       return session;
-    },
+    }
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET
 };
 
 export default authOptions;

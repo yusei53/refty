@@ -1,8 +1,8 @@
 import { forwardRef, useImperativeHandle } from "react";
 import Highlight from "@tiptap/extension-highlight";
-import Typography from "@tiptap/extension-typography";
-import Placeholder from "@tiptap/extension-placeholder";
 import Link from "@tiptap/extension-link";
+import Placeholder from "@tiptap/extension-placeholder";
+import Typography from "@tiptap/extension-typography";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import StyledEditorContent from "./StyledEditorContent";
@@ -30,18 +30,18 @@ export const MarkdownEditor = forwardRef<
       HighlightMark,
       Typography,
       Placeholder.configure({
-        placeholder: "文章を入力",
+        placeholder: "文章を入力"
       }),
       Link.configure({
         openOnClick: true, // クリックでリンクを開く
-        autolink: true, // 自動リンク化
-      }),
+        autolink: true // 自動リンク化
+      })
     ],
     content: value,
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
     },
-    immediatelyRender: false,
+    immediatelyRender: false
   });
 
   useImperativeHandle(
@@ -55,7 +55,7 @@ export const MarkdownEditor = forwardRef<
       },
       clearContent: () => {
         editor?.commands.setContent("");
-      },
+      }
     }),
     [editor]
   );

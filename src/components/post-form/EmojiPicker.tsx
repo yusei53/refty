@@ -1,7 +1,7 @@
-import { Box, Button as MuiButton, Typography } from "@mui/material";
-import { useState, useRef } from "react";
-import Picker from "@emoji-mart/react";
+import { useRef, useState } from "react";
 import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
+import { Box, Button as MuiButton, Typography } from "@mui/material";
 import { theme } from "@/src/utils/theme";
 
 type EmojiPickerProps = {
@@ -66,6 +66,7 @@ const EmojiPicker: React.FC<EmojiPickerProps> = ({
         <Box position={"absolute"} top={"100%"} ref={pickerRef} tabIndex={-1}>
           <Picker
             data={data}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onEmojiSelect={(emoji: any) => {
               setSelectedEmoji(emoji.native);
               onChange(emoji.native);

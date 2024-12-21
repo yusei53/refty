@@ -1,5 +1,6 @@
-import { fetchURL, FetchURLOptions } from "../utils/fetchURL";
-import { Result } from "../utils/types/result";
+import type { FetchURLOptions } from "../utils/fetchURL";
+import type { Result } from "../utils/types/result";
+import { fetchURL } from "../utils/fetchURL";
 
 export type Reflection = {
   reflectionCUID: string;
@@ -45,7 +46,7 @@ export const reflectionAPI = {
     const path = `/api/reflection?page=${page}`;
     const options: FetchURLOptions = {
       method: "GET",
-      next: { tags: ["reflections-all"] },
+      next: { tags: ["reflections-all"] }
     };
     return await fetchURL<ReflectionAll, 404>(path, options);
   },
@@ -57,7 +58,7 @@ export const reflectionAPI = {
     const path = `/api/reflection/${username}?page=${page}`;
     const options: FetchURLOptions = {
       method: "GET",
-      next: { tags: [`reflections-${username}`] },
+      next: { tags: [`reflections-${username}`] }
     };
     return await fetchURL<Reflections, 404>(path, options);
   },
@@ -67,7 +68,7 @@ export const reflectionAPI = {
   ): Promise<Result<ReflectionDetail, 404>> {
     const path = `/api/reflection/detail/${reflectionCUID}`;
     const options: FetchURLOptions = {
-      method: "GET",
+      method: "GET"
     };
     return await fetchURL<ReflectionDetail, 404>(path, options);
   },
@@ -76,7 +77,7 @@ export const reflectionAPI = {
     title,
     content,
     charStamp,
-    isPublic,
+    isPublic
   }: {
     title: string;
     content: string;
@@ -90,11 +91,11 @@ export const reflectionAPI = {
         title,
         content,
         charStamp,
-        isPublic,
+        isPublic
       },
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     };
     return await fetchURL<void, 401>(path, options);
   },
@@ -104,7 +105,7 @@ export const reflectionAPI = {
     title,
     content,
     charStamp,
-    isPublic,
+    isPublic
   }: {
     reflectionCUID: string;
     title: string;
@@ -119,11 +120,11 @@ export const reflectionAPI = {
         title,
         content,
         charStamp,
-        isPublic,
+        isPublic
       },
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     };
     return await fetchURL<void, 400 | 401 | 403>(path, options);
   },
@@ -131,14 +132,14 @@ export const reflectionAPI = {
   async deleteReflection(reflectionCUID: string): Promise<Result<void, 401>> {
     const path = `/api/reflection/detail/${reflectionCUID}`;
     const options: FetchURLOptions = {
-      method: "DELETE",
+      method: "DELETE"
     };
     return await fetchURL<void, 401>(path, options);
   },
 
   async updatePinnedReflection({
     reflectionCUID,
-    isPinned,
+    isPinned
   }: {
     reflectionCUID: string;
     isPinned: boolean;
@@ -147,12 +148,12 @@ export const reflectionAPI = {
     const options: FetchURLOptions = {
       method: "PATCH",
       body: {
-        isPinned,
+        isPinned
       },
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     };
     return await fetchURL<void, 401>(path, options);
-  },
+  }
 };

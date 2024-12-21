@@ -1,11 +1,12 @@
+import type {
+  ButtonProps,
+  SxProps} from "@mui/material";
 import {
   Box,
-  ButtonProps,
   Button as MuiButton,
-  SxProps,
-  Typography,
+  Typography
 } from "@mui/material";
-import { IconType } from "react-icons";
+import type { IconType } from "react-icons";
 
 type AuthButtonProps = {
   label: string;
@@ -20,7 +21,7 @@ export const AuthButton: React.FC<AuthButtonProps> = ({
   onClick,
   icon: Icon,
   iconColor,
-  sx,
+  sx
 }) => {
   return (
     <MuiButton
@@ -35,7 +36,7 @@ export const AuthButton: React.FC<AuthButtonProps> = ({
         fontWeight: "bold",
         letterSpacing: 1,
 
-        ...sx,
+        ...sx
       }}
     >
       {Icon && (
@@ -48,7 +49,7 @@ export const AuthButton: React.FC<AuthButtonProps> = ({
         >
           <Icon
             style={{
-              color: iconColor,
+              color: iconColor
             }}
           />
         </Box>

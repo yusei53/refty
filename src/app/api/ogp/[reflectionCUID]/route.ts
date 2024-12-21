@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
+import type { NextRequest} from "next/server";
+import { NextResponse } from "next/server";
 import prisma from "@/src/lib/prisma";
 
 export async function GET(
@@ -10,14 +11,14 @@ export async function GET(
 
     const reflection = await prisma.reflection.findUnique({
       where: {
-        reflectionCUID,
+        reflectionCUID
       },
       select: {
         title: true,
         user: {
-          select: { image: true, username: true },
-        },
-      },
+          select: { image: true, username: true }
+        }
+      }
     });
 
     if (!reflection) {
@@ -29,7 +30,7 @@ export async function GET(
 
     return NextResponse.json({
       title: reflection.title,
-      user: reflection.user,
+      user: reflection.user
     });
   } catch (error) {
     console.error("Error fetching reflection:", error);

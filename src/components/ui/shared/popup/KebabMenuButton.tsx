@@ -1,10 +1,11 @@
-import { theme } from "@/src/utils/theme";
-import { Box, Popper, Fade, SxProps } from "@mui/material";
-import Image from "next/image";
-import { Button } from "../button";
 import { useState } from "react";
+import Image from "next/image";
+import type { SxProps } from "@mui/material";
+import { Box, Fade, Popper } from "@mui/material";
 import { red } from "@mui/material/colors";
+import { Button } from "../button";
 import { DeleteConfirmationModal } from "@/src/components/reflection-list/modal/DeleteConfirmationModal";
+import { theme } from "@/src/utils/theme";
 
 type KebabMenuButtonProps = {
   anchorEl: HTMLElement | null;
@@ -28,7 +29,7 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
   username,
   reflectionCUID,
   sx,
-  isPinned,
+  isPinned
 }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -66,8 +67,8 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
           cursor: "pointer",
           ...sx,
           "&:hover": {
-            bgcolor: `${theme.palette.primary.contrastText}`,
-          },
+            bgcolor: `${theme.palette.primary.contrastText}`
+          }
         }}
       >
         <Image
@@ -96,8 +97,8 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
                   borderRadius: "none",
                   width: "100%",
                   "&:hover": {
-                    backgroundColor: theme.palette.primary.contrastText,
-                  },
+                    backgroundColor: theme.palette.primary.contrastText
+                  }
                 }}
               >
                 <Box display={"flex"} alignItems={"center"} letterSpacing={0.5}>
@@ -120,8 +121,8 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
                   borderRadius: "none",
                   width: "100%",
                   "&:hover": {
-                    backgroundColor: theme.palette.primary.contrastText,
-                  },
+                    backgroundColor: theme.palette.primary.contrastText
+                  }
                 }}
               >
                 <Box display={"flex"} alignItems={"center"} letterSpacing={0.5}>
@@ -144,8 +145,8 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
                   borderRadius: "none",
                   width: "100%",
                   "&:hover": {
-                    backgroundColor: theme.palette.primary.contrastText,
-                  },
+                    backgroundColor: theme.palette.primary.contrastText
+                  }
                 }}
               >
                 <Box display={"flex"} alignItems={"center"} letterSpacing={0.5}>
@@ -168,8 +169,8 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
                   borderRadius: "none",
                   width: "100%",
                   "&:hover": {
-                    backgroundColor: theme.palette.primary.contrastText,
-                  },
+                    backgroundColor: theme.palette.primary.contrastText
+                  }
                 }}
               >
                 <Box

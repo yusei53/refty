@@ -1,14 +1,14 @@
-import { reflectionsCountAPI } from "@/src/api/reflections-count-api";
-import UserReflectionListPage from "./page.client";
-import { reflectionAPI } from "@/src/api/reflection-api";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
-import opengraphAPI from "@/src/api/opengraph-api";
 import { getServerSession } from "next-auth";
 import authOptions from "../../api/auth/[...nextauth]/options";
+import UserReflectionListPage from "./page.client";
+import opengraphAPI from "@/src/api/opengraph-api";
+import { reflectionAPI } from "@/src/api/reflection-api";
+import { reflectionsCountAPI } from "@/src/api/reflections-count-api";
 
 export const generateMetadata = async ({
-  params,
+  params
 }: {
   params: { username: string };
 }): Promise<Metadata> => {
@@ -22,8 +22,8 @@ export const generateMetadata = async ({
         type: "website",
         title: "404 | リフティ",
         description: "存在しないユーザーです",
-        siteName: "リフティ",
-      },
+        siteName: "リフティ"
+      }
     };
   }
 
@@ -35,19 +35,19 @@ export const generateMetadata = async ({
       url: `https://www.refty.jp/${username}`,
       title: `${username} | リフティ`,
       description: `${username} has ${userInformation.totalReflections} reflections. Find new insights with refty!`,
-      siteName: "リフティ",
+      siteName: "リフティ"
     },
     twitter: {
       title: `${username} | リフティ`,
       description: `${username} has ${userInformation.totalReflections} reflections .Find new insights with refty!`,
-      card: "summary",
-    },
+      card: "summary"
+    }
   };
 };
 
 const page = async ({
   params,
-  searchParams,
+  searchParams
 }: {
   params: { username: string };
   searchParams: { page?: string };
@@ -70,7 +70,7 @@ const page = async ({
   // MEMO: 並列データフェッチ
   const [reflectionCount, reflectionsWithUser] = await Promise.all([
     countResult,
-    reflectionsResult,
+    reflectionsResult
   ]);
 
   return (

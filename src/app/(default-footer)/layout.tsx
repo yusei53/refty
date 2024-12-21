@@ -1,8 +1,8 @@
-import { DefaultFooter } from "@/src/components/ui/shared/footer/default";
 import { Container } from "@mui/material";
+import { DefaultFooter } from "@/src/components/ui/shared/footer/default";
 
 export default function PostLayout({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) {

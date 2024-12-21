@@ -1,9 +1,9 @@
 "use client";
-import { Box, Typography, Divider, Stack } from "@mui/material";
+import Image from "next/image";
+import { signIn } from "next-auth/react";
 import { FaDiscord, FaLine } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { signIn } from "next-auth/react";
-import Image from "next/image";
+import { Box, Divider, Stack, Typography } from "@mui/material";
 import { AuthButton } from "@/src/components/ui/auth-button";
 
 const LoginFormPage = () => {
@@ -61,7 +61,7 @@ const LoginFormPage = () => {
           icon={FcGoogle}
           onClick={() =>
             signIn("google", {
-              callbackUrl: "/setting/username",
+              callbackUrl: "/setting/username"
             })
           }
         />
@@ -71,7 +71,7 @@ const LoginFormPage = () => {
           iconColor={"#5865F2"}
           onClick={() =>
             signIn("discord", {
-              callbackUrl: "/setting/username",
+              callbackUrl: "/setting/username"
             })
           }
         />
@@ -81,7 +81,7 @@ const LoginFormPage = () => {
           iconColor={"#00b900"}
           onClick={() =>
             signIn("line", {
-              callbackUrl: "/setting/username",
+              callbackUrl: "/setting/username"
             })
           }
         />

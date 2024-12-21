@@ -1,5 +1,5 @@
-import { styled } from "@mui/material";
 import Link from "next/link";
+import { styled } from "@mui/material";
 import { theme } from "@/src/utils/theme";
 
 type CustomLinkProps = {
@@ -15,7 +15,7 @@ const StyledLink = styled(Link)(() => ({
   position: "relative",
   display: "inline-block",
   "&:hover::after": {
-    transform: "scaleX(1)",
+    transform: "scaleX(1)"
   },
   "&::after": {
     content: '""',
@@ -27,8 +27,8 @@ const StyledLink = styled(Link)(() => ({
     backgroundColor: theme.palette.grey[500],
     transform: "scaleX(0)",
     transformOrigin: "left",
-    transition: "transform 0.3s ease-in-out",
-  },
+    transition: "transform 0.3s ease-in-out"
+  }
 }));
 
 export const CustomLink: React.FC<CustomLinkProps> = ({ href, children }) => {

@@ -1,12 +1,12 @@
-import { Box, Typography } from "@mui/material";
-import Link from "next/link";
-import { theme } from "@/src/utils/theme";
-import { Reflection } from "@/src/api/reflection-api";
-import { formatDate } from "@/src/utils/date-helper";
-import Image from "next/image";
 import { useState } from "react";
-import { useUpdatePinnedReflection } from "@/src/hooks/reflection/useUpdatePinnedReflection";
+import Image from "next/image";
+import Link from "next/link";
+import { Box, Typography } from "@mui/material";
+import type { Reflection } from "@/src/api/reflection-api";
 import { KebabMenuButton } from "../../ui/shared/popup";
+import { useUpdatePinnedReflection } from "@/src/hooks/reflection/useUpdatePinnedReflection";
+import { formatDate } from "@/src/utils/date-helper";
+import { theme } from "@/src/utils/theme";
 
 type ReflectionCardProps = {
   username: string;
@@ -18,7 +18,7 @@ type ReflectionCardProps = {
 const ReflectionCard: React.FC<ReflectionCardProps> = ({
   username,
   reflection,
-  isCurrentUser,
+  isCurrentUser
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -65,7 +65,7 @@ const ReflectionCard: React.FC<ReflectionCardProps> = ({
             sx={{
               // MEMO: 2行で切り捨てるためのcss
               WebkitBoxOrient: "vertical",
-              WebkitLineClamp: 2,
+              WebkitLineClamp: 2
             }}
           >
             {reflection.title}
@@ -134,8 +134,8 @@ const article = {
   transition: "box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s",
   "&:hover": {
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04)",
-    transform: "translateY(-3px)",
-  },
+    transform: "translateY(-3px)"
+  }
 };
 
 const box = {
@@ -144,6 +144,6 @@ const box = {
   width: { xs: "79vw", sm: 380 },
   height: 120,
   // MEMO: aタグにblock要素を指定すると長方形が表示できる
-  display: "block",
+  display: "block"
 };
 export default ReflectionCard;

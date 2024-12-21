@@ -1,5 +1,5 @@
-import { Modal, Box, Typography, IconButton, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { Box, Button, IconButton, Modal, Typography } from "@mui/material";
 import { useDeleteReflection } from "@/src/hooks/reflection/useDeleteReflection";
 
 type DeleteConfirmationModalProps = {
@@ -22,14 +22,14 @@ const modal = {
   boxShadow: 4,
   p: 4,
   borderRadius: 5,
-  outline: "none",
+  outline: "none"
 };
 
 export const DeleteConfirmationModal: React.FC<
   DeleteConfirmationModalProps
 > = ({ open, onClose, reflectionCUID }) => {
   const { handleDeleteReflection } = useDeleteReflection({
-    reflectionCUID,
+    reflectionCUID
   });
 
   return (
@@ -40,7 +40,7 @@ export const DeleteConfirmationModal: React.FC<
           sx={{
             position: "absolute",
             top: 10,
-            right: 10,
+            right: 10
           }}
         >
           <CloseIcon />
@@ -77,8 +77,8 @@ export const DeleteConfirmationModal: React.FC<
               "&:hover": {
                 color: "#0A1F3D",
                 borderColor: "#0A1F3D",
-                backgroundColor: "rgba(19, 57, 110, 0.04)",
-              },
+                backgroundColor: "rgba(19, 57, 110, 0.04)"
+              }
             }}
           >
             キャンセル

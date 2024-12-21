@@ -1,5 +1,6 @@
-import { Result } from "../utils/types/result";
-import { fetchURL, FetchURLOptions } from "../utils/fetchURL";
+import type { FetchURLOptions } from "../utils/fetchURL";
+import type { Result } from "../utils/types/result";
+import { fetchURL } from "../utils/fetchURL";
 
 export type Username = {
   username: string;
@@ -7,7 +8,7 @@ export type Username = {
 
 const usernameAPI = {
   async updateUsername({
-    username,
+    username
   }: {
     username: string;
   }): Promise<Result<Username, 401>> {
@@ -15,14 +16,14 @@ const usernameAPI = {
     const options: FetchURLOptions = {
       method: "PATCH",
       body: {
-        username,
+        username
       },
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     };
     return await fetchURL<Username, 401>(path, options);
-  },
+  }
 };
 
 export default usernameAPI;

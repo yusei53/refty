@@ -1,8 +1,8 @@
-import { theme } from "@/src/utils/theme";
-import { Divider, Box, Typography } from "@mui/material";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { Box, Divider, Typography } from "@mui/material";
 import { link } from "../article";
+import { theme } from "@/src/utils/theme";
 
 type UserInformationSectionProps = {
   username: string;
@@ -13,7 +13,7 @@ type UserInformationSectionProps = {
 export const UserInformationSection: React.FC<UserInformationSectionProps> = ({
   username,
   userImage,
-  reflectionCount,
+  reflectionCount
 }) => {
   return (
     <Box component={"section"} mt={14} mb={10}>
@@ -23,7 +23,7 @@ export const UserInformationSection: React.FC<UserInformationSectionProps> = ({
           href={`/${username}`}
           style={{
             display: "flex",
-            alignItems: "center",
+            alignItems: "center"
           }}
         >
           <Image

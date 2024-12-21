@@ -1,11 +1,12 @@
-import { Box, Popper, Fade, Divider, Typography } from "@mui/material";
-import {
-  ReflectionTemplateType,
-  getReflectionTemplateName,
-} from "./reflection-templates";
-import { theme } from "@/src/utils/theme";
 import { Fragment } from "react";
+import { Box, Divider, Fade, Popper, Typography } from "@mui/material";
+import type {
+  ReflectionTemplateType} from "./reflection-templates";
+import {
+  getReflectionTemplateName
+} from "./reflection-templates";
 import { Button } from "@/src/components/ui/shared/button";
+import { theme } from "@/src/utils/theme";
 
 type ReflectionTemplatePopupAreaProps = {
   anchorEl: HTMLElement | null;
@@ -23,7 +24,7 @@ const button = {
   border: "none",
   display: "block",
   textAlign: "left",
-  width: "100%",
+  width: "100%"
 };
 
 const ReflectionTemplatePopupArea: React.FC<
@@ -35,7 +36,7 @@ const ReflectionTemplatePopupArea: React.FC<
   onClick,
   onClose,
   onTemplateSelect,
-  onClearContent,
+  onClearContent
 }) => {
   return (
     <>
@@ -44,7 +45,7 @@ const ReflectionTemplatePopupArea: React.FC<
         onBlur={onClose}
         sx={{
           border: "none",
-          p: 0,
+          p: 0
         }}
       >
         テンプレートを使う
@@ -62,15 +63,15 @@ const ReflectionTemplatePopupArea: React.FC<
               sx={{
                 "&::-webkit-scrollbar": {
                   width: "4px",
-                  height: "4px",
+                  height: "4px"
                 },
                 "&::-webkit-scrollbar-thumb": {
                   backgroundColor: theme.palette.grey[400],
-                  borderRadius: "4px",
+                  borderRadius: "4px"
                 },
                 "&::-webkit-scrollbar-thumb:hover": {
-                  backgroundColor: theme.palette.grey[600],
-                },
+                  backgroundColor: theme.palette.grey[600]
+                }
               }}
             >
               {Object.keys(reflectionTemplateType).map((categoryKey) => (
@@ -86,8 +87,8 @@ const ReflectionTemplatePopupArea: React.FC<
                       borderRadius: "none",
                       letterSpacing: 0.8,
                       "&:hover": {
-                        backgroundColor: theme.palette.primary.contrastText,
-                      },
+                        backgroundColor: theme.palette.primary.contrastText
+                      }
                     }}
                   >
                     {getReflectionTemplateName(
@@ -106,8 +107,8 @@ const ReflectionTemplatePopupArea: React.FC<
                   borderBottomRightRadius: 2,
                   borderBottomLeftRadius: 2,
                   "&:hover": {
-                    backgroundColor: theme.palette.warning.main,
-                  },
+                    backgroundColor: theme.palette.warning.main
+                  }
                 }}
               >
                 リセット

@@ -1,11 +1,9 @@
-import Link from "next/link";
 import Image from "next/image";
-import { theme } from "@/src/utils/theme";
+import Link from "next/link";
 import { Box, Typography } from "@mui/material";
-import { formatDate } from "@/src/utils/date-helper";
 import { StyledMarkdown } from "./mark-down";
-import { SendToSqsAPI } from "@/src/api/send-to-sqs-api";
-import { on } from "events";
+import { formatDate } from "@/src/utils/date-helper";
+import { theme } from "@/src/utils/theme";
 
 type ReflectionArticleProps = {
   username: string;
@@ -21,8 +19,8 @@ export const link = {
   color: "black",
   textDecoration: "none",
   "&:hover": {
-    textDecoration: "underline",
-  },
+    textDecoration: "underline"
+  }
 };
 
 const h1 = {
@@ -31,7 +29,7 @@ const h1 = {
   fontSize: "21px",
   border: "none",
   outline: "none",
-  marginBottom: 8,
+  marginBottom: 8
 };
 
 export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
@@ -54,7 +52,7 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
           style={{
             textDecoration: "none",
             display: "flex",
-            alignItems: "center",
+            alignItems: "center"
           }}
         >
           <Image

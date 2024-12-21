@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid2";
-import ReflectionCard from "./ReflectionCard";
-import { Reflection } from "@/src/api/reflection-api";
+import type { Reflection } from "@/src/api/reflection-api";
 import { animation } from "../../ui/shared/animation";
+import ReflectionCard from "./ReflectionCard";
 
 type ReflectionCardListAreaProps = {
   username: string;
@@ -12,7 +12,7 @@ type ReflectionCardListAreaProps = {
 const ReflectionCardListArea: React.FC<ReflectionCardListAreaProps> = ({
   username,
   reflections,
-  isCurrentUser,
+  isCurrentUser
 }) => {
   return (
     <>

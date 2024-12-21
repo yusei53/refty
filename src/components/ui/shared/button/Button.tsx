@@ -1,4 +1,5 @@
-import { Button as MuiButton, ButtonProps } from "@mui/material";
+import type { ButtonProps} from "@mui/material";
+import { Button as MuiButton } from "@mui/material";
 
 type CustomButtonProps = {
   children: React.ReactNode;
@@ -16,7 +17,7 @@ export const Button: React.FC<CustomButtonProps> = ({
       border: "1px solid #DCDFE3",
       borderRadius: 10,
       p: "8px 16px",
-      ...sx,
+      ...sx
     }}
     {...props}
   >

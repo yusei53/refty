@@ -1,13 +1,11 @@
 "use client";
-import { Box } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { Box } from "@mui/material";
 import { ReflectionArticle } from "@/src/components/reflection-detail/article";
 import { UserInformationSection } from "@/src/components/reflection-detail/user-information/UserInformationSection";
-import { useParams, usePathname, useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { animation } from "@/src/components/ui/shared/animation";
 import { SendToSqsAPI } from "@/src/api/send-to-sqs-api";
-import { use } from "react";
 
 type ReflectionDetailPageProps = {
   title: string;
@@ -24,7 +22,7 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
   createdAt,
   userImage,
   username,
-  reflectionCount,
+  reflectionCount
 }) => {
     const router = useRouter();
     const reflectionCUID = usePathname().split("/").pop();
@@ -65,7 +63,7 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
           position: { xs: "absolute", md: "fixed" },
           left: { xs: 0, md: 20 },
           top: { xs: -60, md: 20 },
-          cursor: "pointer",
+          cursor: "pointer"
         }}
       />
       <ReflectionArticle

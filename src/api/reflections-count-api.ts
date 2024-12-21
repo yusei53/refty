@@ -1,5 +1,6 @@
-import { fetchURL, FetchURLOptions } from "../utils/fetchURL";
-import { Result } from "../utils/types/result";
+import type { FetchURLOptions } from "../utils/fetchURL";
+import type { Result } from "../utils/types/result";
+import { fetchURL } from "../utils/fetchURL";
 
 export type ReflectionPerDate = {
   date: string;
@@ -18,8 +19,8 @@ export const reflectionsCountAPI = {
     const path = `/api/${username}/reflections-count`;
     const options: FetchURLOptions = {
       method: "GET",
-      next: { tags: [`reflections-${username}`] },
+      next: { tags: [`reflections-${username}`] }
     };
     return await fetchURL<ReflectionsCount, 404>(path, options);
-  },
+  }
 };

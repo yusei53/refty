@@ -4,9 +4,9 @@ const nextConfig = {
     domains: [
       "lh3.googleusercontent.com",
       "cdn.discordapp.com",
-      "profile.line-scdn.net",
-    ],
-  },
+      "profile.line-scdn.net"
+    ]
+  }
 };
 
 export default nextConfig;

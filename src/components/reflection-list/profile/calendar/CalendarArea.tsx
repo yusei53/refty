@@ -1,13 +1,13 @@
-import { Box, Typography, useMediaQuery } from "@mui/material";
-import { ReflectionPerDate } from "@/src/api/reflections-count-api";
-import { theme } from "@/src/utils/theme";
-import { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
-import { useToggleJapaneseLabels } from "@/src/hooks/calendar/useToggleJapaneseLabels";
 import { memo, useEffect, useRef } from "react";
-import Calendar from "./Calendar";
-import ToggleJapaneseLabel from "./ToggleJapaneseLabel";
+import { Box, Typography, useMediaQuery } from "@mui/material";
+import type { ReflectionPerDate } from "@/src/api/reflections-count-api";
+import type { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
+import Calendar from "./Calendar";
 import "./calendar.css";
+import ToggleJapaneseLabel from "./ToggleJapaneseLabel";
+import { useToggleJapaneseLabels } from "@/src/hooks/calendar/useToggleJapaneseLabels";
+import { theme } from "@/src/utils/theme";
 
 type CalendarAreaProps = {
   startDate: Date;

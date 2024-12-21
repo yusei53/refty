@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
+import type { NextRequest} from "next/server";
+import { NextResponse } from "next/server";
 import prisma from "@/src/lib/prisma";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
 
@@ -20,23 +21,23 @@ export async function GET(
 
     const totalReflections = await prisma.reflection.count({
       where: {
-        userId,
-      },
+        userId
+      }
     });
 
     const image = await prisma.user.findUnique({
       where: {
-        id: userId,
+        id: userId
       },
       select: {
-        image: true,
-      },
+        image: true
+      }
     });
 
     return NextResponse.json(
       {
         totalReflections,
-        user: image,
+        user: image
       },
       { status: 200 }
     );

@@ -1,11 +1,11 @@
-import { Metadata } from "next";
-import getCurrentUser from "@/src/utils/actions/get-current-user";
+import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import ReflectionUpdateFormPage from "./page.client";
 import { reflectionAPI } from "@/src/api/reflection-api";
+import getCurrentUser from "@/src/utils/actions/get-current-user";
 
 export async function generateMetadata({
-  params,
+  params
 }: PageProps): Promise<Metadata> {
   const { reflectionCUID } = params;
   const reflection = await reflectionAPI.getReflectionByCUID(reflectionCUID);
@@ -14,7 +14,7 @@ export async function generateMetadata({
     {
       return {
         title: "投稿が見つかりません",
-        description: "指定された投稿が存在しません",
+        description: "指定された投稿が存在しません"
       };
     }
   }
@@ -26,12 +26,12 @@ export async function generateMetadata({
       type: "website",
       url: `https://www.refty.jp/${reflectionCUID}`,
       title: `${reflection.title}を編集 | リフティ`,
-      description: `${reflection.title}に関する詳細ページの編集画面です`,
+      description: `${reflection.title}に関する詳細ページの編集画面です`
     },
     twitter: {
       title: `${reflection.title}を編集 | リフティ`,
-      description: `${reflection.title}に関する詳細ページの編集画面です`,
-    },
+      description: `${reflection.title}に関する詳細ページの編集画面です`
+    }
   };
 }
 

@@ -17,7 +17,7 @@ export const Snowfall = () => {
       style={{
         position: "fixed",
         width: "100vw",
-        height: "100vh",
+        height: "100vh"
       }}
       radius={[1.4, 1.8]}
       snowflakeCount={48}

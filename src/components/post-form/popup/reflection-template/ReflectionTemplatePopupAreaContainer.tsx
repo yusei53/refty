@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { ReflectionTemplateType } from "./reflection-templates";
-import ReflectionTemplatePopupArea from "./ReflectionTemplatePopupArea";
 import { marked } from "marked";
+import type { ReflectionTemplateType } from "./reflection-templates";
+import ReflectionTemplatePopupArea from "./ReflectionTemplatePopupArea";
 
 type ReflectionTemplatePopupAreaContainerProps = {
   onInsertTemplate: (template: string) => void;

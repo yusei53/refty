@@ -1,6 +1,6 @@
-import { Typography } from "@mui/material";
 import Link from "next/link";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { Typography } from "@mui/material";
 import { theme } from "@/src/utils/theme";
 
 export const ToHomePageButton: React.FC = () => {
@@ -16,8 +16,8 @@ export const ToHomePageButton: React.FC = () => {
       sx={{
         textDecoration: "none",
         "&:hover": {
-          borderBottom: `1px solid ${theme.palette.primary.light}`,
-        },
+          borderBottom: `1px solid ${theme.palette.primary.light}`
+        }
       }}
     >
       ホーム

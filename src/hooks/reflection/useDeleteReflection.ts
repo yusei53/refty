@@ -6,7 +6,7 @@ type useDeleteReflectionProps = {
 };
 
 export const useDeleteReflection = ({
-  reflectionCUID,
+  reflectionCUID
 }: useDeleteReflectionProps) => {
   const router = useRouter();
 
@@ -21,6 +21,6 @@ export const useDeleteReflection = ({
   };
 
   return {
-    handleDeleteReflection,
+    handleDeleteReflection
   };
 };

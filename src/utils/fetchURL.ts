@@ -1,10 +1,11 @@
-import { ErrorCode, Result } from "./types/result";
+import type { ErrorCode, Result } from "./types/result";
 
 type FetchMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 
 export type FetchURLOptions = {
   method: FetchMethod;
   cache?: RequestCache;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   body?: any;
   headers?: HeadersInit;
   next?: {

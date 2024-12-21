@@ -1,7 +1,7 @@
 "use client";
-import { ReflectionWithUser } from "../api/reflection-api";
-import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import type { ReflectionWithUser } from "../api/reflection-api";
+import type { User } from "@prisma/client";
 import ReflectionAllArea from "../components/reflection-all-list/card-list/ReflectionAllListArea";
 import SettingUsernameModalContainer from "../components/setting-username/SettingUsernameModalContainer";
 import { PostNavigationButton } from "../components/ui/shared/button";
@@ -20,7 +20,7 @@ const RootPage: React.FC<RootPageProps> = ({
   currentUsername,
   reflections,
   currentPage,
-  totalPage,
+  totalPage
 }) => {
   const router = useRouter();
 
@@ -49,7 +49,7 @@ const RootPage: React.FC<RootPageProps> = ({
           sx={{
             position: "fixed",
             right: { sm: 130 },
-            bottom: { sm: 50 },
+            bottom: { sm: 50 }
           }}
         />
       )}
