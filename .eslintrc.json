@@ -1,3 +1,72 @@
 {
-  "extends": "next/core-web-vitals"
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["import", "@typescript-eslint"],
+  "extends": [
+    // 必要に応じて推奨ルールなど
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    // ---- インポート順ルール ----
+    "import/order": [
+      "error",
+      {
+        // グループの並び順
+        // ここでは:
+        //  1. "external" (=> next や mui など)
+        //  2. "internal" (=> ui/shared 等)
+        //  3. "type"      (タイプ専用インポートを後ろに固める)
+        //  4. "parent", "sibling", "index" ...適宜
+        "groups": [
+          "external",
+          "internal",
+          "type",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        // 特定パターンをさらに細分化して順序を指定
+        "pathGroups": [
+          // next/hogehoge を external の中でも最優先で一番上に置く
+          {
+            "pattern": "next/**",
+            "group": "external",
+            "position": "before"
+          },
+          // MUI は next/** の次に置く
+          {
+            "pattern": "@mui/**",
+            "group": "external",
+            "position": "after"
+          },
+          // ui/shared/** は internal の中でも最優先で置く
+          {
+            "pattern": "ui/shared/**",
+            "group": "internal",
+            "position": "before"
+          }
+        ],
+        // builtin はあまり複雑にしないよう除外（Node.jsの fs, path など）
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        // グループ間で空行を挟む
+        "newlines-between": "always",
+        // アルファベットソートをしない（false にする）
+        "alphabetical": false
+      }
+    ],
+
+    // ---- TypeScript の型専用インポートを「import type」に統一 ----
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports",
+        "disallowTypeAnnotations": false
+      }
+    ]
+  }
 }
