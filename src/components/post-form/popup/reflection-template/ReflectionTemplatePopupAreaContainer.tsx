@@ -1,6 +1,6 @@
-import { marked } from "marked";
 import { useState } from "react";
-import { ReflectionTemplateType } from "./reflection-templates";
+import { marked } from "marked";
+import type { ReflectionTemplateType } from "./reflection-templates";
 import ReflectionTemplatePopupArea from "./ReflectionTemplatePopupArea";
 
 type ReflectionTemplatePopupAreaContainerProps = {

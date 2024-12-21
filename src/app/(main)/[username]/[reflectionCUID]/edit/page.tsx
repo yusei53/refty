@@ -1,8 +1,8 @@
-import { reflectionAPI } from "@/src/api/reflection-api";
-import getCurrentUser from "@/src/utils/actions/get-current-user";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import ReflectionUpdateFormPage from "./page.client";
+import { reflectionAPI } from "@/src/api/reflection-api";
+import getCurrentUser from "@/src/utils/actions/get-current-user";
 
 export async function generateMetadata({
   params

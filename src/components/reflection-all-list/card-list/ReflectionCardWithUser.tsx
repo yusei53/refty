@@ -1,9 +1,9 @@
-import { ReflectionWithUser } from "@/src/api/reflection-api";
-import { formatDate } from "@/src/utils/date-helper";
-import { theme } from "@/src/utils/theme";
-import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { Box, Typography } from "@mui/material";
+import type { ReflectionWithUser } from "@/src/api/reflection-api";
+import { formatDate } from "@/src/utils/date-helper";
+import { theme } from "@/src/utils/theme";
 
 type ReflectionCardWithUserProps = {
   reflection: ReflectionWithUser;

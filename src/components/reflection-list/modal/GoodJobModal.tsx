@@ -1,6 +1,6 @@
+import Image from "next/image";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, IconButton, Modal, Typography } from "@mui/material";
-import Image from "next/image";
 
 type GoodJobModalProps = {
   open: boolean;

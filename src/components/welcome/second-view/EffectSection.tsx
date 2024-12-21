@@ -1,8 +1,8 @@
 "use client";
-import { theme } from "@/src/utils/theme";
-import { Box, styled, Typography, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { Box, styled, Typography, useMediaQuery } from "@mui/material";
+import { theme } from "@/src/utils/theme";
 
 type EffectSectionProps = {
   image: string;

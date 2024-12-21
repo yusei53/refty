@@ -1,5 +1,5 @@
-import { ReflectionsCount } from "@/src/api/reflections-count-api";
 import dynamic from "next/dynamic";
+import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import { LinearLoading } from "../../ui/shared/loading";
 import { UserAvatar } from "./avatar";
 

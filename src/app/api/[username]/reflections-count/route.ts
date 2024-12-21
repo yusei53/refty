@@ -1,6 +1,7 @@
+import type { NextRequest} from "next/server";
+import { NextResponse } from "next/server";
 import prisma from "@/src/lib/prisma";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
-import { NextRequest, NextResponse } from "next/server";
 
 // MEMO: 結構複雑なので、コメント多め
 export async function GET(

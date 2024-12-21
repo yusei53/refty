@@ -1,5 +1,6 @@
-import { Reflection, reflectionAPI } from "@/src/api/reflection-api";
 import { useRouter } from "next/navigation";
+import type { Reflection} from "@/src/api/reflection-api";
+import { reflectionAPI } from "@/src/api/reflection-api";
 
 type useUpdatePinnedReflectionProps = {
   reflection: Pick<Reflection, "reflectionCUID" | "isPinned">;

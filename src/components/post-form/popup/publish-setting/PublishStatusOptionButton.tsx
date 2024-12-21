@@ -1,8 +1,8 @@
-import { Button } from "@/src/components/ui/shared/button";
-import { theme } from "@/src/utils/theme";
+import Image from "next/image";
 import CheckIcon from "@mui/icons-material/Check";
 import { Box, Typography } from "@mui/material";
-import Image from "next/image";
+import { Button } from "@/src/components/ui/shared/button";
+import { theme } from "@/src/utils/theme";
 
 type PublishStatusOptionButtonProps = {
   isActive: boolean;

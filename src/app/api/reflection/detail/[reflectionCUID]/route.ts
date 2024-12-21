@@ -1,7 +1,8 @@
+import { revalidateTag } from "next/cache";
+import type { NextRequest} from "next/server";
+import { NextResponse } from "next/server";
 import prisma from "@/src/lib/prisma";
 import getCurrentUser from "@/src/utils/actions/get-current-user";
-import { revalidateTag } from "next/cache";
-import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   request: NextRequest,

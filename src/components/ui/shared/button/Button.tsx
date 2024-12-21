@@ -1,4 +1,5 @@
-import { ButtonProps, Button as MuiButton } from "@mui/material";
+import type { ButtonProps} from "@mui/material";
+import { Button as MuiButton } from "@mui/material";
 
 type CustomButtonProps = {
   children: React.ReactNode;

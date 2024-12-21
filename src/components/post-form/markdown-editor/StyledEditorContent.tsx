@@ -1,5 +1,5 @@
-import { styled } from "@mui/material/styles";
 import { EditorContent } from "@tiptap/react";
+import { styled } from "@mui/material/styles";
 
 // MEMO: ここ書き換えたら、components/reflection-detail/StyledMarkdown.tsxも書き換える
 const StyledEditorContent = styled(EditorContent)(({ theme }) => ({

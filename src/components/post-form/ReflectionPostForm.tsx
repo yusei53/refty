@@ -1,11 +1,13 @@
-import { Box, Stack } from "@mui/material";
 import { useRef, useState } from "react";
-import { Control, Controller, FieldErrors } from "react-hook-form";
+import { Controller } from "react-hook-form";
+import { Box, Stack } from "@mui/material";
+import type { MarkdownEditorRef } from "./markdown-editor";
+import type { Control, FieldErrors } from "react-hook-form";
 import { ErrorMessage } from "../ui/shared/alert";
 import { Button } from "../ui/shared/button";
 import { CustomInput } from "../ui/shared/input";
 import EmojiPicker from "./EmojiPicker";
-import { MarkdownEditor, MarkdownEditorRef } from "./markdown-editor";
+import { MarkdownEditor } from "./markdown-editor";
 import { MarkdownSupportPopupAreaContainer } from "./popup/markdown-support";
 import { PublishSettingPopupAreaContainer } from "./popup/publish-setting";
 import {

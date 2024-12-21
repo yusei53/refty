@@ -1,5 +1,6 @@
-import { fetchURL, FetchURLOptions } from "../utils/fetchURL";
-import { Result } from "../utils/types/result";
+import type { FetchURLOptions } from "../utils/fetchURL";
+import type { Result } from "../utils/types/result";
+import { fetchURL } from "../utils/fetchURL";
 
 export type Reflection = {
   reflectionCUID: string;

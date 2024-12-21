@@ -1,12 +1,14 @@
-import { reflectionAPI } from "@/src/api/reflection-api";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { notFound, useRouter } from "next/navigation";
 import { useState } from "react";
+import { notFound, useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import {
-  createReflectionSchema,
+import type {
   CreateReflectionSchemaType
 } from "./useCreateReflectionForm";
+import {
+  createReflectionSchema
+} from "./useCreateReflectionForm";
+import { reflectionAPI } from "@/src/api/reflection-api";
 
 type useUpdateReflectionFormProps = {
   reflectionCUID: string;

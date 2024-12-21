@@ -1,5 +1,5 @@
+import type { ChangeEvent } from "react";
 import { Box, Pagination } from "@mui/material";
-import { ChangeEvent } from "react";
 
 type NumberedPaginationProps = {
   currentPage: number;

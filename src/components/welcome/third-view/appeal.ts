@@ -1,4 +1,4 @@
-import { AppealCardProps } from "./AppealCard";
+import type { AppealCardProps } from "./AppealCard";
 
 export const appeals: AppealCardProps[] = [
   {

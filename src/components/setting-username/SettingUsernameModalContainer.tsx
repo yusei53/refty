@@ -1,6 +1,6 @@
-import { useUpdateUsernameForm } from "@/src/hooks/username/useUpdateUsernameForm";
-import { User } from "@prisma/client";
+import type { User } from "@prisma/client";
 import UsernameModal from "../setting-username/SettingUsernameModal";
+import { useUpdateUsernameForm } from "@/src/hooks/username/useUpdateUsernameForm";
 
 type SettingUsernameModalContainerProps = {
   open: boolean;

@@ -1,10 +1,10 @@
 "use client";
-import { AuthButton } from "@/src/components/ui/auth-button";
-import { Box, Divider, Stack, Typography } from "@mui/material";
-import { signIn } from "next-auth/react";
 import Image from "next/image";
+import { signIn } from "next-auth/react";
 import { FaDiscord, FaLine } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import { Box, Divider, Stack, Typography } from "@mui/material";
+import { AuthButton } from "@/src/components/ui/auth-button";
 
 const LoginFormPage = () => {
   return (

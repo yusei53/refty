@@ -1,10 +1,10 @@
-import opengraphAPI from "@/src/api/opengraph-api";
-import { reflectionAPI } from "@/src/api/reflection-api";
-import getCurrentUser from "@/src/utils/actions/get-current-user";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import Loading from "./loading";
+import opengraphAPI from "@/src/api/opengraph-api";
+import { reflectionAPI } from "@/src/api/reflection-api";
+import getCurrentUser from "@/src/utils/actions/get-current-user";
 
 const ReflectionDetailPage = dynamic(
   () => import("./page.client").then((mod) => mod.default),

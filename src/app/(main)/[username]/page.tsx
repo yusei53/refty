@@ -1,11 +1,11 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getServerSession } from "next-auth";
+import authOptions from "../../api/auth/[...nextauth]/options";
+import UserReflectionListPage from "./page.client";
 import opengraphAPI from "@/src/api/opengraph-api";
 import { reflectionAPI } from "@/src/api/reflection-api";
 import { reflectionsCountAPI } from "@/src/api/reflections-count-api";
-import { Metadata } from "next";
-import { getServerSession } from "next-auth";
-import { notFound } from "next/navigation";
-import authOptions from "../../api/auth/[...nextauth]/options";
-import UserReflectionListPage from "./page.client";
 
 export const generateMetadata = async ({
   params

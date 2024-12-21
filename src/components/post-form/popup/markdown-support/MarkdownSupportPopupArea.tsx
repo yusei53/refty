@@ -1,9 +1,9 @@
-import { theme } from "@/src/utils/theme";
+import { useState } from "react";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { Box, Fade, Popper, Tooltip, Typography } from "@mui/material";
-import { useState } from "react";
-import { markdownList } from "./markdown-list";
 import MarkdownSection from "./MarkDownSection";
+import { markdownList } from "./markdown-list";
+import { theme } from "@/src/utils/theme";
 
 type MarkdownSupportPopupAreaProps = {
   anchorEl: HTMLElement | null;

@@ -1,8 +1,8 @@
-import { ReflectionWithUser } from "@/src/api/reflection-api";
+import type { ChangeEvent } from "react";
 import { Box, Container } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import { User } from "@prisma/client";
-import { ChangeEvent } from "react";
+import type { ReflectionWithUser } from "@/src/api/reflection-api";
+import type { User } from "@prisma/client";
 import { animation } from "../../ui/shared/animation";
 import {
   ArrowPagination,

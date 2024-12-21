@@ -1,7 +1,7 @@
 "use client";
-import { theme } from "@/src/utils/theme";
-import { Button } from "@mui/material";
 import { signOut } from "next-auth/react";
+import { Button } from "@mui/material";
+import { theme } from "@/src/utils/theme";
 
 export const LogoutButton = () => {
   return (

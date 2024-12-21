@@ -1,6 +1,6 @@
-import { theme } from "@/src/utils/theme";
-import { Box, Divider, Typography } from "@mui/material";
 import Image from "next/image";
+import { Box, Divider, Typography } from "@mui/material";
+import { theme } from "@/src/utils/theme";
 
 export type MarkdownSectionType = {
   image: string;

@@ -1,6 +1,6 @@
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { NextAuthProvider } from "../providers";
 import { Snowfall } from "../utils/snow-fall";
 import { theme } from "../utils/theme/theme";

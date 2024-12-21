@@ -1,4 +1,4 @@
-import { MarkdownSectionType } from "./MarkDownSection";
+import type { MarkdownSectionType } from "./MarkDownSection";
 
 export const markdownList: MarkdownSectionType[] = [
   {

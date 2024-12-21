@@ -1,10 +1,11 @@
-import { theme } from "@/src/utils/theme";
-import { Box, Modal, Typography } from "@mui/material";
 import Image from "next/image";
-import { Control, Controller, FieldErrors } from "react-hook-form";
+import { Controller } from "react-hook-form";
+import { Box, Modal, Typography } from "@mui/material";
+import type { Control, FieldErrors } from "react-hook-form";
 import { ErrorMessage } from "../ui/shared/alert";
 import { Button } from "../ui/shared/button";
 import { CustomInput } from "../ui/shared/input";
+import { theme } from "@/src/utils/theme";
 
 type FormValues = {
   username: string;

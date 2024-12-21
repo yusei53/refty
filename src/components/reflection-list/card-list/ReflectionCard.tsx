@@ -1,12 +1,12 @@
-import { Reflection } from "@/src/api/reflection-api";
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Box, Typography } from "@mui/material";
+import type { Reflection } from "@/src/api/reflection-api";
+import { KebabMenuButton } from "../../ui/shared/popup";
 import { useUpdatePinnedReflection } from "@/src/hooks/reflection/useUpdatePinnedReflection";
 import { formatDate } from "@/src/utils/date-helper";
 import { theme } from "@/src/utils/theme";
-import { Box, Typography } from "@mui/material";
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
-import { KebabMenuButton } from "../../ui/shared/popup";
 
 type ReflectionCardProps = {
   username: string;

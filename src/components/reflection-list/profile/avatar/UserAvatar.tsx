@@ -1,5 +1,5 @@
-import { Box, Typography } from "@mui/material";
 import Image from "next/image";
+import { Box, Typography } from "@mui/material";
 import { ToHomePageButton } from "../button";
 
 type UserAvatarProps = {

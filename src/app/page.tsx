@@ -1,5 +1,5 @@
-import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
+import { getServerSession } from "next-auth";
 import { reflectionAPI } from "../api/reflection-api";
 import authOptions from "./api/auth/[...nextauth]/options";
 import RootPage from "./page.client";

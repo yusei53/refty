@@ -1,9 +1,9 @@
-import { formatDate } from "@/src/utils/date-helper";
-import { theme } from "@/src/utils/theme";
-import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { Box, Typography } from "@mui/material";
 import { StyledMarkdown } from "./mark-down";
+import { formatDate } from "@/src/utils/date-helper";
+import { theme } from "@/src/utils/theme";
 
 type ReflectionArticleProps = {
   username: string;

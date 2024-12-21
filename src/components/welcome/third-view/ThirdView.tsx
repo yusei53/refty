@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import { appeals } from "./appeal";
 import AppealCard from "./AppealCard";
+import { appeals } from "./appeal";
 
 const ThirdView = () => {
   return (

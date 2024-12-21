@@ -1,7 +1,7 @@
-import { theme } from "@/src/utils/theme";
 import { Box, Typography, useMediaQuery } from "@mui/material";
-import { User } from "@prisma/client";
+import type { User } from "@prisma/client";
 import { ToOtherPageButton } from "../button";
+import { theme } from "@/src/utils/theme";
 
 type ReflectionAllHeaderProps = {
   currentUsername: User["username"];

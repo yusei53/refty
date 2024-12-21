@@ -1,8 +1,8 @@
-import { theme } from "@/src/utils/theme";
-import { Box } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Box } from "@mui/material";
+import { theme } from "@/src/utils/theme";
 
 type MobileFooterButtonProps = {
   href: string;

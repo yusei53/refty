@@ -1,7 +1,7 @@
-import getCurrentUser from "@/src/utils/actions/get-current-user";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import ReflectionPostFormPage from "./page.client";
+import getCurrentUser from "@/src/utils/actions/get-current-user";
 
 const description = "リフティの投稿作成ページ";
 export const metadata: Metadata = {

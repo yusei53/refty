@@ -1,10 +1,10 @@
+import { forwardRef, useImperativeHandle } from "react";
 import Highlight from "@tiptap/extension-highlight";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import Typography from "@tiptap/extension-typography";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { forwardRef, useImperativeHandle } from "react";
 import StyledEditorContent from "./StyledEditorContent";
 import HighlightMark from "./highlight-mark";
 

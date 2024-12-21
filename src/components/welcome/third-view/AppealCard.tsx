@@ -1,6 +1,6 @@
 "use client";
-import { Box, styled, Typography } from "@mui/material";
 import Image from "next/image";
+import { Box, styled, Typography } from "@mui/material";
 
 export type AppealCardProps = {
   image: string;

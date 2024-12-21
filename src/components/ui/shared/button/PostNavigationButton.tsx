@@ -1,5 +1,6 @@
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { IconButton, SxProps, Tooltip } from "@mui/material";
+import type { SxProps} from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 
 type PostNavigationButtonProps = {
   sx?: SxProps;

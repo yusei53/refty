@@ -1,6 +1,9 @@
 "use client";
-import { Reflection } from "@/src/api/reflection-api";
-import { ReflectionsCount } from "@/src/api/reflections-count-api";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Box } from "@mui/material";
+import type { Reflection } from "@/src/api/reflection-api";
+import type { ReflectionsCount } from "@/src/api/reflections-count-api";
+import type { User } from "@prisma/client";
 import ReflectionCardListArea from "@/src/components/reflection-list/card-list/ReflectionCardListArea";
 import { GoodJobModal } from "@/src/components/reflection-list/modal";
 import HaveNotPost from "@/src/components/reflection-list/no-post/HaveNotPost";
@@ -10,9 +13,6 @@ import {
   ArrowPagination,
   NumberedPagination
 } from "@/src/components/ui/shared/pagination";
-import { Box } from "@mui/material";
-import { User } from "@prisma/client";
-import { useRouter, useSearchParams } from "next/navigation";
 
 type UserReflectionListPageProps = {
   currentUsername: User["username"];

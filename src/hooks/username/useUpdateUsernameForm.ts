@@ -1,8 +1,8 @@
-import usernameAPI from "@/src/api/username-api";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import usernameAPI from "@/src/api/username-api";
 
 const updateUsernameSchema = z.object({
   username: z

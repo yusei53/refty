@@ -1,8 +1,8 @@
 "use client";
-import { theme } from "@/src/utils/theme";
-import { Box } from "@mui/material";
 import { useSession } from "next-auth/react";
+import { Box } from "@mui/material";
 import { MobileFooterButton } from "./MobileFooterButton";
+import { theme } from "@/src/utils/theme";
 
 export const MobileFooter = () => {
   const { data: session } = useSession();

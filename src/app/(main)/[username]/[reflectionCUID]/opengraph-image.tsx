@@ -1,5 +1,5 @@
-import opengraphAPI from "@/src/api/opengraph-api";
 import { ImageResponse } from "next/og";
+import opengraphAPI from "@/src/api/opengraph-api";
 
 export const size = {
   width: 1200,

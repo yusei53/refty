@@ -1,13 +1,13 @@
-import {
+import { useCallback } from "react";
+import { Tooltip } from "react-tooltip";
+import type {
   ReflectionPerDate,
   ReflectionsCount
 } from "@/src/api/reflections-count-api";
+import type { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
+import CalendarArea from "./CalendarArea";
 import { getColor } from "@/src/utils/calendar/get-color";
 import { getOneYearAgo } from "@/src/utils/date-helper/date-helpers";
-import { useCallback } from "react";
-import { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
-import { Tooltip } from "react-tooltip";
-import CalendarArea from "./CalendarArea";
 
 type CalendarAreaFetcherProps = {
   reflectionCount: ReflectionsCount;
