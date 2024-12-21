@@ -6,11 +6,8 @@ import opengraphAPI from "@/src/api/opengraph-api";
 import dynamic from "next/dynamic";
 import { Loading } from "@/src/components/shared/loading";
 
-const ReflectionDetail = dynamic(
-  () =>
-    import("@/src/components/reflection-detail").then(
-      (mod) => mod.ReflectionDetail
-    ),
+const ReflectionDetailPage = dynamic(
+  () => import("./page.client").then((mod) => mod.default),
   {
     loading: () => <Loading />,
   }
@@ -74,7 +71,7 @@ const page = async ({ params }: PageProps) => {
   }
 
   return (
-    <ReflectionDetail
+    <ReflectionDetailPage
       title={reflection.title}
       userImage={reflection.user.image}
       username={reflection.user.username}
