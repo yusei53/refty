@@ -1,0 +1,1 @@
+export { StyledMarkdown } from "./StyledMarkdown";
