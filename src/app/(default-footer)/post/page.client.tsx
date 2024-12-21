@@ -1,6 +1,6 @@
 "use client";
 import { useCreateReflectionForm } from "@/src/hooks/reflection/useCreateReflectionForm";
-import ReflectionPostForm from "@/src/components/form/ReflectionPostForm";
+import ReflectionPostForm from "@/src/components/post-form/ReflectionPostForm";
 
 type ReflectionPostFormPageProps = {
   username: string;
