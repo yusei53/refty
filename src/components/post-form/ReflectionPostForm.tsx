@@ -1,8 +1,5 @@
 import { Box, Stack } from "@mui/material";
 import { Controller, Control, FieldErrors } from "react-hook-form";
-import { CustomInput } from "../shared/input";
-import { Button } from "../shared/button";
-import { ErrorMessage } from "../shared/alert";
 import { MarkdownEditor, MarkdownEditorRef } from "./markdown-editor";
 import { useRef, useState } from "react";
 import EmojiPicker from "./EmojiPicker";
@@ -12,6 +9,9 @@ import {
   ReflectionTemplatePopupAreaContainer,
 } from "./popup/reflection-template";
 import { PublishSettingPopupAreaContainer } from "./popup/publish-setting";
+import { Button } from "../ui/shared/button";
+import { CustomInput } from "../ui/shared/input";
+import { ErrorMessage } from "../ui/shared/alert";
 
 type FormValues = {
   title: string;

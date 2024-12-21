@@ -4,9 +4,12 @@ import ReflectionCardWithUser from "./ReflectionCardWithUser";
 import { Box, Container } from "@mui/material";
 import { User } from "@prisma/client";
 import { ChangeEvent } from "react";
-import { animation } from "../../shared/animation";
 import { ReflectionAllHeader } from "../header";
-import { ArrowPagination, NumberedPagination } from "../../shared/pagination";
+import {
+  ArrowPagination,
+  NumberedPagination,
+} from "../../ui/shared/pagination";
+import { animation } from "../../ui/shared/animation";
 
 type ReflectionAllAreaProps = {
   currentUsername: User["username"];

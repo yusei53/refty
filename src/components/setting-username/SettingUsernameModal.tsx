@@ -1,11 +1,10 @@
-import { Modal, Box, Typography, IconButton } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import { Modal, Box, Typography } from "@mui/material";
 import Image from "next/image";
 import { Control, Controller, FieldErrors } from "react-hook-form";
-import { CustomInput } from "../shared/input";
 import { theme } from "@/src/utils/theme";
-import { Button } from "../shared/button";
-import { ErrorMessage } from "../shared/alert";
+import { CustomInput } from "../ui/shared/input";
+import { ErrorMessage } from "../ui/shared/alert";
+import { Button } from "../ui/shared/button";
 
 type FormValues = {
   username: string;

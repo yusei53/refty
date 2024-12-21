@@ -1,7 +1,7 @@
 "use client";
 import { theme } from "@/src/utils/theme";
 import { Box, Typography, useMediaQuery } from "@mui/material";
-import { Button } from "../../shared/button";
+import { Button } from "../../ui/shared/button";
 
 const FirstView = () => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
