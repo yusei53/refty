@@ -6,7 +6,11 @@
     "sourceType": "module"
   },
   "plugins": ["import", "@typescript-eslint"],
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "rules": {
     "import/order": [
       "error",
@@ -25,11 +29,6 @@
             "pattern": "@mui/**",
             "group": "external",
             "position": "before"
-          },
-          {
-            "pattern": "react",
-            "group": "before",
-            "position": "after"
           },
           {
             "pattern": "next",
