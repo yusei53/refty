@@ -1,10 +1,11 @@
-import { ErrorCode, Result } from "./types/result";
+import type { ErrorCode, Result } from "./types/result";
 
 type FetchMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 
 export type FetchURLOptions = {
   method: FetchMethod;
   cache?: RequestCache;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   body?: any;
   headers?: HeadersInit;
   next?: {
@@ -23,9 +24,9 @@ export async function fetchURL<T, E extends ErrorCode>(
     const response = await fetch(`${defaultURL}${path}`, {
       ...options,
       headers: {
-        ...options.headers
+        ...options.headers,
       },
-      body: options.body ? JSON.stringify(options.body) : undefined
+      body: options.body ? JSON.stringify(options.body) : undefined,
     });
 
     if (!response.ok) {
