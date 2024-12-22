@@ -63,6 +63,11 @@ const page = async ({ params }: PageProps) => {
       content={reflection.content}
       charStamp={reflection.charStamp}
       isPublic={reflection.isPublic}
+      isDailyReflection={reflection.isDailyReflection}
+      isLearning={reflection.isLearning}
+      isAwareness={reflection.isAwareness}
+      isInputLog={reflection.isInputLog}
+      isMonologue={reflection.isMonologue}
     />
   );
 };
