@@ -1,4 +1,4 @@
-import type { ButtonProps} from "@mui/material";
+import type { ButtonProps } from "@mui/material";
 import { Button as MuiButton } from "@mui/material";
 
 type CustomButtonProps = {
@@ -16,7 +16,7 @@ export const Button: React.FC<CustomButtonProps> = ({
       color: "black",
       border: "1px solid #DCDFE3",
       borderRadius: 10,
-      p: "8px 16px",
+      p: { xs: "5px 14px", sm: "8px 16px" },
       ...sx
     }}
     {...props}
