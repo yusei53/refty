@@ -5,7 +5,7 @@ type TagButtonProps = {
   onClick: () => void;
 };
 
-export const label = {
+const label = {
   fontSize: 13.8,
   letterSpacing: 0.8,
   p: "4px 7px",
