@@ -1,4 +1,5 @@
 import { Button } from "@/src/components/ui/shared/button";
+import { theme } from "@/src/utils/theme";
 
 type TagButtonProps = {
   tag: string;
@@ -26,8 +27,7 @@ export const TagButton: React.FC<TagButtonProps> = ({
       sx={{
         ...label,
         ...(selected && {
-          borderColor: "#007bff",
-          backgroundColor: "#e0f7fa"
+          backgroundColor: `${theme.palette.primary.main}`
         })
       }}
     >
