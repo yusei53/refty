@@ -1,51 +1,32 @@
-import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import TagIcon from "@mui/icons-material/Tag";
 import { Box, Fade, Popper, Typography } from "@mui/material";
-import { TagButton } from "./button/TagButton";
+import { label, TagButton } from "./button/TagButton";
 import { Button } from "@/src/components/ui/shared/button";
 import { theme } from "@/src/utils/theme";
 
 type TagSelectionPopupProps = {
-  onTagChange: (tag: string, isSelected: boolean) => void;
   open: boolean;
   anchorEl: HTMLElement | null;
-  onToggle: (event: React.MouseEvent<HTMLElement>) => void;
+  activeTags: string[];
+  onPopupOpen: (event: React.MouseEvent<HTMLElement>) => void;
+  onToggleTag: (tag: string) => void;
 };
 
 const TAGS = ["振り返り", "学び", "気づき", "ひとりごと", "インプットの記録"];
 
 export const SelectTagPopup: React.FC<TagSelectionPopupProps> = ({
-  onTagChange,
   open,
   anchorEl,
-  onToggle
+  activeTags,
+  onPopupOpen,
+  onToggleTag
 }) => {
-  const [activeTags, setActiveTags] = useState<string[]>([]);
-
-  const toggleTag = (tag: string) => {
-    const isSelected = activeTags.includes(tag);
-
-    // タグの状態を更新（最大2つに制限）
-    const updatedTags = isSelected
-      ? activeTags.filter((t) => t !== tag) // 選択解除
-      : activeTags.length < 2
-        ? [...activeTags, tag] // 新しいタグを追加
-        : activeTags;
-
-    if (updatedTags.length !== activeTags.length) {
-      setActiveTags(updatedTags);
-
-      // タグ状態変更を親に通知
-      onTagChange(tag, !isSelected);
-    }
-  };
-
   return (
     <>
       <Box display={"flex"} alignItems={"center"}>
         <Button
-          onClick={onToggle}
+          onClick={onPopupOpen}
           sx={{
             mr: 0.5,
             bgcolor: theme.palette.primary.main,
@@ -61,17 +42,10 @@ export const SelectTagPopup: React.FC<TagSelectionPopupProps> = ({
         {activeTags.map((tag) => (
           <Box key={tag} display={"flex"} mx={0.4} zIndex={3}>
             <Box
-              display="flex"
-              alignItems="center"
-              sx={{
-                fontSize: 13.8,
-                letterSpacing: 0.8,
-                height: "30px",
-                p: "4px 7px",
-                borderRadius: 2,
-                border: "1px solid #DCDFE3",
-                backgroundColor: "white"
-              }}
+              display={"flex"}
+              alignItems={"center"}
+              height={"30px"}
+              sx={label}
             >
               {tag}
               <CloseIcon
@@ -83,7 +57,7 @@ export const SelectTagPopup: React.FC<TagSelectionPopupProps> = ({
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
-                  toggleTag(tag);
+                  onToggleTag(tag);
                 }}
               />
             </Box>
@@ -119,8 +93,8 @@ export const SelectTagPopup: React.FC<TagSelectionPopupProps> = ({
                   <TagButton
                     key={tag}
                     tag={tag}
-                    onClick={() => toggleTag(tag)}
-                    selected={activeTags.includes(tag)} // 選択状態を反映
+                    onClick={() => onToggleTag(tag)}
+                    selected={activeTags.includes(tag)}
                   />
                 ))}
               </Box>
