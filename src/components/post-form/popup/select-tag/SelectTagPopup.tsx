@@ -69,13 +69,21 @@ export const SelectTagPopup: React.FC<TagSelectionPopupProps> = ({
         anchorEl={anchorEl}
         transition
         placement={"bottom-start"}
+        modifiers={[
+          {
+            name: "offset",
+            options: {
+              offset: [0, 5]
+            }
+          }
+        ]}
         style={{ zIndex: 2 }}
       >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
             <Box
               p={1}
-              maxWidth="280px"
+              maxWidth="250px"
               bgcolor="#f8fbff"
               border={`1px solid ${theme.palette.grey[400]}`}
               borderRadius={4}
