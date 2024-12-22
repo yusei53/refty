@@ -125,13 +125,23 @@ export const reflectionAPI = {
     title,
     content,
     charStamp,
-    isPublic
+    isPublic,
+    isDailyReflection,
+    isLearning,
+    isAwareness,
+    isInputLog,
+    isMonologue
   }: {
     reflectionCUID: string;
     title: string;
     content: string;
     charStamp: string;
     isPublic: boolean;
+    isDailyReflection: boolean;
+    isLearning: boolean;
+    isAwareness: boolean;
+    isInputLog: boolean;
+    isMonologue: boolean;
   }): Promise<Result<void, 400 | 401 | 403>> {
     const path = `/api/reflection/detail/${reflectionCUID}`;
     const options: FetchURLOptions = {
@@ -140,7 +150,12 @@ export const reflectionAPI = {
         title,
         content,
         charStamp,
-        isPublic
+        isPublic,
+        isDailyReflection,
+        isLearning,
+        isAwareness,
+        isInputLog,
+        isMonologue
       },
       headers: {
         "Content-Type": "application/json"
