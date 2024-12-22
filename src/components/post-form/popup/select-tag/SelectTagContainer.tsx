@@ -3,13 +3,14 @@ import { Box } from "@mui/material";
 import { SelectTagPopup } from "./SelectTagPopup";
 
 type SelectTagPopupContainerProps = {
+  value: string[];
   onTagChange: (tag: string, isSelected: boolean) => void;
 };
 
 export const SelectTagPopupContainer: React.FC<
   SelectTagPopupContainerProps
-> = ({ onTagChange }) => {
-  const [activeTags, setActiveTags] = useState<string[]>([]);
+> = ({ value, onTagChange }) => {
+  const [activeTags, setActiveTags] = useState<string[]>(value);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
