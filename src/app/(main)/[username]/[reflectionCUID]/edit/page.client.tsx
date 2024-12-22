@@ -9,6 +9,11 @@ type ReflectionUpdateFormPageProps = {
   content: string;
   charStamp: string;
   isPublic: boolean;
+  isDailyReflection: boolean;
+  isLearning: boolean;
+  isAwareness: boolean;
+  isInputLog: boolean;
+  isMonologue: boolean;
 };
 
 const ReflectionUpdateFormPage: React.FC<ReflectionUpdateFormPageProps> = ({
@@ -17,7 +22,12 @@ const ReflectionUpdateFormPage: React.FC<ReflectionUpdateFormPageProps> = ({
   title,
   content,
   charStamp,
-  isPublic
+  isPublic,
+  isDailyReflection,
+  isLearning,
+  isAwareness,
+  isInputLog,
+  isMonologue
 }) => {
   const {
     control,
@@ -26,14 +36,20 @@ const ReflectionUpdateFormPage: React.FC<ReflectionUpdateFormPageProps> = ({
     errors,
     onSubmit,
     selectedEmoji,
-    handleEmojiChange
+    handleEmojiChange,
+    handleTagChange
   } = useUpdateReflectionForm({
     reflectionCUID,
     username,
     title,
     content,
     charStamp,
-    isPublic
+    isPublic,
+    isDailyReflection,
+    isLearning,
+    isAwareness,
+    isInputLog,
+    isMonologue
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -50,6 +66,12 @@ const ReflectionUpdateFormPage: React.FC<ReflectionUpdateFormPageProps> = ({
       onSubmit={handleSubmit}
       selectedEmoji={selectedEmoji}
       onEmojiChange={handleEmojiChange}
+      onTagChange={handleTagChange}
+      isDailyReflection={isDailyReflection}
+      isLearning={isLearning}
+      isAwareness={isAwareness}
+      isInputLog={isInputLog}
+      isMonologue={isMonologue}
     />
   );
 };

@@ -16,7 +16,8 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
     errors,
     onSubmit,
     selectedEmoji,
-    handleEmojiChange
+    handleEmojiChange,
+    handleTagChange
   } = useCreateReflectionForm(username);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -33,6 +34,7 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
       onSubmit={handleSubmit}
       selectedEmoji={selectedEmoji}
       onEmojiChange={handleEmojiChange}
+      onTagChange={handleTagChange}
     />
   );
 };
