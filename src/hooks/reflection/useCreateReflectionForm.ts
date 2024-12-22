@@ -14,7 +14,12 @@ export const createReflectionSchema = z.object({
     .string()
     .min(1, { message: "本文は1文字以上で入力してください。" }),
   charStamp: z.string(),
-  isPublic: z.boolean()
+  isPublic: z.boolean(),
+  isDailyReflection: z.boolean().default(false),
+  isLearning: z.boolean().default(false),
+  isAwareness: z.boolean().default(false),
+  isInputLog: z.boolean().default(false),
+  isMonologue: z.boolean().default(false)
 });
 
 export type CreateReflectionSchemaType = z.infer<typeof createReflectionSchema>;
@@ -34,7 +39,12 @@ export const useCreateReflectionForm = (username: string | undefined) => {
       title: "",
       content: "",
       charStamp: selectedEmoji,
-      isPublic: true
+      isPublic: true,
+      isDailyReflection: false,
+      isLearning: false,
+      isAwareness: false,
+      isInputLog: false,
+      isMonologue: false
     }
   });
 
@@ -42,9 +52,29 @@ export const useCreateReflectionForm = (username: string | undefined) => {
     setSelectedEmoji(emoji);
     setValue("charStamp", emoji);
   };
+  const handleTagChange = (tag: string, isSelected: boolean) => {
+    switch (tag) {
+      case "振り返り":
+        setValue("isDailyReflection", isSelected);
+        break;
+      case "学び":
+        setValue("isLearning", isSelected);
+        break;
+      case "気づき":
+        setValue("isAwareness", isSelected);
+        break;
+      case "インプットの記録":
+        setValue("isInputLog", isSelected);
+        break;
+      case "ひとりごと":
+        setValue("isMonologue", isSelected);
+        break;
+    }
+  };
 
   const onSubmit = handleSubmit(
     async (formData: CreateReflectionSchemaType) => {
+      console.log("Form data:", formData);
       const res = await reflectionAPI.createReflection(formData);
       if (res === 401) {
         router.push(`/login`);
@@ -75,6 +105,7 @@ export const useCreateReflectionForm = (username: string | undefined) => {
     errors,
     onSubmit,
     selectedEmoji,
-    handleEmojiChange
+    handleEmojiChange,
+    handleTagChange
   };
 };
