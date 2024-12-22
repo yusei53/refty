@@ -58,7 +58,6 @@ export const useCreateReflectionForm = (username: string | undefined) => {
 
   const onSubmit = handleSubmit(
     async (formData: CreateReflectionSchemaType) => {
-      console.log("Form data:", formData);
       const res = await reflectionAPI.createReflection(formData);
       if (res === 401) {
         router.push(`/login`);
