@@ -65,7 +65,17 @@ export async function PATCH(
   { params }: { params: { reflectionCUID: string } }
 ) {
   try {
-    const { title, content, charStamp, isPublic } = await req.json();
+    const {
+      title,
+      content,
+      charStamp,
+      isPublic,
+      isDailyReflection,
+      isLearning,
+      isAwareness,
+      isInputLog,
+      isMonologue
+    } = await req.json();
     const { reflectionCUID } = params;
 
     if (!reflectionCUID) {
@@ -102,7 +112,12 @@ export async function PATCH(
         title,
         content,
         charStamp,
-        isPublic
+        isPublic,
+        isDailyReflection,
+        isLearning,
+        isAwareness,
+        isInputLog,
+        isMonologue
       }
     });
 
