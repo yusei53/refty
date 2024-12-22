@@ -1,5 +1,5 @@
 import { revalidateTag } from "next/cache";
-import type { NextRequest} from "next/server";
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import prisma from "@/src/lib/prisma";
 import getCurrentUser from "@/src/utils/actions/get-current-user";
@@ -20,6 +20,11 @@ export async function GET(
         content: true,
         charStamp: true,
         isPublic: true,
+        isDailyReflection: true,
+        isLearning: true,
+        isAwareness: true,
+        isInputLog: true,
+        isMonologue: true,
         createdAt: true,
         userId: true,
         user: {
