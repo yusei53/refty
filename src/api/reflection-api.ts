@@ -7,8 +7,13 @@ export type Reflection = {
   title: string;
   charStamp: string;
   isPublic: boolean;
-  createdAt: string;
   isPinned: boolean;
+  isDailyReflection: boolean;
+  isLearning: boolean;
+  isAwareness: boolean;
+  isInputLog: boolean;
+  isMonologue: boolean;
+  createdAt: string;
 };
 
 export type ReflectionWithUser = Reflection & {

@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material";
 import { StyledMarkdown } from "./mark-down";
 import { formatDate } from "@/src/utils/date-helper";
 import { theme } from "@/src/utils/theme";
+import { label } from "../../post-form/popup/select-tag/button/TagButton";
 
 type ReflectionArticleProps = {
   username: string;
@@ -11,6 +12,7 @@ type ReflectionArticleProps = {
   createdAt: string;
   title: string;
   content: string;
+  activeTags: string[];
 };
 
 // TODO: 内製Linkコンポーネント作ってもいいかも
@@ -27,8 +29,7 @@ const h1 = {
   width: "100%",
   fontSize: "21px",
   border: "none",
-  outline: "none",
-  marginBottom: 8
+  outline: "none"
 };
 
 export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
@@ -36,7 +37,8 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
   userImage,
   createdAt,
   title,
-  content
+  content,
+  activeTags
 }) => {
   return (
     <Box component={"article"}>
@@ -74,7 +76,18 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
       <Typography component={"h1"} sx={h1}>
         {title}
       </Typography>
-      <StyledMarkdown dangerouslySetInnerHTML={{ __html: content }} />
+      {activeTags.length > 0 && (
+        <Box display={"flex"} gap={1} mt={2}>
+          {activeTags.map((tag) => (
+            <Typography key={tag} sx={label}>
+              {tag}
+            </Typography>
+          ))}
+        </Box>
+      )}
+      <Box mt={8}>
+        <StyledMarkdown dangerouslySetInnerHTML={{ __html: content }} />
+      </Box>
     </Box>
   );
 };

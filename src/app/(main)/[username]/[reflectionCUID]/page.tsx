@@ -76,6 +76,11 @@ const page = async ({ params }: PageProps) => {
       userImage={reflection.user.image}
       username={reflection.user.username}
       content={reflection.content}
+      isDailyReflection={reflection.isDailyReflection}
+      isLearning={reflection.isLearning}
+      isAwareness={reflection.isAwareness}
+      isInputLog={reflection.isInputLog}
+      isMonologue={reflection.isMonologue}
       createdAt={reflection.createdAt}
       reflectionCount={reflection.reflectionCount}
     />
