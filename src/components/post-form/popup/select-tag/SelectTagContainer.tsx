@@ -1,18 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box } from "@mui/material";
 import { SelectTagPopup } from "./SelectTagPopup";
 
 type SelectTagPopupContainerProps = {
-  onTagChange: (tag: string, isSelected: boolean) => void; // 修正: タグ状態変更関数を受け取る
+  onTagChange: (tag: string, isSelected: boolean) => void;
 };
 
 export const SelectTagPopupContainer: React.FC<
   SelectTagPopupContainerProps
 > = ({ onTagChange }) => {
-  const [isPopupOpen, setIsPopupOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+  const [activeTags, setActiveTags] = useState<string[]>([]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-  const handleToggle = (event: React.MouseEvent<HTMLElement>) => {
+  const handlePopupOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
     setIsPopupOpen((prev) => !prev);
   };
@@ -20,6 +21,23 @@ export const SelectTagPopupContainer: React.FC<
   const handleClose = () => {
     setAnchorEl(null);
     setIsPopupOpen(false);
+  };
+
+  const handleToggleTag = (tag: string) => {
+    const isSelected = activeTags.includes(tag);
+
+    // NOTE: 2つまで選択できる制限と、すでに選択されているタグを選択した場合は削除する
+    const updatedTags = isSelected
+      ? activeTags.filter((t) => t !== tag)
+      : activeTags.length < 2
+        ? [...activeTags, tag]
+        : activeTags;
+
+    // NOTE: タグが既に2つ選択されている場合は何もしない
+    if (updatedTags.length !== activeTags.length) {
+      setActiveTags(updatedTags);
+      onTagChange(tag, !isSelected);
+    }
   };
 
   return (
@@ -36,10 +54,11 @@ export const SelectTagPopupContainer: React.FC<
         />
       )}
       <SelectTagPopup
-        onTagChange={onTagChange} // 修正: タグ状態変更関数を渡す
         open={isPopupOpen}
         anchorEl={anchorEl}
-        onToggle={handleToggle}
+        activeTags={activeTags}
+        onPopupOpen={handlePopupOpen}
+        onToggleTag={handleToggleTag}
       />
     </Box>
   );
