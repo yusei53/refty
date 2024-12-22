@@ -37,7 +37,7 @@ type ReflectionPostFormProps = {
   onSubmit: (event: React.FormEvent) => Promise<void>;
   selectedEmoji: string;
   onEmojiChange: (emoji: string) => void;
-  onTagChange: (tag: string, isSelected: boolean) => void; // 修正: 個別タグの状態を変更する関数
+  onTagChange: (tag: string, isSelected: boolean) => void;
 };
 
 // TODO: UIとロジックが微妙に混在気味なのでコンポーネント分割を検討
@@ -121,8 +121,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
         </Box>
         {isSmallScreen && (
           <Box px={1.5} py={0.8} boxShadow={"0px 0.7px 1px rgba(0, 0, 0, 0.1)"}>
-            <SelectTagPopupContainer onTagChange={onTagChange} />{" "}
-            {/* 修正: タグ変更関数を渡す */}
+            <SelectTagPopupContainer onTagChange={onTagChange} />
           </Box>
         )}
       </Box>

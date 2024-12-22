@@ -34,7 +34,7 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
       onSubmit={handleSubmit}
       selectedEmoji={selectedEmoji}
       onEmojiChange={handleEmojiChange}
-      onTagChange={handleTagChange} // 修正: タグ選択の変更関数を渡す
+      onTagChange={handleTagChange}
     />
   );
 };
