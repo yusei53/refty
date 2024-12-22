@@ -1,5 +1,5 @@
 import { revalidateTag } from "next/cache";
-import type { NextRequest} from "next/server";
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import prisma from "@/src/lib/prisma";
 import getCurrentUser from "@/src/utils/actions/get-current-user";
@@ -56,7 +56,17 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const { title, content, charStamp, isPublic } = await req.json();
+    const {
+      title,
+      content,
+      charStamp,
+      isPublic,
+      isDailyReflection,
+      isLearning,
+      isAwareness,
+      isInputLog,
+      isMonologue
+    } = await req.json();
 
     const currentUser = await getCurrentUser();
 
@@ -72,6 +82,11 @@ export async function POST(req: NextRequest) {
         content,
         charStamp,
         isPublic,
+        isDailyReflection,
+        isLearning,
+        isAwareness,
+        isInputLog,
+        isMonologue,
         createdAt: jstDate,
         userId: currentUser.id
       }
