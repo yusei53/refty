@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { reflectionAPI } from "@/src/api/reflection-api";
+import { useTagHandler } from "../reflection-tag/useTagHandler";
 
 export const createReflectionSchema = z.object({
   title: z
@@ -52,25 +53,8 @@ export const useCreateReflectionForm = (username: string | undefined) => {
     setSelectedEmoji(emoji);
     setValue("charStamp", emoji);
   };
-  const handleTagChange = (tag: string, isSelected: boolean) => {
-    switch (tag) {
-      case "振り返り":
-        setValue("isDailyReflection", isSelected);
-        break;
-      case "学び":
-        setValue("isLearning", isSelected);
-        break;
-      case "気づき":
-        setValue("isAwareness", isSelected);
-        break;
-      case "インプットの記録":
-        setValue("isInputLog", isSelected);
-        break;
-      case "ひとりごと":
-        setValue("isMonologue", isSelected);
-        break;
-    }
-  };
+
+  const { handleTagChange } = useTagHandler({ setValue });
 
   const onSubmit = handleSubmit(
     async (formData: CreateReflectionSchemaType) => {
