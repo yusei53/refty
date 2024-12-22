@@ -16,7 +16,7 @@ type TagSelectionPopupProps = {
 const tags = ["学び", "気づき", "ひとりごと", "振り返り", "インプットの記録"];
 
 const label = {
-  fontSize: 13.5,
+  fontSize: 13.8,
   letterSpacing: 0.8,
   height: "30px",
   p: "4px 7px",
@@ -50,38 +50,38 @@ export const SelectTagPopup: React.FC<TagSelectionPopupProps> = ({
         <Button
           onClick={onToggle}
           sx={{
-            border: "none",
+            mr: 0.5,
             bgcolor: `${theme.palette.primary.main}`,
+            border: "#ededed solid 1px", // TODO: このカラーコードはthemeから取得する
             borderRadius: 2,
-            height: "30px"
+            height: "30px",
+            p: 0
           }}
         >
-          <TagIcon sx={{ color: `${theme.palette.grey[500]}`, fontSize: 18 }} />
+          <TagIcon
+            sx={{
+              color: `${theme.palette.grey[500]}`,
+              fontSize: 18
+            }}
+          />
           タグ
         </Button>
         {selectedTags.map((tag) => (
-          <Box key={tag} display={"flex"} gap={0.5} mx={0.5} zIndex={3}>
+          <Box key={tag} display={"flex"} mx={0.4} zIndex={3}>
             <Box display={"flex"} alignItems={"center"} sx={label}>
               {tag}
-              <Box
-                component={"button"}
-                bgcolor={"transparent"}
-                border={"none"}
-                p={0}
-                display={"flex"}
-                alignItems={"center"}
+              <CloseIcon
                 sx={{
+                  color: `${theme.palette.grey[500]}`,
+                  fontSize: 15,
+                  ml: 0.5,
                   cursor: "pointer"
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
                   onChange((prevTags) => prevTags.filter((t) => t !== tag));
                 }}
-              >
-                <CloseIcon
-                  sx={{ color: `${theme.palette.grey[500]}`, fontSize: 15 }}
-                />
-              </Box>
+              />
             </Box>
           </Box>
         ))}

@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Controller } from "react-hook-form";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, useMediaQuery } from "@mui/material";
 import type { MarkdownEditorRef } from "./markdown-editor";
 import type { Control, FieldErrors } from "react-hook-form";
 import { ErrorMessage } from "../ui/shared/alert";
@@ -15,6 +15,7 @@ import {
   ReflectionTemplatePopupAreaContainer
 } from "./popup/reflection-template";
 import { SelectTagPopupContainer } from "./popup/select-tag/SelectTagContainer";
+import { theme } from "@/src/utils/theme";
 
 type FormValues = {
   title: string;
@@ -45,6 +46,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
 }) => {
   const [isComposing, setIsComposing] = useState(false);
   const editorRef = useRef<MarkdownEditorRef>(null);
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleEnter = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
@@ -110,14 +112,11 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
             {isSubmitting || isSubmitSuccessful ? "投稿中..." : "投稿する"}
           </Button>
         </Box>
-        <Box
-          display={"flex"}
-          px={{ xs: 1.5, md: 0 }}
-          py={{ xs: 0.8, md: 0 }}
-          boxShadow={{ xs: "0px 0.7px 1px rgba(0, 0, 0, 0.1)", md: "none" }}
-        >
-          <SelectTagPopupContainer />
-        </Box>
+        {isSmallScreen && (
+          <Box px={1.5} py={0.8} boxShadow={"0px 0.7px 1px rgba(0, 0, 0, 0.1)"}>
+            <SelectTagPopupContainer />
+          </Box>
+        )}
       </Box>
       <Box my={{ xs: 14, md: 10 }} mx={{ xs: 0.5, md: 12 }}>
         <Stack gap={3} m={{ md: 2 }}>
@@ -141,6 +140,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
               </Box>
             )}
           />
+          {!isSmallScreen && <SelectTagPopupContainer />}
           <Controller
             name="content"
             control={control}
