@@ -37,8 +37,8 @@ model Reflection {
   isDailyReflection Boolean  @default(false)
   isLearning        Boolean  @default(false)
   isAwareness       Boolean  @default(false)
-  isInputLog        Boolean  @default(false)
   isMonologue       Boolean  @default(false)
+  isInputLog        Boolean  @default(false)
   createdAt         DateTime @default(now())
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
