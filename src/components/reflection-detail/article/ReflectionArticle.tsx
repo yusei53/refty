@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Box, Typography } from "@mui/material";
+import { label } from "../../post-form/popup/select-tag/button/TagButton";
 import { StyledMarkdown } from "./mark-down";
 import { formatDate } from "@/src/utils/date-helper";
 import { theme } from "@/src/utils/theme";
-import { label } from "../../post-form/popup/select-tag/button/TagButton";
 
 type ReflectionArticleProps = {
   username: string;
