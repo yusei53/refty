@@ -15,6 +15,7 @@ import {
   ReflectionTemplatePopupAreaContainer
 } from "./popup/reflection-template";
 import { SelectTagPopupContainer } from "./popup/select-tag/SelectTagContainer";
+import { useExtractTrueTags } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { theme } from "@/src/utils/theme";
 
 type FormValues = {
@@ -38,9 +39,14 @@ type ReflectionPostFormProps = {
   selectedEmoji: string;
   onEmojiChange: (emoji: string) => void;
   onTagChange: (tag: string, isSelected: boolean) => void;
+  // NOTE: ここから下はUpdateReflectionFormでのみ使用
+  isDailyReflection?: boolean;
+  isLearning?: boolean;
+  isAwareness?: boolean;
+  isInputLog?: boolean;
+  isMonologue?: boolean;
 };
 
-// TODO: UIとロジックが微妙に混在気味なのでコンポーネント分割を検討
 const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   control,
   isSubmitting,
@@ -49,11 +55,24 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   onSubmit,
   selectedEmoji,
   onEmojiChange,
-  onTagChange
+  onTagChange,
+  isDailyReflection = false,
+  isLearning = false,
+  isAwareness = false,
+  isInputLog = false,
+  isMonologue = false
 }) => {
   const [isComposing, setIsComposing] = useState(false);
   const editorRef = useRef<MarkdownEditorRef>(null);
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  const activeTags = useExtractTrueTags({
+    isDailyReflection,
+    isLearning,
+    isAwareness,
+    isInputLog,
+    isMonologue
+  });
 
   const handleEnter = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
@@ -121,7 +140,10 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
         </Box>
         {isSmallScreen && (
           <Box px={1.5} py={0.8} boxShadow={"0px 0.7px 1px rgba(0, 0, 0, 0.1)"}>
-            <SelectTagPopupContainer onTagChange={onTagChange} />
+            <SelectTagPopupContainer
+              value={activeTags}
+              onTagChange={onTagChange}
+            />
           </Box>
         )}
       </Box>
@@ -148,7 +170,10 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
             )}
           />
           {!isSmallScreen && (
-            <SelectTagPopupContainer onTagChange={onTagChange} />
+            <SelectTagPopupContainer
+              value={activeTags}
+              onTagChange={onTagChange}
+            />
           )}
           <Controller
             name="content"
