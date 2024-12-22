@@ -2,21 +2,23 @@ import { useState } from "react";
 import { notFound, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import type {
-  CreateReflectionSchemaType
-} from "./useCreateReflectionForm";
-import {
-  createReflectionSchema
-} from "./useCreateReflectionForm";
+import type { CreateReflectionSchemaType } from "./useCreateReflectionForm";
+import { useTagHandler } from "../reflection-tag/useTagHandler";
+import { createReflectionSchema } from "./useCreateReflectionForm";
 import { reflectionAPI } from "@/src/api/reflection-api";
 
-type useUpdateReflectionFormProps = {
+export type useUpdateReflectionFormProps = {
   reflectionCUID: string;
   username: string;
   title: string;
   content: string;
   charStamp: string;
   isPublic: boolean;
+  isDailyReflection: boolean;
+  isLearning: boolean;
+  isAwareness: boolean;
+  isInputLog: boolean;
+  isMonologue: boolean;
 };
 
 export const useUpdateReflectionForm = ({
@@ -25,7 +27,12 @@ export const useUpdateReflectionForm = ({
   title,
   content,
   charStamp,
-  isPublic
+  isPublic,
+  isDailyReflection,
+  isLearning,
+  isAwareness,
+  isInputLog,
+  isMonologue
 }: useUpdateReflectionFormProps) => {
   const router = useRouter();
   const [selectedEmoji, setSelectedEmoji] = useState(charStamp);
@@ -41,7 +48,12 @@ export const useUpdateReflectionForm = ({
       title: title,
       content: content,
       charStamp: charStamp,
-      isPublic: isPublic
+      isPublic: isPublic,
+      isDailyReflection: isDailyReflection,
+      isLearning: isLearning,
+      isAwareness: isAwareness,
+      isInputLog: isInputLog,
+      isMonologue: isMonologue
     }
   });
 
@@ -50,6 +62,8 @@ export const useUpdateReflectionForm = ({
     setValue("charStamp", emoji);
   };
 
+  const { handleTagChange } = useTagHandler({ setValue });
+
   const onSubmit = handleSubmit(
     async (formData: CreateReflectionSchemaType) => {
       const res = await reflectionAPI.updateReflection({
@@ -57,7 +71,12 @@ export const useUpdateReflectionForm = ({
         title: formData.title,
         content: formData.content,
         charStamp: formData.charStamp,
-        isPublic: formData.isPublic
+        isPublic: formData.isPublic,
+        isDailyReflection: formData.isDailyReflection,
+        isLearning: formData.isLearning,
+        isAwareness: formData.isAwareness,
+        isInputLog: formData.isInputLog,
+        isMonologue: formData.isMonologue
       });
 
       if (res === 401) {
@@ -77,6 +96,7 @@ export const useUpdateReflectionForm = ({
     errors,
     onSubmit,
     selectedEmoji,
-    handleEmojiChange
+    handleEmojiChange,
+    handleTagChange
   };
 };
