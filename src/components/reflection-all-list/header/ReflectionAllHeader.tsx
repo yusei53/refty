@@ -13,11 +13,6 @@ export const ReflectionAllHeader: React.FC<ReflectionAllHeaderProps> = ({
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <>
-      {isSmallScreen && (
-        <Box display={"flex"} justifyContent={"flex-end"} mr={3} mb={2}>
-          <ToOtherPageButton currentUsername={currentUsername} />
-        </Box>
-      )}
       <Box
         display={"flex"}
         justifyContent={"space-between"}
