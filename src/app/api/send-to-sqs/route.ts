@@ -1,7 +1,6 @@
-// pages/api/send-to-sqs.ts
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextRequest} from "next/server";
+import { NextResponse } from "next/server";
 import { SQSClient, SendMessageCommand } from "@aws-sdk/client-sqs";
-import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
 

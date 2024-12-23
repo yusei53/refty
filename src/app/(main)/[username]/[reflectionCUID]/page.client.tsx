@@ -1,11 +1,11 @@
 "use client";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { Box } from "@mui/material";
+import { SendToSqsAPI } from "@/src/api/send-to-sqs-api";
 import { ReflectionArticle } from "@/src/components/reflection-detail/article";
 import { UserInformationSection } from "@/src/components/reflection-detail/user-information/UserInformationSection";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { animation } from "@/src/components/ui/shared/animation";
-import { SendToSqsAPI } from "@/src/api/send-to-sqs-api";
 
 type ReflectionDetailPageProps = {
   title: string;
@@ -26,9 +26,8 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
 }) => {
     const router = useRouter();
     const reflectionCUID = usePathname().split("/").pop();
+    const searchParams = useSearchParams();
     if(!reflectionCUID) return null;
-    console.log(reflectionCUID);
-  const searchParams = useSearchParams();
 
   const handleBackNavigation = () => {
     // MEMO: 投稿編集後のリダイレクトで来た場合と外部からきたときは/{username}に戻り、それ以外は一つ前のページに戻る
