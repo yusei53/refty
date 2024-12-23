@@ -8,6 +8,7 @@ const updateUsernameSchema = z.object({
   username: z
     .string()
     .min(4, { message: "4文字以上の英数字のみで入力してください。" })
+    .max(15, { message: "15文字以内の英数字のみで入力してください。" })
     .regex(/^[a-zA-Z0-9]+$/, {
       message: "英数字のみで入力してください。"
     })
