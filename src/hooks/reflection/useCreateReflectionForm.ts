@@ -10,7 +10,10 @@ export const createReflectionSchema = z.object({
   title: z
     .string()
     .min(1, { message: "タイトルは1文字以上で入力してください。" })
-    .max(40, { message: "タイトルは40文字以内で入力してください。" }),
+    .max(40, { message: "タイトルは40文字以内で入力してください。" })
+    .refine((value) => value.trim().length > 0, {
+      message: "空白のみのタイトルはできません。",
+    }),
   content: z
     .string()
     .min(1, { message: "本文は1文字以上で入力してください。" }),
