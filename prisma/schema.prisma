@@ -27,15 +27,20 @@ model User {
 }
 
 model Reflection {
-  reflectionCUID String   @id @default(cuid()) @db.VarChar(30)
-  userId         String
-  title          String
-  content        String
-  charStamp      String   
-  isPublic       Boolean  @default(false)
-  isPinned       Boolean  @default(false)
-  createdAt      DateTime @default(now())
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reflectionCUID    String   @id @default(cuid()) @db.VarChar(30)
+  userId            String
+  title             String
+  content           String
+  charStamp         String
+  isPublic          Boolean  @default(false)
+  isPinned          Boolean  @default(false)
+  isDailyReflection Boolean  @default(false)
+  isLearning        Boolean  @default(false)
+  isAwareness       Boolean  @default(false)
+  isMonologue       Boolean  @default(false)
+  isInputLog        Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Account {

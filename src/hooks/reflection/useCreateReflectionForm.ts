@@ -3,18 +3,27 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useTagHandler } from "../reflection-tag/useTagHandler";
 import { reflectionAPI } from "@/src/api/reflection-api";
 
 export const createReflectionSchema = z.object({
   title: z
     .string()
     .min(1, { message: "タイトルは1文字以上で入力してください。" })
-    .max(40, { message: "タイトルは40文字以内で入力してください。" }),
+    .max(40, { message: "タイトルは40文字以内で入力してください。" })
+    .refine((value) => value.trim().length > 0, {
+      message: "空白のみのタイトルはできません。",
+    }),
   content: z
     .string()
     .min(1, { message: "本文は1文字以上で入力してください。" }),
   charStamp: z.string(),
-  isPublic: z.boolean()
+  isPublic: z.boolean(),
+  isDailyReflection: z.boolean().default(false),
+  isLearning: z.boolean().default(false),
+  isAwareness: z.boolean().default(false),
+  isInputLog: z.boolean().default(false),
+  isMonologue: z.boolean().default(false)
 });
 
 export type CreateReflectionSchemaType = z.infer<typeof createReflectionSchema>;
@@ -34,7 +43,12 @@ export const useCreateReflectionForm = (username: string | undefined) => {
       title: "",
       content: "",
       charStamp: selectedEmoji,
-      isPublic: true
+      isPublic: true,
+      isDailyReflection: false,
+      isLearning: false,
+      isAwareness: false,
+      isInputLog: false,
+      isMonologue: false
     }
   });
 
@@ -42,6 +56,8 @@ export const useCreateReflectionForm = (username: string | undefined) => {
     setSelectedEmoji(emoji);
     setValue("charStamp", emoji);
   };
+
+  const { handleTagChange } = useTagHandler({ setValue });
 
   const onSubmit = handleSubmit(
     async (formData: CreateReflectionSchemaType) => {
@@ -75,6 +91,7 @@ export const useCreateReflectionForm = (username: string | undefined) => {
     errors,
     onSubmit,
     selectedEmoji,
-    handleEmojiChange
+    handleEmojiChange,
+    handleTagChange
   };
 };

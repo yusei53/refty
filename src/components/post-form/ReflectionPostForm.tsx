@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Controller } from "react-hook-form";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, useMediaQuery } from "@mui/material";
 import type { MarkdownEditorRef } from "./markdown-editor";
 import type { Control, FieldErrors } from "react-hook-form";
 import { ErrorMessage } from "../ui/shared/alert";
@@ -14,12 +14,20 @@ import {
   REFLECTION_TEMPLATES,
   ReflectionTemplatePopupAreaContainer
 } from "./popup/reflection-template";
+import { SelectTagPopupContainer } from "./popup/select-tag/SelectTagContainer";
+import { useExtractTrueTags } from "@/src/hooks/reflection-tag/useExtractTrueTags";
+import { theme } from "@/src/utils/theme";
 
 type FormValues = {
   title: string;
   content: string;
   charStamp: string;
   isPublic: boolean;
+  isDailyReflection: boolean;
+  isLearning: boolean;
+  isAwareness: boolean;
+  isInputLog: boolean;
+  isMonologue: boolean;
 };
 
 type ReflectionPostFormProps = {
@@ -30,9 +38,15 @@ type ReflectionPostFormProps = {
   onSubmit: (event: React.FormEvent) => Promise<void>;
   selectedEmoji: string;
   onEmojiChange: (emoji: string) => void;
+  onTagChange: (tag: string, isSelected: boolean) => void;
+  // NOTE: ここから下はUpdateReflectionFormでのみ使用
+  isDailyReflection?: boolean;
+  isLearning?: boolean;
+  isAwareness?: boolean;
+  isInputLog?: boolean;
+  isMonologue?: boolean;
 };
 
-// TODO: UIとロジックが微妙に混在気味なのでコンポーネント分割を検討
 const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   control,
   isSubmitting,
@@ -40,10 +54,25 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   errors,
   onSubmit,
   selectedEmoji,
-  onEmojiChange
+  onEmojiChange,
+  onTagChange,
+  isDailyReflection = false,
+  isLearning = false,
+  isAwareness = false,
+  isInputLog = false,
+  isMonologue = false
 }) => {
   const [isComposing, setIsComposing] = useState(false);
   const editorRef = useRef<MarkdownEditorRef>(null);
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  const activeTags = useExtractTrueTags({
+    isDailyReflection,
+    isLearning,
+    isAwareness,
+    isInputLog,
+    isMonologue
+  });
 
   const handleEnter = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
@@ -75,37 +104,48 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
     <Box component={"form"} onSubmit={onSubmit} minHeight={"80vh"}>
       <Box
         component={"header"}
-        display={"flex"}
-        justifyContent={"flex-end"}
         position={"fixed"}
         top={{ xs: 0, md: 25 }}
         right={{ xs: 0, md: 35 }}
         bgcolor={{ xs: "white", md: "transparent" }}
         width={{ xs: "100%", md: "auto" }}
-        px={{ xs: 1.5, md: 0 }}
-        py={{ xs: 1, md: 0 }}
         zIndex={1}
-        boxShadow={{ xs: "0px 1px 2.5px rgba(0, 0, 0, 0.1)", md: "none" }}
       >
-        <MarkdownSupportPopupAreaContainer />
-        <ReflectionTemplatePopupAreaContainer
-          onInsertTemplate={handleInsertTemplate}
-          onClearContent={handleClearContent}
-          reflectionTemplateType={REFLECTION_TEMPLATES}
-        />
-        <Controller
-          name="isPublic"
-          control={control}
-          render={({ field }) => (
-            <PublishSettingPopupAreaContainer
-              value={field.value}
-              onChange={field.onChange}
+        <Box
+          display={"flex"}
+          justifyContent={"flex-end"}
+          px={{ xs: 1.5, md: 0 }}
+          py={{ xs: 1, md: 0 }}
+          boxShadow={{ xs: "0px 0.7px 1px rgba(0, 0, 0, 0.1)", md: "none" }}
+        >
+          <MarkdownSupportPopupAreaContainer />
+          <ReflectionTemplatePopupAreaContainer
+            onInsertTemplate={handleInsertTemplate}
+            onClearContent={handleClearContent}
+            reflectionTemplateType={REFLECTION_TEMPLATES}
+          />
+          <Controller
+            name="isPublic"
+            control={control}
+            render={({ field }) => (
+              <PublishSettingPopupAreaContainer
+                value={field.value}
+                onChange={field.onChange}
+              />
+            )}
+          />
+          <Button type="submit" disabled={isSubmitting || isSubmitSuccessful}>
+            {isSubmitting || isSubmitSuccessful ? "投稿中..." : "投稿する"}
+          </Button>
+        </Box>
+        {isSmallScreen && (
+          <Box px={1.5} py={0.8} boxShadow={"0px 0.7px 1px rgba(0, 0, 0, 0.1)"}>
+            <SelectTagPopupContainer
+              value={activeTags}
+              onTagChange={onTagChange}
             />
-          )}
-        />
-        <Button type="submit" disabled={isSubmitting || isSubmitSuccessful}>
-          {isSubmitting || isSubmitSuccessful ? "投稿中..." : "投稿する"}
-        </Button>
+          </Box>
+        )}
       </Box>
       <Box my={{ xs: 14, md: 10 }} mx={{ xs: 0.5, md: 12 }}>
         <Stack gap={3} m={{ md: 2 }}>
@@ -129,6 +169,12 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
               </Box>
             )}
           />
+          {!isSmallScreen && (
+            <SelectTagPopupContainer
+              value={activeTags}
+              onTagChange={onTagChange}
+            />
+          )}
           <Controller
             name="content"
             control={control}

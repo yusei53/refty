@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Box, Typography } from "@mui/material";
+import { label } from "../../post-form/popup/select-tag/button/TagButton";
 import { StyledMarkdown } from "./mark-down";
 import { formatDate } from "@/src/utils/date-helper";
 import { theme } from "@/src/utils/theme";
@@ -12,6 +13,7 @@ type ReflectionArticleProps = {
   title: string;
   content: string;
   onSendToSQS: () => Promise<void>;
+  activeTags: string[];
 };
 
 // TODO: 内製Linkコンポーネント作ってもいいかも
@@ -28,8 +30,7 @@ const h1 = {
   width: "100%",
   fontSize: "21px",
   border: "none",
-  outline: "none",
-  marginBottom: 8
+  outline: "none"
 };
 
 export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
@@ -39,6 +40,7 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
   title,
   content,
   onSendToSQS,
+  activeTags
 }) => {
   const handleSendToSQS = async () => {
     onSendToSQS();
@@ -84,6 +86,18 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
 
       {/* 2. フィードバックボタンを設置 */}
       <button onClick={handleSendToSQS}>Send To SQS</button>
+      {activeTags.length > 0 && (
+        <Box display={"flex"} gap={1} mt={2}>
+          {activeTags.map((tag) => (
+            <Typography key={tag} sx={label}>
+              {tag}
+            </Typography>
+          ))}
+        </Box>
+      )}
+      <Box mt={8}>
+        <StyledMarkdown dangerouslySetInnerHTML={{ __html: content }} />
+      </Box>
     </Box>
   );
 };
