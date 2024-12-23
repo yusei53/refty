@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Box } from "@mui/material";
 import type { Reflection } from "@/src/api/reflection-api";
@@ -8,11 +9,13 @@ import ReflectionCardListArea from "@/src/components/reflection-list/card-list/R
 import { GoodJobModal } from "@/src/components/reflection-list/modal";
 import HaveNotPost from "@/src/components/reflection-list/no-post/HaveNotPost";
 import UserProfileArea from "@/src/components/reflection-list/profile/UserProfileArea";
+import { SearchBar } from "@/src/components/reflection-list/search-bar";
 import { PostNavigationButton } from "@/src/components/ui/shared/button";
 import {
   ArrowPagination,
   NumberedPagination
 } from "@/src/components/ui/shared/pagination";
+import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 
 type UserReflectionListPageProps = {
   currentUsername: User["username"];
@@ -33,8 +36,32 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   currentPage,
   totalPage
 }) => {
+  const [showTags, setShowTags] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
+
+  const handleToggleTags = () => setShowTags((prev) => !prev);
+
+  const handleTagClick = (tag: string) => {
+    const tagKey = Object.keys(tagMap).find(
+      (key) => tagMap[key as keyof typeof tagMap] === tag
+    );
+
+    if (tagKey) {
+      const currentTag = searchParams.get("tag");
+      const newTag = currentTag === tagKey ? null : tagKey;
+      const newParams = new URLSearchParams(searchParams.toString());
+
+      if (newTag) {
+        newParams.set("tag", newTag);
+      } else {
+        newParams.delete("tag");
+      }
+
+      router.push(`?${newParams.toString()}`);
+    }
+  };
+
   const isModalOpen = searchParams.get("status") === "posted";
 
   const handleCloseModal = () => {
@@ -55,7 +82,6 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     router.push(`?page=${value}`);
   };
 
-  // TODO: ReflectionAllAreaのようなコンポーネントを作ってリファクタする
   return (
     <Box mb={{ xs: -1, sm: 0 }}>
       <UserProfileArea
@@ -67,6 +93,13 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
         <HaveNotPost />
       ) : (
         <>
+          <SearchBar
+            tags={Object.values(tagMap)}
+            selectedTag={searchParams.get("tag")}
+            showTags={showTags}
+            onToggleTags={handleToggleTags}
+            onTagClick={handleTagClick}
+          />
           {totalPage > 1 && (
             <ArrowPagination
               currentPage={currentPage}
