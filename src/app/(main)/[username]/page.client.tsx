@@ -37,29 +37,14 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   totalPage
 }) => {
   const [showTags, setShowTags] = useState(false);
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const handleToggleTags = () => setShowTags((prev) => !prev);
 
   const handleTagClick = (tag: string) => {
-    const tagKey = Object.keys(tagMap).find(
-      (key) => tagMap[key as keyof typeof tagMap] === tag
-    );
-
-    if (tagKey) {
-      const currentTag = searchParams.get("tag");
-      const newTag = currentTag === tagKey ? null : tagKey;
-      const newParams = new URLSearchParams(searchParams.toString());
-
-      if (newTag) {
-        newParams.set("tag", newTag);
-      } else {
-        newParams.delete("tag");
-      }
-
-      router.push(`?${newParams.toString()}`);
-    }
+    setSelectedTag((prev) => (prev === tag ? null : tag));
   };
 
   const isModalOpen = searchParams.get("status") === "posted";
@@ -82,6 +67,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     router.push(`?page=${value}`);
   };
 
+  // TODO: ReflectionAllAreaのようなコンポーネントを作ってリファクタする
   return (
     <Box mb={{ xs: -1, sm: 0 }}>
       <UserProfileArea
@@ -95,7 +81,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
         <>
           <SearchBar
             tags={Object.values(tagMap)}
-            selectedTag={searchParams.get("tag")}
+            selectedTag={selectedTag}
             showTags={showTags}
             onToggleTags={handleToggleTags}
             onTagClick={handleTagClick}
