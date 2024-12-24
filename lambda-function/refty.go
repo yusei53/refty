@@ -8,6 +8,7 @@ import (
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	openai "github.com/sashabaranov/go-openai"
+	supabase "github.com/supabase/supabase-go"
 	"github.com/joho/godotenv"
 )
 
@@ -96,7 +97,6 @@ Context:
 {{reflection_text}}:  
 「スケジュールより早くプロジェクトを完成できたことがとても誇らしかったです。ただ、チームとのコミュニケーションがうまく取れず、少し混乱を招いてしまいました。これを改善したいです。」
 出力例:
-励まし:  
 「プロジェクトを予定より早く完成させたなんて素晴らしい成果ですね！お疲れ様でした。」
 具体的なフィードバック:  
 「成功を認めつつ、改善点を振り返る姿勢が素晴らしいです。チームとのコミュニケーションは重要なスキルなので、この気づきを活かせるとさらに成長できるでしょう。」
