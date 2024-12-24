@@ -11,10 +11,12 @@ type KebabMenuButtonProps = {
   username: string;
   anchorEl: HTMLElement | null;
   open: boolean;
+  isPublic: boolean;
   isPinned: boolean;
   onOpenPopup: (event: React.MouseEvent<HTMLElement>) => void;
   onClosePopup: () => void;
   onCopyLink: () => void;
+  onPublicToggle: () => void;
   onPinToggle: () => void;
 };
 
@@ -23,10 +25,12 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
   reflectionCUID,
   anchorEl,
   open,
+  isPublic,
   isPinned,
   onOpenPopup,
   onClosePopup,
   onCopyLink,
+  onPublicToggle,
   onPinToggle
 }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -84,6 +88,12 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
                 href={`/${username}/${reflectionCUID}/edit`}
                 src={"/edit.svg"}
                 alt={`編集するボタン`}
+              />
+              <PopupButton
+                text={isPublic ? "非公開にする" : "公開する"}
+                src={"/lock-google.svg"}
+                alt={"公開設定ボタン"}
+                onClick={onPublicToggle}
               />
               <PopupButton
                 text={isPinned ? "固定解除する" : "固定する"}

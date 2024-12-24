@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { KebabMenuButton } from "./KebabMenuButton";
 import { useUpdatePinnedReflection } from "@/src/hooks/reflection/useUpdatePinnedReflection";
+import { useUpdatePublicReflection } from "@/src/hooks/reflection/useUpdatePublicReflection";
 import { Reflection } from "@/src/api/reflection-api";
 
 type PopupContainerProps = {
   reflectionCUID: string;
   username: string;
   reflection: Reflection;
+  isPublic: boolean;
   isPinned: boolean;
 };
 
@@ -14,7 +16,8 @@ export const PopupContainer: React.FC<PopupContainerProps> = ({
   username,
   reflectionCUID,
   reflection,
-  isPinned,
+  isPublic,
+  isPinned
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -32,6 +35,13 @@ export const PopupContainer: React.FC<PopupContainerProps> = ({
     handleClosePopup();
   };
 
+  const { handleUpdatePublic } = useUpdatePublicReflection({ reflection });
+
+  const handlePublicToggle = () => {
+    handleUpdatePublic();
+    handleClosePopup();
+  };
+
   const { handleUpdatePinned } = useUpdatePinnedReflection({ reflection });
 
   const handlePinToggle = () => {
@@ -45,10 +55,12 @@ export const PopupContainer: React.FC<PopupContainerProps> = ({
       username={username}
       anchorEl={anchorEl}
       open={Boolean(anchorEl)}
+      isPublic={isPublic}
       isPinned={isPinned}
       onOpenPopup={handleOpenPopup}
       onClosePopup={handleClosePopup}
       onCopyLink={handleCopyLink}
+      onPublicToggle={handlePublicToggle}
       onPinToggle={handlePinToggle}
     />
   );

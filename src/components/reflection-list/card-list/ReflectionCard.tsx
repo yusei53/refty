@@ -32,6 +32,7 @@ const ReflectionCard: React.FC<ReflectionCardProps> = ({
           <PopupContainer
             reflectionCUID={reflection.reflectionCUID}
             username={username}
+            isPublic={reflection.isPublic}
             isPinned={reflection.isPinned}
             reflection={reflection}
           />
