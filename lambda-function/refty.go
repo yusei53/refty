@@ -5,11 +5,12 @@ import (
 	"log"
 	"encoding/json"
 	"os"
+	"database/sql"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	openai "github.com/sashabaranov/go-openai"
-	supabase "github.com/supabase/supabase-go"
 	"github.com/joho/godotenv"
+	// "github.com/jackc/pgx/v5/stdlib"
 )
 
 type SQSMessageBody struct {
@@ -120,9 +121,27 @@ Context:
 		answer := resp.Choices[0].Message.Content
 		log.Printf("[OpenAI Response] reflectionCUID=%s, feedback=%s",
 			sqsMsg.ReflectionCUID, answer)
+		dsn := os.Getenv("DATABASE_URL") // 環境変数から読み込む
 
-		// TODO: Supabaseなどへ書き込む場合はここでHTTPリクエスト等を実行
-
+		db, err := sql.Open("pgx", dsn)
+		if err != nil {
+			log.Fatalf("Failed to open database: %v\n", err)
+		}
+		defer db.Close()
+	
+		// 実際にコネクションを張る（Pingで確認）
+		if err := db.Ping(); err != nil {
+			log.Fatalf("Failed to ping database: %v\n", err)
+		}
+		result, err := db.Exec(`
+        UPDATE "Reflection"
+        SET "aiFeedback" = $1
+        WHERE "reflectionCUID" = $2
+    `, answer, sqsMsg.ReflectionCUID)
+	log.Println("Result:", result)
+	if err != nil {
+        log.Fatalf("Failed to execute query: %v\n", err)
+    }
 	} else {
 		log.Println("No choices returned from OpenAI API.")
 	}

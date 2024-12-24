@@ -33,27 +33,31 @@ func main() {
     }
 
     fmt.Println("Successfully connected to Supabase PostgreSQL using pgx/stdlib + database/sql")
-	userid := "cm3wnd3yt0001ykgw4ks06prt"
+	userid := "cm3a7ha7i000146hqbelayvxi"
     // -----------------------------
     // テストクエリ（例: テーブル一覧を取得してみる）
     // -----------------------------
-	rows, err := db.Query(
-		`SELECT "content" FROM "Reflection" WHERE "reflectionCUID" = $1`,
-		userid,
-	)    
+    content := "AIが生成したフィードバック本文"
+
+    result, err := db.Exec(`
+        UPDATE "Reflection"
+        SET "aiFeedback" = $1
+        WHERE "reflectionCUID" = $2
+    `, content, userid)
 	if err != nil {
         log.Fatalf("Failed to execute query: %v\n", err)
     }
-    defer rows.Close()
+	fmt.Println("Result:", result)
+    // defer rows.Close()
 
-    for rows.Next() {
-        var tableName string
-        if err := rows.Scan(&tableName); err != nil {
-            log.Fatalf("Failed to scan row: %v\n", err)
-        }
-        fmt.Println("Table name:", tableName)
-    }
-    if err := rows.Err(); err != nil {
-        log.Fatalf("Row error: %v\n", err)
-    }
+    // for rows.Next() {
+    //     var tableName string
+    //     if err := rows.Scan(&tableName); err != nil {
+    //         log.Fatalf("Failed to scan row: %v\n", err)
+    //     }
+    //     fmt.Println("Table name:", tableName)
+    // }
+    // if err := rows.Err(); err != nil {
+    //     log.Fatalf("Row error: %v\n", err)
+    // }
 }
