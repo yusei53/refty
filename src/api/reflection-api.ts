@@ -190,5 +190,25 @@ export const reflectionAPI = {
       }
     };
     return await fetchURL<void, 401>(path, options);
+  },
+
+  async updatePublicReflection({
+    reflectionCUID,
+    isPublic
+  }: {
+    reflectionCUID: string;
+    isPublic: boolean;
+  }): Promise<Result<void, 401>> {
+    const path = `/api/reflection/public/${reflectionCUID}`;
+    const options: FetchURLOptions = {
+      method: "PATCH",
+      body: {
+        isPublic
+      },
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    return await fetchURL<void, 401>(path, options);
   }
 };

@@ -1,10 +1,8 @@
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import type { Reflection } from "@/src/api/reflection-api";
-import { KebabMenuButton } from "../../ui/shared/popup";
-import { useUpdatePinnedReflection } from "@/src/hooks/reflection/useUpdatePinnedReflection";
+import { PopupContainer } from "../../ui/shared/popup/PopupContainer";
 import { formatDate } from "@/src/utils/date-helper";
 import { theme } from "@/src/utils/theme";
 
@@ -28,12 +26,13 @@ const ReflectionCard: React.FC<ReflectionCardProps> = ({
             position: "absolute",
             right: 2,
             top: 10,
-            zIndex: 2,
+            zIndex: 2
           }}
         >
           <PopupContainer
             reflectionCUID={reflection.reflectionCUID}
             username={username}
+            isPublic={reflection.isPublic}
             isPinned={reflection.isPinned}
             reflection={reflection}
           />

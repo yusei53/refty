@@ -1,22 +1,22 @@
 import { useState } from "react";
 import Image from "next/image";
-import type { SxProps } from "@mui/material";
 import { Box, Fade, Popper } from "@mui/material";
 import { red } from "@mui/material/colors";
-import { Button } from "../button";
+import PopupButton from "./PopupButton";
 import { DeleteConfirmationModal } from "@/src/components/reflection-list/modal/DeleteConfirmationModal";
 import { theme } from "@/src/utils/theme";
-import PopupButton from "./PopupButton";
 
 type KebabMenuButtonProps = {
   reflectionCUID: string;
   username: string;
   anchorEl: HTMLElement | null;
   open: boolean;
+  isPublic: boolean;
   isPinned: boolean;
   onOpenPopup: (event: React.MouseEvent<HTMLElement>) => void;
   onClosePopup: () => void;
   onCopyLink: () => void;
+  onPublicToggle: () => void;
   onPinToggle: () => void;
 };
 
@@ -25,11 +25,13 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
   reflectionCUID,
   anchorEl,
   open,
+  isPublic,
   isPinned,
   onOpenPopup,
   onClosePopup,
   onCopyLink,
-  onPinToggle,
+  onPublicToggle,
+  onPinToggle
 }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -86,6 +88,12 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
                 href={`/${username}/${reflectionCUID}/edit`}
                 src={"/edit.svg"}
                 alt={`編集するボタン`}
+              />
+              <PopupButton
+                text={isPublic ? "非公開にする" : "公開する"}
+                src={"/lock-google.svg"}
+                alt={"公開設定ボタン"}
+                onClick={onPublicToggle}
               />
               <PopupButton
                 text={isPinned ? "固定解除する" : "固定する"}
