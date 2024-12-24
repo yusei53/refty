@@ -1,10 +1,8 @@
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import type { Reflection } from "@/src/api/reflection-api";
-import { KebabMenuButton } from "../../ui/shared/popup";
-import { useUpdatePinnedReflection } from "@/src/hooks/reflection/useUpdatePinnedReflection";
+import { PopupContainer } from "../../ui/shared/popup/PopupContainer";
 import { formatDate } from "@/src/utils/date-helper";
 import { theme } from "@/src/utils/theme";
 
@@ -20,33 +18,27 @@ const ReflectionCard: React.FC<ReflectionCardProps> = ({
   reflection,
   isCurrentUser
 }) => {
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const { handleUpdatePinned } = useUpdatePinnedReflection({ reflection });
-
   return (
     <Box component={"article"} position={"relative"} sx={article}>
       {isCurrentUser && (
-        <KebabMenuButton
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClick={handleClick}
-          onClose={handleClose}
-          onUpdatePinned={handleUpdatePinned}
-          username={username}
-          reflectionCUID={reflection.reflectionCUID}
-          sx={{ position: "absolute", right: 2, top: 10, zIndex: 2 }}
-          isPinned={reflection.isPinned}
-        />
+        <Box
+          sx={{
+            position: "absolute",
+            right: 2,
+            top: 10,
+            zIndex: 2
+          }}
+        >
+          <PopupContainer
+            reflectionCUID={reflection.reflectionCUID}
+            username={username}
+            isPublic={reflection.isPublic}
+            isPinned={reflection.isPinned}
+            reflection={reflection}
+          />
+        </Box>
       )}
+
       <Box
         component={Link}
         href={`/${username}/${reflection.reflectionCUID}`}
