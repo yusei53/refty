@@ -27,7 +27,6 @@ const authOptions: NextAuthOptions = {
       version: "2.0"
     })
   ],
-
   session: {
     strategy: "jwt"
   },
