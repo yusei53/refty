@@ -2,6 +2,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
 import LineProvider from "next-auth/providers/line";
+import TwitterProvider from "next-auth/providers/twitter";
 import type { NextAuthOptions } from "next-auth";
 import prisma from "@/src/lib/prisma";
 
