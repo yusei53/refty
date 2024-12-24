@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import type { Reflection } from "@/src/api/reflection-api";
+import { PopupContainer } from "../../ui/shared/popup/PopupContainer";
 import { formatDate } from "@/src/utils/date-helper";
 import { theme } from "@/src/utils/theme";
-import { PopupContainer } from "../../ui/shared/popup/PopupContainer";
 
 type ReflectionCardProps = {
   username: string;

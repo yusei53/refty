@@ -1,6 +1,6 @@
-import { theme } from "@/src/utils/theme";
-import { Button, Box } from "@mui/material";
 import Image from "next/image";
+import { Button, Box } from "@mui/material";
+import { theme } from "@/src/utils/theme";
 
 type PopupButtonProps = {
   text: string;
@@ -17,7 +17,7 @@ const PopupButton: React.FC<PopupButtonProps> = ({
   src,
   alt,
   onClick,
-  textcolor = "black",
+  textcolor = "black"
 }) => {
   return (
     <Button
@@ -32,8 +32,8 @@ const PopupButton: React.FC<PopupButtonProps> = ({
         width: "100%",
         px: 2,
         "&:hover": {
-          backgroundColor: theme.palette.primary.contrastText,
-        },
+          backgroundColor: theme.palette.primary.contrastText
+        }
       }}
     >
       <Box display={"flex"} alignItems={"center"} letterSpacing={0.5}>

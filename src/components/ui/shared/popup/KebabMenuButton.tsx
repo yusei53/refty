@@ -2,9 +2,9 @@ import { useState } from "react";
 import Image from "next/image";
 import { Box, Fade, Popper } from "@mui/material";
 import { red } from "@mui/material/colors";
+import PopupButton from "./PopupButton";
 import { DeleteConfirmationModal } from "@/src/components/reflection-list/modal/DeleteConfirmationModal";
 import { theme } from "@/src/utils/theme";
-import PopupButton from "./PopupButton";
 
 type KebabMenuButtonProps = {
   reflectionCUID: string;

@@ -1,8 +1,8 @@
 import { useState } from "react";
+import type { Reflection } from "@/src/api/reflection-api";
 import { KebabMenuButton } from "./KebabMenuButton";
 import { useUpdatePinnedReflection } from "@/src/hooks/reflection/useUpdatePinnedReflection";
 import { useUpdatePublicReflection } from "@/src/hooks/reflection/useUpdatePublicReflection";
-import { Reflection } from "@/src/api/reflection-api";
 
 type PopupContainerProps = {
   reflectionCUID: string;
