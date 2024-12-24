@@ -85,6 +85,16 @@ const LoginFormPage = () => {
             })
           }
         />
+        <AuthButton
+          label="X"
+          icon={FaSquareXTwitter}
+          iconColor={"#000000"}
+          onClick={() =>
+            signIn("twitter", {
+              callbackUrl: "/setting/username"
+            })
+          }
+        />
       </Stack>
     </Box>
   );
