@@ -19,7 +19,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   onTagClick
 }) => {
   return (
-    <Box display={"flex"} alignItems={"center"} mx={3}>
+    <Box display={"flex"} alignItems={"center"} mx={3} mb={1}>
       <IconButton
         aria-label={"タグで検索"}
         onClick={onToggleTags}

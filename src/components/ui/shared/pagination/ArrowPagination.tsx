@@ -12,7 +12,7 @@ export const ArrowPagination: React.FC<ArrowPaginationProps> = ({
   onChange
 }) => {
   return (
-    <Box display={"flex"} justifyContent={"flex-end"} mt={1} mr={2}>
+    <Box display={"flex"} justifyContent={"flex-end"} mr={2}>
       <Pagination
         page={currentPage}
         count={totalPage}
