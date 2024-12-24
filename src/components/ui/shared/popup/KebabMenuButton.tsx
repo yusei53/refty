@@ -1,9 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
-import type { SxProps } from "@mui/material";
 import { Box, Fade, Popper } from "@mui/material";
 import { red } from "@mui/material/colors";
-import { Button } from "../button";
 import { DeleteConfirmationModal } from "@/src/components/reflection-list/modal/DeleteConfirmationModal";
 import { theme } from "@/src/utils/theme";
 import PopupButton from "./PopupButton";
@@ -29,7 +27,7 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
   onOpenPopup,
   onClosePopup,
   onCopyLink,
-  onPinToggle,
+  onPinToggle
 }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
