@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { FaDiscord, FaLine } from "react-icons/fa";
+import { FaSquareXTwitter } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { Box, Divider, Stack, Typography } from "@mui/material";
 import { AuthButton } from "@/src/components/ui/auth-button";
