@@ -1,7 +1,7 @@
 import type { FetchURLOptions } from "../utils/fetchURL";
 import type { Result } from "../utils/types/result";
+import { fetchReflectionsByUsername } from "../utils/actions/fetch-reflections-by-username";
 import { fetchURL } from "../utils/fetchURL";
-import { fetchReflectionsByUsername } from "./fetch-reflectionsByUsername";
 
 export type Reflection = {
   reflectionCUID: string;

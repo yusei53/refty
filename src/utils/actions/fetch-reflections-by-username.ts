@@ -1,6 +1,6 @@
 "use server";
 import { headers } from "next/headers";
-import { fetchURL, type FetchURLOptions } from "../utils/fetchURL";
+import { fetchURL, type FetchURLOptions } from "../fetchURL";
 
 type Reflection = {
   reflectionCUID: string;
