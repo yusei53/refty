@@ -29,22 +29,32 @@ export async function GET(
     );
   }
 
+  const isCurrentUser = session?.user.username === username;
+
   try {
     const page = parseInt(req.nextUrl.searchParams.get("page") || "1", 10);
     const offset = (page - 1) * COUNT_PER_PAGE;
 
     const reflectionCount = await prisma.reflection.count({
-      where: { userId }
+      where: {
+        userId,
+        isPublic: isCurrentUser ? undefined : true
+      }
     });
 
     const totalPage = Math.ceil(reflectionCount / COUNT_PER_PAGE);
 
     const userWithReflections = await prisma.user.findUnique({
-      where: { id: userId },
+      where: {
+        id: userId
+      },
       select: {
         image: true,
         reflections: {
-          where: { userId },
+          where: {
+            userId,
+            isPublic: isCurrentUser ? undefined : true
+          },
           orderBy: [{ isPinned: "desc" }, { createdAt: "desc" }],
           take: COUNT_PER_PAGE,
           skip: offset,
