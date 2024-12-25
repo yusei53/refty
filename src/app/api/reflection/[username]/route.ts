@@ -1,5 +1,7 @@
-import type { NextRequest} from "next/server";
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import authOptions from "../../auth/[...nextauth]/options";
 import prisma from "@/src/lib/prisma";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
 
@@ -18,6 +20,7 @@ export async function GET(
   }
 
   const userId = await getUserIdByUsername(username);
+  const session = await getServerSession(authOptions);
 
   if (!userId) {
     return NextResponse.json(

@@ -1,6 +1,7 @@
 import type { FetchURLOptions } from "../utils/fetchURL";
 import type { Result } from "../utils/types/result";
 import { fetchURL } from "../utils/fetchURL";
+import { fetchReflectionsByUsername } from "./fetch-reflectionsByUsername";
 
 export type Reflection = {
   reflectionCUID: string;
@@ -60,12 +61,7 @@ export const reflectionAPI = {
     username: string,
     page: number = 1
   ): Promise<Result<Reflections, 404>> {
-    const path = `/api/reflection/${username}?page=${page}`;
-    const options: FetchURLOptions = {
-      method: "GET",
-      next: { tags: [`reflections-${username}`] }
-    };
-    return await fetchURL<Reflections, 404>(path, options);
+    return await fetchReflectionsByUsername(username, page);
   },
 
   async getReflectionByCUID(
