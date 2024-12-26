@@ -59,7 +59,7 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
     }
   };
   const handleSendToSQS = async () => {
-    const response = await sqsAPI.handleSendToSQS({
+    const response = await sqsAPI.sendToSQS({
         content,
         reflectionCUID,
     });

@@ -3,11 +3,11 @@ import type { Result } from "../utils/types/result";
 import { fetchURL } from "../utils/fetchURL";
 
 export const sqsAPI = {
-  async handleSendToSQS({
+  async sendToSQS({
       content,
       reflectionCUID,
   }: {
-          content: string;
+        content: string;
         reflectionCUID: string;
   }): Promise<Result<void, 400 | 401 | 403>> {
     const path = `/api/send-to-sqs`;
