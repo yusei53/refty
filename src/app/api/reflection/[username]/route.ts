@@ -1,5 +1,7 @@
-import type { NextRequest} from "next/server";
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import authOptions from "../../auth/[...nextauth]/options";
 import prisma from "@/src/lib/prisma";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
 
@@ -18,6 +20,7 @@ export async function GET(
   }
 
   const userId = await getUserIdByUsername(username);
+  const session = await getServerSession(authOptions);
 
   if (!userId) {
     return NextResponse.json(
@@ -26,22 +29,32 @@ export async function GET(
     );
   }
 
+  const isCurrentUser = session?.user.username === username;
+
   try {
     const page = parseInt(req.nextUrl.searchParams.get("page") || "1", 10);
     const offset = (page - 1) * COUNT_PER_PAGE;
 
     const reflectionCount = await prisma.reflection.count({
-      where: { userId }
+      where: {
+        userId,
+        isPublic: isCurrentUser ? undefined : true
+      }
     });
 
     const totalPage = Math.ceil(reflectionCount / COUNT_PER_PAGE);
 
     const userWithReflections = await prisma.user.findUnique({
-      where: { id: userId },
+      where: {
+        id: userId
+      },
       select: {
         image: true,
         reflections: {
-          where: { userId },
+          where: {
+            userId,
+            isPublic: isCurrentUser ? undefined : true
+          },
           orderBy: [{ isPinned: "desc" }, { createdAt: "desc" }],
           take: COUNT_PER_PAGE,
           skip: offset,

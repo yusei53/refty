@@ -57,13 +57,15 @@ export const reflectionAPI = {
   },
 
   async getReflectionsByUsername(
+    headers: HeadersInit | undefined,
     username: string,
     page: number = 1
   ): Promise<Result<Reflections, 404>> {
     const path = `/api/reflection/${username}?page=${page}`;
     const options: FetchURLOptions = {
       method: "GET",
-      next: { tags: [`reflections-${username}`] }
+      next: { tags: [`reflections-${username}`] },
+      headers: headers
     };
     return await fetchURL<Reflections, 404>(path, options);
   },
