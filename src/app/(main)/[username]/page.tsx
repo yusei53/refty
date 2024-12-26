@@ -6,6 +6,7 @@ import UserReflectionListPage from "./page.client";
 import opengraphAPI from "@/src/api/opengraph-api";
 import { reflectionAPI } from "@/src/api/reflection-api";
 import { reflectionsCountAPI } from "@/src/api/reflections-count-api";
+import { getHeaders } from "@/src/utils/get-headers";
 
 export const generateMetadata = async ({
   params
@@ -52,14 +53,15 @@ const page = async ({
   params: { username: string };
   searchParams: { page?: string; tag?: string };
 }) => {
-  // const currentUser = await getCurrentUser();
   const session = await getServerSession(authOptions);
+  const headers = getHeaders();
   const { username } = params;
   const currentPage = searchParams.page ? parseInt(searchParams.page, 10) : 1;
   const selectedTag = searchParams.tag || undefined;
 
   const countResult = await reflectionsCountAPI.getReflectionsCount(username);
   const reflectionsResult = await reflectionAPI.getReflectionsByUsername(
+    headers,
     username,
     currentPage,
     selectedTag

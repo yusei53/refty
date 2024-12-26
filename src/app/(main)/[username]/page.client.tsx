@@ -76,11 +76,6 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
 
   const isCurrentUser = currentUsername === username;
 
-  // MEMO: 自分の投稿は全て表示、他人の投稿は公開設定のもののみ表示
-  const filteredReflections = isCurrentUser
-    ? reflections
-    : reflections.filter((reflection) => reflection.isPublic);
-
   const handleChange = async (
     event: React.ChangeEvent<unknown>,
     value: number
@@ -124,7 +119,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           />
           <ReflectionCardListArea
             username={username}
-            reflections={filteredReflections}
+            reflections={reflections}
             isCurrentUser={isCurrentUser}
           />
           <NumberedPagination
