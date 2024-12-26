@@ -70,7 +70,6 @@ const page = async ({ params }: PageProps) => {
   ) {
     return notFound();
   }
-  
 
   return (
     <ReflectionDetailPage
