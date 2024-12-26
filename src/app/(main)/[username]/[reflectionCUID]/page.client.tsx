@@ -2,7 +2,7 @@
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { Box } from "@mui/material";
-import { SendToSqsAPI } from "@/src/api/send-to-sqs-api";
+import { sqsAPI } from "@/src/api/send-to-sqs-api";
 import { ReflectionArticle } from "@/src/components/reflection-detail/article";
 import { UserInformationSection } from "@/src/components/reflection-detail/user-information/UserInformationSection";
 import { animation } from "@/src/components/ui/shared/animation";
@@ -59,7 +59,7 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
     }
   };
   const handleSendToSQS = async () => {
-    const response = await SendToSqsAPI.handleSendToSQS({
+    const response = await sqsAPI.handleSendToSQS({
         content,
         reflectionCUID,
     });

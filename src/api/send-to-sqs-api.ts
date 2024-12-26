@@ -2,7 +2,7 @@ import type { FetchURLOptions } from "../utils/fetchURL";
 import type { Result } from "../utils/types/result";
 import { fetchURL } from "../utils/fetchURL";
 
-export const SendToSqsAPI = {
+export const sqsAPI = {
   async handleSendToSQS({
       content,
       reflectionCUID,
