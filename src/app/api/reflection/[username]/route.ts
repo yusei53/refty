@@ -1,4 +1,4 @@
-import type { NextRequest} from "next/server";
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import prisma from "@/src/lib/prisma";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
@@ -30,8 +30,11 @@ export async function GET(
     const page = parseInt(req.nextUrl.searchParams.get("page") || "1", 10);
     const offset = (page - 1) * COUNT_PER_PAGE;
 
+    const tag = req.nextUrl.searchParams.get("tag");
+    const tagFilter = tag && { [tag]: true };
+
     const reflectionCount = await prisma.reflection.count({
-      where: { userId }
+      where: { userId, ...tagFilter }
     });
 
     const totalPage = Math.ceil(reflectionCount / COUNT_PER_PAGE);
@@ -41,7 +44,7 @@ export async function GET(
       select: {
         image: true,
         reflections: {
-          where: { userId },
+          where: { userId, ...tagFilter },
           orderBy: [{ isPinned: "desc" }, { createdAt: "desc" }],
           take: COUNT_PER_PAGE,
           skip: offset,

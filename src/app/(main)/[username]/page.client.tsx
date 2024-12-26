@@ -45,6 +45,27 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
 
   const handleTagClick = (tag: string) => {
     setSelectedTag((prev) => (prev === tag ? null : tag));
+    const tagKey = Object.keys(tagMap).find(
+      (key) => tagMap[key as keyof typeof tagMap] === tag
+    );
+
+    if (tagKey) {
+      const currentPageParams = searchParams.get("page");
+      const currentTagParams = searchParams.get("tag");
+
+      const newTag = currentTagParams === tagKey ? null : tagKey;
+      const newParams = new URLSearchParams(searchParams.toString());
+
+      if (newTag) {
+        newParams.set("tag", newTag);
+      } else {
+        newParams.delete("tag");
+      }
+      if (currentPageParams) {
+        newParams.delete("page");
+      }
+      router.push(`?${newParams.toString()}`);
+    }
   };
 
   const isModalOpen = searchParams.get("status") === "posted";
@@ -64,7 +85,17 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     event: React.ChangeEvent<unknown>,
     value: number
   ) => {
-    router.push(`?page=${value}`);
+    const currentTag = searchParams.get("tag");
+    const newParams = new URLSearchParams(searchParams.toString());
+
+    newParams.set("page", value.toString());
+    if (currentTag) {
+      newParams.set("tag", currentTag);
+    } else {
+      newParams.delete("tag");
+    }
+
+    router.push(`?${newParams.toString()}`);
   };
 
   // TODO: ReflectionAllAreaのようなコンポーネントを作ってリファクタする
@@ -75,36 +106,32 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
         username={username}
         reflectionCount={reflectionCount}
       />
+      <SearchBar
+        tags={Object.values(tagMap)}
+        selectedTag={selectedTag}
+        showTags={showTags}
+        onToggleTags={handleToggleTags}
+        onTagClick={handleTagClick}
+      />
       {reflections.length === 0 ? (
         <HaveNotPost />
       ) : (
         <>
-          <SearchBar
-            tags={Object.values(tagMap)}
-            selectedTag={selectedTag}
-            showTags={showTags}
-            onToggleTags={handleToggleTags}
-            onTagClick={handleTagClick}
+          <ArrowPagination
+            currentPage={currentPage}
+            totalPage={totalPage}
+            onChange={handleChange}
           />
-          {totalPage > 1 && (
-            <ArrowPagination
-              currentPage={currentPage}
-              totalPage={totalPage}
-              onChange={handleChange}
-            />
-          )}
           <ReflectionCardListArea
             username={username}
             reflections={filteredReflections}
             isCurrentUser={isCurrentUser}
           />
-          {totalPage > 1 && (
-            <NumberedPagination
-              currentPage={currentPage}
-              totalPage={totalPage}
-              onChange={handleChange}
-            />
-          )}
+          <NumberedPagination
+            currentPage={currentPage}
+            totalPage={totalPage}
+            onChange={handleChange}
+          />
         </>
       )}
       {username && (

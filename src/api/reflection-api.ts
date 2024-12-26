@@ -58,9 +58,11 @@ export const reflectionAPI = {
 
   async getReflectionsByUsername(
     username: string,
-    page: number = 1
+    page: number = 1,
+    tag?: string
   ): Promise<Result<Reflections, 404>> {
-    const path = `/api/reflection/${username}?page=${page}`;
+    const tagParam = tag && `&tag=${tag}`;
+    const path = `/api/reflection/${username}?page=${page}${tagParam}`;
     const options: FetchURLOptions = {
       method: "GET",
       next: { tags: [`reflections-${username}`] }
