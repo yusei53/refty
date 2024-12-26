@@ -41,42 +41,45 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const handleToggleTags = () => setShowTags((prev) => !prev);
-
-  const handleTagClick = (tag: string) => {
-    setSelectedTag((prev) => (prev === tag ? null : tag));
-    const tagKey = Object.keys(tagMap).find(
-      (key) => tagMap[key as keyof typeof tagMap] === tag
-    );
-
-    if (tagKey) {
-      const currentPageParams = searchParams.get("page");
-      const currentTagParams = searchParams.get("tag");
-
-      const newTag = currentTagParams === tagKey ? null : tagKey;
-      const newParams = new URLSearchParams(searchParams.toString());
-
-      if (newTag) {
-        newParams.set("tag", newTag);
-      } else {
-        newParams.delete("tag");
-      }
-      if (currentPageParams) {
-        newParams.delete("page");
-      }
-      router.push(`?${newParams.toString()}`);
-    }
-  };
-
+  const isCurrentUser = currentUsername === username;
   const isModalOpen = searchParams.get("status") === "posted";
-
   const handleCloseModal = () => {
     router.push(`/${username}`);
   };
 
-  const isCurrentUser = currentUsername === username;
+  const handleToggleTags = () => setShowTags((prev) => !prev);
 
-  const handleChange = async (
+  const createUpdatedParams = (tagKey: string): URLSearchParams => {
+    const currentPageParams = searchParams.get("page");
+    const currentTagParams = searchParams.get("tag");
+    const newParams = new URLSearchParams(searchParams.toString());
+
+    if (currentTagParams === tagKey) {
+      newParams.delete("tag");
+    } else {
+      newParams.set("tag", tagKey);
+    }
+
+    if (currentPageParams) {
+      newParams.delete("page");
+    }
+
+    return newParams;
+  };
+
+  const handleTagChange = (tag: string) => {
+    const tagKey = Object.keys(tagMap).find(
+      (key) => tagMap[key as keyof typeof tagMap] === tag
+    );
+    if (!tagKey) return;
+
+    setSelectedTag((prev) => (prev === tag ? null : tag));
+
+    const newParams = createUpdatedParams(tagKey);
+    router.push(`?${newParams.toString()}`);
+  };
+
+  const handlePageChange = async (
     event: React.ChangeEvent<unknown>,
     value: number
   ) => {
@@ -106,7 +109,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
         selectedTag={selectedTag}
         showTags={showTags}
         onToggleTags={handleToggleTags}
-        onTagClick={handleTagClick}
+        onTagChange={handleTagChange}
       />
       {reflections.length === 0 ? (
         <HaveNotPost />
@@ -115,7 +118,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           <ArrowPagination
             currentPage={currentPage}
             totalPage={totalPage}
-            onChange={handleChange}
+            onChange={handlePageChange}
           />
           <ReflectionCardListArea
             username={username}
@@ -125,7 +128,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           <NumberedPagination
             currentPage={currentPage}
             totalPage={totalPage}
-            onChange={handleChange}
+            onChange={handlePageChange}
           />
         </>
       )}

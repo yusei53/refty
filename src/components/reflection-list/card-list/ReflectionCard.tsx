@@ -38,7 +38,6 @@ const ReflectionCard: React.FC<ReflectionCardProps> = ({
           />
         </Box>
       )}
-
       <Box
         component={Link}
         href={`/${username}/${reflection.reflectionCUID}`}

@@ -8,7 +8,7 @@ type SearchBarProps = {
   selectedTag: string | null;
   showTags: boolean;
   onToggleTags: () => void;
-  onTagClick: (tag: string) => void;
+  onTagChange: (tag: string) => void;
 };
 
 export const SearchBar: React.FC<SearchBarProps> = ({
@@ -16,7 +16,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   selectedTag,
   showTags,
   onToggleTags,
-  onTagClick
+  onTagChange
 }) => {
   return (
     <Box display={"flex"} alignItems={"center"} mx={3} mb={1.5}>
@@ -49,7 +49,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
               <Box>
                 <TagButton
                   tag={tag}
-                  onClick={() => onTagClick(tag)}
+                  onClick={() => onTagChange(tag)}
                   selected={selectedTag === tag}
                 />
               </Box>
