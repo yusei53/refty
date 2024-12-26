@@ -63,7 +63,10 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
         content,
         reflectionCUID,
     });
-    if (response === 400 || response === 401 || response === 403) return;
+    if (response === 500 || response === 401 || response === 403){
+        alert("送信に失敗しました");
+        return;
+    }
     alert("送信しました");
   };
 
