@@ -9,7 +9,7 @@ export const sqsAPI = {
   }: {
         content: string;
         reflectionCUID: string;
-  }): Promise<Result<void, 500 | 401 | 403>> {
+  }): Promise<Result<void, 401 | 403 | 500>> {
     const path = `/api/send-to-sqs`;
     const options: FetchURLOptions = {
       method: "POST",
@@ -21,6 +21,6 @@ export const sqsAPI = {
         "Content-Type": "application/json",
       },
     };
-    return await fetchURL<void, 500 | 401 | 403>(path, options);
+    return await fetchURL<void, 401 | 403 | 500>(path, options);
   },
 };
