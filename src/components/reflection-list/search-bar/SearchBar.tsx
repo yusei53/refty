@@ -19,7 +19,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   onTagClick
 }) => {
   return (
-    <Box display={"flex"} alignItems={"center"} mx={3} mb={1}>
+    <Box display={"flex"} alignItems={"center"} mx={3} mb={1.5}>
       <IconButton
         aria-label={"タグで検索"}
         onClick={onToggleTags}
@@ -31,8 +31,14 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       >
         <SearchIcon sx={{ fontSize: 23 }} />
       </IconButton>
-      <Box ml={1} overflow="hidden">
-        <Stack direction="row" gap={1.5}>
+      <Box
+        ml={1}
+        whiteSpace={"nowrap"}
+        sx={{
+          overflowX: "auto"
+        }}
+      >
+        <Stack direction="row" gap={1.2}>
           {tags.map((tag, index) => (
             <Slide
               key={tag}
