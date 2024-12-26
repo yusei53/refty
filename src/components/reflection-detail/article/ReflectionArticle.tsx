@@ -84,7 +84,7 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
       </Typography>
 
       {activeTags.length > 0 && (
-          <Box display={"flex"} gap={1} mt={2}>
+        <Box display={"flex"} gap={1} mt={2}>
           {activeTags.map((tag) => (
               <Typography key={tag} sx={label}>
               {tag}

@@ -6,13 +6,11 @@ export async function POST(req: NextRequest) {
 
   const {  content, reflectionCUID } = await req.json();
 
-  // AWS環境変数のチェックなど
   const { AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, SQS_QUEUE_URL } = process.env;
   if (!AWS_REGION || !AWS_ACCESS_KEY_ID || !AWS_SECRET_ACCESS_KEY || !SQS_QUEUE_URL) {
     return new NextResponse("Missing SQS configuration", { status: 500 });
   }
 
-  // SQSクライアントを作成
   const sqsClient = new SQSClient({
     region: AWS_REGION,
     credentials: {
@@ -21,7 +19,6 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  // 送信するメッセージBody
   const messageBody = JSON.stringify({
       content,
       reflectionCUID,
