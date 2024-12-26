@@ -6,7 +6,6 @@ import opengraphAPI from "@/src/api/opengraph-api";
 import { reflectionAPI } from "@/src/api/reflection-api";
 import getCurrentUser from "@/src/utils/actions/get-current-user";
 
-
 const ReflectionDetailPage = dynamic(
   () => import("./page.client").then((mod) => mod.default),
   {
