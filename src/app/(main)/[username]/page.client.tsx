@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import type { Reflection } from "@/src/api/reflection-api";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import type { User } from "@prisma/client";
@@ -16,6 +16,7 @@ import {
   NumberedPagination
 } from "@/src/components/ui/shared/pagination";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
+import { theme } from "@/src/utils/theme";
 
 type UserReflectionListPageProps = {
   currentUsername: User["username"];
@@ -42,6 +43,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const router = useRouter();
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const newParams = new URLSearchParams(searchParams.toString());
 
   const isCurrentUser = currentUsername === username;
@@ -144,7 +146,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           />
         </>
       )}
-      {username && (
+      {username && isLargeScreen && (
         <PostNavigationButton
           sx={{
             position: "fixed",
