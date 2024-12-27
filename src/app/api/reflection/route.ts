@@ -12,14 +12,20 @@ export async function GET(req: NextRequest) {
     const page = parseInt(req.nextUrl.searchParams.get("page") || "1", 10);
     const offset = (page - 1) * COUNT_PER_PAGE;
 
-    const reflectionCount = await prisma.reflection.count({
-      where: { isPublic: true }
+    const tag = req.nextUrl.searchParams.get("tag");
+    const tagFilter = tag && { [tag]: true };
+
+    const filteredReflectionCount = await prisma.reflection.count({
+      where: {
+        isPublic: true,
+        ...tagFilter
+      }
     });
 
-    const totalPage = Math.ceil(reflectionCount / COUNT_PER_PAGE);
+    const totalPage = Math.ceil(filteredReflectionCount / COUNT_PER_PAGE);
 
     const reflections = await prisma.reflection.findMany({
-      where: { isPublic: true },
+      where: { isPublic: true, ...tagFilter },
       orderBy: { createdAt: "desc" },
       take: COUNT_PER_PAGE,
       skip: offset,
@@ -46,7 +52,8 @@ export async function GET(req: NextRequest) {
     }
     return NextResponse.json({
       reflections,
-      totalPage
+      totalPage,
+      filteredReflectionCount
     });
   } catch (error) {
     console.error(error);
