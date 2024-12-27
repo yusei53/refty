@@ -6,7 +6,6 @@ const HaveNotPost = () => {
     <Box
       display={"flex"}
       alignItems={"center"}
-      justifyContent={"center"}
       flexDirection={"column"}
       gap={1}
       mb={10}

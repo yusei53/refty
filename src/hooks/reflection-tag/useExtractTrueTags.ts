@@ -8,12 +8,12 @@ type TagType = {
   isMonologue: boolean;
 };
 
-const tagMap: Record<keyof TagType, string> = {
+export const tagMap: Record<keyof TagType, string> = {
   isDailyReflection: "振り返り",
   isLearning: "学び",
   isAwareness: "気づき",
-  isInputLog: "インプットの記録",
-  isMonologue: "ひとりごと"
+  isMonologue: "ひとりごと",
+  isInputLog: "インプットの記録"
 };
 
 export const useExtractTrueTags = (tags: TagType): string[] => {

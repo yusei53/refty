@@ -17,7 +17,7 @@ export const generateMetadata = async ({
   const userInformation = await opengraphAPI.getOGPByUsername(username);
   if (userInformation === 404) {
     return {
-      title: "404 | リフティ",
+      title: "404",
       description: "このページは見つかりません",
       openGraph: {
         type: "website",
@@ -51,18 +51,20 @@ const page = async ({
   searchParams
 }: {
   params: { username: string };
-  searchParams: { page?: string };
+  searchParams: { page?: string; tag?: string };
 }) => {
   const session = await getServerSession(authOptions);
   const headers = getHeaders();
   const { username } = params;
   const currentPage = searchParams.page ? parseInt(searchParams.page, 10) : 1;
+  const selectedTag = searchParams.tag || undefined;
 
   const countResult = await reflectionsCountAPI.getReflectionsCount(username);
   const reflectionsResult = await reflectionAPI.getReflectionsByUsername(
     headers,
     username,
-    currentPage
+    currentPage,
+    selectedTag
   );
 
   if (countResult === 404 || reflectionsResult === 404) {
@@ -85,6 +87,7 @@ const page = async ({
         reflections={reflectionsWithUser.reflections}
         currentPage={currentPage}
         totalPage={reflectionsWithUser.totalPage}
+        filteredReflectionCount={reflectionsWithUser.filteredReflectionCount}
       />
     </>
   );

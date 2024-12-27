@@ -26,12 +26,14 @@ export type ReflectionWithUser = Reflection & {
 type ReflectionAll = {
   reflections: ReflectionWithUser[];
   totalPage: number;
+  filteredReflectionCount: number;
 };
 
 export type Reflections = {
   userImage: string;
   reflections: Reflection[];
   totalPage: number;
+  filteredReflectionCount: number;
 };
 
 export type ReflectionDetail = Reflection & {
@@ -46,9 +48,11 @@ export type ReflectionDetail = Reflection & {
 
 export const reflectionAPI = {
   async getReflectionAll(
-    page: number = 1
+    page: number = 1,
+    tag?: string
   ): Promise<Result<ReflectionAll, 404>> {
-    const path = `/api/reflection?page=${page}`;
+    const tagParam = tag && `&tag=${tag}`;
+    const path = `/api/reflection?page=${page}${tagParam}`;
     const options: FetchURLOptions = {
       method: "GET",
       next: { tags: ["reflections-all"] }
@@ -59,9 +63,11 @@ export const reflectionAPI = {
   async getReflectionsByUsername(
     headers: HeadersInit | undefined,
     username: string,
-    page: number = 1
+    page: number = 1,
+    tag?: string
   ): Promise<Result<Reflections, 404>> {
-    const path = `/api/reflection/${username}?page=${page}`;
+    const tagParam = tag && `&tag=${tag}`;
+    const path = `/api/reflection/${username}?page=${page}${tagParam}`;
     const options: FetchURLOptions = {
       method: "GET",
       next: { tags: [`reflections-${username}`] },
