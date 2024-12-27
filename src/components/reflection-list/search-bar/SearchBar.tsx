@@ -38,7 +38,10 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           ml={1}
           whiteSpace={"nowrap"}
           sx={{
-            overflowX: "auto"
+            overflowX: "auto",
+            "&::-webkit-scrollbar": {
+              display: "none"
+            }
           }}
         >
           <Stack direction="row" gap={1.2}>
@@ -61,14 +64,10 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           </Stack>
         </Box>
       </Box>
-      <Box my={{ xs: 1, sm: 0.5 }} ml={1} letterSpacing={0.8} height={"15px"}>
+      <Box my={{ xs: 1.2, sm: 0.5 }} ml={1} letterSpacing={0.8} height={"15px"}>
         {selectedTag && (
           <>
-            <Typography
-              component={"span"}
-              fontFamily={"emoji"}
-              fontWeight={550}
-            >
+            <Typography component={"span"} fontWeight={550}>
               {`#${selectedTag}`}
             </Typography>
             {`　${count}件`}

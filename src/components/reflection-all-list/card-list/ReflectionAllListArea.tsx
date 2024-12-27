@@ -80,7 +80,7 @@ const ReflectionAllArea: React.FC<ReflectionAllAreaProps> = ({
   return (
     // MEMO: rootのpageにあたるこのコンポーネントはroute-groupで崩れてしまうのでContainerをここ設定
     // MEMO: 今まではlayout.tsxで当てていたし、お気持ちはここにおきたくはない
-    <Container maxWidth="md" sx={{ my: 6 }}>
+    <Container maxWidth="md" sx={{ mt: { xs: 8, sm: 6 }, mb: 6 }}>
       <Box mt={{ xs: 4, md: 12 }} position={"relative"} mb={{ xs: -1, sm: 0 }}>
         <ReflectionAllHeader currentUsername={currentUsername} />
         <SearchBar
