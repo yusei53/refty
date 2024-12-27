@@ -61,14 +61,20 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           </Stack>
         </Box>
       </Box>
-      {selectedTag && (
-        <Typography my={2} ml={1} letterSpacing={0.8}>
-          <Typography component={"span"} fontFamily={"emoji"} fontWeight={550}>
-            {`#${selectedTag}`}
-          </Typography>
-          {` の検索結果 ${count}件`}
-        </Typography>
-      )}
+      <Box my={{ xs: 1, sm: 0.5 }} ml={1} letterSpacing={0.8} height={"15px"}>
+        {selectedTag && (
+          <>
+            <Typography
+              component={"span"}
+              fontFamily={"emoji"}
+              fontWeight={550}
+            >
+              {`#${selectedTag}`}
+            </Typography>
+            {`　${count}件`}
+          </>
+        )}
+      </Box>
     </Box>
   );
 };

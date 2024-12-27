@@ -111,52 +111,54 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
 
   // TODO: ReflectionAllAreaのようなコンポーネントを作ってリファクタする
   return (
-    <Box mb={{ xs: -1, sm: 0 }}>
-      <UserProfileArea
-        userImage={userImage}
-        username={username}
-        reflectionCount={reflectionCount}
-      />
-      <SearchBar
-        tags={Object.values(tagMap)}
-        selectedTag={selectedTag}
-        count={filteredReflectionCount}
-        showTags={showTags}
-        onToggleTags={handleToggleTags}
-        onTagChange={handleTagChange}
-      />
-      {reflections.length === 0 ? (
-        <HaveNotPost />
-      ) : (
-        <>
-          <ArrowPagination
-            currentPage={currentPage}
-            totalPage={totalPage}
-            onChange={handlePageChange}
-          />
-          <ReflectionCardListArea
-            username={username}
-            reflections={reflections}
-            isCurrentUser={isCurrentUser}
-          />
-          <NumberedPagination
-            currentPage={currentPage}
-            totalPage={totalPage}
-            onChange={handlePageChange}
-          />
-        </>
-      )}
-      {username && isLargeScreen && (
-        <PostNavigationButton
-          sx={{
-            position: "fixed",
-            right: { sm: 130 },
-            bottom: { sm: 50 }
-          }}
+    <>
+      <Box minHeight={"90vh"}>
+        <UserProfileArea
+          userImage={userImage}
+          username={username}
+          reflectionCount={reflectionCount}
         />
-      )}
+        <SearchBar
+          tags={Object.values(tagMap)}
+          selectedTag={selectedTag}
+          count={filteredReflectionCount}
+          showTags={showTags}
+          onToggleTags={handleToggleTags}
+          onTagChange={handleTagChange}
+        />
+        {reflections.length === 0 ? (
+          <HaveNotPost />
+        ) : (
+          <>
+            <ArrowPagination
+              currentPage={currentPage}
+              totalPage={totalPage}
+              onChange={handlePageChange}
+            />
+            <ReflectionCardListArea
+              username={username}
+              reflections={reflections}
+              isCurrentUser={isCurrentUser}
+            />
+            <NumberedPagination
+              currentPage={currentPage}
+              totalPage={totalPage}
+              onChange={handlePageChange}
+            />
+          </>
+        )}
+        {username && isLargeScreen && (
+          <PostNavigationButton
+            sx={{
+              position: "fixed",
+              right: { sm: 130 },
+              bottom: { sm: 50 }
+            }}
+          />
+        )}
+      </Box>
       <GoodJobModal open={isModalOpen} onClose={handleCloseModal} />
-    </Box>
+    </>
   );
 };
 
