@@ -35,10 +35,10 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
   username,
   reflectionCount
 }) => {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const { parseTagsToValue } = useParseTagsToValue();
-    const reflectionCUID = usePathname().split("/").pop();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { parseTagsToValue } = useParseTagsToValue();
+  const reflectionCUID = usePathname().split("/").pop();
     if(!reflectionCUID) return null;
   const activeTags = [
     isDailyReflection && parseTagsToValue("isDailyReflection"),
