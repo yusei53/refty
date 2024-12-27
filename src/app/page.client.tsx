@@ -1,12 +1,12 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useMediaQuery } from "@mui/material";
 import type { ReflectionWithUser } from "../api/reflection-api";
 import type { User } from "@prisma/client";
 import ReflectionAllArea from "../components/reflection-all-list/card-list/ReflectionAllListArea";
 import SettingUsernameModalContainer from "../components/setting-username/SettingUsernameModalContainer";
 import { PostNavigationButton } from "../components/ui/shared/button";
 import { Footer } from "../components/ui/shared/footer";
-import { useMediaQuery } from "@mui/material";
 import { theme } from "../utils/theme";
 
 type RootPageProps = {

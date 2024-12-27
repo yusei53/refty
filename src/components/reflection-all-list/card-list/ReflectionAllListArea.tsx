@@ -1,8 +1,10 @@
 import { useState, type ChangeEvent } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Box, Container } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import type { ReflectionWithUser } from "@/src/api/reflection-api";
 import type { User } from "@prisma/client";
+import { SearchBar } from "../../reflection-list/search-bar";
 import { animation } from "../../ui/shared/animation";
 import {
   ArrowPagination,
@@ -10,9 +12,7 @@ import {
 } from "../../ui/shared/pagination";
 import { ReflectionAllHeader } from "../header";
 import ReflectionCardWithUser from "./ReflectionCardWithUser";
-import { SearchBar } from "../../reflection-list/search-bar";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
-import { useRouter, useSearchParams } from "next/navigation";
 
 type ReflectionAllAreaProps = {
   currentUsername: User["username"];
