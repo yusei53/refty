@@ -41,7 +41,7 @@ export async function GET(
     const reflectionCount = await prisma.reflection.count({
       where: {
         userId,
-        isPublic: !isCurrentUser ? undefined : true,
+        isPublic: isCurrentUser ? true : undefined,
         ...tagFilter
       }
     });
@@ -57,7 +57,7 @@ export async function GET(
         reflections: {
           where: {
             userId,
-            isPublic: !isCurrentUser ? undefined : true,
+            isPublic: isCurrentUser ? true : undefined,
             ...tagFilter
           },
           orderBy: [{ isPinned: "desc" }, { createdAt: "desc" }],
