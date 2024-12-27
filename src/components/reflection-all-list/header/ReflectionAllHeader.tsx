@@ -17,6 +17,7 @@ export const ReflectionAllHeader: React.FC<ReflectionAllHeaderProps> = ({
         display={"flex"}
         justifyContent={"space-between"}
         mx={{ xs: 4, md: 3 }}
+        mb={2}
       >
         <Typography component={"h1"} fontSize={17} letterSpacing={1}>
           みんなの振り返り(公開のみ)
