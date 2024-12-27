@@ -25,6 +25,7 @@ type UserReflectionListPageProps = {
   reflections: Reflection[];
   currentPage: number;
   totalPage: number;
+  filteredReflectionCount: number;
 };
 
 const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
@@ -34,12 +35,14 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   reflectionCount,
   reflections,
   currentPage,
-  totalPage
+  totalPage,
+  filteredReflectionCount
 }) => {
   const [showTags, setShowTags] = useState(false);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const router = useRouter();
+  const newParams = new URLSearchParams(searchParams.toString());
 
   const isCurrentUser = currentUsername === username;
   const isModalOpen = searchParams.get("status") === "posted";
@@ -47,12 +50,20 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     router.push(`/${username}`);
   };
 
-  const handleToggleTags = () => setShowTags((prev) => !prev);
+  const handleToggleTags = () => {
+    setShowTags((prev) => {
+      if (prev) {
+        setSelectedTag(null);
+        newParams.delete("tag");
+        router.push(`?${newParams.toString()}`);
+      }
+      return !prev;
+    });
+  };
 
   const createUpdatedParams = (tagKey: string): URLSearchParams => {
     const currentPageParams = searchParams.get("page");
     const currentTagParams = searchParams.get("tag");
-    const newParams = new URLSearchParams(searchParams.toString());
 
     if (currentTagParams === tagKey) {
       newParams.delete("tag");
@@ -107,6 +118,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
       <SearchBar
         tags={Object.values(tagMap)}
         selectedTag={selectedTag}
+        count={filteredReflectionCount}
         showTags={showTags}
         onToggleTags={handleToggleTags}
         onTagChange={handleTagChange}

@@ -87,6 +87,7 @@ const page = async ({
         reflections={reflectionsWithUser.reflections}
         currentPage={currentPage}
         totalPage={reflectionsWithUser.totalPage}
+        filteredReflectionCount={reflectionsWithUser.filteredReflectionCount}
       />
     </>
   );

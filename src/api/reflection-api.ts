@@ -32,6 +32,7 @@ export type Reflections = {
   userImage: string;
   reflections: Reflection[];
   totalPage: number;
+  filteredReflectionCount: number;
 };
 
 export type ReflectionDetail = Reflection & {
