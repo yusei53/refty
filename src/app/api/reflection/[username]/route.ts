@@ -38,15 +38,15 @@ export async function GET(
     const tag = req.nextUrl.searchParams.get("tag");
     const tagFilter = tag && { [tag]: true };
 
-    const reflectionCount = await prisma.reflection.count({
+    const filteredReflectionCount = await prisma.reflection.count({
       where: {
         userId,
-        isPublic: isCurrentUser ? true : undefined,
+        isPublic: isCurrentUser ? undefined : true,
         ...tagFilter
       }
     });
 
-    const totalPage = Math.ceil(reflectionCount / COUNT_PER_PAGE);
+    const totalPage = Math.ceil(filteredReflectionCount / COUNT_PER_PAGE);
 
     const userWithReflections = await prisma.user.findUnique({
       where: {
@@ -57,7 +57,7 @@ export async function GET(
         reflections: {
           where: {
             userId,
-            isPublic: isCurrentUser ? true : undefined,
+            isPublic: isCurrentUser ? undefined : true,
             ...tagFilter
           },
           orderBy: [{ isPinned: "desc" }, { createdAt: "desc" }],
@@ -85,7 +85,8 @@ export async function GET(
     return NextResponse.json({
       reflections: userWithReflections.reflections,
       userImage: userWithReflections.image,
-      totalPage
+      totalPage,
+      filteredReflectionCount
     });
   } catch (error) {
     console.error("Error fetching user reflections:", error);
