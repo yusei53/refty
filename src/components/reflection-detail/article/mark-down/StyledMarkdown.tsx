@@ -4,7 +4,7 @@ import { styled } from "@mui/material/styles";
 // MEMO: ここ書き換えたら、components/reflection/form/markdown-editor/StyledEditorContent.tsxも書き換える
 export const StyledMarkdown = styled(Box)(({ theme }) => ({
   letterSpacing: "0.04em",
-  lineHeight: 1.7,
+  lineHeight: "2rem",
   fontSize: "1.05rem",
   fontWeight: 500,
   ".tiptap p.is-editor-empty:first-of-type::before": {
@@ -23,7 +23,7 @@ export const StyledMarkdown = styled(Box)(({ theme }) => ({
     },
     p: {
       marginTop: "1em",
-      marginBottom: "2.5em"
+      marginBottom: "1.8em"
     },
     /* List styles */
     "ul, ol": {
