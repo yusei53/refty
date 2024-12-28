@@ -8,6 +8,11 @@
       "jsx": true
     }
   },
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
   "plugins": ["import", "@typescript-eslint", "unused-imports"],
   "rules": {
     "no-unused-vars": "off",
