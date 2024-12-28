@@ -98,22 +98,26 @@ const ReflectionAllArea: React.FC<ReflectionAllAreaProps> = ({
         />
         <Grid container my={0.5}>
           {/* MEMO: indexはアニメーションのために必要 */}
-          {reflections.map((reflection, index) => (
-            <Grid
-              key={reflection.reflectionCUID}
-              size={{ xs: 12, md: 6 }}
-              display={"flex"}
-              alignItems={"center"}
-              justifyContent={"center"}
-              mb={3.5}
-              sx={animation(index)}
-            >
-              <ReflectionCardWithUser
-                reflection={reflection}
-                isCurrentUser={currentUsername === reflection.user.username}
-              />
-            </Grid>
-          ))}
+          {reflections.map((reflection, index) => {
+            const isCurrentUser = currentUsername === reflection.user.username;
+
+            return (
+              <Grid
+                key={reflection.reflectionCUID}
+                size={{ xs: 12, md: 6 }}
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"center"}
+                mb={3.5}
+                sx={animation(index)}
+              >
+                <ReflectionCardWithUser
+                  reflection={reflection}
+                  isCurrentUser={isCurrentUser}
+                />
+              </Grid>
+            );
+          })}
         </Grid>
         <NumberedPagination
           currentPage={currentPage}
