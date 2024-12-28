@@ -2,22 +2,9 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import ReflectionPostFormPage from "./page.client";
 import getCurrentUser from "@/src/utils/actions/get-current-user";
+import { meta } from "@/src/utils/metadata";
 
-const description = "リフティの投稿作成ページ";
-export const metadata: Metadata = {
-  title: "投稿作成",
-  description: description,
-  openGraph: {
-    type: "website",
-    url: "https://www.refty.jp/post",
-    title: "投稿作成 | リフティ",
-    description: description
-  },
-  twitter: {
-    title: "投稿作成 | リフティ",
-    description: description
-  }
-};
+export const metadata: Metadata = meta.reflectionPostFormPage;
 
 const page = async () => {
   const currentUser = await getCurrentUser();

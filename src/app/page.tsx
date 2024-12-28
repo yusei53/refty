@@ -1,16 +1,23 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { reflectionAPI } from "../api/reflection-api";
+import { meta } from "../utils/metadata";
 import authOptions from "./api/auth/[...nextauth]/options";
 import RootPage from "./page.client";
 
-// MEMO: routePageのみmetadataをlayout.tsxで設定
+export const metadata: Metadata = meta.rootPage;
 
-const page = async ({ searchParams }: { searchParams: { page?: string } }) => {
+const page = async ({
+  searchParams
+}: {
+  searchParams: { page?: string; tag?: string };
+}) => {
   const currentPage = searchParams.page ? parseInt(searchParams.page, 10) : 1;
-  // const currentUser = await getCurrentUser();
+  const selectedTag = searchParams.tag || undefined;
+
   const session = await getServerSession(authOptions);
-  const result = await reflectionAPI.getReflectionAll(currentPage);
+  const result = await reflectionAPI.getReflectionAll(currentPage, selectedTag);
   if (result === 404) {
     return notFound();
   }
@@ -22,6 +29,7 @@ const page = async ({ searchParams }: { searchParams: { page?: string } }) => {
       reflections={result.reflections}
       currentPage={currentPage}
       totalPage={result.totalPage}
+      filteredReflectionCount={result.filteredReflectionCount}
     />
   );
 };

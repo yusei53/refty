@@ -3,22 +3,9 @@ import { notFound, redirect } from "next/navigation";
 import RootPage from "../../../page.client";
 import { reflectionAPI } from "@/src/api/reflection-api";
 import getCurrentUser from "@/src/utils/actions/get-current-user";
+import { meta } from "@/src/utils/metadata";
 
-const description = "リフティのユーザーネーム設定ページ";
-export const metadata: Metadata = {
-  title: "ユーザーネーム設定",
-  description: description,
-  openGraph: {
-    type: "website",
-    url: "https://www.refty.jp/setting/username",
-    title: "ユーザーネーム設定 | リフティ",
-    description: description
-  },
-  twitter: {
-    title: "ユーザーネーム設定 | リフティ",
-    description: description
-  }
-};
+export const metadata: Metadata = meta.settingUsernamePage;
 
 const page = async ({ searchParams }: { searchParams: { page?: string } }) => {
   const currentUser = await getCurrentUser();
@@ -40,6 +27,7 @@ const page = async ({ searchParams }: { searchParams: { page?: string } }) => {
       reflections={result.reflections}
       currentPage={currentPage}
       totalPage={result.totalPage}
+      filteredReflectionCount={result.filteredReflectionCount}
     />
   );
 };

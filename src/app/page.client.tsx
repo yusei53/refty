@@ -1,11 +1,13 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useMediaQuery } from "@mui/material";
 import type { ReflectionWithUser } from "../api/reflection-api";
 import type { User } from "@prisma/client";
 import ReflectionAllArea from "../components/reflection-all-list/card-list/ReflectionAllListArea";
 import SettingUsernameModalContainer from "../components/setting-username/SettingUsernameModalContainer";
 import { PostNavigationButton } from "../components/ui/shared/button";
 import { Footer } from "../components/ui/shared/footer";
+import { theme } from "../utils/theme";
 
 type RootPageProps = {
   open: boolean;
@@ -13,6 +15,7 @@ type RootPageProps = {
   reflections: ReflectionWithUser[];
   currentPage: number;
   totalPage: number;
+  filteredReflectionCount: number;
 };
 
 const RootPage: React.FC<RootPageProps> = ({
@@ -20,15 +23,28 @@ const RootPage: React.FC<RootPageProps> = ({
   currentUsername,
   reflections,
   currentPage,
-  totalPage
+  totalPage,
+  filteredReflectionCount
 }) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
 
-  const handleChange = async (
+  const handlePageChange = async (
     event: React.ChangeEvent<unknown>,
     value: number
   ) => {
-    router.push(`?page=${value}`);
+    const currentTag = searchParams.get("tag");
+    const newParams = new URLSearchParams(searchParams.toString());
+
+    newParams.set("page", value.toString());
+    if (currentTag) {
+      newParams.set("tag", currentTag);
+    } else {
+      newParams.delete("tag");
+    }
+
+    router.push(`?${newParams.toString()}`);
   };
 
   return (
@@ -42,9 +58,10 @@ const RootPage: React.FC<RootPageProps> = ({
         reflections={reflections}
         currentPage={currentPage}
         totalPage={totalPage}
-        onChange={handleChange}
+        filteredReflectionCount={filteredReflectionCount}
+        onChange={handlePageChange}
       />
-      {currentUsername && (
+      {currentUsername && isLargeScreen && (
         <PostNavigationButton
           sx={{
             position: "fixed",
