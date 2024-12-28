@@ -8,6 +8,10 @@
     "opengraph"
   ],
 
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "always"
