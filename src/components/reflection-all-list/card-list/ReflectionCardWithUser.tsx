@@ -68,8 +68,8 @@ const ReflectionCardWithUser: React.FC<ReflectionCardWithUserProps> = ({
           </Typography>
           <Box
             position={"absolute"}
-            right={20}
-            top={20}
+            right={30}
+            top={22}
             borderRadius={10}
             width={55}
             height={55}
