@@ -3,7 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import ReflectionUpdateFormPage from "./page.client";
 import { reflectionAPI } from "@/src/api/reflection-api";
 import getCurrentUser from "@/src/utils/actions/get-current-user";
-import { generateMeta } from "@/src/utils/metadata/generateMetadata";
+import { generateMeta } from "@/src/utils/metadata";
 
 export const generateMetadata = async ({
   params

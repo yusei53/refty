@@ -6,7 +6,7 @@ import UserReflectionListPage from "./page.client";
 import { reflectionAPI } from "@/src/api/reflection-api";
 import { reflectionsCountAPI } from "@/src/api/reflections-count-api";
 import { getHeaders } from "@/src/utils/get-headers";
-import { generateMeta } from "@/src/utils/metadata/generateMetadata";
+import { generateMeta } from "@/src/utils/metadata";
 
 export const generateMetadata = async ({
   params

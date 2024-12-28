@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import Loading from "./loading";
 import { reflectionAPI } from "@/src/api/reflection-api";
 import getCurrentUser from "@/src/utils/actions/get-current-user";
-import { generateMeta } from "@/src/utils/metadata/generateMetadata";
+import { generateMeta } from "@/src/utils/metadata";
 
 const ReflectionDetailPage = dynamic(
   () => import("./page.client").then((mod) => mod.default),

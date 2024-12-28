@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import ReflectionPostFormPage from "./page.client";
 import getCurrentUser from "@/src/utils/actions/get-current-user";
-import { meta } from "@/src/utils/metadata/metadata";
+import { meta } from "@/src/utils/metadata";
 
 export const metadata: Metadata = meta.reflectionPostFormPage;
 

@@ -3,7 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import RootPage from "../../../page.client";
 import { reflectionAPI } from "@/src/api/reflection-api";
 import getCurrentUser from "@/src/utils/actions/get-current-user";
-import { meta } from "@/src/utils/metadata/metadata";
+import { meta } from "@/src/utils/metadata";
 
 export const metadata: Metadata = meta.settingUsernamePage;
 
