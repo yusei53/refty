@@ -1,10 +1,12 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { reflectionAPI } from "../api/reflection-api";
+import { meta } from "../utils/metadata/metadata";
 import authOptions from "./api/auth/[...nextauth]/options";
 import RootPage from "./page.client";
 
-// MEMO: routePageのみmetadataをlayout.tsxで設定
+export const metadata: Metadata = meta.rootPage;
 
 const page = async ({
   searchParams
