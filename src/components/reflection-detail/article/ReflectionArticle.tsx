@@ -1,8 +1,10 @@
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import { label } from "../../post-form/popup/select-tag/button/TagButton";
 import { StyledMarkdown } from "./mark-down";
+import supabase from "@/src/lib/supabase";
 import { formatDate } from "@/src/utils/date-helper";
 import { theme } from "@/src/utils/theme";
 
@@ -14,6 +16,7 @@ type ReflectionArticleProps = {
   content: string;
   onSendToSQS: () => Promise<void>;
   activeTags: string[];
+  reflectionCUID: string;
 };
 
 // TODO: 内製Linkコンポーネント作ってもいいかも
@@ -40,10 +43,60 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
   title,
   content,
   onSendToSQS,
-  activeTags
+  activeTags,
+  reflectionCUID
 }) => {
+  const [aiFeedback, setAiFeedback] = useState<string>("まじで出ろ");
+
+  // 初期データ取得
+  const fetchComments = async () => {
+    const { data, error } = await supabase
+      .from("Reflection")
+      .select("aiFeedback")
+      .eq("reflectionCUID", reflectionCUID)
+      .single();
+
+    if (error) {
+      console.error("Error fetching comments", error);
+    } else {
+      setAiFeedback(data.aiFeedback || "まじで出ろ");
+    }
+  };
+
+  // リアルタイム更新購読
+  const subscribeToRealtimeUpdates = () => {
+    const channel = supabase
+      .channel("realtime:Reflection")
+      .on(
+        "postgres_changes",
+        {
+          event: "UPDATE",
+          schema: "public",
+          table: "Reflection",
+          filter: `reflectionCUID=eq.${reflectionCUID}`
+        },
+        (payload) => {
+          if (payload.new && payload.new.aiFeedback) {
+            setAiFeedback(payload.new.aiFeedback);
+          }
+        }
+      )
+      .subscribe();
+
+    return channel;
+  };
+
+  useEffect(() => {
+    fetchComments();
+    const channel = subscribeToRealtimeUpdates();
+
+    return () => {
+      supabase.removeChannel(channel); // 購読を解除
+    };
+  }, []);
+
   const handleSendToSQS = async () => {
-    onSendToSQS();
+    await onSendToSQS();
   };
 
   return (
@@ -95,6 +148,10 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
         <StyledMarkdown dangerouslySetInnerHTML={{ __html: content }} />
       </Box>
       <button onClick={handleSendToSQS}>Send To SQS</button>
+      <div>
+        <h1>AI Feedback</h1>
+        <p>{aiFeedback}</p>
+      </div>
     </Box>
   );
 };
