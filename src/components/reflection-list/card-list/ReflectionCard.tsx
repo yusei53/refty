@@ -20,24 +20,23 @@ const ReflectionCard: React.FC<ReflectionCardProps> = ({
 }) => {
   return (
     <Box component={"article"} position={"relative"} sx={article}>
-      {isCurrentUser && (
-        <Box
-          sx={{
-            position: "absolute",
-            right: 2,
-            top: 10,
-            zIndex: 2
-          }}
-        >
-          <PopupContainer
-            reflectionCUID={reflection.reflectionCUID}
-            username={username}
-            isPublic={reflection.isPublic}
-            isPinned={reflection.isPinned}
-            reflection={reflection}
-          />
-        </Box>
-      )}
+      <Box
+        sx={{
+          position: "absolute",
+          right: 2,
+          top: 10,
+          zIndex: 2
+        }}
+      >
+        <PopupContainer
+          reflectionCUID={reflection.reflectionCUID}
+          username={username}
+          reflection={reflection}
+          isPublic={reflection.isPublic}
+          isPinned={reflection.isPinned}
+          isCurrentUser={isCurrentUser}
+        />
+      </Box>
       <Box
         component={Link}
         href={`/${username}/${reflection.reflectionCUID}`}

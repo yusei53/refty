@@ -2,20 +2,40 @@ import Image from "next/image";
 import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import type { ReflectionWithUser } from "@/src/api/reflection-api";
+import { PopupContainer } from "../../ui/shared/popup/PopupContainer";
 import { formatDate } from "@/src/utils/date-helper";
 import { theme } from "@/src/utils/theme";
 
 type ReflectionCardWithUserProps = {
   reflection: ReflectionWithUser;
+  isCurrentUser: boolean;
 };
 
 // MEMO: ここ書き換えたら、../reflection-list/reflection-list/ReflectionCard.tsxも書き換える
 const ReflectionCardWithUser: React.FC<ReflectionCardWithUserProps> = ({
-  reflection
+  reflection,
+  isCurrentUser
 }) => {
   return (
     <Box component={"article"}>
       <Box position={"relative"} p={2} sx={article}>
+        <Box
+          sx={{
+            position: "absolute",
+            right: 2,
+            top: 10,
+            zIndex: 2
+          }}
+        >
+          <PopupContainer
+            reflectionCUID={reflection.reflectionCUID}
+            username={reflection.user.username}
+            reflection={reflection}
+            isPublic={reflection.isPublic}
+            isPinned={reflection.isPinned}
+            isCurrentUser={isCurrentUser}
+          />
+        </Box>
         <Link
           href={`/${reflection.user.username}/${reflection.reflectionCUID}`}
           style={{
@@ -46,8 +66,8 @@ const ReflectionCardWithUser: React.FC<ReflectionCardWithUserProps> = ({
           </Typography>
           <Box
             position={"absolute"}
-            right={20}
-            top={20}
+            right={30}
+            top={22}
             borderRadius={10}
             width={55}
             height={55}
