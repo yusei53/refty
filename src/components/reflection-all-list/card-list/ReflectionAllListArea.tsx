@@ -109,7 +109,6 @@ const ReflectionAllArea: React.FC<ReflectionAllAreaProps> = ({
               sx={animation(index)}
             >
               <ReflectionCardWithUser
-                username={reflection.user.username}
                 reflection={reflection}
                 isCurrentUser={currentUsername === reflection.user.username}
               />

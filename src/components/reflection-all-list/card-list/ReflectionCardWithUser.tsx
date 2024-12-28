@@ -2,19 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import type { ReflectionWithUser } from "@/src/api/reflection-api";
+import { PopupContainer } from "../../ui/shared/popup/PopupContainer";
 import { formatDate } from "@/src/utils/date-helper";
 import { theme } from "@/src/utils/theme";
-import { PopupContainer } from "../../ui/shared/popup/PopupContainer";
 
 type ReflectionCardWithUserProps = {
-  username: string;
   reflection: ReflectionWithUser;
   isCurrentUser: boolean;
 };
 
 // MEMO: ここ書き換えたら、../reflection-list/reflection-list/ReflectionCard.tsxも書き換える
 const ReflectionCardWithUser: React.FC<ReflectionCardWithUserProps> = ({
-  username,
   reflection,
   isCurrentUser
 }) => {
@@ -31,7 +29,7 @@ const ReflectionCardWithUser: React.FC<ReflectionCardWithUserProps> = ({
         >
           <PopupContainer
             reflectionCUID={reflection.reflectionCUID}
-            username={username}
+            username={reflection.user.username}
             reflection={reflection}
             isPublic={reflection.isPublic}
             isPinned={reflection.isPinned}
