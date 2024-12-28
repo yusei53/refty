@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 
 // MEMO: ここ書き換えたら、components/reflection/form/markdown-editor/StyledEditorContent.tsxも書き換える
 export const StyledMarkdown = styled(Box)(({ theme }) => ({
-  letterSpacing: "0.04em",
+  letterSpacing: "0.03em",
   lineHeight: "2rem",
   fontSize: "1.05rem",
   fontWeight: 500,

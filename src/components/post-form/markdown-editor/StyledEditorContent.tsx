@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 
 // MEMO: ここ書き換えたら、components/reflection-detail/StyledMarkdown.tsxも書き換える
 const StyledEditorContent = styled(EditorContent)(({ theme }) => ({
-  letterSpacing: "0.04em",
+  letterSpacing: "0.03em",
   lineHeight: "2rem",
   fontSize: "1.05rem",
   fontWeight: 500,
