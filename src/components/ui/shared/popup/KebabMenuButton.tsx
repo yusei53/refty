@@ -13,6 +13,7 @@ type KebabMenuButtonProps = {
   open: boolean;
   isPublic: boolean;
   isPinned: boolean;
+  isCurrentUser: boolean;
   onOpenPopup: (event: React.MouseEvent<HTMLElement>) => void;
   onClosePopup: () => void;
   onCopyLink: () => void;
@@ -27,6 +28,7 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
   open,
   isPublic,
   isPinned,
+  isCurrentUser,
   onOpenPopup,
   onClosePopup,
   onCopyLink,
@@ -83,31 +85,35 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
                 alt={`リンクをコピーするボタン`}
                 onClick={onCopyLink}
               />
-              <PopupButton
-                text={"編集する"}
-                href={`/${username}/${reflectionCUID}/edit`}
-                src={"/edit.svg"}
-                alt={`編集するボタン`}
-              />
-              <PopupButton
-                text={isPublic ? "非公開にする" : "公開する"}
-                src={"/lock-google.svg"}
-                alt={"公開設定ボタン"}
-                onClick={onPublicToggle}
-              />
-              <PopupButton
-                text={isPinned ? "固定解除する" : "固定する"}
-                src={"/pin.svg"}
-                alt={`プロフィールに固定するボタン`}
-                onClick={onPinToggle}
-              />
-              <PopupButton
-                text={"削除する"}
-                src={"/delete.svg"}
-                alt={`投稿削除ボタン`}
-                onClick={handleDeleteModalToggle}
-                textcolor={red[400]}
-              />
+              {isCurrentUser && (
+                <>
+                  <PopupButton
+                    text={"編集する"}
+                    href={`/${username}/${reflectionCUID}/edit`}
+                    src={"/edit.svg"}
+                    alt={`編集するボタン`}
+                  />
+                  <PopupButton
+                    text={isPublic ? "非公開にする" : "公開する"}
+                    src={"/lock-google.svg"}
+                    alt={"公開設定ボタン"}
+                    onClick={onPublicToggle}
+                  />
+                  <PopupButton
+                    text={isPinned ? "固定解除する" : "固定する"}
+                    src={"/pin.svg"}
+                    alt={`プロフィールに固定するボタン`}
+                    onClick={onPinToggle}
+                  />
+                  <PopupButton
+                    text={"削除する"}
+                    src={"/delete.svg"}
+                    alt={`投稿削除ボタン`}
+                    onClick={handleDeleteModalToggle}
+                    textcolor={red[400]}
+                  />
+                </>
+              )}
             </Box>
           </Fade>
         )}

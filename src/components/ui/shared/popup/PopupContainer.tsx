@@ -10,6 +10,7 @@ type PopupContainerProps = {
   reflection: Reflection;
   isPublic: boolean;
   isPinned: boolean;
+  isCurrentUser: boolean;
 };
 
 export const PopupContainer: React.FC<PopupContainerProps> = ({
@@ -17,7 +18,8 @@ export const PopupContainer: React.FC<PopupContainerProps> = ({
   reflectionCUID,
   reflection,
   isPublic,
-  isPinned
+  isPinned,
+  isCurrentUser
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -57,6 +59,7 @@ export const PopupContainer: React.FC<PopupContainerProps> = ({
       open={Boolean(anchorEl)}
       isPublic={isPublic}
       isPinned={isPinned}
+      isCurrentUser={isCurrentUser}
       onOpenPopup={handleOpenPopup}
       onClosePopup={handleClosePopup}
       onCopyLink={handleCopyLink}

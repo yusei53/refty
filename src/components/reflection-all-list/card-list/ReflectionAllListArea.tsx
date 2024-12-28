@@ -108,7 +108,11 @@ const ReflectionAllArea: React.FC<ReflectionAllAreaProps> = ({
               mb={3.5}
               sx={animation(index)}
             >
-              <ReflectionCardWithUser reflection={reflection} />
+              <ReflectionCardWithUser
+                username={reflection.user.username}
+                reflection={reflection}
+                isCurrentUser={currentUsername === reflection.user.username}
+              />
             </Grid>
           ))}
         </Grid>

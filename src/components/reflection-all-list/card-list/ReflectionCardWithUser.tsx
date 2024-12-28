@@ -4,18 +4,40 @@ import { Box, Typography } from "@mui/material";
 import type { ReflectionWithUser } from "@/src/api/reflection-api";
 import { formatDate } from "@/src/utils/date-helper";
 import { theme } from "@/src/utils/theme";
+import { PopupContainer } from "../../ui/shared/popup/PopupContainer";
 
 type ReflectionCardWithUserProps = {
+  username: string;
   reflection: ReflectionWithUser;
+  isCurrentUser: boolean;
 };
 
 // MEMO: ここ書き換えたら、../reflection-list/reflection-list/ReflectionCard.tsxも書き換える
 const ReflectionCardWithUser: React.FC<ReflectionCardWithUserProps> = ({
-  reflection
+  username,
+  reflection,
+  isCurrentUser
 }) => {
   return (
     <Box component={"article"}>
       <Box position={"relative"} p={2} sx={article}>
+        <Box
+          sx={{
+            position: "absolute",
+            right: 2,
+            top: 10,
+            zIndex: 2
+          }}
+        >
+          <PopupContainer
+            reflectionCUID={reflection.reflectionCUID}
+            username={username}
+            reflection={reflection}
+            isPublic={reflection.isPublic}
+            isPinned={reflection.isPinned}
+            isCurrentUser={isCurrentUser}
+          />
+        </Box>
         <Link
           href={`/${reflection.user.username}/${reflection.reflectionCUID}`}
           style={{
