@@ -36,6 +36,10 @@ const h1 = {
   outline: "none"
 };
 
+type AiFeedback = {
+  aiFeedback: string;
+};
+
 export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
   username,
   userImage,
@@ -66,8 +70,8 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
   // リアルタイム更新購読
   const subscribeToRealtimeUpdates = () => {
     const channel = supabase
-      .channel("realtime:Reflection")
-      .on(
+      .channel("realtime:ai")
+      .on<AiFeedback>(
         "postgres_changes",
         {
           event: "UPDATE",
@@ -91,8 +95,9 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
     const channel = subscribeToRealtimeUpdates();
 
     return () => {
-      supabase.removeChannel(channel); // 購読を解除
+      supabase.removeChannel(channel);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSendToSQS = async () => {
