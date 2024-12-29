@@ -6,7 +6,7 @@ type AiFeedback = {
 };
 
 export const useAiFeedbackWatcher = (reflectionCUID: string) => {
-  const [aiFeedback, setAiFeedback] = useState<string>("まじで出ろ");
+  const [aiFeedback, setAiFeedback] = useState<string>();
 
   const fetchAiFeedback = async () => {
     const { data, error } = await supabase
@@ -16,9 +16,9 @@ export const useAiFeedbackWatcher = (reflectionCUID: string) => {
       .single();
 
     if (error) {
-      console.error("Error fetching comments", error);
+      console.error("fetchでエラーが発生しました", error);
     } else {
-      setAiFeedback(data.aiFeedback || aiFeedback);
+      setAiFeedback(data.aiFeedback);
     }
   };
 
