@@ -2,9 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import { label } from "../../post-form/popup/select-tag/button/TagButton";
+import { Button } from "../../ui/shared/button";
 import { StyledMarkdown } from "./mark-down";
 import { useAiFeedbackWatcher } from "@/src/hooks/reflection/useAiFeedbackWatcher";
 import { formatDate } from "@/src/utils/date-helper";
+import { removeHtmlTags } from "@/src/utils/remove-html-tags";
 import { theme } from "@/src/utils/theme";
 
 type ReflectionArticleProps = {
@@ -46,6 +48,11 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
   reflectionCUID
 }) => {
   const aiFeedback = useAiFeedbackWatcher(reflectionCUID);
+  const plainContent = removeHtmlTags(content);
+  // NOTE: 現状AIにFBもらえるのは100文字以上かつまだAIからのフィードバックがない場合のみ
+  const isAiCallButtonEnabled =
+    plainContent.length > 100 && aiFeedback === null;
+
   const handleSendToSQS = async () => {
     await onSendToSQS();
   };
@@ -98,7 +105,9 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
       <Box mt={8}>
         <StyledMarkdown dangerouslySetInnerHTML={{ __html: content }} />
       </Box>
-      <button onClick={handleSendToSQS}>Send To SQS</button>
+      <Button onClick={handleSendToSQS} disabled={!isAiCallButtonEnabled}>
+        AIからフィードバックをもらう
+      </Button>
       <div>
         <h1>AI Feedback</h1>
         <p>{aiFeedback}</p>
