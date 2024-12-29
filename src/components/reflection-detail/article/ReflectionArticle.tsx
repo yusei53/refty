@@ -6,7 +6,7 @@ import { label } from "../../post-form/popup/select-tag/button/TagButton";
 import { Accordion, AccordionSummary } from "../../ui/shared/accordion";
 import { Button } from "../../ui/shared/button";
 import { StyledMarkdown } from "./mark-down";
-import { useAiFeedbackWatcher } from "@/src/hooks/reflection/useAiFeedbackWatcher";
+import { useAIFeedbackWatcher } from "@/src/hooks/reflection/useAiFeedbackWatcher";
 import { formatDate } from "@/src/utils/date-helper";
 import { removeHtmlTags } from "@/src/utils/remove-html-tags";
 import { theme } from "@/src/utils/theme";
@@ -52,12 +52,12 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
 }) => {
   const [animatedFeedback, setAnimatedFeedback] = useState("");
   const [isLoading, setIsLoading] = useState(false); // ボタン押下時の状態を管理
-  const realTimeAIFeedback = useAiFeedbackWatcher(reflectionCUID);
+  const realTimeAIFeedback = useAIFeedbackWatcher(reflectionCUID);
   const plainContent = removeHtmlTags(content);
   const [isAnimating, setIsAnimating] = useState(false);
 
   // NOTE: 現状AIにFBもらえるのは100文字以上かつまだAIからのフィードバックがない場合のみ
-  const isAiCallButtonEnabled =
+  const isAICallButtonEnabled =
     plainContent.length > 100 && realTimeAIFeedback === null;
 
   // TODO: ここから下ははリファクタしてシンプルにします(yusei53)
@@ -145,7 +145,7 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ py: 0.5, px: 0 }}>
-          <Button onClick={handleSendToSQS} disabled={!isAiCallButtonEnabled}>
+          <Button onClick={handleSendToSQS} disabled={!isAICallButtonEnabled}>
             AIからフィードバックをもらう
           </Button>
           <Typography fontSize={12} color={theme.palette.grey[600]}>

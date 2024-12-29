@@ -5,10 +5,10 @@ type AiFeedback = {
   aiFeedback: string;
 };
 
-export const useAiFeedbackWatcher = (reflectionCUID: string) => {
-  const [aiFeedback, setAiFeedback] = useState<string>();
+export const useAIFeedbackWatcher = (reflectionCUID: string) => {
+  const [AIFeedback, setAIFeedback] = useState<string>();
 
-  const fetchAiFeedback = async () => {
+  const fetchAIFeedback = async () => {
     const { data, error } = await supabase
       .from("Reflection")
       .select("aiFeedback")
@@ -18,14 +18,14 @@ export const useAiFeedbackWatcher = (reflectionCUID: string) => {
     if (error) {
       console.error("fetchでエラーが発生しました", error);
     } else {
-      setAiFeedback(data.aiFeedback);
+      setAIFeedback(data.aiFeedback);
     }
   };
 
   // NOTE: reflectionCUIDが一致するレコードを監視そ、updateがあったらaiFeedbackのstateを更新する
-  const subscribeToRealtimeUpdateAiFeedback = () => {
+  const subscribeToRealtimeUpdateAIFeedback = () => {
     const channel = supabase
-      .channel("realtime:ai")
+      .channel("realtime:AIFeedback")
       .on<AiFeedback>(
         "postgres_changes",
         {
@@ -36,7 +36,7 @@ export const useAiFeedbackWatcher = (reflectionCUID: string) => {
         },
         (payload) => {
           if (payload.new && payload.new.aiFeedback) {
-            setAiFeedback(payload.new.aiFeedback);
+            setAIFeedback(payload.new.aiFeedback);
           }
         }
       )
@@ -46,8 +46,8 @@ export const useAiFeedbackWatcher = (reflectionCUID: string) => {
   };
 
   useEffect(() => {
-    fetchAiFeedback();
-    const channel = subscribeToRealtimeUpdateAiFeedback();
+    fetchAIFeedback();
+    const channel = subscribeToRealtimeUpdateAIFeedback();
     // NOTE: コンポーネントがアンマウントされたら監視を解除する
     return () => {
       supabase.removeChannel(channel);
@@ -55,5 +55,5 @@ export const useAiFeedbackWatcher = (reflectionCUID: string) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return aiFeedback;
+  return AIFeedback;
 };
