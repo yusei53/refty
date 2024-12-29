@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Box, Typography } from "@mui/material";
+import { AccordionDetails, Box, Typography } from "@mui/material";
 import { label } from "../../post-form/popup/select-tag/button/TagButton";
+import { Accordion, AccordionSummary } from "../../ui/shared/accordion";
 import { Button } from "../../ui/shared/button";
 import { StyledMarkdown } from "./mark-down";
 import { useAiFeedbackWatcher } from "@/src/hooks/reflection/useAiFeedbackWatcher";
@@ -10,17 +12,17 @@ import { removeHtmlTags } from "@/src/utils/remove-html-tags";
 import { theme } from "@/src/utils/theme";
 
 type ReflectionArticleProps = {
+  reflectionCUID: string;
   username: string;
   userImage: string;
   createdAt: string;
   title: string;
   content: string;
+  aiFeedback: string;
   onSendToSQS: () => Promise<void>;
   activeTags: string[];
-  reflectionCUID: string;
 };
 
-// TODO: 内製Linkコンポーネント作ってもいいかも
 export const link = {
   color: "black",
   textDecoration: "none",
@@ -38,24 +40,55 @@ const h1 = {
 };
 
 export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
+  reflectionCUID,
   username,
   userImage,
   createdAt,
   title,
   content,
+  aiFeedback,
   onSendToSQS,
-  activeTags,
-  reflectionCUID
+  activeTags
 }) => {
-  const aiFeedback = useAiFeedbackWatcher(reflectionCUID);
+  const [animatedFeedback, setAnimatedFeedback] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // ボタン押下時の状態を管理
+  const realTimeAIFeedback = useAiFeedbackWatcher(reflectionCUID);
   const plainContent = removeHtmlTags(content);
+  const [isAnimating, setIsAnimating] = useState(false);
+
   // NOTE: 現状AIにFBもらえるのは100文字以上かつまだAIからのフィードバックがない場合のみ
   const isAiCallButtonEnabled =
-    plainContent.length > 100 && aiFeedback === null;
+    plainContent.length > 100 && realTimeAIFeedback === null;
+
+  // TODO: ここから下ははリファクタしてシンプルにします(yusei53)
+  const animateFeedback = (text: string) => {
+    setAnimatedFeedback("");
+    let index = 0;
+    setIsAnimating(true);
+
+    const interval = setInterval(() => {
+      if (index < text.length) {
+        setAnimatedFeedback((prev) => prev + text[index]);
+        index++;
+      } else {
+        clearInterval(interval);
+        setIsAnimating(false);
+      }
+    }, 30);
+  };
 
   const handleSendToSQS = async () => {
+    setIsLoading(true);
     await onSendToSQS();
+    setIsLoading(false);
   };
+
+  useEffect(() => {
+    if (realTimeAIFeedback && !isAnimating) {
+      animateFeedback(realTimeAIFeedback);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [realTimeAIFeedback]);
 
   return (
     <Box component={"article"}>
@@ -105,13 +138,30 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
       <Box mt={8}>
         <StyledMarkdown dangerouslySetInnerHTML={{ __html: content }} />
       </Box>
-      <Button onClick={handleSendToSQS} disabled={!isAiCallButtonEnabled}>
-        AIからフィードバックをもらう
-      </Button>
-      <div>
-        <h1>AI Feedback</h1>
-        <p>{aiFeedback}</p>
-      </div>
+      <Accordion>
+        <AccordionSummary>
+          <Typography fontSize={17} fontWeight={"bold"}>
+            AIに聞いてみる
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails sx={{ py: 0.5, px: 0 }}>
+          <Button onClick={handleSendToSQS} disabled={!isAiCallButtonEnabled}>
+            AIからフィードバックをもらう
+          </Button>
+          <Typography fontSize={12} color={theme.palette.grey[600]}>
+            文字数が100文字以上、かつまだAIからのフィードバックがない場合のみAIにフィードバックをもらえます
+          </Typography>
+          <Typography my={3}>
+            {aiFeedback
+              ? aiFeedback
+              : isLoading
+                ? "考えてます..."
+                : realTimeAIFeedback
+                  ? animatedFeedback
+                  : ""}
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
     </Box>
   );
 };
