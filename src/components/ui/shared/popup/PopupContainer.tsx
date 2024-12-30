@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Box } from "@mui/material";
 import type { Reflection } from "@/src/api/reflection-api";
 import { KebabMenuButton } from "./KebabMenuButton";
 import { useUpdatePinnedReflection } from "@/src/hooks/reflection/useUpdatePinnedReflection";
@@ -52,19 +53,34 @@ export const PopupContainer: React.FC<PopupContainerProps> = ({
   };
 
   return (
-    <KebabMenuButton
-      reflectionCUID={reflectionCUID}
-      username={username}
-      anchorEl={anchorEl}
-      open={Boolean(anchorEl)}
-      isPublic={isPublic}
-      isPinned={isPinned}
-      isCurrentUser={isCurrentUser}
-      onOpenPopup={handleOpenPopup}
-      onClosePopup={handleClosePopup}
-      onCopyLink={handleCopyLink}
-      onPublicToggle={handlePublicToggle}
-      onPinToggle={handlePinToggle}
-    />
+    <>
+      {Boolean(anchorEl) && (
+        // MEMO: なぜかこのPopperは外側をクリックしてもスマホで閉じないため、透明なBoxを設置
+        <Box
+          onClick={handleClosePopup}
+          position="fixed"
+          top={0}
+          left={0}
+          width="100vw"
+          height="100vh"
+          zIndex={1}
+        />
+      )}
+
+      <KebabMenuButton
+        reflectionCUID={reflectionCUID}
+        username={username}
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        isPublic={isPublic}
+        isPinned={isPinned}
+        isCurrentUser={isCurrentUser}
+        onOpenPopup={handleOpenPopup}
+        onClosePopup={handleClosePopup}
+        onCopyLink={handleCopyLink}
+        onPublicToggle={handlePublicToggle}
+        onPinToggle={handlePinToggle}
+      />
+    </>
   );
 };
