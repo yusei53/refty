@@ -6,6 +6,7 @@ import { FaSquareXTwitter } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { Box, Divider, Stack, Typography } from "@mui/material";
 import { AuthButton } from "@/src/components/ui/auth-button";
+import { theme } from "@/src/utils/theme";
 
 const LoginFormPage = () => {
   return (
@@ -53,6 +54,9 @@ const LoginFormPage = () => {
         />
         <Typography fontSize={14} my={1}>
           ログインすると投稿作成ができます
+        </Typography>
+        <Typography fontSize={12} color={theme.palette.grey[600]} px={3}>
+          ※現在アイコンを編集することができないため、アイコンが設定されているサービスを推奨しています
         </Typography>
       </Box>
       <Divider sx={{ borderColor: "#c4c4c4", mx: 3 }} />
