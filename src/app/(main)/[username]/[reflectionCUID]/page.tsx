@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
+import { getServerSession } from "next-auth";
 import Loading from "./loading";
 import { reflectionAPI } from "@/src/api/reflection-api";
-import getCurrentUser from "@/src/utils/actions/get-current-user";
+import authOptions from "@/src/app/api/auth/[...nextauth]/options";
 import { generateMeta } from "@/src/utils/metadata";
 
 const ReflectionDetailPage = dynamic(
@@ -29,14 +30,13 @@ type PageProps = {
 };
 
 const page = async ({ params }: PageProps) => {
+  const session = await getServerSession(authOptions);
   const { reflectionCUID } = params;
-
-  const currentUser = await getCurrentUser();
 
   const reflection = await reflectionAPI.getReflectionByCUID(reflectionCUID);
   if (
     reflection === 404 ||
-    (reflection.userId !== currentUser?.id && !reflection.isPublic)
+    (reflection.userId !== session?.user.id && !reflection.isPublic)
   ) {
     return notFound();
   }

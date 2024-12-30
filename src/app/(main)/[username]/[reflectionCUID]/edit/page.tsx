@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
 import ReflectionUpdateFormPage from "./page.client";
 import { reflectionAPI } from "@/src/api/reflection-api";
-import getCurrentUser from "@/src/utils/actions/get-current-user";
+import authOptions from "@/src/app/api/auth/[...nextauth]/options";
 import { generateMeta } from "@/src/utils/metadata";
 
 export const generateMetadata = async ({
@@ -22,20 +23,20 @@ type PageProps = {
 
 const page = async ({ params }: PageProps) => {
   const { reflectionCUID } = params;
-  const currentUser = await getCurrentUser();
+  const session = await getServerSession(authOptions);
 
   const reflection = await reflectionAPI.getReflectionByCUID(reflectionCUID);
-  if (reflection === 404 || reflection.userId !== currentUser?.id) {
+  if (reflection === 404 || reflection.userId !== session?.user.id) {
     return notFound();
   }
 
-  if (!currentUser?.username) {
+  if (session?.user.username !== params.username) {
     redirect("/login");
   }
 
   return (
     <ReflectionUpdateFormPage
-      username={currentUser.username}
+      username={session.user.username}
       reflectionCUID={reflectionCUID}
       title={reflection.title}
       content={reflection.content}

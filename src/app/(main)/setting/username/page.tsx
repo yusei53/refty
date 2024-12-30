@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
 import RootPage from "../../../page.client";
 import { reflectionAPI } from "@/src/api/reflection-api";
-import getCurrentUser from "@/src/utils/actions/get-current-user";
+import authOptions from "@/src/app/api/auth/[...nextauth]/options";
 import { meta } from "@/src/utils/metadata";
 
 export const metadata: Metadata = meta.settingUsernamePage;
 
 const page = async ({ searchParams }: { searchParams: { page?: string } }) => {
-  const currentUser = await getCurrentUser();
+  const session = await getServerSession(authOptions);
   const currentPage = searchParams.page ? parseInt(searchParams.page, 10) : 1;
   const result = await reflectionAPI.getReflectionAll();
   if (result === 404) {
@@ -16,14 +17,14 @@ const page = async ({ searchParams }: { searchParams: { page?: string } }) => {
   }
 
   //usernameが設定されている場合、/${currentUser.username}にリダイレクト
-  if (currentUser?.username) {
-    redirect(`/${currentUser.username}`);
+  if (session?.user.username) {
+    redirect(`/${session.user.username}`);
   }
 
   return (
     <RootPage
       open
-      currentUsername={currentUser?.username || null}
+      currentUsername={session?.user.username || null}
       reflections={result.reflections}
       currentPage={currentPage}
       totalPage={result.totalPage}
