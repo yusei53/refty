@@ -63,10 +63,9 @@ export const PopupContainer: React.FC<PopupContainerProps> = ({
           left={0}
           width="100vw"
           height="100vh"
-          zIndex={1}
+          zIndex={3}
         />
       )}
-
       <KebabMenuButton
         reflectionCUID={reflectionCUID}
         username={username}
