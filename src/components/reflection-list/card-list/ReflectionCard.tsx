@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import type { Reflection } from "@/src/api/reflection-api";
-import { PopupContainer } from "../../ui/shared/popup/PopupContainer";
+import { KebabButtonPopupContainer } from "../../ui/shared/popup";
 import { formatDate } from "@/src/utils/date-helper";
 import { theme } from "@/src/utils/theme";
 
@@ -28,7 +28,7 @@ const ReflectionCard: React.FC<ReflectionCardProps> = ({
           zIndex: 2
         }}
       >
-        <PopupContainer
+        <KebabButtonPopupContainer
           reflectionCUID={reflection.reflectionCUID}
           username={username}
           reflection={reflection}
