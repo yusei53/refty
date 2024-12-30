@@ -5,7 +5,7 @@ import { KebabMenuButton } from "./KebabMenuButton";
 import { useUpdatePinnedReflection } from "@/src/hooks/reflection/useUpdatePinnedReflection";
 import { useUpdatePublicReflection } from "@/src/hooks/reflection/useUpdatePublicReflection";
 
-type PopupContainerProps = {
+type KebabButtonPopupContainerProps = {
   reflectionCUID: string;
   username: string;
   reflection: Reflection;
@@ -14,7 +14,9 @@ type PopupContainerProps = {
   isCurrentUser: boolean;
 };
 
-export const PopupContainer: React.FC<PopupContainerProps> = ({
+export const KebabButtonPopupContainer: React.FC<
+  KebabButtonPopupContainerProps
+> = ({
   username,
   reflectionCUID,
   reflection,
@@ -63,10 +65,9 @@ export const PopupContainer: React.FC<PopupContainerProps> = ({
           left={0}
           width="100vw"
           height="100vh"
-          zIndex={1}
+          zIndex={3}
         />
       )}
-
       <KebabMenuButton
         reflectionCUID={reflectionCUID}
         username={username}
