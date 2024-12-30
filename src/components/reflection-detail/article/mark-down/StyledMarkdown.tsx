@@ -64,7 +64,7 @@ export const StyledMarkdown = styled(Box)(({ theme }) => ({
     },
 
     h3: {
-      fontSize: "1.2rem"
+      fontSize: "1.3rem"
     },
 
     "h4, h5, h6": {
