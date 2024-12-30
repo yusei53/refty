@@ -70,6 +70,18 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
           height={22}
         />
       </Box>
+      {open && (
+        // MEMO: なぜかこのPopperは外側をクリックしてもスマホで閉じないため、透明なBoxを設置
+        <Box
+          onClick={onClosePopup}
+          position={"fixed"}
+          top={0}
+          left={0}
+          width={"100vw"}
+          height={"100vh"}
+          zIndex={1}
+        />
+      )}
       <Popper
         open={open}
         anchorEl={anchorEl}
