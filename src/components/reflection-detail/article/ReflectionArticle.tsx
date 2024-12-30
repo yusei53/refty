@@ -5,8 +5,9 @@ import { AccordionDetails, Box, Typography } from "@mui/material";
 import { label } from "../../post-form/popup/select-tag/button/TagButton";
 import { Accordion, AccordionSummary } from "../../ui/shared/accordion";
 import { Button } from "../../ui/shared/button";
+import { AICalling, AIFeedbackArea } from "./ai-feedback";
 import { StyledMarkdown } from "./mark-down";
-import { useAIFeedbackWatcher } from "@/src/hooks/reflection/useAiFeedbackWatcher";
+import { useAIFeedbackWatcher } from "@/src/hooks/reflection/useAIFeedbackWatcher";
 import { formatDate } from "@/src/utils/date-helper";
 import { removeHtmlTags } from "@/src/utils/remove-html-tags";
 import { theme } from "@/src/utils/theme";
@@ -80,11 +81,11 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
   const handleSendToSQS = async () => {
     setIsLoading(true);
     await onSendToSQS();
-    setIsLoading(false);
   };
 
   useEffect(() => {
     if (realTimeAIFeedback && !isAnimating) {
+      setIsLoading(false);
       animateFeedback(realTimeAIFeedback);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -140,26 +141,38 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
       </Box>
       <Accordion>
         <AccordionSummary>
-          <Typography fontSize={17} fontWeight={"bold"}>
+          <Typography fontSize={17} fontWeight={550} letterSpacing={0.8}>
             AIに聞いてみる
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ py: 0.5, px: 0 }}>
-          <Button onClick={handleSendToSQS} disabled={!isAICallButtonEnabled}>
+          <Button
+            onClick={handleSendToSQS}
+            disabled={!isAICallButtonEnabled}
+            sx={{
+              borderRadius: 2,
+              bgcolor: theme.palette.primary.contrastText,
+              "&:hover": {
+                bgcolor: theme.palette.primary.main // ホバー時の色
+              }
+            }}
+          >
             AIからフィードバックをもらう
           </Button>
-          <Typography fontSize={12} color={theme.palette.grey[600]}>
+          <Typography fontSize={12} color={theme.palette.grey[600]} mt={1}>
             文字数が100文字以上、かつまだAIからのフィードバックがない場合のみAIにフィードバックをもらえます
           </Typography>
-          <Typography my={3}>
-            {aiFeedback
-              ? aiFeedback
-              : isLoading
-                ? "考えてます..."
-                : realTimeAIFeedback
-                  ? animatedFeedback
-                  : ""}
-          </Typography>
+          <Box my={3}>
+            {aiFeedback ? (
+              <AIFeedbackArea AIFeedback={aiFeedback} />
+            ) : isLoading ? (
+              <AICalling />
+            ) : (
+              realTimeAIFeedback && (
+                <AIFeedbackArea AIFeedback={animatedFeedback} />
+              )
+            )}
+          </Box>
         </AccordionDetails>
       </Accordion>
     </Box>
