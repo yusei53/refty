@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import RootPage from "../../../page.client";
+import SettingUsernameModalPage from "./page.client";
 import { reflectionAPI } from "@/src/api/reflection-api";
 import authOptions from "@/src/app/api/auth/[...nextauth]/options";
-import SettingUsernameModalContainer from "@/src/components/setting-username/SettingUsernameModalContainer";
 import { meta } from "@/src/utils/metadata";
 
 export const metadata: Metadata = meta.settingUsernamePage;
@@ -23,16 +22,13 @@ const page = async ({ searchParams }: { searchParams: { page?: string } }) => {
   }
 
   return (
-    <>
-      <SettingUsernameModalContainer open />
-      <RootPage
-        currentUsername={session?.user.username || null}
-        reflections={result.reflections}
-        currentPage={currentPage}
-        totalPage={result.totalPage}
-        filteredReflectionCount={result.filteredReflectionCount}
-      />
-    </>
+    <SettingUsernameModalPage
+      currentUsername={session?.user.username || null}
+      reflections={result.reflections}
+      currentPage={currentPage}
+      totalPage={result.totalPage}
+      filteredReflectionCount={result.filteredReflectionCount}
+    />
   );
 };
 
