@@ -9,12 +9,12 @@ import ReflectionCardListArea from "@/src/components/reflection-list/card-list/R
 import { GoodJobModal } from "@/src/components/reflection-list/modal";
 import HaveNotPost from "@/src/components/reflection-list/no-post/HaveNotPost";
 import UserProfileArea from "@/src/components/reflection-list/profile/UserProfileArea";
-import { SearchBar } from "@/src/components/reflection-list/search-bar";
 import { PostNavigationButton } from "@/src/components/ui/shared/button";
 import {
   ArrowPagination,
   NumberedPagination
 } from "@/src/components/ui/shared/pagination";
+import { SearchBar } from "@/src/components/ui/shared/search-bar";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { theme } from "@/src/utils/theme";
 

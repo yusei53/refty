@@ -4,12 +4,12 @@ import { Box, Container } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import type { ReflectionWithUser } from "@/src/api/reflection-api";
 import type { User } from "@prisma/client";
-import { SearchBar } from "../../reflection-list/search-bar";
 import { animation } from "../../ui/shared/animation";
 import {
   ArrowPagination,
   NumberedPagination
 } from "../../ui/shared/pagination";
+import { SearchBar } from "../../ui/shared/search-bar";
 import { ReflectionAllHeader } from "../header";
 import ReflectionCardWithUser from "./ReflectionCardWithUser";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
