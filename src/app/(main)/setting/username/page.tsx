@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import RootPage from "../../../page.client";
+import SettingUsernameModalPage from "./page.client";
 import { reflectionAPI } from "@/src/api/reflection-api";
 import authOptions from "@/src/app/api/auth/[...nextauth]/options";
 import { meta } from "@/src/utils/metadata";
@@ -22,8 +22,7 @@ const page = async ({ searchParams }: { searchParams: { page?: string } }) => {
   }
 
   return (
-    <RootPage
-      open
+    <SettingUsernameModalPage
       currentUsername={session?.user.username || null}
       reflections={result.reflections}
       currentPage={currentPage}

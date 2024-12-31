@@ -1,16 +1,22 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useMediaQuery } from "@mui/material";
+import { Container, useMediaQuery } from "@mui/material";
 import type { ReflectionWithUser } from "../api/reflection-api";
 import type { User } from "@prisma/client";
-import ReflectionAllArea from "../components/reflection-all-list/card-list/ReflectionAllListArea";
-import SettingUsernameModalContainer from "../components/setting-username/SettingUsernameModalContainer";
+import ReflectionAllCardListArea from "../components/reflection-all-list/card-list/ReflectionAllCardListArea";
+import { ReflectionAllHeader } from "../components/reflection-all-list/header";
 import { PostNavigationButton } from "../components/ui/shared/button";
 import { Footer } from "../components/ui/shared/footer";
+import {
+  ArrowPagination,
+  NumberedPagination
+} from "../components/ui/shared/pagination";
+import { SearchBar } from "../components/ui/shared/search-bar";
+import { usePagination } from "../hooks/reflection/usePagination";
+import { tagMap } from "../hooks/reflection-tag/useExtractTrueTags";
+import { useTagManager } from "../hooks/reflection-tag/useTagManager";
 import { theme } from "../utils/theme";
 
 type RootPageProps = {
-  open: boolean;
   currentUsername: User["username"];
   reflections: ReflectionWithUser[];
   currentPage: number;
@@ -19,48 +25,44 @@ type RootPageProps = {
 };
 
 const RootPage: React.FC<RootPageProps> = ({
-  open,
   currentUsername,
   reflections,
   currentPage,
   totalPage,
   filteredReflectionCount
 }) => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
-
-  const handlePageChange = async (
-    event: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
-    const currentTag = searchParams.get("tag");
-    const newParams = new URLSearchParams(searchParams.toString());
-
-    newParams.set("page", value.toString());
-    if (currentTag) {
-      newParams.set("tag", currentTag);
-    } else {
-      newParams.delete("tag");
-    }
-
-    router.push(`?${newParams.toString()}`);
-  };
+  const { isOpenTagList, selectedTag, handleToggleTags, handleTagChange } =
+    useTagManager();
+  const { handlePageChange } = usePagination();
 
   return (
     <>
-      <SettingUsernameModalContainer
-        open={open}
-        currentUsername={currentUsername}
-      />
-      <ReflectionAllArea
-        currentUsername={currentUsername}
-        reflections={reflections}
-        currentPage={currentPage}
-        totalPage={totalPage}
-        filteredReflectionCount={filteredReflectionCount}
-        onChange={handlePageChange}
-      />
+      <Container maxWidth="md" sx={{ mt: { xs: 8, sm: 6 }, mb: 6 }}>
+        <ReflectionAllHeader currentUsername={currentUsername} />
+        <SearchBar
+          tags={Object.values(tagMap)}
+          selectedTag={selectedTag}
+          count={filteredReflectionCount}
+          isOpenTagList={isOpenTagList}
+          onToggleTags={handleToggleTags}
+          onTagChange={handleTagChange}
+        />
+        <ArrowPagination
+          currentPage={currentPage}
+          totalPage={totalPage}
+          onChange={handlePageChange}
+        />
+        <ReflectionAllCardListArea
+          currentUsername={currentUsername}
+          reflections={reflections}
+        />
+        <NumberedPagination
+          currentPage={currentPage}
+          totalPage={totalPage}
+          onChange={handlePageChange}
+        />
+      </Container>
       {currentUsername && isLargeScreen && (
         <PostNavigationButton
           sx={{
