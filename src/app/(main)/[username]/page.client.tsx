@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Box, useMediaQuery } from "@mui/material";
 import type { Reflection } from "@/src/api/reflection-api";
@@ -15,7 +14,9 @@ import {
   NumberedPagination
 } from "@/src/components/ui/shared/pagination";
 import { SearchBar } from "@/src/components/ui/shared/search-bar";
+import { usePagination } from "@/src/hooks/reflection/usePagination";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
+import { useTagManager } from "@/src/hooks/reflection-tag/useTagManager";
 import { theme } from "@/src/utils/theme";
 
 type UserReflectionListPageProps = {
@@ -39,74 +40,17 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   totalPage,
   filteredReflectionCount
 }) => {
-  const [showTags, setShowTags] = useState(false);
-  const [selectedTag, setSelectedTag] = useState<string | null>(null);
-  const searchParams = useSearchParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
-  const newParams = new URLSearchParams(searchParams.toString());
+  const { isOpenTagList, selectedTag, handleToggleTags, handleTagChange } =
+    useTagManager();
+  const { handlePageChange } = usePagination();
 
   const isCurrentUser = currentUsername === username;
   const isModalOpen = searchParams.get("status") === "posted";
   const handleCloseModal = () => {
     router.push(`/${username}`);
-  };
-
-  const handleToggleTags = () => {
-    setShowTags((prev) => {
-      if (prev) {
-        setSelectedTag(null);
-        newParams.delete("tag");
-        router.push(`?${newParams.toString()}`);
-      }
-      return !prev;
-    });
-  };
-
-  const createUpdatedParams = (tagKey: string): URLSearchParams => {
-    const currentPageParams = searchParams.get("page");
-    const currentTagParams = searchParams.get("tag");
-
-    if (currentTagParams === tagKey) {
-      newParams.delete("tag");
-    } else {
-      newParams.set("tag", tagKey);
-    }
-
-    if (currentPageParams) {
-      newParams.delete("page");
-    }
-
-    return newParams;
-  };
-
-  const handleTagChange = (tag: string) => {
-    const tagKey = Object.keys(tagMap).find(
-      (key) => tagMap[key as keyof typeof tagMap] === tag
-    );
-    if (!tagKey) return;
-
-    setSelectedTag((prev) => (prev === tag ? null : tag));
-
-    const newParams = createUpdatedParams(tagKey);
-    router.push(`?${newParams.toString()}`);
-  };
-
-  const handlePageChange = async (
-    event: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
-    const currentTag = searchParams.get("tag");
-    const newParams = new URLSearchParams(searchParams.toString());
-
-    newParams.set("page", value.toString());
-    if (currentTag) {
-      newParams.set("tag", currentTag);
-    } else {
-      newParams.delete("tag");
-    }
-
-    router.push(`?${newParams.toString()}`);
   };
 
   // TODO: ReflectionAllAreaのようなコンポーネントを作ってリファクタする
@@ -122,7 +66,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           tags={Object.values(tagMap)}
           selectedTag={selectedTag}
           count={filteredReflectionCount}
-          showTags={showTags}
+          isOpenTagList={isOpenTagList}
           onToggleTags={handleToggleTags}
           onTagChange={handleTagChange}
         />
