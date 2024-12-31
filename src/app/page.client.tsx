@@ -4,13 +4,11 @@ import { useMediaQuery } from "@mui/material";
 import type { ReflectionWithUser } from "../api/reflection-api";
 import type { User } from "@prisma/client";
 import ReflectionAllArea from "../components/reflection-all-list/card-list/ReflectionAllListArea";
-import SettingUsernameModalContainer from "../components/setting-username/SettingUsernameModalContainer";
 import { PostNavigationButton } from "../components/ui/shared/button";
 import { Footer } from "../components/ui/shared/footer";
 import { theme } from "../utils/theme";
 
 type RootPageProps = {
-  open: boolean;
   currentUsername: User["username"];
   reflections: ReflectionWithUser[];
   currentPage: number;
@@ -19,7 +17,6 @@ type RootPageProps = {
 };
 
 const RootPage: React.FC<RootPageProps> = ({
-  open,
   currentUsername,
   reflections,
   currentPage,
@@ -49,10 +46,6 @@ const RootPage: React.FC<RootPageProps> = ({
 
   return (
     <>
-      <SettingUsernameModalContainer
-        open={open}
-        currentUsername={currentUsername}
-      />
       <ReflectionAllArea
         currentUsername={currentUsername}
         reflections={reflections}

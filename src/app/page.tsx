@@ -24,7 +24,6 @@ const page = async ({
 
   return (
     <RootPage
-      open={false}
       currentUsername={session?.user.username || null}
       reflections={result.reflections}
       currentPage={currentPage}
