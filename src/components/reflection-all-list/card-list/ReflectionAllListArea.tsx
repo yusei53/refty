@@ -1,17 +1,15 @@
 import { useState, type ChangeEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Box, Container } from "@mui/material";
-import Grid from "@mui/material/Grid2";
 import type { ReflectionWithUser } from "@/src/api/reflection-api";
 import type { User } from "@prisma/client";
-import { animation } from "../../ui/shared/animation";
 import {
   ArrowPagination,
   NumberedPagination
 } from "../../ui/shared/pagination";
 import { SearchBar } from "../../ui/shared/search-bar";
 import { ReflectionAllHeader } from "../header";
-import ReflectionCardWithUser from "./ReflectionCardWithUser";
+import ReflectionAllCardListArea from "./ReflectionAllCardListArea";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 
 type ReflectionAllAreaProps = {
@@ -96,29 +94,10 @@ const ReflectionAllArea: React.FC<ReflectionAllAreaProps> = ({
           totalPage={totalPage}
           onChange={onChange}
         />
-        <Grid container my={0.5}>
-          {/* MEMO: indexはアニメーションのために必要 */}
-          {reflections.map((reflection, index) => {
-            const isCurrentUser = currentUsername === reflection.user.username;
-
-            return (
-              <Grid
-                key={reflection.reflectionCUID}
-                size={{ xs: 12, md: 6 }}
-                display={"flex"}
-                alignItems={"center"}
-                justifyContent={"center"}
-                mb={3.5}
-                sx={animation(index)}
-              >
-                <ReflectionCardWithUser
-                  reflection={reflection}
-                  isCurrentUser={isCurrentUser}
-                />
-              </Grid>
-            );
-          })}
-        </Grid>
+        <ReflectionAllCardListArea
+          currentUsername={currentUsername}
+          reflections={reflections}
+        />
         <NumberedPagination
           currentPage={currentPage}
           totalPage={totalPage}
