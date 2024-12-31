@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Box, styled, Typography } from "@mui/material";
 
-const HaveNotPost = () => {
+export const EmptyReflection = () => {
   return (
     <Box
       display={"flex"}
@@ -28,5 +28,3 @@ const CustomImage = styled(Image)(({ theme }) => ({
     marginRight: 10
   }
 }));
-
-export default HaveNotPost;

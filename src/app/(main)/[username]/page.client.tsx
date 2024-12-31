@@ -6,8 +6,8 @@ import type { Reflection } from "@/src/api/reflection-api";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import type { User } from "@prisma/client";
 import ReflectionCardListArea from "@/src/components/reflection-list/card-list/ReflectionCardListArea";
+import { EmptyReflection } from "@/src/components/reflection-list/card-list/empty-reflection";
 import { GoodJobModal } from "@/src/components/reflection-list/modal";
-import HaveNotPost from "@/src/components/reflection-list/no-post/HaveNotPost";
 import UserProfileArea from "@/src/components/reflection-list/profile/UserProfileArea";
 import { PostNavigationButton } from "@/src/components/ui/shared/button";
 import {
@@ -127,7 +127,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           onTagChange={handleTagChange}
         />
         {reflections.length === 0 ? (
-          <HaveNotPost />
+          <EmptyReflection />
         ) : (
           <>
             <ArrowPagination
