@@ -6,7 +6,7 @@ import { theme } from "@/src/utils/theme";
 type SearchBarProps = {
   tags: string[];
   selectedTag: string | null;
-  showTags: boolean;
+  isOpenTagList: boolean;
   count: number;
   onToggleTags: () => void;
   onTagChange: (tag: string) => void;
@@ -15,7 +15,7 @@ type SearchBarProps = {
 export const SearchBar: React.FC<SearchBarProps> = ({
   tags,
   selectedTag,
-  showTags,
+  isOpenTagList,
   count,
   onToggleTags,
   onTagChange
@@ -49,7 +49,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
               <Slide
                 key={tag}
                 direction="right"
-                in={showTags}
+                in={isOpenTagList}
                 timeout={300 + index * 100}
               >
                 <Box>
