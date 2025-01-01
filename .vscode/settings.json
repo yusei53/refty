@@ -5,7 +5,8 @@
     "nextauth",
     "hookform",
     "googleusercontent",
-    "opengraph"
+    "opengraph",
+    "supabase"
   ],
 
   "editor.tabSize": 2,

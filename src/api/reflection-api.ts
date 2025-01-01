@@ -38,6 +38,7 @@ export type Reflections = {
 
 export type ReflectionDetail = Reflection & {
   content: string;
+  aiFeedback: string;
   userId: string;
   user: {
     image: string;
