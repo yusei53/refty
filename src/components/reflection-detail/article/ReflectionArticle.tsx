@@ -148,7 +148,7 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
         <AccordionDetails sx={{ py: 0.5, px: 0 }}>
           <Button
             onClick={handleSendToSQS}
-            disabled={!isAICallButtonEnabled}
+            disabled={!isAICallButtonEnabled || isLoading}
             sx={{
               borderRadius: 2,
               bgcolor: theme.palette.primary.contrastText,
