@@ -6,16 +6,16 @@ export async function POST(req: NextRequest) {
 
   const {  content, reflectionCUID } = await req.json();
 
-  const { AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, SQS_QUEUE_URL } = process.env;
-  if (!AWS_REGION || !AWS_ACCESS_KEY_ID || !AWS_SECRET_ACCESS_KEY || !SQS_QUEUE_URL) {
+  const { NEXT_PUBLIC_AWS_REGION, NEXT_PUBLIC_AWS_ACCESS_KEY_ID, NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY, NEXT_PUBLIC_SQS_QUEUE_URL } = process.env;
+  if (!NEXT_PUBLIC_AWS_REGION || !NEXT_PUBLIC_AWS_ACCESS_KEY_ID || !NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY || !NEXT_PUBLIC_SQS_QUEUE_URL) {
     return new NextResponse("Missing SQS configuration", { status: 500 });
   }
 
   const sqsClient = new SQSClient({
-    region: AWS_REGION,
+    region: NEXT_PUBLIC_AWS_REGION,
     credentials: {
-      accessKeyId: AWS_ACCESS_KEY_ID,
-      secretAccessKey: AWS_SECRET_ACCESS_KEY,
+      accessKeyId: NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
+      secretAccessKey: NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY,
     },
   });
 
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const command = new SendMessageCommand({
-      QueueUrl: SQS_QUEUE_URL,
+      QueueUrl: NEXT_PUBLIC_SQS_QUEUE_URL,
       MessageBody: messageBody
     });
     const responseFromSQS = await sqsClient.send(command);
