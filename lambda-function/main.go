@@ -11,7 +11,7 @@ import (
 	openai "github.com/sashabaranov/go-openai"
 	"github.com/joho/godotenv"
 	_ "github.com/jackc/pgx/v5/stdlib"
-	"refty.go/content"
+	// "refty.go/content"
 )
 
 type SQSMessageBody struct {
@@ -58,7 +58,8 @@ func handler(ctx context.Context, sqsEvent events.SQSEvent) {
 		Messages: []openai.ChatCompletionMessage{
 			{
 				Role:    openai.ChatMessageRoleSystem,
-				Content: content.FeedbackQuery,
+				// Content: content.FeedbackQuery,
+        Content: FeedbackQuery,
 			},
 			{
 				Role:    openai.ChatMessageRoleUser,
