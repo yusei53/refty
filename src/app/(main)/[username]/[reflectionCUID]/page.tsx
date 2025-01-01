@@ -52,6 +52,7 @@ const page = async ({ params }: PageProps) => {
       isAwareness={reflection.isAwareness}
       isInputLog={reflection.isInputLog}
       isMonologue={reflection.isMonologue}
+      aiFeedback={reflection.aiFeedback}
       createdAt={reflection.createdAt}
       reflectionCount={reflection.reflectionCount}
     />
