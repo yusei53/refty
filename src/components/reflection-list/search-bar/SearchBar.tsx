@@ -8,7 +8,6 @@ type SearchBarProps = {
   tags: string[];
   selectedTag: string | null;
   showTags: boolean;
-  count: number;
   tagCountList: ReflectionTagCountList;
   onToggleTags: () => void;
   onTagChange: (tag: string) => void;
@@ -18,7 +17,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   tags,
   selectedTag,
   showTags,
-  count,
   tagCountList,
   onToggleTags,
   onTagChange

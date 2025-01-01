@@ -29,7 +29,6 @@ const page = async ({
       reflections={result.reflections}
       currentPage={currentPage}
       totalPage={result.totalPage}
-      filteredReflectionCount={result.filteredReflectionCount}
       tagCountList={result.tagCountList}
     />
   );

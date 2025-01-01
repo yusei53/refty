@@ -18,7 +18,6 @@ type RootPageProps = {
   reflections: ReflectionWithUser[];
   currentPage: number;
   totalPage: number;
-  filteredReflectionCount: number;
   tagCountList: ReflectionTagCountList;
 };
 
@@ -28,7 +27,6 @@ const RootPage: React.FC<RootPageProps> = ({
   reflections,
   currentPage,
   totalPage,
-  filteredReflectionCount,
   tagCountList
 }) => {
   const router = useRouter();
@@ -63,7 +61,6 @@ const RootPage: React.FC<RootPageProps> = ({
         reflections={reflections}
         currentPage={currentPage}
         totalPage={totalPage}
-        filteredReflectionCount={filteredReflectionCount}
         tagCountList={tagCountList}
         onChange={handlePageChange}
       />

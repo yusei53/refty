@@ -22,7 +22,6 @@ type ReflectionAllAreaProps = {
   reflections: ReflectionWithUser[];
   currentPage: number;
   totalPage: number;
-  filteredReflectionCount: number;
   tagCountList: ReflectionTagCountList;
   onChange: (event: ChangeEvent<unknown>, value: number) => void;
 };
@@ -32,7 +31,6 @@ const ReflectionAllArea: React.FC<ReflectionAllAreaProps> = ({
   reflections,
   currentPage,
   totalPage,
-  filteredReflectionCount,
   tagCountList,
   onChange
 }) => {
@@ -91,7 +89,6 @@ const ReflectionAllArea: React.FC<ReflectionAllAreaProps> = ({
         <SearchBar
           tags={Object.values(tagMap)}
           selectedTag={selectedTag}
-          count={filteredReflectionCount}
           showTags={showTags}
           tagCountList={tagCountList}
           onToggleTags={handleToggleTags}
