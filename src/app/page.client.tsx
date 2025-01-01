@@ -1,7 +1,10 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMediaQuery } from "@mui/material";
-import type { ReflectionWithUser } from "../api/reflection-api";
+import type {
+  ReflectionTagCountList,
+  ReflectionWithUser
+} from "../api/reflection-api";
 import type { User } from "@prisma/client";
 import ReflectionAllArea from "../components/reflection-all-list/card-list/ReflectionAllListArea";
 import SettingUsernameModalContainer from "../components/setting-username/SettingUsernameModalContainer";
@@ -16,6 +19,7 @@ type RootPageProps = {
   currentPage: number;
   totalPage: number;
   filteredReflectionCount: number;
+  tagCountList: ReflectionTagCountList;
 };
 
 const RootPage: React.FC<RootPageProps> = ({
@@ -24,7 +28,8 @@ const RootPage: React.FC<RootPageProps> = ({
   reflections,
   currentPage,
   totalPage,
-  filteredReflectionCount
+  filteredReflectionCount,
+  tagCountList
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -59,6 +64,7 @@ const RootPage: React.FC<RootPageProps> = ({
         currentPage={currentPage}
         totalPage={totalPage}
         filteredReflectionCount={filteredReflectionCount}
+        tagCountList={tagCountList}
         onChange={handlePageChange}
       />
       {currentUsername && isLargeScreen && (

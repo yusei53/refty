@@ -22,8 +22,6 @@ const page = async ({
     return notFound();
   }
 
-  console.log(result);
-
   return (
     <RootPage
       open={false}
@@ -32,6 +30,7 @@ const page = async ({
       currentPage={currentPage}
       totalPage={result.totalPage}
       filteredReflectionCount={result.filteredReflectionCount}
+      tagCountList={result.tagCountList}
     />
   );
 };

@@ -2,7 +2,10 @@ import { useState, type ChangeEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Box, Container } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import type { ReflectionWithUser } from "@/src/api/reflection-api";
+import type {
+  ReflectionTagCountList,
+  ReflectionWithUser
+} from "@/src/api/reflection-api";
 import type { User } from "@prisma/client";
 import { SearchBar } from "../../reflection-list/search-bar";
 import { animation } from "../../ui/shared/animation";
@@ -20,6 +23,7 @@ type ReflectionAllAreaProps = {
   currentPage: number;
   totalPage: number;
   filteredReflectionCount: number;
+  tagCountList: ReflectionTagCountList;
   onChange: (event: ChangeEvent<unknown>, value: number) => void;
 };
 
@@ -29,6 +33,7 @@ const ReflectionAllArea: React.FC<ReflectionAllAreaProps> = ({
   currentPage,
   totalPage,
   filteredReflectionCount,
+  tagCountList,
   onChange
 }) => {
   const [showTags, setShowTags] = useState(false);
@@ -88,6 +93,7 @@ const ReflectionAllArea: React.FC<ReflectionAllAreaProps> = ({
           selectedTag={selectedTag}
           count={filteredReflectionCount}
           showTags={showTags}
+          tagCountList={tagCountList}
           onToggleTags={handleToggleTags}
           onTagChange={handleTagChange}
         />
