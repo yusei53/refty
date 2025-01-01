@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { AccordionDetails, Box, Typography } from "@mui/material";
 import { label } from "../../post-form/popup/select-tag/button/TagButton";
 import { Accordion, AccordionSummary } from "../../ui/shared/accordion";
@@ -52,16 +53,18 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
   activeTags
 }) => {
   const [animatedFeedback, setAnimatedFeedback] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // ボタン押下時の状態を管理
+  const [isLoading, setIsLoading] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const { data: session } = useSession();
   const realTimeAIFeedback = useAIFeedbackWatcher(reflectionCUID);
   const plainContent = removeHtmlTags(content);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const isCurrentUser = session?.user?.username === username;
 
   // NOTE: 現状AIにFBもらえるのは100文字以上かつまだAIからのフィードバックがない場合のみ
   const isAICallButtonEnabled =
     plainContent.length > 100 && realTimeAIFeedback === null;
 
-  // TODO: ここから下ははリファクタしてシンプルにします(yusei53)
+  // TODO: ここから下はリファクタしてシンプルにします(yusei53)
   const animateFeedback = (text: string) => {
     setAnimatedFeedback("");
     let index = 0;
@@ -148,7 +151,7 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
         <AccordionDetails sx={{ py: 0.5, px: 0 }}>
           <Button
             onClick={handleSendToSQS}
-            disabled={!isAICallButtonEnabled || isLoading}
+            disabled={!isAICallButtonEnabled || isLoading || !isCurrentUser}
             sx={{
               borderRadius: 2,
               bgcolor: theme.palette.primary.contrastText,
