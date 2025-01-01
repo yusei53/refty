@@ -25,6 +25,7 @@ export async function GET(
         isAwareness: true,
         isInputLog: true,
         isMonologue: true,
+        aiFeedback: true,
         createdAt: true,
         userId: true,
         user: {

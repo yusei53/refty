@@ -16,6 +16,7 @@ type ReflectionDetailPageProps = {
   isAwareness: boolean;
   isInputLog: boolean;
   isMonologue: boolean;
+  aiFeedback: string;
   createdAt: string;
   userImage: string;
   username: string;
@@ -30,6 +31,7 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
   isAwareness,
   isInputLog,
   isMonologue,
+  aiFeedback,
   createdAt,
   userImage,
   username,
@@ -39,7 +41,7 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
   const searchParams = useSearchParams();
   const { parseTagsToValue } = useParseTagsToValue();
   const reflectionCUID = usePathname().split("/").pop();
-    if(!reflectionCUID) return null;
+  if (!reflectionCUID) return null;
   const activeTags = [
     isDailyReflection && parseTagsToValue("isDailyReflection"),
     isLearning && parseTagsToValue("isLearning"),
@@ -60,14 +62,13 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
   };
   const handleSendToSQS = async () => {
     const response = await sqsAPI.sendToSQS({
-        content,
-        reflectionCUID,
+      content,
+      reflectionCUID
     });
     if (response === 401 || response === 403 || response === 500) {
-        alert("送信に失敗しました");
-        return;
+      alert("送信に失敗しました。時間をおいて再度お試しください。");
+      return;
     }
-    alert("送信しました");
   };
 
   return (
@@ -88,11 +89,13 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
         }}
       />
       <ReflectionArticle
+        reflectionCUID={reflectionCUID}
         username={username}
         userImage={userImage}
         createdAt={createdAt}
         title={title}
         content={content}
+        aiFeedback={aiFeedback}
         onSendToSQS={handleSendToSQS}
         activeTags={activeTags}
       />
