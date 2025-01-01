@@ -1,4 +1,3 @@
-"use client";
 import { useSession } from "next-auth/react";
 import { Box } from "@mui/material";
 import { MobileFooterButton } from "./MobileFooterButton";
