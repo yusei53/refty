@@ -1,6 +1,6 @@
-"use client";
 import Image from "next/image";
-import { Box, styled, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
+import { theme } from "@/src/utils/theme";
 
 export type AppealCardProps = {
   image: string;
@@ -15,6 +15,8 @@ const AppealCard: React.FC<AppealCardProps> = ({
   description,
   isComingSoon = false
 }) => {
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Box
       display={"flex"}
@@ -46,11 +48,12 @@ const AppealCard: React.FC<AppealCardProps> = ({
           </Typography>
         </Box>
       )}
-      <CustomImage
+      <Image
         src={`/lp/appeal/${image}`}
         alt={"feature image"}
         width={90}
         height={90}
+        style={isSmallScreen ? { width: 70, height: 70, marginRight: 10 } : {}}
       />
       <Box textAlign={{ xs: "left", sm: "center" }}>
         <Typography
@@ -66,13 +69,5 @@ const AppealCard: React.FC<AppealCardProps> = ({
     </Box>
   );
 };
-
-const CustomImage = styled(Image)(({ theme }) => ({
-  [theme.breakpoints.down("sm")]: {
-    width: 70,
-    height: 70,
-    marginRight: 10
-  }
-}));
 
 export default AppealCard;
