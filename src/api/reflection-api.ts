@@ -23,10 +23,19 @@ export type ReflectionWithUser = Reflection & {
   };
 };
 
+export type ReflectionTagCountList = {
+  isDailyReflection: number;
+  isLearning: number;
+  isAwareness: number;
+  isMonologue: number;
+  isInputLog: number;
+};
+
 type ReflectionAll = {
   reflections: ReflectionWithUser[];
   totalPage: number;
   filteredReflectionCount: number;
+  tagCountList: ReflectionTagCountList;
 };
 
 export type Reflections = {

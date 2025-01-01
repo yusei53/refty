@@ -22,6 +22,8 @@ const page = async ({
     return notFound();
   }
 
+  console.log(result);
+
   return (
     <RootPage
       open={false}
