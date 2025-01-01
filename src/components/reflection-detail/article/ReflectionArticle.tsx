@@ -69,13 +69,13 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
 
     const interval = setInterval(() => {
       if (index < text.length) {
-        setAnimatedFeedback((prev) => prev + text[index]);
+        setAnimatedFeedback((prev) => prev + text[index - 1]);
         index++;
       } else {
         clearInterval(interval);
         setIsAnimating(false);
       }
-    }, 30);
+    }, 20);
   };
 
   const handleSendToSQS = async () => {
