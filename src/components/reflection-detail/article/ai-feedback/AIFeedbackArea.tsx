@@ -1,4 +1,5 @@
-import { Typography } from "@mui/material";
+import { Box } from "@mui/material";
+import { StyledMarkdown } from "../mark-down";
 import { theme } from "@/src/utils/theme";
 
 type AIFeedbackAreaProps = {
@@ -9,13 +10,8 @@ export const AIFeedbackArea: React.FC<AIFeedbackAreaProps> = ({
   AIFeedback
 }) => {
   return (
-    <Typography
-      p={3}
-      lineHeight={2}
-      letterSpacing={0.5}
-      bgcolor={theme.palette.grey[400]}
-    >
-      {AIFeedback}
-    </Typography>
+    <Box p={2.5} borderRadius={1} bgcolor={theme.palette.grey[400]}>
+      <StyledMarkdown dangerouslySetInnerHTML={{ __html: AIFeedback }} />
+    </Box>
   );
 };
