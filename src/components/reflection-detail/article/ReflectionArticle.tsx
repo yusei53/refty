@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -8,9 +7,8 @@ import { Accordion, AccordionSummary } from "../../ui/shared/accordion";
 import { Button } from "../../ui/shared/button";
 import { AICalling, AIFeedbackArea } from "./ai-feedback";
 import { StyledMarkdown } from "./mark-down";
-import { useAIFeedbackWatcher } from "@/src/hooks/reflection/useAIFeedbackWatcher";
+import { useAIFeedbackHandler } from "@/src/hooks/reflection/useAIFeedbackHandler";
 import { formatDate } from "@/src/utils/date-helper";
-import { removeHtmlTags } from "@/src/utils/remove-html-tags";
 import { theme } from "@/src/utils/theme";
 
 type ReflectionArticleProps = {
@@ -52,47 +50,16 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
   onSendToSQS,
   activeTags
 }) => {
-  const [animatedFeedback, setAnimatedFeedback] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
   const { data: session } = useSession();
-  const realTimeAIFeedback = useAIFeedbackWatcher(reflectionCUID);
-  const plainContent = removeHtmlTags(content);
   const isCurrentUser = session?.user?.username === username;
 
-  // NOTE: 現状AIにFBもらえるのは100文字以上かつまだAIからのフィードバックがない場合のみ
-  const isAICallButtonEnabled =
-    plainContent.length > 100 && realTimeAIFeedback === null;
-
-  // TODO: ここから下はリファクタしてシンプルにします(yusei53)
-  const animateFeedback = (text: string) => {
-    setAnimatedFeedback("");
-    let index = 0;
-    setIsAnimating(true);
-
-    const interval = setInterval(() => {
-      if (index < text.length) {
-        setAnimatedFeedback((prev) => prev + text[index - 1]);
-        index++;
-      } else {
-        clearInterval(interval);
-        setIsAnimating(false);
-      }
-    }, 20);
-  };
-
-  const handleSendToSQS = async () => {
-    setIsLoading(true);
-    await onSendToSQS();
-  };
-
-  useEffect(() => {
-    if (realTimeAIFeedback && !isAnimating) {
-      setIsLoading(false);
-      animateFeedback(realTimeAIFeedback);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [realTimeAIFeedback]);
+  const {
+    animatedFeedback,
+    isLoading,
+    realTimeAIFeedback,
+    isAICallButtonEnabled,
+    handleSendToSQS
+  } = useAIFeedbackHandler(reflectionCUID, aiFeedback, content, onSendToSQS);
 
   return (
     <Box component={"article"}>
@@ -156,7 +123,7 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
               borderRadius: 2,
               bgcolor: theme.palette.primary.contrastText,
               "&:hover": {
-                bgcolor: theme.palette.primary.main // ホバー時の色
+                bgcolor: theme.palette.primary.main
               }
             }}
           >
