@@ -13,7 +13,7 @@ import {
 import { SearchBar } from "../components/ui/shared/search-bar";
 import { usePagination } from "../hooks/reflection/usePagination";
 import { tagMap } from "../hooks/reflection-tag/useExtractTrueTags";
-import { useTagManager } from "../hooks/reflection-tag/useTagManager";
+import { useTagHandler } from "../hooks/reflection-tag/useTagHandler";
 import { theme } from "../utils/theme";
 
 type RootPageProps = {
@@ -33,7 +33,7 @@ const RootPage: React.FC<RootPageProps> = ({
 }) => {
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const { isOpenTagList, selectedTag, handleToggleTags, handleTagChange } =
-    useTagManager();
+    useTagHandler();
   const { handlePageChange } = usePagination();
 
   return (

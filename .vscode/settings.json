@@ -6,7 +6,8 @@
     "hookform",
     "googleusercontent",
     "opengraph",
-    "supabase"
+    "supabase",
+    "REFTY"
   ],
 
   "editor.tabSize": 2,
