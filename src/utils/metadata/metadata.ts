@@ -1,13 +1,14 @@
 import "server-only";
 import type { Metadata } from "next";
 
-const siteName = "リフティ | 振り返りプラットフォーム";
+export const REFTY = "リフティ";
+const siteName = `${REFTY} | 振り返りプラットフォーム`;
 const description = "日々の振り返りを手助けする振り返りプラットフォーム";
 
 const baseMetadata: Metadata = {
   title: {
     default: siteName,
-    template: "%s | リフティ"
+    template: `%s | ${REFTY}`
   },
   description: description,
   openGraph: {
@@ -15,7 +16,7 @@ const baseMetadata: Metadata = {
     url: "https://www.refty.jp/",
     title: siteName,
     description: description,
-    siteName: "リフティ"
+    siteName: REFTY
   },
   twitter: {
     title: siteName,
@@ -29,66 +30,66 @@ export const meta = {
 
   welcomePage: {
     ...baseMetadata,
-    title: "リフティとは",
+    title: `${REFTY}とは`,
     openGraph: {
       ...baseMetadata.openGraph,
       url: "https://www.refty.jp/welcome",
-      title: "リフティとは | リフティ"
+      title: `${REFTY}とは | ${REFTY}`
     },
     twitter: {
       ...baseMetadata.twitter,
-      title: "リフティとは | リフティ"
+      title: `${REFTY}とは | ${REFTY}`
     }
   },
 
   settingUsernamePage: {
     ...baseMetadata,
     title: "ユーザーネーム設定",
-    description: "リフティのユーザーネーム設定ページ",
+    description: `${REFTY}のユーザーネーム設定ページ`,
     openGraph: {
       ...baseMetadata.openGraph,
       url: "https://www.refty.jp/setting/username",
-      title: "ユーザーネーム設定 | リフティ",
-      description: "リフティのユーザーネーム設定ページ"
+      title: `ユーザーネーム設定 | ${REFTY}`,
+      description: `${REFTY}のユーザーネーム設定ページ`
     },
     twitter: {
       ...baseMetadata.twitter,
-      title: "ユーザーネーム設定 | リフティ",
-      description: "リフティのユーザーネーム設定ページ"
+      title: `ユーザーネーム設定 | ${REFTY}`,
+      description: `${REFTY}のユーザーネーム設定ページ`
     }
   },
 
   loginFormPage: {
     ...baseMetadata,
     title: "ログイン",
-    description: "リフティのログインページ",
+    description: `${REFTY}のログインページ`,
     openGraph: {
       ...baseMetadata.openGraph,
       url: "https://www.refty.jp/login",
-      title: "ログイン | リフティ",
-      description: "リフティのログインページ"
+      title: `ログイン | ${REFTY}`,
+      description: `${REFTY}のログインページ`
     },
     twitter: {
       ...baseMetadata.twitter,
-      title: "ログイン | リフティ",
-      description: "リフティのログインページ"
+      title: `ログイン | ${REFTY}`,
+      description: `${REFTY}のログインページ`
     }
   },
 
   reflectionPostFormPage: {
     ...baseMetadata,
     title: "投稿作成",
-    description: "リフティの投稿作成ページ",
+    description: `${REFTY}の投稿作成ページ`,
     openGraph: {
       ...baseMetadata.openGraph,
       url: "https://www.refty.jp/post",
-      title: "投稿作成 | リフティ",
-      description: "リフティの投稿作成ページ"
+      title: `投稿作成 | ${REFTY}`,
+      description: `${REFTY}の投稿作成ページ`
     },
     twitter: {
       ...baseMetadata.twitter,
-      title: "投稿作成 | リフティ",
-      description: "リフティの投稿作成ページ"
+      title: `投稿作成 | ${REFTY}`,
+      description: `${REFTY}の投稿作成ページ`
     }
   }
 };

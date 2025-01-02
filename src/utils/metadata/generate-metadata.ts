@@ -1,5 +1,6 @@
 import "server-only";
 import type { Metadata } from "next";
+import { REFTY } from "./metadata";
 import opengraphAPI from "@/src/api/opengraph-api";
 import { reflectionAPI } from "@/src/api/reflection-api";
 
@@ -8,9 +9,9 @@ const notFoundMetadata: Metadata = {
   description: "このページは見つかりません",
   openGraph: {
     type: "website",
-    title: "404 | リフティ",
+    title: `404 | ${REFTY}`,
     description: "このページは見つかりません",
-    siteName: "リフティ"
+    siteName: REFTY
   }
 };
 
@@ -21,17 +22,17 @@ export const generateMeta = {
       return notFoundMetadata;
     }
     return {
-      title: `${username} | リフティ`,
+      title: `${username} | ${REFTY}`,
       description: `${username} has ${userInformation.totalReflections} reflections. Find new insights with refty!`,
       openGraph: {
         type: "website",
         url: `https://www.refty.jp/${username}`,
-        title: `${username} | リフティ`,
+        title: `${username} | ${REFTY}`,
         description: `${username} has ${userInformation.totalReflections} reflections. Find new insights with refty!`,
-        siteName: "リフティ"
+        siteName: REFTY
       },
       twitter: {
-        title: `${username} | リフティ`,
+        title: `${username} | ${REFTY}`,
         description: `${username} has ${userInformation.totalReflections} reflections. Find new insights with refty!`,
         card: "summary"
       }
@@ -44,16 +45,16 @@ export const generateMeta = {
       return notFoundMetadata;
     }
     return {
-      title: `${reflection.title} | リフティ`,
+      title: `${reflection.title} ${REFTY}`,
       description: `by ${reflection.user.username}`,
       openGraph: {
         type: "website",
-        title: `${reflection.title} | リフティ`,
+        title: `${reflection.title} ${REFTY}`,
         description: `by ${reflection.user?.username}`,
-        siteName: "リフティ"
+        siteName: REFTY
       },
       twitter: {
-        title: `${reflection.title} | リフティ`,
+        title: `${reflection.title} ${REFTY}`,
         description: `by ${reflection.user?.username}`,
         card: "summary_large_image"
       }
@@ -66,16 +67,16 @@ export const generateMeta = {
       return notFoundMetadata;
     }
     return {
-      title: `${reflection.title}を編集 | リフティ`,
+      title: `${reflection.title}を編集 ${REFTY}`,
       description: `${reflection.title}に関する詳細ページの編集画面です`,
       openGraph: {
         type: "website",
         url: `https://www.refty.jp/${reflectionCUID}`,
-        title: `${reflection.title}を編集 | リフティ`,
+        title: `${reflection.title}を編集 ${REFTY}`,
         description: `${reflection.title}に関する詳細ページの編集画面です`
       },
       twitter: {
-        title: `${reflection.title}を編集 | リフティ`,
+        title: `${reflection.title}を編集 ${REFTY}`,
         description: `${reflection.title}に関する詳細ページの編集画面です`
       }
     };
