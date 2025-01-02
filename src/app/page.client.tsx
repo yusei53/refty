@@ -46,7 +46,7 @@ const RootPage: React.FC<RootPageProps> = ({
         <SearchBar
           tags={Object.values(tagMap)}
           selectedTag={selectedTag}
-          count={filteredReflectionCount}
+          tagCountList={tagCountList}
           isOpenTagList={isOpenTagList}
           onToggleTags={handleToggleTags}
           onTagChange={handleTagChange}
