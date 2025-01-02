@@ -23,17 +23,17 @@ export const generateMeta = {
     }
     return {
       title: `${username} | ${REFTY}`,
-      description: `${username} has ${userInformation.totalReflections} reflections. Find new insights with refty!`,
+      description: `${username} has ${userInformation.totalReflections} reflections.`,
       openGraph: {
         type: "website",
         url: `https://www.refty.jp/${username}`,
         title: `${username} | ${REFTY}`,
-        description: `${username} has ${userInformation.totalReflections} reflections. Find new insights with refty!`,
+        description: `${username} has ${userInformation.totalReflections} reflections.`,
         siteName: REFTY
       },
       twitter: {
         title: `${username} | ${REFTY}`,
-        description: `${username} has ${userInformation.totalReflections} reflections. Find new insights with refty!`,
+        description: `${username} has ${userInformation.totalReflections} reflections.`,
         card: "summary"
       }
     };
