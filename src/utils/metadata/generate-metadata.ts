@@ -62,7 +62,8 @@ export const generateMeta = {
   },
 
   async reflectionUpdateFormPage(reflectionCUID: string): Promise<Metadata> {
-    const reflection = await reflectionAPI.getReflectionByCUID(reflectionCUID);
+    const reflection =
+      await reflectionAPI.getDetailReflectionByCUID(reflectionCUID);
     if (reflection === 404) {
       return notFoundMetadata;
     }

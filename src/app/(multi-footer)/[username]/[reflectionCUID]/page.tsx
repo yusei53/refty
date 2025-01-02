@@ -33,7 +33,8 @@ const page = async ({ params }: PageProps) => {
   const session = await getServerSession(authOptions);
   const { reflectionCUID } = params;
 
-  const reflection = await reflectionAPI.getReflectionByCUID(reflectionCUID);
+  const reflection =
+    await reflectionAPI.getDetailReflectionByCUID(reflectionCUID);
   if (
     reflection === 404 ||
     (reflection.userId !== session?.user.id && !reflection.isPublic)
