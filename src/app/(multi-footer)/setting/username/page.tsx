@@ -27,7 +27,7 @@ const page = async ({ searchParams }: { searchParams: { page?: string } }) => {
       reflections={result.reflections}
       currentPage={currentPage}
       totalPage={result.totalPage}
-      filteredReflectionCount={result.filteredReflectionCount}
+      tagCountList={result.tagCountList}
     />
   );
 };

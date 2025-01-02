@@ -1,6 +1,9 @@
 "use client";
 import { Container, useMediaQuery } from "@mui/material";
-import type { ReflectionWithUser } from "../api/reflection-api";
+import type {
+  ReflectionTagCountList,
+  ReflectionWithUser
+} from "../api/reflection-api";
 import type { User } from "@prisma/client";
 import ReflectionAllCardListArea from "../components/reflection-all-list/card-list/ReflectionAllCardListArea";
 import { ReflectionAllHeader } from "../components/reflection-all-list/header";
@@ -21,7 +24,7 @@ type RootPageProps = {
   reflections: ReflectionWithUser[];
   currentPage: number;
   totalPage: number;
-  filteredReflectionCount: number;
+  tagCountList: ReflectionTagCountList;
 };
 
 const RootPage: React.FC<RootPageProps> = ({
@@ -29,11 +32,16 @@ const RootPage: React.FC<RootPageProps> = ({
   reflections,
   currentPage,
   totalPage,
-  filteredReflectionCount
+  tagCountList
 }) => {
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
-  const { isOpenTagList, selectedTag, handleToggleTags, handleTagChange } =
-    useTagHandler();
+  const {
+    isOpenTagList,
+    selectedTag,
+    handleToggleTags,
+    handleTagChange,
+    getSelectedTagCount
+  } = useTagHandler();
   const { handlePageChange } = usePagination();
 
   return (
@@ -43,8 +51,8 @@ const RootPage: React.FC<RootPageProps> = ({
         <SearchBar
           tags={Object.values(tagMap)}
           selectedTag={selectedTag}
-          count={filteredReflectionCount}
           isOpenTagList={isOpenTagList}
+          selectedTagCount={getSelectedTagCount(tagCountList, selectedTag)}
           onToggleTags={handleToggleTags}
           onTagChange={handleTagChange}
         />

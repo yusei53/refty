@@ -75,6 +75,29 @@ export async function GET(
       }
     });
 
+    // MEMO: タグ別の投稿数を全て取得しておく
+    const [
+      isDailyReflectionCount,
+      isLearningCount,
+      isAwarenessCount,
+      isMonologueCount,
+      isInputLogCount
+    ] = await Promise.all([
+      prisma.reflection.count({ where: { userId, isDailyReflection: true } }),
+      prisma.reflection.count({ where: { userId, isLearning: true } }),
+      prisma.reflection.count({ where: { userId, isAwareness: true } }),
+      prisma.reflection.count({ where: { userId, isMonologue: true } }),
+      prisma.reflection.count({ where: { userId, isInputLog: true } })
+    ]);
+
+    const tagCountList = {
+      isDailyReflection: isDailyReflectionCount,
+      isLearning: isLearningCount,
+      isAwareness: isAwarenessCount,
+      isMonologue: isMonologueCount,
+      isInputLog: isInputLogCount
+    };
+
     if (!userWithReflections) {
       return NextResponse.json(
         { message: "振り返りが見つかりません" },
@@ -86,7 +109,8 @@ export async function GET(
       reflections: userWithReflections.reflections,
       userImage: userWithReflections.image,
       totalPage,
-      filteredReflectionCount
+      filteredReflectionCount,
+      tagCountList
     });
   } catch (error) {
     console.error("Error fetching user reflections:", error);

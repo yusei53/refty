@@ -7,7 +7,7 @@ type SearchBarProps = {
   tags: string[];
   selectedTag: string | null;
   isOpenTagList: boolean;
-  count: number;
+  selectedTagCount: number;
   onToggleTags: () => void;
   onTagChange: (tag: string) => void;
 };
@@ -16,7 +16,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   tags,
   selectedTag,
   isOpenTagList,
-  count,
+  selectedTagCount,
   onToggleTags,
   onTagChange
 }) => {
@@ -70,7 +70,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
             <Typography component={"span"} fontWeight={550}>
               {`#${selectedTag}`}
             </Typography>
-            {`　${count}件`}
+            {`　${selectedTagCount}件`}
           </>
         )}
       </Box>

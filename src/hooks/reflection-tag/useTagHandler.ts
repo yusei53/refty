@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import type { ReflectionTagCountList } from "@/src/api/reflection-api";
 import { tagMap } from "./useExtractTrueTags";
 
 export const useTagHandler = () => {
@@ -50,10 +51,31 @@ export const useTagHandler = () => {
     router.push(`?${newParams.toString()}`);
   };
 
+  const getSelectedTagCount = (
+    tagCountList: ReflectionTagCountList,
+    selectedTag: string | null
+  ) => {
+    switch (selectedTag) {
+      case "振り返り":
+        return tagCountList.isDailyReflection;
+      case "学び":
+        return tagCountList.isLearning;
+      case "気づき":
+        return tagCountList.isAwareness;
+      case "ひとりごと":
+        return tagCountList.isMonologue;
+      case "インプットの記録":
+        return tagCountList.isInputLog;
+      default:
+        return 0;
+    }
+  };
+
   return {
     isOpenTagList,
     selectedTag,
     handleToggleTags,
-    handleTagChange
+    handleTagChange,
+    getSelectedTagCount
   };
 };
