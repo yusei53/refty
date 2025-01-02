@@ -1,6 +1,5 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, IconButton, Stack, Slide, Typography } from "@mui/material";
-import type { ReflectionTagCountList } from "@/src/api/reflection-api";
 import { TagButton } from "../../../post-form/popup/select-tag/button/TagButton";
 import { theme } from "@/src/utils/theme";
 
@@ -8,7 +7,7 @@ type SearchBarProps = {
   tags: string[];
   selectedTag: string | null;
   isOpenTagList: boolean;
-  tagCountList: ReflectionTagCountList;
+  selectedTagCount: number;
   onToggleTags: () => void;
   onTagChange: (tag: string) => void;
 };
@@ -17,32 +16,10 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   tags,
   selectedTag,
   isOpenTagList,
-  tagCountList,
+  selectedTagCount,
   onToggleTags,
   onTagChange
 }) => {
-  let tagCount = 0;
-
-  switch (selectedTag) {
-    case "振り返り":
-      tagCount = tagCountList.isDailyReflection;
-      break;
-    case "学び":
-      tagCount = tagCountList.isLearning;
-      break;
-    case "気づき":
-      tagCount = tagCountList.isAwareness;
-      break;
-    case "ひとりごと":
-      tagCount = tagCountList.isMonologue;
-      break;
-    case "インプットの記録":
-      tagCount = tagCountList.isInputLog;
-      break;
-    default:
-      tagCount = 0;
-  }
-
   return (
     <Box mx={3}>
       <Box display={"flex"} alignItems={"center"} mb={1.5}>
@@ -93,7 +70,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
             <Typography component={"span"} fontWeight={550}>
               {`#${selectedTag}`}
             </Typography>
-            {`　${tagCount}件`}
+            {`　${selectedTagCount}件`}
           </>
         )}
       </Box>

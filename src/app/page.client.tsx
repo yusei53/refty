@@ -35,8 +35,13 @@ const RootPage: React.FC<RootPageProps> = ({
   tagCountList
 }) => {
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
-  const { isOpenTagList, selectedTag, handleToggleTags, handleTagChange } =
-    useTagManager();
+  const {
+    isOpenTagList,
+    selectedTag,
+    handleToggleTags,
+    handleTagChange,
+    getSelectedTagCount
+  } = useTagManager();
   const { handlePageChange } = usePagination();
 
   return (
@@ -46,8 +51,8 @@ const RootPage: React.FC<RootPageProps> = ({
         <SearchBar
           tags={Object.values(tagMap)}
           selectedTag={selectedTag}
-          tagCountList={tagCountList}
           isOpenTagList={isOpenTagList}
+          selectedTagCount={getSelectedTagCount(tagCountList, selectedTag)}
           onToggleTags={handleToggleTags}
           onTagChange={handleTagChange}
         />
