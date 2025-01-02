@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { FaDiscord, FaLine } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { Box, Divider, Stack, Typography } from "@mui/material";
@@ -96,6 +97,16 @@ const LoginFormPage = () => {
           iconColor={"#000000"}
           onClick={() =>
             signIn("twitter", {
+              callbackUrl: "/setting/username"
+            })
+          }
+        />
+        <AuthButton
+          label="GitHub"
+          icon={FaGithub}
+          iconColor={"#000000"}
+          onClick={() =>
+            signIn("github", {
               callbackUrl: "/setting/username"
             })
           }
