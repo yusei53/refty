@@ -16,7 +16,7 @@ import {
 import { SearchBar } from "@/src/components/ui/shared/search-bar";
 import { usePagination } from "@/src/hooks/reflection/usePagination";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
-import { useTagManager } from "@/src/hooks/reflection-tag/useTagManager";
+import { useTagHandler } from "@/src/hooks/reflection-tag/useTagHandler";
 import { theme } from "@/src/utils/theme";
 
 type UserReflectionListPageProps = {
@@ -44,7 +44,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   const searchParams = useSearchParams();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const { isOpenTagList, selectedTag, handleToggleTags, handleTagChange } =
-    useTagManager();
+    useTagHandler();
   const { handlePageChange } = usePagination();
 
   const isCurrentUser = currentUsername === username;

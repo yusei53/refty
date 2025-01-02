@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { tagMap } from "./useExtractTrueTags";
 
-export const useTagManager = () => {
+export const useTagHandler = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isOpenTagList, setIsOpenTagList] = useState(false);
