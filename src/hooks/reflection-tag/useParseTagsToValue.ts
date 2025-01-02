@@ -1,4 +1,4 @@
-import type { TagStateKeys } from "./useTagHandler";
+import type { TagStateKeys } from "./useParseValueToTags";
 
 export const useParseTagsToValue = () => {
   const parseTagsToValue = (stateKey: TagStateKeys): string => {

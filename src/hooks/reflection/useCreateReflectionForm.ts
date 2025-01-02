@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useTagHandler } from "../reflection-tag/useTagHandler";
+import { useParseValueToTags } from "../reflection-tag/useParseValueToTags";
 import { reflectionAPI } from "@/src/api/reflection-api";
 
 export const createReflectionSchema = z.object({
@@ -12,7 +12,7 @@ export const createReflectionSchema = z.object({
     .min(1, { message: "タイトルは1文字以上で入力してください。" })
     .max(40, { message: "タイトルは40文字以内で入力してください。" })
     .refine((value) => value.trim().length > 0, {
-      message: "空白のみのタイトルはできません。",
+      message: "空白のみのタイトルはできません。"
     }),
   content: z
     .string()
@@ -57,7 +57,7 @@ export const useCreateReflectionForm = (username: string | undefined) => {
     setValue("charStamp", emoji);
   };
 
-  const { handleTagChange } = useTagHandler({ setValue });
+  const { handleTagChange } = useParseValueToTags({ setValue });
 
   const onSubmit = handleSubmit(
     async (formData: CreateReflectionSchemaType) => {
