@@ -21,7 +21,7 @@ export const generateMeta = {
       return notFoundMetadata;
     }
     return {
-      title: `${username}`,
+      title: `${username} | リフティ`,
       description: `${username} has ${userInformation.totalReflections} reflections. Find new insights with refty!`,
       openGraph: {
         type: "website",
@@ -44,7 +44,7 @@ export const generateMeta = {
       return notFoundMetadata;
     }
     return {
-      title: `${reflection.title}`,
+      title: `${reflection.title} | リフティ`,
       description: `by ${reflection.user.username}`,
       openGraph: {
         type: "website",
