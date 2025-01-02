@@ -55,31 +55,20 @@ export const useTagHandler = () => {
     tagCountList: ReflectionTagCountList,
     selectedTag: string | null
   ) => {
-    if (!selectedTag) return 0;
-
-    let selectedTagCount = 0;
-
     switch (selectedTag) {
       case "振り返り":
-        selectedTagCount = tagCountList.isDailyReflection;
-        break;
+        return tagCountList.isDailyReflection;
       case "学び":
-        selectedTagCount = tagCountList.isLearning;
-        break;
+        return tagCountList.isLearning;
       case "気づき":
-        selectedTagCount = tagCountList.isAwareness;
-        break;
+        return tagCountList.isAwareness;
       case "ひとりごと":
-        selectedTagCount = tagCountList.isMonologue;
-        break;
+        return tagCountList.isMonologue;
       case "インプットの記録":
-        selectedTagCount = tagCountList.isInputLog;
-        break;
+        return tagCountList.isInputLog;
       default:
-        selectedTagCount = 0;
+        return 0;
     }
-
-    return selectedTagCount;
   };
 
   return {
