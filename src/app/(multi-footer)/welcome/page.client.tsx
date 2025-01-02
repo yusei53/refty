@@ -1,12 +1,9 @@
-import type { Metadata } from "next";
+"use client";
 import FirstView from "@/src/components/welcome/first-view/FirstView";
 import SecondView from "@/src/components/welcome/second-view/SecondView";
 import ThirdView from "@/src/components/welcome/third-view/ThirdView";
-import { meta } from "@/src/utils/metadata";
 
-export const metadata: Metadata = meta.welcomePage;
-
-const page = () => {
+const WelcomePage = () => {
   return (
     <>
       <FirstView />
@@ -16,4 +13,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default WelcomePage;

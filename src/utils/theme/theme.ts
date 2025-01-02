@@ -1,6 +1,7 @@
 "use client";
 import { createTheme } from "@mui/material";
 
+// NOTE: layout.tsxで使うためここでクライアントサイドを明示
 export const theme = createTheme({
   typography: {
     fontSize: 13.5

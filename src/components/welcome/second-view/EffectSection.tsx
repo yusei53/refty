@@ -1,7 +1,6 @@
-"use client";
 import Image from "next/image";
 import Link from "next/link";
-import { Box, styled, Typography, useMediaQuery } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import { theme } from "@/src/utils/theme";
 
 type EffectSectionProps = {
@@ -32,7 +31,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
       my={{ xs: 6, md: 12 }}
     >
       {!isSmallScreen && (
-        <CustomImage
+        <Image
           src={image}
           alt={"feature image"}
           width={350}
@@ -58,12 +57,13 @@ const EffectSection: React.FC<EffectSectionProps> = ({
         </Typography>
         {isSmallScreen && (
           <Box m={{ xs: "0 auto", md: 0 }}>
-            <CustomImage
+            <Image
               src={image}
               alt={"feature image"}
-              width={360}
-              height={360}
+              width={170}
+              height={170}
               priority
+              style={{ margin: "15px 0px" }}
             />
           </Box>
         )}
@@ -90,13 +90,5 @@ const EffectSection: React.FC<EffectSectionProps> = ({
     </Box>
   );
 };
-
-const CustomImage = styled(Image)(({ theme }) => ({
-  [theme.breakpoints.down("sm")]: {
-    width: 170,
-    height: 170,
-    margin: "15px 0px"
-  }
-}));
 
 export default EffectSection;

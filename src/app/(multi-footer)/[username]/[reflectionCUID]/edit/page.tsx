@@ -25,7 +25,8 @@ const page = async ({ params }: PageProps) => {
   const { reflectionCUID } = params;
   const session = await getServerSession(authOptions);
 
-  const reflection = await reflectionAPI.getReflectionByCUID(reflectionCUID);
+  const reflection =
+    await reflectionAPI.getDetailReflectionByCUID(reflectionCUID);
   if (reflection === 404 || reflection.userId !== session?.user.id) {
     return notFound();
   }

@@ -3,7 +3,7 @@ import { notFound, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { CreateReflectionSchemaType } from "./useCreateReflectionForm";
-import { useTagHandler } from "../reflection-tag/useTagHandler";
+import { useParseValueToTags } from "../reflection-tag/useParseValueToTags";
 import { createReflectionSchema } from "./useCreateReflectionForm";
 import { reflectionAPI } from "@/src/api/reflection-api";
 
@@ -62,7 +62,7 @@ export const useUpdateReflectionForm = ({
     setValue("charStamp", emoji);
   };
 
-  const { handleTagChange } = useTagHandler({ setValue });
+  const { handleTagChange } = useParseValueToTags({ setValue });
 
   const onSubmit = handleSubmit(
     async (formData: CreateReflectionSchemaType) => {

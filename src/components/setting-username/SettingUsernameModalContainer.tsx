@@ -1,4 +1,3 @@
-"use client";
 import UsernameModal from "../setting-username/SettingUsernameModal";
 import { useUpdateUsernameForm } from "@/src/hooks/username/useUpdateUsernameForm";
 
