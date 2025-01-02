@@ -32,6 +32,7 @@ model Reflection {
   title             String
   content           String
   charStamp         String
+  aiFeedback        String?
   isPublic          Boolean  @default(false)
   isPinned          Boolean  @default(false)
   isDailyReflection Boolean  @default(false)

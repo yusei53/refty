@@ -104,6 +104,9 @@ const ReflectionCardWithUser: React.FC<ReflectionCardWithUserProps> = ({
                   color={theme.palette.grey[600]}
                   ml={0.5}
                   zIndex={1}
+                  maxWidth={{ xs: 100, md: 120 }}
+                  overflow={"hidden"}
+                  textOverflow={"ellipsis"}
                   sx={{
                     "&:hover": {
                       textDecoration: "underline"
