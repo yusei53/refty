@@ -7,7 +7,7 @@ import { Accordion, AccordionSummary } from "../../ui/shared/accordion";
 import { Button } from "../../ui/shared/button";
 import { AICalling, AIFeedbackArea } from "./ai-feedback";
 import { StyledMarkdown } from "./mark-down";
-import { useAIFeedbackHandler } from "@/src/hooks/reflection/useAIFeedbackHandler";
+import { useAIFeedbackHandler } from "@/src/hooks/ai-feedback/useAIFeedbackHandler";
 import { formatDate } from "@/src/utils/date-helper";
 import { theme } from "@/src/utils/theme";
 

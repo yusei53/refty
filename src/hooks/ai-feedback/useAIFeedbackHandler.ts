@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useAIFeedbackWatcher } from "@/src/hooks/reflection/useAIFeedbackWatcher";
+import { useAIFeedbackWatcher } from "@/src/hooks/ai-feedback/useAIFeedbackWatcher";
 import { removeHtmlTags } from "@/src/utils/remove-html-tags";
 
 export const useAIFeedbackHandler = (
