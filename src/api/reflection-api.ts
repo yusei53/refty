@@ -45,6 +45,10 @@ export type Reflections = {
   filteredReflectionCount: number;
 };
 
+type ReflectionByUsername = Reflections & {
+  tagCountList: ReflectionTagCountList;
+};
+
 export type ReflectionDetail = Reflection & {
   content: string;
   aiFeedback: string;
@@ -75,7 +79,7 @@ export const reflectionAPI = {
     username: string,
     page: number = 1,
     tag?: string
-  ): Promise<Result<Reflections, 404>> {
+  ): Promise<Result<ReflectionByUsername, 404>> {
     const tagParam = tag && `&tag=${tag}`;
     const path = `/api/reflection/${username}?page=${page}${tagParam}`;
     const options: FetchURLOptions = {
@@ -83,7 +87,7 @@ export const reflectionAPI = {
       next: { tags: [`reflections-${username}`] },
       headers: headers
     };
-    return await fetchURL<Reflections, 404>(path, options);
+    return await fetchURL<ReflectionByUsername, 404>(path, options);
   },
 
   async getDetailReflectionByCUID(

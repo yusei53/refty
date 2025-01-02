@@ -1,7 +1,10 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Box, useMediaQuery } from "@mui/material";
-import type { Reflection } from "@/src/api/reflection-api";
+import type {
+  Reflection,
+  ReflectionTagCountList
+} from "@/src/api/reflection-api";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import type { User } from "@prisma/client";
 import ReflectionCardListArea from "@/src/components/reflection-list/card-list/ReflectionCardListArea";
@@ -27,7 +30,7 @@ type UserReflectionListPageProps = {
   reflections: Reflection[];
   currentPage: number;
   totalPage: number;
-  filteredReflectionCount: number;
+  tagCountList: ReflectionTagCountList;
 };
 
 const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
@@ -38,13 +41,18 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   reflections,
   currentPage,
   totalPage,
-  filteredReflectionCount
+  tagCountList
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
-  const { isOpenTagList, selectedTag, handleToggleTags, handleTagChange } =
-    useTagHandler();
+  const {
+    isOpenTagList,
+    selectedTag,
+    handleToggleTags,
+    handleTagChange,
+    getSelectedTagCount
+  } = useTagHandler();
   const { handlePageChange } = usePagination();
 
   const isCurrentUser = currentUsername === username;
@@ -65,7 +73,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
         <SearchBar
           tags={Object.values(tagMap)}
           selectedTag={selectedTag}
-          count={filteredReflectionCount}
+          selectedTagCount={getSelectedTagCount(tagCountList, selectedTag)}
           isOpenTagList={isOpenTagList}
           onToggleTags={handleToggleTags}
           onTagChange={handleTagChange}
