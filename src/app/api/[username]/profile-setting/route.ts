@@ -24,19 +24,14 @@ export async function GET(
         id: userId
       },
       select: {
-        bio: true,
         image: true,
+        bio: true,
         goal: true,
         website: true
       }
     });
 
-    return NextResponse.json(
-      {
-        profile
-      },
-      { status: 200 }
-    );
+    return NextResponse.json(profile, { status: 200 });
   } catch (error) {
     console.error("Error fetching contributions:", error);
     return NextResponse.json(
