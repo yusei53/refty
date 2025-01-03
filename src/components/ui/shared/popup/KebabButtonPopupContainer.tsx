@@ -40,14 +40,20 @@ export const KebabButtonPopupContainer: React.FC<
     handleClosePopup();
   };
 
-  const { handleUpdatePublic } = useUpdatePublicReflection({ reflection });
+  const { handleUpdatePublic } = useUpdatePublicReflection({
+    reflectionCUID,
+    isPublic
+  });
 
   const handlePublicToggle = () => {
     handleUpdatePublic();
     handleClosePopup();
   };
 
-  const { handleUpdatePinned } = useUpdatePinnedReflection({ reflection });
+  const { handleUpdatePinned } = useUpdatePinnedReflection({
+    reflectionCUID,
+    isPinned
+  });
 
   const handlePinToggle = () => {
     handleUpdatePinned();
