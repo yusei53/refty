@@ -107,7 +107,7 @@ const LoginFormPage = () => {
           iconColor={"#000000"}
           onClick={() =>
             signIn("github", {
-              callbackUrl: "/setting/username"
+              callbackUrl: "/settings/username"
             })
           }
         />
