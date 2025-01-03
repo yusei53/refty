@@ -43,6 +43,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
                 alt={"ウェブサイトアイコン"}
                 width={20}
                 height={20}
+                priority
                 style={{ marginLeft: 8, marginTop: 6 }}
               />
             </Link>
@@ -54,6 +55,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
               color={theme.palette.grey[500]}
               width={20}
               height={20}
+              priority
               style={{ marginLeft: 8, marginTop: 6 }}
             />
           </Link>
