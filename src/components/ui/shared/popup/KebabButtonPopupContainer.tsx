@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Box } from "@mui/material";
-import type { Reflection } from "@/src/api/reflection-api";
 import { KebabMenuButton } from "./KebabMenuButton";
 import { useUpdatePinnedReflection } from "@/src/hooks/reflection/useUpdatePinnedReflection";
 import { useUpdatePublicReflection } from "@/src/hooks/reflection/useUpdatePublicReflection";
@@ -8,7 +7,6 @@ import { useUpdatePublicReflection } from "@/src/hooks/reflection/useUpdatePubli
 type KebabButtonPopupContainerProps = {
   reflectionCUID: string;
   username: string;
-  reflection: Reflection;
   isPublic: boolean;
   isPinned: boolean;
   isCurrentUser: boolean;
@@ -16,14 +14,7 @@ type KebabButtonPopupContainerProps = {
 
 export const KebabButtonPopupContainer: React.FC<
   KebabButtonPopupContainerProps
-> = ({
-  username,
-  reflectionCUID,
-  reflection,
-  isPublic,
-  isPinned,
-  isCurrentUser
-}) => {
+> = ({ username, reflectionCUID, isPublic, isPinned, isCurrentUser }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const handleOpenPopup = (event: React.MouseEvent<HTMLElement>) => {
