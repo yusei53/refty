@@ -48,7 +48,7 @@ export const meta = {
     description: `${REFTY}のユーザーネーム設定ページ`,
     openGraph: {
       ...baseMetadata.openGraph,
-      url: "https://www.refty.jp/setting/username",
+      url: "https://www.refty.jp/settings/username",
       title: `ユーザーネーム設定 | ${REFTY}`,
       description: `${REFTY}のユーザーネーム設定ページ`
     },

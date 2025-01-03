@@ -24,6 +24,9 @@ model User {
   accounts       Account[]
   reflections    Reflection[]
   username       String?   @unique 
+  bio            String?
+  goal           String?
+  website        String?
 }
 
 model Reflection {
