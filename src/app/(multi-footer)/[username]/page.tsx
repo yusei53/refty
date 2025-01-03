@@ -53,6 +53,7 @@ const page = async ({
         currentUsername={session?.user.username || null}
         userImage={reflectionsWithUser.userImage}
         username={username}
+        bio={reflectionsWithUser.bio}
         reflectionCount={reflectionCount}
         reflections={reflectionsWithUser.reflections}
         currentPage={currentPage}

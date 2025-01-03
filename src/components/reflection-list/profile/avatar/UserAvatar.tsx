@@ -7,11 +7,13 @@ import { theme } from "@/src/utils/theme";
 type UserAvatarProps = {
   userImage: string;
   username: string;
+  bio: string;
 };
 
 export const UserAvatar: React.FC<UserAvatarProps> = ({
   userImage,
-  username
+  username,
+  bio
 }) => {
   return (
     <>
@@ -46,7 +48,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
         <ToHomePageButton />
       </Box>
       <Typography ml={9} fontSize={14} color={"#2A2A2A"}>
-        好きなものを好きなだけ開発している大学4年生です
+        {bio}
       </Typography>
     </>
   );
