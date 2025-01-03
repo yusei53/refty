@@ -56,7 +56,7 @@ const SettingProfileFormField: React.FC<SettingProfileFormFieldProps> = ({
           />
         )}
       />
-      {errors[name] && <ErrorMessage message={errors[name].message} />}
+      {errors[name] && <ErrorMessage message={errors[name]?.message} />}
     </Box>
   );
 };
