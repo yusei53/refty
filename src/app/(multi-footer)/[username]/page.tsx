@@ -54,6 +54,7 @@ const page = async ({
         userImage={reflectionsWithUser.userImage}
         username={username}
         bio={reflectionsWithUser.bio}
+        website={reflectionsWithUser.website}
         reflectionCount={reflectionCount}
         reflections={reflectionsWithUser.reflections}
         currentPage={currentPage}

@@ -8,12 +8,14 @@ type UserAvatarProps = {
   userImage: string;
   username: string;
   bio: string;
+  website: string;
 };
 
 export const UserAvatar: React.FC<UserAvatarProps> = ({
   userImage,
   username,
-  bio
+  bio,
+  website
 }) => {
   return (
     <>
@@ -34,6 +36,17 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
             style={{ borderRadius: 100, marginRight: 8 }}
           />
           <Typography fontSize={16}>{username}</Typography>
+          {website && (
+            <Link href={website}>
+              <Image
+                src={"/website.svg"}
+                alt={"ウェブサイトアイコン"}
+                width={20}
+                height={20}
+                style={{ marginLeft: 8, marginTop: 6 }}
+              />
+            </Link>
+          )}
           <Link href={"/settings/profile"}>
             <Image
               src={"/setting.svg"}

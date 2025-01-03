@@ -27,6 +27,7 @@ type UserReflectionListPageProps = {
   userImage: string;
   username: string;
   bio: string;
+  website: string;
   reflectionCount: ReflectionsCount;
   reflections: Reflection[];
   currentPage: number;
@@ -39,6 +40,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   userImage,
   username,
   bio,
+  website,
   reflectionCount,
   reflections,
   currentPage,
@@ -71,6 +73,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           userImage={userImage}
           username={username}
           bio={bio}
+          website={website}
           reflectionCount={reflectionCount}
         />
         <SearchBar

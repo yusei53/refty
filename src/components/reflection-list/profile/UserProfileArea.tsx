@@ -15,6 +15,7 @@ type UserProfileAreaProps = {
   userImage: string;
   username: string;
   bio: string;
+  website: string;
   reflectionCount: ReflectionsCount;
 };
 
@@ -22,11 +23,17 @@ const UserProfileArea: React.FC<UserProfileAreaProps> = ({
   userImage,
   username,
   bio,
+  website,
   reflectionCount
 }) => {
   return (
     <>
-      <UserAvatar userImage={userImage} username={username} bio={bio} />
+      <UserAvatar
+        userImage={userImage}
+        username={username}
+        bio={bio}
+        website={website}
+      />
       <CalendarAreaFetcher reflectionCount={reflectionCount} />
     </>
   );
