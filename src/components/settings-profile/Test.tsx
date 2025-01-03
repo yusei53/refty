@@ -5,7 +5,7 @@ import { Box, Typography } from "@mui/material";
 import { ErrorMessage } from "../ui/shared/alert";
 import { Button } from "../ui/shared/button";
 import TextArea from "../ui/shared/text-area/TextArea";
-import { theme } from "@/src/utils/theme";
+import SettingProfileFormField from "./SettingProfileFormField";
 
 type FormValues = {
   username: string;
@@ -96,69 +96,33 @@ const Test: React.FC<TestProps> = ({
         </Box>
         {errors.username && <ErrorMessage message={errors.username.message} />}
       </Box>
-      <Box>
-        <Typography m={0.3}>自己紹介</Typography>
-        <Typography m={0.3} fontSize={13} color={`${theme.palette.grey[600]}`}>
-          マイページに表示されるプロフィール文です。
-        </Typography>
-        <Controller
-          name="bio"
-          control={control}
-          render={({ field }) => (
-            <TextArea
-              placeholder="自己紹介(20文字以内)"
-              rows={1}
-              defaultValue={field.value || ""}
-              fullWidth
-              multiline
-              onChange={field.onChange}
-            />
-          )}
-        />
-        {errors.bio && <ErrorMessage message={errors.bio.message} />}
-      </Box>
-      <Box>
-        <Typography m={0.3}>目標設定</Typography>
-        <Typography m={0.3} fontSize={13} color={`${theme.palette.grey[600]}`}>
-          心に浮かぶ目標や夢を言葉にしてみる場所です。
-        </Typography>
-        <Controller
-          name="goal"
-          control={control}
-          render={({ field }) => (
-            <TextArea
-              placeholder="〜を達成する、〜みたいになる、〜を目指す(他の人には見えません)"
-              rows={2}
-              defaultValue={field.value || ""}
-              fullWidth
-              multiline={true}
-              onChange={field.onChange}
-            />
-          )}
-        />
-        {errors.goal && <ErrorMessage message={errors.goal.message} />}
-      </Box>
-      <Box>
-        <Typography m={0.3}>ウェブサイト</Typography>
-        <Typography m={0.3} fontSize={13} color={`${theme.palette.grey[600]}`}>
-          お好きな外部URLをマイページに設置できます。
-        </Typography>
-        <Controller
-          name="website"
-          control={control}
-          render={({ field }) => (
-            <TextArea
-              placeholder="https://www.refty.jp/welcome"
-              rows={1}
-              defaultValue={field.value || ""}
-              fullWidth
-              multiline={false}
-              onChange={field.onChange}
-            />
-          )}
-        />
-        {errors.website && <ErrorMessage message={errors.website.message} />}
-      </Box>
+      <SettingProfileFormField
+        label="自己紹介"
+        description="マイページに表示されるプロフィール文です。"
+        name="bio"
+        placeholder="自己紹介(20文字以内)"
+        rows={1}
+        control={control}
+        errors={errors}
+      />
+      <SettingProfileFormField
+        label="目標設定"
+        description="心に浮かぶ目標や夢を言葉にしてみる場所です。"
+        name="goal"
+        placeholder="〜を達成する、〜みたいになる、〜を目指す(他の人には見えません)"
+        rows={2}
+        control={control}
+        errors={errors}
+      />
+      <SettingProfileFormField
+        label="ウェブサイト"
+        description="お好きな外部URLをマイページに設置できます。"
+        name="website"
+        placeholder="https://www.refty.jp/welcome"
+        rows={1}
+        control={control}
+        errors={errors}
+      />
       <Button type="submit" disabled={isSubmitting || isSubmitSuccessful}>
         {isSubmitting || isSubmitSuccessful ? "投稿中..." : "投稿する"}
       </Button>
