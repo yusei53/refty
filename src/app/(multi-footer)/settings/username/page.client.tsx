@@ -1,5 +1,8 @@
 "use client";
-import type { ReflectionWithUser } from "@/src/api/reflection-api";
+import type {
+  ReflectionTagCountList,
+  ReflectionWithUser
+} from "@/src/api/reflection-api";
 import type { User } from "@prisma/client";
 import RootPage from "@/src/app/page.client";
 import SettingUsernameModalContainer from "@/src/components/setting-username/SettingUsernameModalContainer";
@@ -9,7 +12,7 @@ type SettingUsernameModalPageProps = {
   reflections: ReflectionWithUser[];
   currentPage: number;
   totalPage: number;
-  filteredReflectionCount: number;
+  tagCountList: ReflectionTagCountList;
 };
 
 const SettingUsernameModalPage: React.FC<SettingUsernameModalPageProps> = ({
@@ -17,7 +20,7 @@ const SettingUsernameModalPage: React.FC<SettingUsernameModalPageProps> = ({
   reflections,
   currentPage,
   totalPage,
-  filteredReflectionCount
+  tagCountList
 }) => {
   return (
     <>
@@ -28,7 +31,7 @@ const SettingUsernameModalPage: React.FC<SettingUsernameModalPageProps> = ({
         reflections={reflections}
         currentPage={currentPage}
         totalPage={totalPage}
-        filteredReflectionCount={filteredReflectionCount}
+        tagCountList={tagCountList}
       />
     </>
   );
