@@ -75,6 +75,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           bio={bio}
           website={website}
           reflectionCount={reflectionCount}
+          isCurrentUser={isCurrentUser}
         />
         <SearchBar
           tags={Object.values(tagMap)}

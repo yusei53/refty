@@ -17,6 +17,7 @@ type UserProfileAreaProps = {
   bio: string;
   website: string;
   reflectionCount: ReflectionsCount;
+  isCurrentUser: boolean;
 };
 
 const UserProfileArea: React.FC<UserProfileAreaProps> = ({
@@ -24,7 +25,8 @@ const UserProfileArea: React.FC<UserProfileAreaProps> = ({
   username,
   bio,
   website,
-  reflectionCount
+  reflectionCount,
+  isCurrentUser
 }) => {
   return (
     <>
@@ -33,6 +35,7 @@ const UserProfileArea: React.FC<UserProfileAreaProps> = ({
         username={username}
         bio={bio}
         website={website}
+        isCurrentUser={isCurrentUser}
       />
       <CalendarAreaFetcher reflectionCount={reflectionCount} />
     </>

@@ -9,13 +9,15 @@ type UserAvatarProps = {
   username: string;
   bio: string;
   website: string;
+  isCurrentUser: boolean;
 };
 
 export const UserAvatar: React.FC<UserAvatarProps> = ({
   userImage,
   username,
   bio,
-  website
+  website,
+  isCurrentUser
 }) => {
   return (
     <>
@@ -48,17 +50,19 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
               />
             </Link>
           )}
-          <Link href={"/settings/profile"}>
-            <Image
-              src={"/setting.svg"}
-              alt={"プロフィール設定アイコン"}
-              color={theme.palette.grey[500]}
-              width={20}
-              height={20}
-              priority
-              style={{ marginLeft: 8, marginTop: 6 }}
-            />
-          </Link>
+          {isCurrentUser && (
+            <Link href={"/settings/profile"}>
+              <Image
+                src={"/setting.svg"}
+                alt={"プロフィール設定アイコン"}
+                color={theme.palette.grey[500]}
+                width={20}
+                height={20}
+                priority
+                style={{ marginLeft: 8, marginTop: 6 }}
+              />
+            </Link>
+          )}
         </Box>
         <ToHomePageButton />
       </Box>
