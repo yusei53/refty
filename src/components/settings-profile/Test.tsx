@@ -29,6 +29,7 @@ type TestProps = {
   onSubmit: (event: React.FormEvent) => Promise<void>;
 };
 
+// TODO: コンポーネント名を変更する
 const Test: React.FC<TestProps> = ({
   image,
   username,

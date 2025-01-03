@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth";
+import UpdateProfileSettingsPage from "./ page.client";
 import { profileAPI } from "@/src/api/profile-api";
 import authOptions from "@/src/app/api/auth/[...nextauth]/options";
-import Test from "@/src/components/settings-profile/Test";
 
 const page = async () => {
   const session = await getServerSession(authOptions);
@@ -15,7 +15,7 @@ const page = async () => {
   }
 
   return (
-    <Test
+    <UpdateProfileSettingsPage
       image={profile.image}
       username={session.user.username}
       bio={profile.bio}
