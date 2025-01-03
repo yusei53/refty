@@ -14,17 +14,29 @@ const CalendarAreaFetcher = dynamic(
 type UserProfileAreaProps = {
   userImage: string;
   username: string;
+  bio: string;
+  website: string;
   reflectionCount: ReflectionsCount;
+  isCurrentUser: boolean;
 };
 
 const UserProfileArea: React.FC<UserProfileAreaProps> = ({
   userImage,
   username,
-  reflectionCount
+  bio,
+  website,
+  reflectionCount,
+  isCurrentUser
 }) => {
   return (
     <>
-      <UserAvatar userImage={userImage} username={username} />
+      <UserAvatar
+        userImage={userImage}
+        username={username}
+        bio={bio}
+        website={website}
+        isCurrentUser={isCurrentUser}
+      />
       <CalendarAreaFetcher reflectionCount={reflectionCount} />
     </>
   );
