@@ -17,5 +17,28 @@ export const profileAPI = {
       next: { tags: ["profile-setting"] }
     };
     return await fetchURL<Profile, 404>(path, options);
+  },
+
+  async updateUserProfile(
+    username: string,
+    bio: string | null,
+    goal: string | null,
+    website: string | null
+  ): Promise<Result<void, 401>> {
+    const path = `/api/${username}/profile-setting`;
+    const options: FetchURLOptions = {
+      method: "PATCH",
+      next: { tags: ["profile-setting"] },
+      body: {
+        username,
+        bio,
+        goal,
+        website
+      },
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    return await fetchURL<void, 401>(path, options);
   }
 };
