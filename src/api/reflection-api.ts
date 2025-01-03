@@ -40,9 +40,9 @@ type ReflectionAll = {
 
 export type Reflections = {
   userImage: string;
-  userBio: string;
-  userGoal: string;
-  userWebsite: string;
+  bio: string;
+  goal: string;
+  website: string;
   reflections: Reflection[];
   totalPage: number;
   filteredReflectionCount: number;

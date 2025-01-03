@@ -111,9 +111,9 @@ export async function GET(
     return NextResponse.json({
       reflections: userWithReflections.reflections,
       userImage: userWithReflections.image,
-      userBio: userWithReflections.bio,
-      userGoal: userWithReflections.goal,
-      userWebsite: userWithReflections.website,
+      bio: userWithReflections.bio,
+      goal: userWithReflections.goal,
+      website: userWithReflections.website,
       totalPage,
       filteredReflectionCount,
       tagCountList
