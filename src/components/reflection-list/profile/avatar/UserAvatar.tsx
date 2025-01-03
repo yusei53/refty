@@ -1,6 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import { ToHomePageButton } from "../button";
+import { theme } from "@/src/utils/theme";
 
 type UserAvatarProps = {
   userImage: string;
@@ -30,6 +32,16 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
             style={{ borderRadius: 100, marginRight: 8 }}
           />
           <Typography fontSize={16}>{username}</Typography>
+          <Link href={"/settings/profile"}>
+            <Image
+              src={"/setting.svg"}
+              alt={"プロフィール設定アイコン"}
+              color={theme.palette.grey[500]}
+              width={20}
+              height={20}
+              style={{ marginLeft: 8, marginTop: 6 }}
+            />
+          </Link>
         </Box>
         <ToHomePageButton />
       </Box>
