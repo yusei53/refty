@@ -53,11 +53,13 @@ const ReflectionSetting: React.FC<ReflectionSettingProps> = ({
               isReflectionSetting={true}
             />
           </Box>
-          <ReflectionSettingButton
-            text={"編集する"}
-            src={"/edit.svg"}
-            alt={"編集するボタン"}
-          />
+          {isCurrentUser && (
+            <ReflectionSettingButton
+              text={"編集する"}
+              src={"/edit.svg"}
+              alt={"編集するボタン"}
+            />
+          )}
           <DeleteConfirmationModal
             open={isDeleteModalOpen}
             onClose={handleDeleteModalToggle}
