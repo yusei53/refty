@@ -6,7 +6,6 @@ import TextArea from "../ui/shared/text-area/TextArea";
 import { theme } from "@/src/utils/theme";
 
 type FormValues = {
-  username: string;
   bio: string;
   goal: string;
   website: string;
@@ -15,7 +14,7 @@ type FormValues = {
 type SettingProfileFormFieldProps = {
   label: string;
   description: string;
-  name: "username" | "bio" | "goal" | "website";
+  name: "bio" | "goal" | "website";
   placeholder: string;
   rows: number;
   allowMultiline?: boolean;
