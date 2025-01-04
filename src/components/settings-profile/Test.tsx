@@ -111,6 +111,7 @@ const Test: React.FC<TestProps> = ({
         name="goal"
         placeholder="〜を達成する、〜みたいになる、〜を目指す(他の人には見えません)"
         rows={2}
+        allowMultiline={true}
         control={control}
         errors={errors}
       />

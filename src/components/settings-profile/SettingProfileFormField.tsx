@@ -18,6 +18,7 @@ type SettingProfileFormFieldProps = {
   name: "username" | "bio" | "goal" | "website";
   placeholder: string;
   rows: number;
+  allowMultiline?: boolean;
   control: Control<{
     username: string;
     bio: string | null;
@@ -33,6 +34,7 @@ const SettingProfileFormField: React.FC<SettingProfileFormFieldProps> = ({
   name,
   placeholder,
   rows,
+  allowMultiline = false,
   control,
   errors
 }) => {
@@ -51,7 +53,7 @@ const SettingProfileFormField: React.FC<SettingProfileFormFieldProps> = ({
             rows={rows}
             defaultValue={field.value || ""}
             fullWidth
-            multiline={true}
+            multiline={allowMultiline}
             onChange={field.onChange}
           />
         )}
