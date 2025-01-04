@@ -52,6 +52,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
           )}
           {isCurrentUser && (
             <Link href={"/settings/profile"}>
+              {/* TODO: アイコンはリリースまでに一番良さそうなアイコンに置き換える */}
               <Image
                 src={"/setting.svg"}
                 alt={"プロフィール設定アイコン"}
