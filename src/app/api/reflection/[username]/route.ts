@@ -54,6 +54,9 @@ export async function GET(
       },
       select: {
         image: true,
+        bio: true,
+        goal: true,
+        website: true,
         reflections: {
           where: {
             userId,
@@ -108,6 +111,9 @@ export async function GET(
     return NextResponse.json({
       reflections: userWithReflections.reflections,
       userImage: userWithReflections.image,
+      bio: userWithReflections.bio,
+      goal: userWithReflections.goal,
+      website: userWithReflections.website,
       totalPage,
       filteredReflectionCount,
       tagCountList

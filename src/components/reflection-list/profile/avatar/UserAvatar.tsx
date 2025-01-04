@@ -1,15 +1,23 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import { ToHomePageButton } from "../button";
+import { theme } from "@/src/utils/theme";
 
 type UserAvatarProps = {
   userImage: string;
   username: string;
+  bio: string;
+  website: string;
+  isCurrentUser: boolean;
 };
 
 export const UserAvatar: React.FC<UserAvatarProps> = ({
   userImage,
-  username
+  username,
+  bio,
+  website,
+  isCurrentUser
 }) => {
   return (
     <>
@@ -30,11 +38,37 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
             style={{ borderRadius: 100, marginRight: 8 }}
           />
           <Typography fontSize={16}>{username}</Typography>
+          {website && (
+            <Link href={website}>
+              <Image
+                src={"/website.svg"}
+                alt={"ウェブサイトアイコン"}
+                width={20}
+                height={20}
+                priority
+                style={{ marginLeft: 8, marginTop: 6 }}
+              />
+            </Link>
+          )}
+          {isCurrentUser && (
+            <Link href={"/settings/profile"}>
+              {/* TODO: アイコンはリリースまでに一番良さそうなアイコンに置き換える */}
+              <Image
+                src={"/setting.svg"}
+                alt={"プロフィール設定アイコン"}
+                color={theme.palette.grey[500]}
+                width={20}
+                height={20}
+                priority
+                style={{ marginLeft: 8, marginTop: 6 }}
+              />
+            </Link>
+          )}
         </Box>
         <ToHomePageButton />
       </Box>
       <Typography ml={9} fontSize={14} color={"#2A2A2A"}>
-        好きなものを好きなだけ開発している大学4年生です
+        {bio}
       </Typography>
     </>
   );
