@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { red } from "@mui/material/colors";
+import { Box } from "@mui/material";
 import { DeleteConfirmationModal } from "../../reflection-list/modal/DeleteConfirmationModal";
+import { KebabButtonPopupContainer } from "../../ui/shared/popup";
 import ReflectionSettingButton from "./ReflectionSettingButton";
 
 type ReflectionSettingProps = {
@@ -9,9 +10,6 @@ type ReflectionSettingProps = {
   isCurrentUser: boolean;
   isPublic: boolean;
   isPinned: boolean;
-  onCopyLink: () => void;
-  onUpdatePublic: () => void;
-  onUpdatePinned: () => void;
 };
 
 const ReflectionSetting: React.FC<ReflectionSettingProps> = ({
@@ -19,10 +17,7 @@ const ReflectionSetting: React.FC<ReflectionSettingProps> = ({
   reflectionCUID,
   isPublic,
   isCurrentUser,
-  isPinned,
-  onCopyLink,
-  onUpdatePublic,
-  onUpdatePinned
+  isPinned
 }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -32,46 +27,44 @@ const ReflectionSetting: React.FC<ReflectionSettingProps> = ({
 
   return (
     <>
-      <ReflectionSettingButton
-        text={"リンクをコピーする"}
-        src={"/share.svg"}
-        alt={`リンクをコピーするボタン`}
-        onClick={onCopyLink}
-      />
-      {isCurrentUser && (
-        <>
+      <Box
+        component={"header"}
+        position={"fixed"}
+        top={{ xs: 0, md: 25 }}
+        right={{ xs: 0, md: 35 }}
+        bgcolor={{ xs: "white", md: "transparent" }}
+        width={{ xs: "100%", md: "auto" }}
+        zIndex={1}
+      >
+        <Box
+          display={"flex"}
+          justifyContent={"flex-end"}
+          px={{ xs: 1.5, md: 0 }}
+          py={{ xs: 1, md: 0 }}
+          boxShadow={{ xs: "0px 0.7px 1px rgba(0, 0, 0, 0.1)", md: "none" }}
+        >
+          <Box mt={0.5}>
+            <KebabButtonPopupContainer
+              reflectionCUID={reflectionCUID}
+              username={username}
+              isPublic={isPublic}
+              isPinned={isPinned}
+              isCurrentUser={isCurrentUser}
+              isReflectionSetting={true}
+            />
+          </Box>
           <ReflectionSettingButton
             text={"編集する"}
-            href={`/${username}/${reflectionCUID}/edit`}
             src={"/edit.svg"}
-            alt={`編集するボタン`}
-          />
-          <ReflectionSettingButton
-            text={isPublic ? "非公開にする" : "公開する"}
-            src={"/lock-google.svg"}
-            alt={"公開設定ボタン"}
-            onClick={onUpdatePublic}
-          />
-          <ReflectionSettingButton
-            text={isPinned ? "固定解除する" : "固定する"}
-            src={"/pin.svg"}
-            alt={`プロフィールに固定するボタン`}
-            onClick={onUpdatePinned}
-          />
-          <ReflectionSettingButton
-            text={"削除する"}
-            src={"/delete.svg"}
-            alt={`投稿削除ボタン`}
-            onClick={handleDeleteModalToggle}
-            textcolor={red[400]}
+            alt={"編集するボタン"}
           />
           <DeleteConfirmationModal
             open={isDeleteModalOpen}
             onClose={handleDeleteModalToggle}
             reflectionCUID={reflectionCUID}
           />
-        </>
-      )}
+        </Box>
+      </Box>
     </>
   );
 };
