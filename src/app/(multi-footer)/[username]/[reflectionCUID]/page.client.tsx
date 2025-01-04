@@ -4,7 +4,7 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { Box } from "@mui/material";
 import { sqsAPI } from "@/src/api/send-to-sqs-api";
 import { ReflectionArticle } from "@/src/components/reflection-detail/article";
-import ReflectionSettingContainer from "@/src/components/reflection-detail/reflection-setting/ReflectionSettingContainer";
+import ReflectionSetting from "@/src/components/reflection-detail/reflection-setting/ReflectionSetting";
 import { UserInformationSection } from "@/src/components/reflection-detail/user-information/UserInformationSection";
 import { animation } from "@/src/components/ui/shared/animation";
 import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
@@ -95,7 +95,7 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
           cursor: "pointer"
         }}
       />
-      <ReflectionSettingContainer
+      <ReflectionSetting
         username={username}
         reflectionCUID={reflectionCUID}
         isCurrentUser={isCurrentUser}
