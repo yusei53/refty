@@ -5,16 +5,19 @@ import { theme } from "@/src/utils/theme";
 
 type ReflectionAllHeaderProps = {
   currentUsername: User["username"];
+  image: string;
 };
 
 export const ReflectionAllHeader: React.FC<ReflectionAllHeaderProps> = ({
-  currentUsername
+  currentUsername,
+  image
 }) => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <>
       <Box
         display={"flex"}
+        alignItems={"center"}
         justifyContent={"space-between"}
         mx={{ xs: 4, md: 3 }}
         mt={10}
@@ -24,7 +27,7 @@ export const ReflectionAllHeader: React.FC<ReflectionAllHeaderProps> = ({
           みんなの振り返り(公開のみ)
         </Typography>
         {!isSmallScreen && (
-          <ToOtherPageButton currentUsername={currentUsername} />
+          <ToOtherPageButton currentUsername={currentUsername} image={image} />
         )}
       </Box>
     </>

@@ -21,6 +21,7 @@ import { theme } from "../utils/theme";
 
 type RootPageProps = {
   currentUsername: User["username"];
+  image: string;
   reflections: ReflectionWithUser[];
   currentPage: number;
   totalPage: number;
@@ -29,6 +30,7 @@ type RootPageProps = {
 
 const RootPage: React.FC<RootPageProps> = ({
   currentUsername,
+  image,
   reflections,
   currentPage,
   totalPage,
@@ -47,7 +49,7 @@ const RootPage: React.FC<RootPageProps> = ({
   return (
     <>
       <Container maxWidth="md" sx={{ mt: { xs: 8, sm: 6 }, mb: 6 }}>
-        <ReflectionAllHeader currentUsername={currentUsername} />
+        <ReflectionAllHeader currentUsername={currentUsername} image={image} />
         <SearchBar
           tags={Object.values(tagMap)}
           selectedTag={selectedTag}

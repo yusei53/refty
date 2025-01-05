@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import { LinearLoading } from "../../ui/shared/loading";
-import { UserAvatar } from "./avatar";
+import { UserInformationHeader } from "./header";
 
 const CalendarAreaFetcher = dynamic(
   () => import("./calendar").then((mod) => mod.CalendarAreaFetcher),
@@ -30,7 +30,7 @@ const UserProfileArea: React.FC<UserProfileAreaProps> = ({
 }) => {
   return (
     <>
-      <UserAvatar
+      <UserInformationHeader
         userImage={userImage}
         username={username}
         bio={bio}

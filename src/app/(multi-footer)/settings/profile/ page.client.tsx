@@ -1,5 +1,5 @@
 "use client";
-import Test from "@/src/components/settings-profile/Test";
+import SettingProfileFormField from "@/src/components/settings-profile/SettingProfileFormField";
 import { useUpdateProfileForm } from "@/src/hooks/profile-setting/useUpdateProfileForm";
 
 type UpdateProfileSettingsPageProps = {
@@ -31,7 +31,7 @@ const UpdateProfileSettingsPage: React.FC<UpdateProfileSettingsPageProps> = ({
   };
 
   return (
-    <Test
+    <SettingProfileFormField
       image={image}
       username={username}
       control={control}

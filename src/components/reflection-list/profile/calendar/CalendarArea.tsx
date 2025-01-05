@@ -28,7 +28,7 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
   values,
   classForValue,
   tooltipDataAttrs,
-  totalReflections,
+  totalReflections
 }) => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -78,7 +78,7 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
         <Box
           ref={scrollContainerRef}
           sx={{
-            overflowX: isSmallScreen ? "auto" : "visible",
+            overflowX: isSmallScreen ? "auto" : "visible"
           }}
         >
           <Box minWidth={isSmallScreen ? "780px" : "100%"}>

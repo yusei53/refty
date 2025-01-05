@@ -25,6 +25,7 @@ const page = async ({
   return (
     <RootPage
       currentUsername={session?.user.username || null}
+      image={session?.user.image || ""}
       reflections={result.reflections}
       currentPage={currentPage}
       totalPage={result.totalPage}
