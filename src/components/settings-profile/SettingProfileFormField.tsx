@@ -113,8 +113,12 @@ const SettingProfileFormField: React.FC<SettingProfileFormFieldProps> = ({
           errors={errors}
         />
       </Box>
-      <Button type="submit" disabled={isSubmitting || isSubmitSuccessful}>
-        {isSubmitting || isSubmitSuccessful ? "投稿中..." : "投稿する"}
+      <Button
+        type="submit"
+        disabled={isSubmitting || isSubmitSuccessful}
+        sx={{ alignSelf: "center", width: { xs: 150, sm: 200 } }}
+      >
+        {isSubmitting || isSubmitSuccessful ? "更新中..." : "更新する"}
       </Button>
     </Box>
   );
