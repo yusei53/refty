@@ -34,7 +34,6 @@ const ReflectionCard: React.FC<ReflectionCardProps> = ({
           isPublic={reflection.isPublic}
           isPinned={reflection.isPinned}
           isCurrentUser={isCurrentUser}
-          isReflectionSetting={false}
         />
       </Box>
       <Box

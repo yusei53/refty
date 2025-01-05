@@ -10,7 +10,7 @@ type KebabButtonPopupContainerProps = {
   isPublic: boolean;
   isPinned?: boolean;
   isCurrentUser: boolean;
-  isReflectionSetting: boolean;
+  isReflectionSetting?: boolean;
 };
 
 export const KebabButtonPopupContainer: React.FC<
@@ -21,7 +21,7 @@ export const KebabButtonPopupContainer: React.FC<
   isPublic,
   isPinned = false,
   isCurrentUser,
-  isReflectionSetting
+  isReflectionSetting = false
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 

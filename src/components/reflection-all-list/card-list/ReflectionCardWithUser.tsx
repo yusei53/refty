@@ -32,7 +32,6 @@ const ReflectionCardWithUser: React.FC<ReflectionCardWithUserProps> = ({
             username={reflection.user.username}
             isPublic={reflection.isPublic}
             isCurrentUser={isCurrentUser}
-            isReflectionSetting={false}
           />
         </Box>
         <Link
