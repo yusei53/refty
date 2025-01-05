@@ -6,7 +6,7 @@ type SettingProfileFormFieldProps = {
   description?: string;
 };
 
-const FieldHeader: React.FC<SettingProfileFormFieldProps> = ({
+export const FieldHeader: React.FC<SettingProfileFormFieldProps> = ({
   label,
   description
 }) => {
@@ -21,5 +21,3 @@ const FieldHeader: React.FC<SettingProfileFormFieldProps> = ({
     </>
   );
 };
-
-export default FieldHeader;

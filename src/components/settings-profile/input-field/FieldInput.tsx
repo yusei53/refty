@@ -24,7 +24,7 @@ type FieldInputProps = {
   errors: FieldErrors<FormValues>;
 };
 
-const FieldInput: React.FC<FieldInputProps> = ({
+export const FieldInput: React.FC<FieldInputProps> = ({
   name,
   placeholder,
   rows,
@@ -81,5 +81,3 @@ const FieldInput: React.FC<FieldInputProps> = ({
     </>
   );
 };
-
-export default FieldInput;
