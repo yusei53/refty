@@ -1,11 +1,10 @@
 "use client";
 import Image from "next/image";
-import { Controller, type Control, type FieldErrors } from "react-hook-form";
+import { type Control, type FieldErrors } from "react-hook-form";
 import { Box, Typography } from "@mui/material";
-import { ErrorMessage } from "../ui/shared/alert";
 import { Button } from "../ui/shared/button";
-import TextArea from "../ui/shared/text-area/TextArea";
-import SettingProfileFormField from "./SettingProfileFormField";
+import FieldHeader from "./form/FieldHeader";
+import FieldInput from "./form/FieldInput";
 
 type FormValues = {
   username: string;
@@ -41,13 +40,13 @@ const Test: React.FC<TestProps> = ({
 }) => {
   return (
     <Box
+      component={"form"}
       my={8}
       mb={12}
       mx={{ xs: 3, sm: 12 }}
       display={"flex"}
       flexDirection={"column"}
       gap={7}
-      component={"form"}
       onSubmit={onSubmit}
     >
       <Box
@@ -68,62 +67,55 @@ const Test: React.FC<TestProps> = ({
         </Typography>
       </Box>
       <Box>
-        <Typography m={0.3}>ユーザーネーム</Typography>
-        <Box display={"flex"} alignItems={"baseline"}>
-          <Typography
-            component={"span"}
-            m={0.3}
-            whiteSpace={"nowrap"}
-            fontSize={16}
-            letterSpacing={0.8}
-          >
-            https://www.refty.jp/
-          </Typography>
-          <Controller
-            name="username"
-            control={control}
-            render={({ field }) => (
-              <TextArea
-                placeholder="username"
-                rows={1}
-                fullWidth
-                multiline
-                defaultValue={field.value}
-                onChange={field.onChange}
-              />
-            )}
-          />
-        </Box>
-        {errors.username && <ErrorMessage message={errors.username.message} />}
+        <FieldHeader label="ユーザーネーム" />
+        <FieldInput
+          name="username"
+          placeholder="username"
+          rows={1}
+          control={control}
+          errors={errors}
+        />
       </Box>
-      <SettingProfileFormField
-        label="自己紹介"
-        description="マイページに表示されるプロフィール文です。"
-        name="bio"
-        placeholder="自己紹介(20文字以内)"
-        rows={1}
-        control={control}
-        errors={errors}
-      />
-      <SettingProfileFormField
-        label="目標設定"
-        description="心に浮かぶ目標や夢を言葉にしてみる場所です。"
-        name="goal"
-        placeholder="〜を達成する、〜みたいになる、〜を目指す(他の人には見えません)"
-        rows={2}
-        allowMultiline={true}
-        control={control}
-        errors={errors}
-      />
-      <SettingProfileFormField
-        label="ウェブサイト"
-        description="お好きな外部URLをマイページに設置できます。"
-        name="website"
-        placeholder="https://www.refty.jp/welcome"
-        rows={1}
-        control={control}
-        errors={errors}
-      />
+      <Box>
+        <FieldHeader
+          label="自己紹介"
+          description="マイページに表示されるプロフィール文です。"
+        />
+        <FieldInput
+          name="bio"
+          placeholder="自己紹介(20文字以内)"
+          rows={1}
+          control={control}
+          errors={errors}
+        />
+      </Box>
+      <Box>
+        <FieldHeader
+          label="目標設定"
+          description="心に浮かぶ目標や夢を言葉にしてみる場所です。"
+        />
+        <FieldInput
+          name="goal"
+          placeholder="〜を達成する、〜みたいになる"
+          rows={2}
+          allowMultiline
+          control={control}
+          errors={errors}
+        />
+      </Box>
+      <Box>
+        <FieldHeader
+          label="ウェブサイト"
+          description="お好きな外部URLをマイページに設置できます。"
+        />
+        <FieldInput
+          name="website"
+          placeholder="https://www.refty.jp/welcome"
+          rows={1}
+          control={control}
+          errors={errors}
+        />
+      </Box>
       <Button type="submit" disabled={isSubmitting || isSubmitSuccessful}>
         {isSubmitting || isSubmitSuccessful ? "投稿中..." : "投稿する"}
       </Button>
