@@ -23,7 +23,7 @@ const updateProfileSchema = z.object({
     ),
   bio: z
     .string()
-    .max(30, { message: "30文字以内で入力してください。" })
+    .max(40, { message: "40文字以内で入力してください。" })
     .nullable(),
   goal: z
     .string()
