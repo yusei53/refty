@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import { theme } from "@/src/utils/theme";
 
-type UserAvatarProps = {
+type UserInformationHeaderProps = {
   userImage: string;
   username: string;
   bio: string;
@@ -21,7 +21,7 @@ const link = {
   transition: "background-color 0.3s ease"
 };
 
-export const UserAvatar: React.FC<UserAvatarProps> = ({
+export const UserInformationHeader: React.FC<UserInformationHeaderProps> = ({
   userImage,
   username,
   bio,
