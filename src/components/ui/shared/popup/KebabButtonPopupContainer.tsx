@@ -8,7 +8,7 @@ type KebabButtonPopupContainerProps = {
   reflectionCUID: string;
   username: string;
   isPublic: boolean;
-  isPinned: boolean;
+  isPinned?: boolean;
   isCurrentUser: boolean;
   isReflectionSetting: boolean;
 };
@@ -19,7 +19,7 @@ export const KebabButtonPopupContainer: React.FC<
   username,
   reflectionCUID,
   isPublic,
-  isPinned,
+  isPinned = false,
   isCurrentUser,
   isReflectionSetting
 }) => {

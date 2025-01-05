@@ -20,7 +20,6 @@ export async function GET(
         content: true,
         charStamp: true,
         isPublic: true,
-        isPinned: true,
         isDailyReflection: true,
         isLearning: true,
         isAwareness: true,

@@ -30,7 +30,7 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
   isPublic,
   isPinned,
   isCurrentUser,
-  isReflectionSetting, // 追加
+  isReflectionSetting,
   onOpenPopup,
   onClosePopup,
   onCopyLink,

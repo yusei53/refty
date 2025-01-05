@@ -31,7 +31,6 @@ const ReflectionCardWithUser: React.FC<ReflectionCardWithUserProps> = ({
             reflectionCUID={reflection.reflectionCUID}
             username={reflection.user.username}
             isPublic={reflection.isPublic}
-            isPinned={reflection.isPinned}
             isCurrentUser={isCurrentUser}
             isReflectionSetting={false}
           />

@@ -9,15 +9,13 @@ type ReflectionSettingProps = {
   reflectionCUID: string;
   isCurrentUser: boolean;
   isPublic: boolean;
-  isPinned: boolean;
 };
 
 const ReflectionSetting: React.FC<ReflectionSettingProps> = ({
   username,
   reflectionCUID,
   isPublic,
-  isCurrentUser,
-  isPinned
+  isCurrentUser
 }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -48,7 +46,6 @@ const ReflectionSetting: React.FC<ReflectionSettingProps> = ({
               reflectionCUID={reflectionCUID}
               username={username}
               isPublic={isPublic}
-              isPinned={isPinned}
               isCurrentUser={isCurrentUser}
               isReflectionSetting={true}
             />

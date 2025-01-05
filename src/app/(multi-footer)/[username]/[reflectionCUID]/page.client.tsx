@@ -18,7 +18,6 @@ type ReflectionDetailPageProps = {
   isInputLog: boolean;
   isMonologue: boolean;
   isPublic: boolean;
-  isPinned: boolean;
   isCurrentUser: boolean;
   aiFeedback: string;
   createdAt: string;
@@ -36,7 +35,6 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
   isInputLog,
   isMonologue,
   isPublic,
-  isPinned,
   isCurrentUser,
   aiFeedback,
   createdAt,
@@ -100,7 +98,6 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
         reflectionCUID={reflectionCUID}
         isCurrentUser={isCurrentUser}
         isPublic={isPublic}
-        isPinned={isPinned}
       />
       <ReflectionArticle
         reflectionCUID={reflectionCUID}

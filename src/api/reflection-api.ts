@@ -105,7 +105,6 @@ export const reflectionAPI = {
     content,
     charStamp,
     isPublic,
-    isPinned,
     isDailyReflection,
     isLearning,
     isAwareness,
@@ -116,7 +115,6 @@ export const reflectionAPI = {
     content: string;
     charStamp: string;
     isPublic: boolean;
-    isPinned?: boolean;
     isDailyReflection: boolean;
     isLearning: boolean;
     isAwareness: boolean;
@@ -131,7 +129,6 @@ export const reflectionAPI = {
         content,
         charStamp,
         isPublic,
-        isPinned,
         isDailyReflection,
         isLearning,
         isAwareness,
