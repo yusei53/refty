@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { Button } from "@mui/material";
 
-type ReflectionSettingButtonProps = {
+type ToEditPageButtonProps = {
   username: string;
   reflectionCUID: string;
 };
 
-const ReflectionSettingButton: React.FC<ReflectionSettingButtonProps> = ({
+const ToEditPageButton: React.FC<ToEditPageButtonProps> = ({
   username,
   reflectionCUID
 }) => {
@@ -30,4 +30,4 @@ const ReflectionSettingButton: React.FC<ReflectionSettingButtonProps> = ({
   );
 };
 
-export default ReflectionSettingButton;
+export default ToEditPageButton;

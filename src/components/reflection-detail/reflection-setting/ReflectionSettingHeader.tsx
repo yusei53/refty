@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { Box } from "@mui/material";
-import { DeleteConfirmationModal } from "../../reflection-list/modal/DeleteConfirmationModal";
 import { KebabButtonPopupContainer } from "../../ui/shared/popup";
-import ReflectionSettingButton from "./ReflectionSettingButton";
+import ToEditPageButton from "./ToEditPageButton";
 
 type ReflectionSettingHeaderProps = {
   username: string;
@@ -45,7 +43,7 @@ const ReflectionSettingHeader: React.FC<ReflectionSettingHeaderProps> = ({
             />
           </Box>
           {isCurrentUser && (
-            <ReflectionSettingButton
+            <ToEditPageButton
               username={username}
               reflectionCUID={reflectionCUID}
             />
