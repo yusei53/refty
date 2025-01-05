@@ -52,9 +52,8 @@ const ReflectionSetting: React.FC<ReflectionSettingProps> = ({
           </Box>
           {isCurrentUser && (
             <ReflectionSettingButton
-              text={"編集する"}
-              src={"/edit.svg"}
-              alt={"編集するボタン"}
+              username={username}
+              reflectionCUID={reflectionCUID}
             />
           )}
           <DeleteConfirmationModal
