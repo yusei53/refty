@@ -67,7 +67,7 @@ const LoginFormPage = () => {
           icon={FcGoogle}
           onClick={() =>
             signIn("google", {
-              callbackUrl: "/setting/username"
+              callbackUrl: "/settings/username"
             })
           }
         />
@@ -77,7 +77,7 @@ const LoginFormPage = () => {
           iconColor={"#5865F2"}
           onClick={() =>
             signIn("discord", {
-              callbackUrl: "/setting/username"
+              callbackUrl: "/settings/username"
             })
           }
         />
@@ -87,7 +87,7 @@ const LoginFormPage = () => {
           iconColor={"#00b900"}
           onClick={() =>
             signIn("line", {
-              callbackUrl: "/setting/username"
+              callbackUrl: "/settings/username"
             })
           }
         />
@@ -97,7 +97,7 @@ const LoginFormPage = () => {
           iconColor={"#000000"}
           onClick={() =>
             signIn("twitter", {
-              callbackUrl: "/setting/username"
+              callbackUrl: "/settings/username"
             })
           }
         />
@@ -107,7 +107,7 @@ const LoginFormPage = () => {
           iconColor={"#000000"}
           onClick={() =>
             signIn("github", {
-              callbackUrl: "/setting/username"
+              callbackUrl: "/settings/username"
             })
           }
         />

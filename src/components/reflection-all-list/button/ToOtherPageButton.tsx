@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { Typography } from "@mui/material";
@@ -6,15 +7,31 @@ import { theme } from "@/src/utils/theme";
 
 type ToOtherPageButtonProps = {
   currentUsername: User["username"];
+  image: string;
 };
 
 export const ToOtherPageButton: React.FC<ToOtherPageButtonProps> = ({
-  currentUsername
+  currentUsername,
+  image
 }) => {
-  const text = currentUsername ? "マイページ" : "ログインする";
   const href = currentUsername ? `/${currentUsername}` : "/login";
 
-  return (
+  return currentUsername ? (
+    <Link href={href}>
+      <Image
+        src={image}
+        alt={"text"}
+        width={44}
+        height={44}
+        style={{
+          borderRadius: "50%",
+          border: `0.8px solid ${theme.palette.grey[500]}`,
+          display: "flex",
+          alignItems: "center"
+        }}
+      />
+    </Link>
+  ) : (
     <Typography
       component={Link}
       href={href}
@@ -30,7 +47,7 @@ export const ToOtherPageButton: React.FC<ToOtherPageButtonProps> = ({
         }
       }}
     >
-      {text}
+      ログインする
       <ExitToAppIcon
         fontSize="small"
         sx={{ color: theme.palette.primary.light, ml: 0.5 }}
