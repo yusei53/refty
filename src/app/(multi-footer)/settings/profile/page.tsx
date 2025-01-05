@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth";
-import UpdateProfileSettingsPage from "./ page.client";
+import UpdateProfileSettingsPage from "./page.client";
 import { profileAPI } from "@/src/api/profile-api";
 import authOptions from "@/src/app/api/auth/[...nextauth]/options";
 
