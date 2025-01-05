@@ -1,8 +1,12 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth";
 import UpdateProfileSettingsPage from "./page.client";
 import { profileAPI } from "@/src/api/profile-api";
 import authOptions from "@/src/app/api/auth/[...nextauth]/options";
+import { meta } from "@/src/utils/metadata";
+
+export const metadata: Metadata = meta.settingProfilePage;
 
 const page = async () => {
   const session = await getServerSession(authOptions);

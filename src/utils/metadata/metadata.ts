@@ -59,6 +59,23 @@ export const meta = {
     }
   },
 
+  settingProfilePage: {
+    ...baseMetadata,
+    title: "プロフィール設定",
+    description: `${REFTY}のプロフィール設定ページ`,
+    openGraph: {
+      ...baseMetadata.openGraph,
+      url: "https://www.refty.jp/settings/profile",
+      title: `プロフィール設定 | ${REFTY}`,
+      description: `${REFTY}のプロフィール設定ページ`
+    },
+    twitter: {
+      ...baseMetadata.twitter,
+      title: `プロフィール設定 | ${REFTY}`,
+      description: `${REFTY}のプロフィール設定ページ`
+    }
+  },
+
   loginFormPage: {
     ...baseMetadata,
     title: "ログイン",
