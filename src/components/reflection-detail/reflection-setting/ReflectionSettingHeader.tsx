@@ -41,7 +41,7 @@ const ReflectionSettingHeader: React.FC<ReflectionSettingHeaderProps> = ({
               username={username}
               isPublic={isPublic}
               isCurrentUser={isCurrentUser}
-              isReflectionSettingHeader={true}
+              isReflectionSettingHeader
             />
           </Box>
           {isCurrentUser && (
