@@ -35,7 +35,6 @@ type ReflectionAll = {
   reflections: ReflectionWithUser[];
   totalPage: number;
   filteredReflectionCount: number;
-  tagCountList: ReflectionTagCountList;
 };
 
 export type Reflections = {

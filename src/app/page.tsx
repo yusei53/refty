@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { reflectionAPI } from "../api/reflection-api";
+import { reflectionTagCountsAPI } from "../api/reflection-tag-counts-api";
 import { meta } from "../utils/metadata";
 import authOptions from "./api/auth/[...nextauth]/options";
 import RootPage from "./page.client";
@@ -17,10 +18,19 @@ const page = async ({
   const selectedTag = searchParams.tag || undefined;
 
   const session = await getServerSession(authOptions);
-  const result = await reflectionAPI.getReflectionAll(currentPage, selectedTag);
-  if (result === 404) {
+
+  const countResult = await reflectionTagCountsAPI.getReflectionTagCountList();
+  const reflectionsResult = await reflectionAPI.getReflectionAll(
+    currentPage,
+    selectedTag
+  );
+
+  if (countResult === 500 || reflectionsResult === 404) {
     return notFound();
   }
+
+  // MEMO: 並列データフェッチ
+  const [count, result] = await Promise.all([countResult, reflectionsResult]);
 
   return (
     <RootPage
@@ -29,7 +39,7 @@ const page = async ({
       reflections={result.reflections}
       currentPage={currentPage}
       totalPage={result.totalPage}
-      tagCountList={result.tagCountList}
+      tagCountList={count.tagCountList}
     />
   );
 };
