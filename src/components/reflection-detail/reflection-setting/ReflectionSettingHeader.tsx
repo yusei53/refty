@@ -17,12 +17,6 @@ const ReflectionSettingHeader: React.FC<ReflectionSettingHeaderProps> = ({
   isPublic,
   isCurrentUser
 }) => {
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
-  const handleDeleteModalToggle = () => {
-    setIsDeleteModalOpen(!isDeleteModalOpen);
-  };
-
   return (
     <>
       <Box
@@ -56,11 +50,6 @@ const ReflectionSettingHeader: React.FC<ReflectionSettingHeaderProps> = ({
               reflectionCUID={reflectionCUID}
             />
           )}
-          <DeleteConfirmationModal
-            open={isDeleteModalOpen}
-            onClose={handleDeleteModalToggle}
-            reflectionCUID={reflectionCUID}
-          />
         </Box>
       </Box>
     </>
