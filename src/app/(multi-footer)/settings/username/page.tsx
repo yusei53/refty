@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
+import SettingUsernameModalPage from "./page.client";
 import { reflectionAPI } from "@/src/api/reflection-api";
 import { reflectionTagCountsAPI } from "@/src/api/reflection-tag-counts-api";
 import authOptions from "@/src/app/api/auth/[...nextauth]/options";
-import RootPage from "@/src/app/page.client";
 import { meta } from "@/src/utils/metadata";
 
 export const metadata: Metadata = meta.settingUsernamePage;
@@ -28,7 +28,7 @@ const page = async ({ searchParams }: { searchParams: { page?: string } }) => {
   const [count, result] = await Promise.all([countResult, reflectionsResult]);
 
   return (
-    <RootPage
+    <SettingUsernameModalPage
       currentUsername={session?.user.username || null}
       image={session?.user.image || ""}
       reflections={result.reflections}
