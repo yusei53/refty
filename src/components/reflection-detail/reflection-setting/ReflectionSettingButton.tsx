@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button, Box } from "@mui/material";
+import { Button } from "@mui/material";
 
 type ReflectionSettingButtonProps = {
   username: string;
