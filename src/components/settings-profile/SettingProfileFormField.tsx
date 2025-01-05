@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import { type Control, type FieldErrors } from "react-hook-form";
 import { Box, Typography } from "@mui/material";
@@ -13,7 +12,7 @@ type FormValues = {
   website: string;
 };
 
-type TestProps = {
+type SettingProfileFormFieldProps = {
   image: string;
   username: string;
   control: Control<{
@@ -28,8 +27,7 @@ type TestProps = {
   onSubmit: (event: React.FormEvent) => Promise<void>;
 };
 
-// TODO: コンポーネント名を変更する
-const Test: React.FC<TestProps> = ({
+const SettingProfileFormField: React.FC<SettingProfileFormFieldProps> = ({
   image,
   username,
   control,
@@ -123,4 +121,4 @@ const Test: React.FC<TestProps> = ({
   );
 };
 
-export default Test;
+export default SettingProfileFormField;
