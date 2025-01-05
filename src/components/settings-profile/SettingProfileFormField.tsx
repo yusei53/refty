@@ -80,7 +80,7 @@ const SettingProfileFormField: React.FC<SettingProfileFormFieldProps> = ({
         />
         <FieldInput
           name="bio"
-          placeholder="自己紹介(20文字以内)"
+          placeholder="自己紹介(40文字以内)"
           rows={1}
           control={control}
           errors={errors}
