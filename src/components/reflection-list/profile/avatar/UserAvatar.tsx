@@ -11,6 +11,16 @@ type UserAvatarProps = {
   isCurrentUser: boolean;
 };
 
+const link = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "45px",
+  height: "45px",
+  borderRadius: "50%",
+  transition: "background-color 0.3s ease"
+};
+
 export const UserAvatar: React.FC<UserAvatarProps> = ({
   userImage,
   username,
@@ -42,15 +52,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
           {isCurrentUser && (
             <Link
               href={"/settings/profile"}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "42px",
-                height: "42px",
-                borderRadius: "50%",
-                transition: "background-color 0.3s ease"
-              }}
+              style={link}
               onMouseEnter={(e) =>
                 (e.currentTarget.style.backgroundColor = `${theme.palette.grey[100]}`)
               }
@@ -60,24 +62,16 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
             >
               <Image
                 src={"/setting.svg"}
-                alt={"プロフィール設定アイコン"}
-                width={34}
-                height={34}
+                alt={"プロフィール設定へ行くアイコンボタン"}
+                width={40}
+                height={40}
               />
             </Link>
           )}
           {isLargeScreen && (
             <Link
               href="/"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "42px",
-                height: "42px",
-                borderRadius: "50%",
-                transition: "background-color 0.3s ease"
-              }}
+              style={link}
               onMouseEnter={(e) =>
                 (e.currentTarget.style.backgroundColor = `${theme.palette.grey[100]}`)
               }
@@ -85,7 +79,12 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
                 (e.currentTarget.style.backgroundColor = "transparent")
               }
             >
-              <Image src={"/home.svg"} alt={"alt"} width={34} height={34} />
+              <Image
+                src={"/home.svg"}
+                alt={"ホームへ行くアイコンボタン"}
+                width={40}
+                height={40}
+              />
             </Link>
           )}
         </Box>
@@ -93,7 +92,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
       {(bio || website) && (
         <Box mt={2} mb={7} display={"flex"} flexDirection={"column"} gap={0.5}>
           {bio && (
-            <Typography fontSize={14} letterSpacing={0.8}>
+            <Typography fontSize={15} letterSpacing={0.8}>
               {bio}
             </Typography>
           )}
