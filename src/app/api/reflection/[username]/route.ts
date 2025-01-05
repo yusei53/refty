@@ -79,19 +79,21 @@ export async function GET(
     });
 
     // MEMO: タグ別の投稿数を全て取得しておく
-    const [
-      isDailyReflectionCount,
-      isLearningCount,
-      isAwarenessCount,
-      isMonologueCount,
-      isInputLogCount
-    ] = await Promise.all([
-      prisma.reflection.count({ where: { userId, isDailyReflection: true } }),
-      prisma.reflection.count({ where: { userId, isLearning: true } }),
-      prisma.reflection.count({ where: { userId, isAwareness: true } }),
-      prisma.reflection.count({ where: { userId, isMonologue: true } }),
-      prisma.reflection.count({ where: { userId, isInputLog: true } })
-    ]);
+    const isLearningCount = await prisma.reflection.count({
+      where: { userId, isLearning: true }
+    });
+    const isAwarenessCount = await prisma.reflection.count({
+      where: { userId, isAwareness: true }
+    });
+    const isMonologueCount = await prisma.reflection.count({
+      where: { userId, isMonologue: true }
+    });
+    const isInputLogCount = await prisma.reflection.count({
+      where: { userId, isInputLog: true }
+    });
+    const isDailyReflectionCount = await prisma.reflection.count({
+      where: { userId, isDailyReflection: true }
+    });
 
     const tagCountList = {
       isDailyReflection: isDailyReflectionCount,
