@@ -89,7 +89,7 @@ const SettingProfileFormField: React.FC<SettingProfileFormFieldProps> = ({
       <Box>
         <FieldHeader
           label="目標設定"
-          description="心に浮かぶ目標や夢を言葉にしてみる場所です。"
+          description="心に浮かぶ目標や夢を言葉にしてみる場所です(他の人は見ることができません)。"
         />
         <FieldInput
           name="goal"
