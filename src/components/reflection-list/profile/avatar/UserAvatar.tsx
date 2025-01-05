@@ -37,54 +37,90 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
             style={{ borderRadius: 100, marginRight: 8 }}
           />
           <Typography fontSize={16}>{username}</Typography>
-          {website && (
-            <Link href={website}>
-              <Image
-                src={"/website.svg"}
-                alt={"ウェブサイトアイコン"}
-                width={20}
-                height={20}
-                priority
-                style={{ marginLeft: 8, marginTop: 6 }}
-              />
-            </Link>
-          )}
         </Box>
-        <Box display={"flex"} gap={1.2}>
+        <Box display={"flex"} gap={0.5}>
           {isCurrentUser && (
             <Link
               href={"/settings/profile"}
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center"
+                justifyContent: "center",
+                width: "42px",
+                height: "42px",
+                borderRadius: "50%",
+                transition: "background-color 0.3s ease"
               }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor = `${theme.palette.grey[100]}`)
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor = "transparent")
+              }
             >
               <Image
                 src={"/setting.svg"}
                 alt={"プロフィール設定アイコン"}
-                width={32}
-                height={32}
+                width={34}
+                height={34}
               />
             </Link>
           )}
           {isLargeScreen && (
             <Link
-              href={"/"}
+              href="/"
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center"
+                justifyContent: "center",
+                width: "42px",
+                height: "42px",
+                borderRadius: "50%",
+                transition: "background-color 0.3s ease"
               }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor = `${theme.palette.grey[100]}`)
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor = "transparent")
+              }
             >
-              <Image src={"/home.svg"} alt={"alt"} width={32} height={32} />
+              <Image src={"/home.svg"} alt={"alt"} width={34} height={34} />
             </Link>
           )}
         </Box>
       </Box>
-      <Typography mt={1} fontSize={14} letterSpacing={0.8}>
-        {bio}
-      </Typography>
+      {(bio || website) && (
+        <Box mt={2} mb={7} display={"flex"} flexDirection={"column"} gap={0.5}>
+          {bio && (
+            <Typography fontSize={14} letterSpacing={0.8}>
+              {bio}
+            </Typography>
+          )}
+          {website && (
+            <Link
+              href={website}
+              style={{
+                color: `${theme.palette.primary.light}`,
+                display: "flex",
+                alignItems: "center",
+                fontSize: 14.5
+              }}
+            >
+              <Image
+                src={"/link.svg"}
+                alt={"プロフィール設定アイコン"}
+                width={20}
+                height={20}
+                style={{
+                  marginRight: 2
+                }}
+              />
+              {website}
+            </Link>
+          )}
+        </Box>
+      )}
     </Box>
   );
 };
