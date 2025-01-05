@@ -7,7 +7,7 @@ type TagCountList = {
   tagCountList: ReflectionTagCountList;
 };
 
-export const reflectionTagCountsAPI = {
+export const reflectionsTagCountAPI = {
   async getReflectionTagCountList(): Promise<Result<TagCountList, 500>> {
     const path = `/api/reflection/tag-counts`;
     const options: FetchURLOptions = {

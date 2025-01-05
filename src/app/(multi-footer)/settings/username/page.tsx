@@ -3,7 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import SettingUsernameModalPage from "./page.client";
 import { reflectionAPI } from "@/src/api/reflection-api";
-import { reflectionTagCountsAPI } from "@/src/api/reflection-tag-counts-api";
+import { reflectionsTagCountAPI } from "@/src/api/reflections-tag-count-api";
 import authOptions from "@/src/app/api/auth/[...nextauth]/options";
 import { meta } from "@/src/utils/metadata";
 
@@ -17,7 +17,7 @@ const page = async ({ searchParams }: { searchParams: { page?: string } }) => {
     redirect(`/${session.user.username}`);
   }
 
-  const countResult = await reflectionTagCountsAPI.getReflectionTagCountList();
+  const countResult = await reflectionsTagCountAPI.getReflectionTagCountList();
   const reflectionsResult = await reflectionAPI.getReflectionAll();
 
   if (countResult === 500 || reflectionsResult === 404) {

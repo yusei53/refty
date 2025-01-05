@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { reflectionAPI } from "../api/reflection-api";
-import { reflectionTagCountsAPI } from "../api/reflection-tag-counts-api";
+import { reflectionsTagCountAPI } from "../api/reflections-tag-count-api";
 import { meta } from "../utils/metadata";
 import authOptions from "./api/auth/[...nextauth]/options";
 import RootPage from "./page.client";
@@ -19,7 +19,7 @@ const page = async ({
 
   const session = await getServerSession(authOptions);
 
-  const countResult = await reflectionTagCountsAPI.getReflectionTagCountList();
+  const countResult = await reflectionsTagCountAPI.getReflectionTagCountList();
   const reflectionsResult = await reflectionAPI.getReflectionAll(
     currentPage,
     selectedTag
