@@ -12,7 +12,7 @@ type TextAreaProps = {
   "placeholder" | "rows" | "defaultValue" | "fullWidth" | "multiline"
 >;
 
-const TextArea: React.FC<TextAreaProps> = ({
+export const TextArea: React.FC<TextAreaProps> = ({
   placeholder,
   rows,
   defaultValue,
@@ -48,5 +48,3 @@ const TextArea: React.FC<TextAreaProps> = ({
     />
   );
 };
-
-export default TextArea;

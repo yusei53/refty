@@ -2,7 +2,7 @@ import { Controller } from "react-hook-form";
 import { Box, Typography } from "@mui/material";
 import type { Control, FieldErrors } from "react-hook-form";
 import { ErrorMessage } from "../../ui/shared/alert";
-import TextArea from "../../ui/shared/text-area/TextArea";
+import { TextArea } from "../../ui/shared/text-area";
 
 type FormValues = {
   username: string;
@@ -59,7 +59,7 @@ export const FieldInput: React.FC<FieldInputProps> = ({
           )}
         />
       </Box>
-      {errors[name] && <ErrorMessage message={errors[name].message} />}
+      {errors[name] && <ErrorMessage message={errors[name]?.message} />}
     </>
   ) : (
     <>
@@ -77,7 +77,7 @@ export const FieldInput: React.FC<FieldInputProps> = ({
           />
         )}
       />
-      {errors[name] && <ErrorMessage message={errors[name].message} />}
+      {errors[name] && <ErrorMessage message={errors[name]?.message} />}
     </>
   );
 };
