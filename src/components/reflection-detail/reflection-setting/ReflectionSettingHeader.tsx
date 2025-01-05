@@ -4,14 +4,14 @@ import { DeleteConfirmationModal } from "../../reflection-list/modal/DeleteConfi
 import { KebabButtonPopupContainer } from "../../ui/shared/popup";
 import ReflectionSettingButton from "./ReflectionSettingButton";
 
-type ReflectionSettingProps = {
+type ReflectionSettingHeaderProps = {
   username: string;
   reflectionCUID: string;
   isCurrentUser: boolean;
   isPublic: boolean;
 };
 
-const ReflectionSetting: React.FC<ReflectionSettingProps> = ({
+const ReflectionSettingHeader: React.FC<ReflectionSettingHeaderProps> = ({
   username,
   reflectionCUID,
   isPublic,
@@ -47,7 +47,7 @@ const ReflectionSetting: React.FC<ReflectionSettingProps> = ({
               username={username}
               isPublic={isPublic}
               isCurrentUser={isCurrentUser}
-              isReflectionSetting={true}
+              isReflectionSettingHeader={true}
             />
           </Box>
           {isCurrentUser && (
@@ -67,4 +67,4 @@ const ReflectionSetting: React.FC<ReflectionSettingProps> = ({
   );
 };
 
-export default ReflectionSetting;
+export default ReflectionSettingHeader;

@@ -14,7 +14,7 @@ type KebabMenuButtonProps = {
   isPublic: boolean;
   isPinned: boolean;
   isCurrentUser: boolean;
-  isReflectionSetting: boolean;
+  isReflectionSettingHeader: boolean;
   onOpenPopup: (event: React.MouseEvent<HTMLElement>) => void;
   onClosePopup: () => void;
   onCopyLink: () => void;
@@ -30,7 +30,7 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
   isPublic,
   isPinned,
   isCurrentUser,
-  isReflectionSetting,
+  isReflectionSettingHeader,
   onOpenPopup,
   onClosePopup,
   onCopyLink,
@@ -81,7 +81,7 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
             <Box boxShadow={1} borderRadius={2.5} bgcolor={"white"}>
-              {isReflectionSetting ? (
+              {isReflectionSettingHeader ? (
                 <>
                   <PopupButton
                     text={"リンクをコピーする"}

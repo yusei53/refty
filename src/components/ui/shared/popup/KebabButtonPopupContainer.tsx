@@ -10,7 +10,7 @@ type KebabButtonPopupContainerProps = {
   isPublic: boolean;
   isPinned?: boolean;
   isCurrentUser: boolean;
-  isReflectionSetting?: boolean;
+  isReflectionSettingHeader?: boolean;
 };
 
 export const KebabButtonPopupContainer: React.FC<
@@ -21,7 +21,7 @@ export const KebabButtonPopupContainer: React.FC<
   isPublic,
   isPinned = false,
   isCurrentUser,
-  isReflectionSetting = false
+  isReflectionSettingHeader = false
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -86,7 +86,7 @@ export const KebabButtonPopupContainer: React.FC<
         onCopyLink={handleCopyLink}
         onPublicToggle={handlePublicToggle}
         onPinToggle={handlePinToggle}
-        isReflectionSetting={isReflectionSetting}
+        isReflectionSettingHeader={isReflectionSettingHeader}
       />
     </>
   );
