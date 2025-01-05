@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Box, Typography } from "@mui/material";
-import { ToHomePageButton } from "../button";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import { theme } from "@/src/utils/theme";
 
 type UserAvatarProps = {
@@ -19,14 +18,14 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
   website,
   isCurrentUser
 }) => {
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
+
   return (
-    <>
+    <Box component={"header"} mx={{ xs: 4, sm: 3 }} mt={{ sm: 8 }}>
       <Box
         display={"flex"}
         alignItems={"center"}
         justifyContent={"space-between"}
-        mx={{ xs: 4, sm: 3 }}
-        mt={{ sm: 8 }} // MEMO: ほんとは当てたくないけどデザイン的にhotfixで当てている
       >
         <Box display={"flex"} alignItems={"center"}>
           <Image
@@ -50,26 +49,42 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
               />
             </Link>
           )}
+        </Box>
+        <Box display={"flex"} gap={1.2}>
           {isCurrentUser && (
-            <Link href={"/settings/profile"}>
-              {/* TODO: アイコンはリリースまでに一番良さそうなアイコンに置き換える */}
+            <Link
+              href={"/settings/profile"}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
               <Image
                 src={"/setting.svg"}
                 alt={"プロフィール設定アイコン"}
-                color={theme.palette.grey[500]}
-                width={20}
-                height={20}
-                priority
-                style={{ marginLeft: 8, marginTop: 6 }}
+                width={32}
+                height={32}
               />
             </Link>
           )}
+          {isLargeScreen && (
+            <Link
+              href={"/"}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              <Image src={"/home.svg"} alt={"alt"} width={32} height={32} />
+            </Link>
+          )}
         </Box>
-        <ToHomePageButton />
       </Box>
-      <Typography ml={9} fontSize={14} color={"#2A2A2A"}>
+      <Typography mt={1} fontSize={14} letterSpacing={0.8}>
         {bio}
       </Typography>
-    </>
+    </Box>
   );
 };
