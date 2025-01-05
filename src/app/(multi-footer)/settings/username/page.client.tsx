@@ -9,6 +9,7 @@ import SettingUsernameModalContainer from "@/src/components/setting-username/Set
 
 type SettingUsernameModalPageProps = {
   currentUsername: User["username"];
+  image: string;
   reflections: ReflectionWithUser[];
   currentPage: number;
   totalPage: number;
@@ -17,6 +18,7 @@ type SettingUsernameModalPageProps = {
 
 const SettingUsernameModalPage: React.FC<SettingUsernameModalPageProps> = ({
   currentUsername,
+  image,
   reflections,
   currentPage,
   totalPage,
@@ -28,6 +30,7 @@ const SettingUsernameModalPage: React.FC<SettingUsernameModalPageProps> = ({
       {/* // NOTE: RootPageはただのモーダルの背景として置いている */}
       <RootPage
         currentUsername={currentUsername}
+        image={image}
         reflections={reflections}
         currentPage={currentPage}
         totalPage={totalPage}
