@@ -9,8 +9,10 @@ export async function GET(req: NextRequest) {
     const page = parseInt(req.nextUrl.searchParams.get("page") || "1", 10);
     const tag = req.nextUrl.searchParams.get("tag") ?? undefined;
 
-    const { reflections, totalPage, filteredCount } =
-      await reflectionService.getAll(page, tag);
+    const { reflections, totalPage } = await reflectionService.getAll(
+      page,
+      tag
+    );
 
     if (!reflections) {
       return NextResponse.json(
@@ -21,8 +23,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({
       reflections,
-      totalPage,
-      filteredReflectionCount: filteredCount
+      totalPage
     });
   } catch (error) {
     return NextResponse.json({ message: "Error get posts" }, { status: 500 });
