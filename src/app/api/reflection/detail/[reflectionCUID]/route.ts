@@ -2,8 +2,8 @@ import { revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import prisma from "@/src/lib/prisma";
+import { reflectionService } from "@/src/service/reflectionService";
 import getCurrentUser from "@/src/utils/actions/get-current-user";
-
 export async function GET(
   request: NextRequest,
   { params }: { params: { reflectionCUID: string } }
@@ -11,47 +11,22 @@ export async function GET(
   try {
     const { reflectionCUID } = params;
 
-    const reflection = await prisma.reflection.findUnique({
-      where: {
-        reflectionCUID
-      },
-      select: {
-        title: true,
-        content: true,
-        charStamp: true,
-        isPublic: true,
-        isDailyReflection: true,
-        isLearning: true,
-        isAwareness: true,
-        isInputLog: true,
-        isMonologue: true,
-        aiFeedback: true,
-        createdAt: true,
-        userId: true,
-        user: {
-          select: { image: true, username: true }
-        }
-      }
-    });
+    if (!reflectionCUID) {
+      return NextResponse.json(
+        { message: "Reflection CUID is required" },
+        { status: 400 }
+      );
+    }
 
-    if (!reflection) {
+    const data = await reflectionService.getReflection(reflectionCUID);
+
+    if (!data) {
       return NextResponse.json(
         { message: "Reflection not found" },
         { status: 404 }
       );
     }
-
-    const reflectionCount = await prisma.reflection.count({
-      where: {
-        userId: reflection.userId
-      }
-    });
-
-    return NextResponse.json({
-      ...reflection,
-      reflectionCount,
-      createdAt: reflection.createdAt.toISOString()
-    });
+    return NextResponse.json(data);
   } catch (error) {
     console.error("Error fetching reflection:", error);
     return NextResponse.json(

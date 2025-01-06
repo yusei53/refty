@@ -52,6 +52,25 @@ export const reflectionService = {
     return tagCountList;
   },
 
+  async getReflection(reflectionCUID: string) {
+    const reflection =
+      await reflectionRepository.getReflectionDetail(reflectionCUID);
+
+    if (!reflection) {
+      return;
+    }
+
+    const reflectionCount = await reflectionRepository.countReflectionsByUserId(
+      reflection.userId
+    );
+
+    return {
+      ...reflection,
+      reflectionCount,
+      createdAt: reflection.createdAt.toISOString()
+    };
+  },
+
   async create(params: {
     title: string;
     content: string;

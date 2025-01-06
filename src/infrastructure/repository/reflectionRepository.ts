@@ -41,6 +41,35 @@ export const reflectionRepository = {
     });
   },
 
+  async getReflectionDetail(reflectionCUID: string) {
+    return prisma.reflection.findUnique({
+      where: { reflectionCUID },
+      select: {
+        title: true,
+        content: true,
+        charStamp: true,
+        isPublic: true,
+        isDailyReflection: true,
+        isLearning: true,
+        isAwareness: true,
+        isInputLog: true,
+        isMonologue: true,
+        aiFeedback: true,
+        createdAt: true,
+        userId: true,
+        user: {
+          select: { image: true, username: true }
+        }
+      }
+    });
+  },
+
+  async countReflectionsByUserId(userId: string) {
+    return prisma.reflection.count({
+      where: { userId }
+    });
+  },
+
   async createReflection(params: {
     title: string;
     content: string;
