@@ -42,6 +42,8 @@ const page = async ({ params }: PageProps) => {
     return notFound();
   }
 
+  const isCurrentUser = session?.user.username === reflection.user.username;
+
   return (
     <ReflectionDetailPage
       title={reflection.title}
@@ -53,6 +55,8 @@ const page = async ({ params }: PageProps) => {
       isAwareness={reflection.isAwareness}
       isInputLog={reflection.isInputLog}
       isMonologue={reflection.isMonologue}
+      isPublic={reflection.isPublic}
+      isCurrentUser={isCurrentUser}
       aiFeedback={reflection.aiFeedback}
       createdAt={reflection.createdAt}
       reflectionCount={reflection.reflectionCount}
