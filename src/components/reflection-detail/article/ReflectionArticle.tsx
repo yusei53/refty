@@ -63,7 +63,7 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
 
   return (
     <Box component={"article"}>
-      <Box display={"flex"} alignItems={"center"} my={0.5}>
+      <Box display={"flex"} alignItems={"center"} my={0.5} pt={{ xs: 3 }}>
         <Link
           href={`/${username}`}
           style={{
