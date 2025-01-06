@@ -4,6 +4,7 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { Box } from "@mui/material";
 import { sqsAPI } from "@/src/api/send-to-sqs-api";
 import { ReflectionArticle } from "@/src/components/reflection-detail/article";
+import ReflectionSettingHeader from "@/src/components/reflection-detail/reflection-setting/ReflectionSettingHeader";
 import { UserInformationSection } from "@/src/components/reflection-detail/user-information/UserInformationSection";
 import { animation } from "@/src/components/ui/shared/animation";
 import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
@@ -16,6 +17,8 @@ type ReflectionDetailPageProps = {
   isAwareness: boolean;
   isInputLog: boolean;
   isMonologue: boolean;
+  isPublic: boolean;
+  isCurrentUser: boolean;
   aiFeedback: string;
   createdAt: string;
   userImage: string;
@@ -31,6 +34,8 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
   isAwareness,
   isInputLog,
   isMonologue,
+  isPublic,
+  isCurrentUser,
   aiFeedback,
   createdAt,
   userImage,
@@ -84,9 +89,15 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
         sx={{
           position: { xs: "absolute", md: "fixed" },
           left: { xs: 0, md: 20 },
-          top: { xs: -60, md: 20 },
+          top: { xs: -15, md: 20 },
           cursor: "pointer"
         }}
+      />
+      <ReflectionSettingHeader
+        username={username}
+        reflectionCUID={reflectionCUID}
+        isCurrentUser={isCurrentUser}
+        isPublic={isPublic}
       />
       <ReflectionArticle
         reflectionCUID={reflectionCUID}

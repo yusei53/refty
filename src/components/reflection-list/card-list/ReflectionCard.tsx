@@ -31,7 +31,6 @@ const ReflectionCard: React.FC<ReflectionCardProps> = ({
         <KebabButtonPopupContainer
           reflectionCUID={reflection.reflectionCUID}
           username={username}
-          reflection={reflection}
           isPublic={reflection.isPublic}
           isPinned={reflection.isPinned}
           isCurrentUser={isCurrentUser}
