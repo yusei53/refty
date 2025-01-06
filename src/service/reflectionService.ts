@@ -20,9 +20,35 @@ export const reflectionService = {
 
     return {
       reflections,
-      totalPage,
-      filteredCount
+      totalPage
     };
+  },
+
+  async getTagCounts() {
+    const [
+      isDailyReflectionCount,
+      isLearningCount,
+      isAwarenessCount,
+      isMonologueCount,
+      isInputLogCount
+    ] = await Promise.all([
+      reflectionRepository.countPublicReflections({
+        isDailyReflection: true
+      }),
+      reflectionRepository.countPublicReflections({ isLearning: true }),
+      reflectionRepository.countPublicReflections({ isAwareness: true }),
+      reflectionRepository.countPublicReflections({ isMonologue: true }),
+      reflectionRepository.countPublicReflections({ isInputLog: true })
+    ]);
+    const tagCountList = {
+      isDailyReflection: isDailyReflectionCount,
+      isLearning: isLearningCount,
+      isAwareness: isAwarenessCount,
+      isMonologue: isMonologueCount,
+      isInputLog: isInputLogCount
+    };
+
+    return tagCountList;
   },
 
   async create(params: {
