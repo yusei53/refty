@@ -89,7 +89,7 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
         sx={{
           position: { xs: "absolute", md: "fixed" },
           left: { xs: 0, md: 20 },
-          top: { xs: -20, md: 20 },
+          top: { xs: -15, md: 20 },
           cursor: "pointer"
         }}
       />
