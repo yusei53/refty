@@ -30,7 +30,7 @@ export const meta = {
 
   welcomePage: {
     ...baseMetadata,
-    title: `${REFTY}とは`,
+    title: `${REFTY}とは | ${REFTY}`,
     openGraph: {
       ...baseMetadata.openGraph,
       url: "https://www.refty.jp/welcome",
@@ -44,7 +44,7 @@ export const meta = {
 
   settingUsernamePage: {
     ...baseMetadata,
-    title: "ユーザーネーム設定",
+    title: `ユーザーネーム設定 | ${REFTY}`,
     description: `${REFTY}のユーザーネーム設定ページ`,
     openGraph: {
       ...baseMetadata.openGraph,
@@ -61,7 +61,7 @@ export const meta = {
 
   settingProfilePage: {
     ...baseMetadata,
-    title: "プロフィール設定",
+    title: `プロフィール設定 | ${REFTY}`,
     description: `${REFTY}のプロフィール設定ページ`,
     openGraph: {
       ...baseMetadata.openGraph,
@@ -78,7 +78,7 @@ export const meta = {
 
   loginFormPage: {
     ...baseMetadata,
-    title: "ログイン",
+    title: `ログイン | ${REFTY}`,
     description: `${REFTY}のログインページ`,
     openGraph: {
       ...baseMetadata.openGraph,
@@ -95,7 +95,7 @@ export const meta = {
 
   reflectionPostFormPage: {
     ...baseMetadata,
-    title: "投稿作成",
+    title: `投稿作成 | ${REFTY}`,
     description: `${REFTY}の投稿作成ページ`,
     openGraph: {
       ...baseMetadata.openGraph,
