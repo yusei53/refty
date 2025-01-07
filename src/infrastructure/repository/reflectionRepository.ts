@@ -80,6 +80,20 @@ export const reflectionRepository = {
     });
   },
 
+  async countSelectedTagReflectionsByUserId(
+    userId: string,
+    isPublic: boolean | undefined,
+    tagFilter: Record<string, boolean>
+  ) {
+    return prisma.reflection.count({
+      where: {
+        userId,
+        isPublic,
+        ...tagFilter
+      }
+    });
+  },
+
   async countFilteredReflections(params: {
     userId: string;
     isCurrentUser: boolean;

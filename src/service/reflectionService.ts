@@ -1,6 +1,5 @@
 import { reflectionRepository } from "../infrastructure/repository/reflectionRepository";
 import { toJST } from "../utils/date-helper";
-import prisma from "@/src/lib/prisma";
 
 const COUNT_PER_PAGE = 12;
 
@@ -53,41 +52,46 @@ export const reflectionService = {
       });
 
     // MEMO: タグ別の投稿数を全て取得しておく
-    const isLearningCount = await prisma.reflection.count({
-      where: {
+    const isPublic = isCurrentUser ? undefined : true;
+
+    const isLearningCount =
+      await reflectionRepository.countSelectedTagReflectionsByUserId(
         userId,
-        isLearning: true,
-        isPublic: isCurrentUser ? undefined : true
-      }
-    });
-    const isAwarenessCount = await prisma.reflection.count({
-      where: {
+        isPublic,
+        { isLearning: true }
+      );
+
+    const isAwarenessCount =
+      await reflectionRepository.countSelectedTagReflectionsByUserId(
         userId,
-        isAwareness: true,
-        isPublic: isCurrentUser ? undefined : true
-      }
-    });
-    const isMonologueCount = await prisma.reflection.count({
-      where: {
+        isPublic,
+        { isAwareness: true }
+      );
+
+    const isMonologueCount =
+      await reflectionRepository.countSelectedTagReflectionsByUserId(
         userId,
-        isMonologue: true,
-        isPublic: isCurrentUser ? undefined : true
-      }
-    });
-    const isInputLogCount = await prisma.reflection.count({
-      where: {
+        isPublic,
+        { isMonologue: true }
+      );
+
+    const isInputLogCount =
+      await reflectionRepository.countSelectedTagReflectionsByUserId(
         userId,
-        isInputLog: true,
-        isPublic: isCurrentUser ? undefined : true
-      }
-    });
-    const isDailyReflectionCount = await prisma.reflection.count({
-      where: {
+        isPublic,
+        {
+          isInputLog: true
+        }
+      );
+
+    const isDailyReflectionCount =
+      await reflectionRepository.countSelectedTagReflectionsByUserId(
         userId,
-        isDailyReflection: true,
-        isPublic: isCurrentUser ? undefined : true
-      }
-    });
+        isPublic,
+        {
+          isDailyReflection: true
+        }
+      );
 
     const tagCountList = {
       isDailyReflection: isDailyReflectionCount,
