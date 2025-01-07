@@ -80,19 +80,39 @@ export async function GET(
 
     // MEMO: タグ別の投稿数を全て取得しておく
     const isLearningCount = await prisma.reflection.count({
-      where: { userId, isLearning: true }
+      where: {
+        userId,
+        isLearning: true,
+        isPublic: isCurrentUser ? undefined : true
+      }
     });
     const isAwarenessCount = await prisma.reflection.count({
-      where: { userId, isAwareness: true }
+      where: {
+        userId,
+        isAwareness: true,
+        isPublic: isCurrentUser ? undefined : true
+      }
     });
     const isMonologueCount = await prisma.reflection.count({
-      where: { userId, isMonologue: true }
+      where: {
+        userId,
+        isMonologue: true,
+        isPublic: isCurrentUser ? undefined : true
+      }
     });
     const isInputLogCount = await prisma.reflection.count({
-      where: { userId, isInputLog: true }
+      where: {
+        userId,
+        isInputLog: true,
+        isPublic: isCurrentUser ? undefined : true
+      }
     });
     const isDailyReflectionCount = await prisma.reflection.count({
-      where: { userId, isDailyReflection: true }
+      where: {
+        userId,
+        isDailyReflection: true,
+        isPublic: isCurrentUser ? undefined : true
+      }
     });
 
     const tagCountList = {
