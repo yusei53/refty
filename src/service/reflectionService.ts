@@ -32,47 +32,25 @@ export const reflectionService = {
     tag?: string
   ) {
     const offset = (page - 1) * COUNT_PER_PAGE;
-    const tagFilter = tag && { [tag]: true };
+    const tagFilter = tag ? { [tag]: true } : undefined;
 
-    const filteredReflectionCount = await prisma.reflection.count({
-      where: {
+    const filteredReflectionCount =
+      await reflectionRepository.countFilteredReflections({
         userId,
-        isPublic: isCurrentUser ? undefined : true,
-        ...tagFilter
-      }
-    });
+        isCurrentUser,
+        tagFilter
+      });
 
     const totalPage = Math.ceil(filteredReflectionCount / COUNT_PER_PAGE);
 
-    const userWithReflections = await prisma.user.findUnique({
-      where: {
-        id: userId
-      },
-      select: {
-        image: true,
-        bio: true,
-        goal: true,
-        website: true,
-        reflections: {
-          where: {
-            userId,
-            isPublic: isCurrentUser ? undefined : true,
-            ...tagFilter
-          },
-          orderBy: [{ isPinned: "desc" }, { createdAt: "desc" }],
-          take: COUNT_PER_PAGE,
-          skip: offset,
-          select: {
-            title: true,
-            reflectionCUID: true,
-            charStamp: true,
-            createdAt: true,
-            isPublic: true,
-            isPinned: true
-          }
-        }
-      }
-    });
+    const userWithReflections =
+      await reflectionRepository.getUserWithReflections({
+        userId,
+        isCurrentUser,
+        tagFilter,
+        offset,
+        limit: COUNT_PER_PAGE
+      });
 
     // MEMO: タグ別の投稿数を全て取得しておく
     const isLearningCount = await prisma.reflection.count({
