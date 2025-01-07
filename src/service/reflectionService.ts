@@ -1,5 +1,7 @@
+import { NextResponse } from "next/server";
 import { reflectionRepository } from "../infrastructure/repository/reflectionRepository";
 import { toJST } from "../utils/date-helper";
+import prisma from "@/src/lib/prisma";
 
 const COUNT_PER_PAGE = 12;
 
@@ -112,5 +114,59 @@ export const reflectionService = {
       createdAt: jstDate,
       userId
     });
+  },
+
+  async update(params: {
+    reflectionCUID: string;
+    title: string;
+    content: string;
+    charStamp: string;
+    isPublic: boolean;
+    isDailyReflection: boolean;
+    isLearning: boolean;
+    isAwareness: boolean;
+    isInputLog: boolean;
+    isMonologue: boolean;
+  }) {
+    const {
+      reflectionCUID,
+      title,
+      content,
+      charStamp,
+      isPublic,
+      isDailyReflection,
+      isLearning,
+      isAwareness,
+      isInputLog,
+      isMonologue
+    } = params;
+
+    const reflection = await prisma.reflection.findUnique({
+      where: { reflectionCUID }
+    });
+
+    if (!reflection) {
+      return NextResponse.json(
+        { message: "Reflection not found" },
+        { status: 404 }
+      );
+    }
+
+    return await reflectionRepository.updateReflection({
+      reflectionCUID,
+      title,
+      content,
+      charStamp,
+      isPublic,
+      isDailyReflection,
+      isLearning,
+      isAwareness,
+      isInputLog,
+      isMonologue
+    });
+  },
+
+  async delete(reflectionCUID: string) {
+    return await reflectionRepository.deleteReflection(reflectionCUID);
   }
 };

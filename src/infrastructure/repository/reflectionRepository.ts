@@ -112,5 +112,58 @@ export const reflectionRepository = {
         userId
       }
     });
+  },
+
+  async getReflectionRecord(reflectionCUID: string) {
+    return prisma.reflection.findUnique({
+      where: { reflectionCUID }
+    });
+  },
+
+  async updateReflection(params: {
+    reflectionCUID: string;
+    title: string;
+    content: string;
+    charStamp: string;
+    isPublic: boolean;
+    isDailyReflection: boolean;
+    isLearning: boolean;
+    isAwareness: boolean;
+    isInputLog: boolean;
+    isMonologue: boolean;
+  }) {
+    const {
+      reflectionCUID,
+      title,
+      content,
+      charStamp,
+      isPublic,
+      isDailyReflection,
+      isLearning,
+      isAwareness,
+      isInputLog,
+      isMonologue
+    } = params;
+
+    return prisma.reflection.update({
+      where: { reflectionCUID },
+      data: {
+        title,
+        content,
+        charStamp,
+        isPublic,
+        isDailyReflection,
+        isLearning,
+        isAwareness,
+        isInputLog,
+        isMonologue
+      }
+    });
+  },
+
+  async deleteReflection(reflectionCUID: string) {
+    return prisma.reflection.delete({
+      where: { reflectionCUID }
+    });
   }
 };
