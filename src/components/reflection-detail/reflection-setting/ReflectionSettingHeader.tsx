@@ -1,3 +1,4 @@
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { Box } from "@mui/material";
 import { KebabButtonPopupContainer } from "../../ui/shared/popup";
 import ToEditPageButton from "./ToEditPageButton";
@@ -7,50 +8,53 @@ type ReflectionSettingHeaderProps = {
   reflectionCUID: string;
   isCurrentUser: boolean;
   isPublic: boolean;
+  onBackNavigation: () => void;
 };
 
 const ReflectionSettingHeader: React.FC<ReflectionSettingHeaderProps> = ({
   username,
   reflectionCUID,
   isPublic,
-  isCurrentUser
+  isCurrentUser,
+  onBackNavigation
 }) => {
   return (
-    <>
-      <Box
-        component={"header"}
-        position={"fixed"}
-        top={{ xs: 0, md: 25 }}
-        right={{ xs: 0, md: 35 }}
-        bgcolor={{ xs: "white", md: "transparent" }}
-        width={{ xs: "100%", md: "auto" }}
-        zIndex={1}
-      >
-        <Box
-          display={"flex"}
-          justifyContent={"flex-end"}
-          px={{ xs: 1.5, md: 0 }}
-          py={{ xs: 1, md: 0 }}
-          boxShadow={{ xs: "0px 0.7px 1px rgba(0, 0, 0, 0.1)", md: "none" }}
-        >
-          <Box mt={0.5}>
-            <KebabButtonPopupContainer
-              reflectionCUID={reflectionCUID}
-              username={username}
-              isPublic={isPublic}
-              isCurrentUser={isCurrentUser}
-              isReflectionSettingHeader
-            />
-          </Box>
-          {isCurrentUser && (
-            <ToEditPageButton
-              username={username}
-              reflectionCUID={reflectionCUID}
-            />
-          )}
-        </Box>
+    <Box
+      component={"header"}
+      position={"fixed"}
+      top={{ xs: 0, md: 15 }}
+      bgcolor={{ xs: "white", md: "transparent" }}
+      left={{ xs: 0, md: 25 }}
+      right={{ xs: 0, md: 25 }}
+      display="flex"
+      justifyContent="space-between"
+      alignItems="center"
+      px={1.5}
+      py={1}
+      zIndex={1}
+      boxShadow={{ xs: "0px 0.7px 1px rgba(0, 0, 0, 0.1)", md: "none" }}
+    >
+      <KeyboardBackspaceIcon
+        onClick={onBackNavigation}
+        sx={{ cursor: "pointer" }}
+      />
+
+      <Box display="flex" alignItems="center" gap={1}>
+        <KebabButtonPopupContainer
+          reflectionCUID={reflectionCUID}
+          username={username}
+          isPublic={isPublic}
+          isCurrentUser={isCurrentUser}
+          isReflectionSettingHeader
+        />
+        {isCurrentUser && (
+          <ToEditPageButton
+            username={username}
+            reflectionCUID={reflectionCUID}
+          />
+        )}
       </Box>
-    </>
+    </Box>
   );
 };
 
