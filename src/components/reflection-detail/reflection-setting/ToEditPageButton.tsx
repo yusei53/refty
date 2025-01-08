@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
 type ToEditPageButtonProps = {
   username: string;
@@ -13,19 +13,25 @@ const ToEditPageButton: React.FC<ToEditPageButtonProps> = ({
   return (
     <Button
       href={`/${username}/${reflectionCUID}/edit`}
+      disableRipple
       sx={{
         color: "black",
-        letterSpacing: 0.5
+        border: "1px solid",
+        borderColor: "#DCDFE3",
+        borderRadius: 10,
+        display: "flex"
       }}
     >
-      <Image
-        src={"/edit.svg"}
-        alt={"編集するボタン"}
-        width={18}
-        height={18}
-        style={{ marginRight: 10 }}
-      />
-      編集する
+      <Box alignItems={"center"} display={"flex"} p={0.5}>
+        <Image
+          src={"/edit.svg"}
+          alt={"編集するボタン"}
+          width={16}
+          height={16}
+          style={{ marginRight: 3 }}
+        />
+        <Typography fontSize={13.5}>編集する</Typography>
+      </Box>
     </Button>
   );
 };
