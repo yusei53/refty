@@ -252,5 +252,12 @@ export const reflectionService = {
 
   async delete(reflectionCUID: string) {
     return await reflectionRepository.deleteReflection(reflectionCUID);
+  },
+
+  async updatedPinned(reflectionCUID: string, isPinned: boolean) {
+    return await reflectionRepository.updatePinnedStatus({
+      reflectionCUID,
+      isPinned
+    });
   }
 };

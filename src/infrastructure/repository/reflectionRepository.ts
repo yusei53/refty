@@ -233,5 +233,17 @@ export const reflectionRepository = {
     return prisma.reflection.delete({
       where: { reflectionCUID }
     });
+  },
+
+  async updatePinnedStatus(params: {
+    reflectionCUID: string;
+    isPinned: boolean;
+  }) {
+    const { reflectionCUID, isPinned } = params;
+
+    return prisma.reflection.update({
+      where: { reflectionCUID },
+      data: { isPinned }
+    });
   }
 };
