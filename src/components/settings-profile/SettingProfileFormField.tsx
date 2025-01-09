@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { type Control, type FieldErrors } from "react-hook-form";
 import { Box, Typography } from "@mui/material";
-import { Button } from "../ui/shared/button";
 import { FieldHeader, FieldInput } from "./input-field";
+import { Button } from "@/src/ui/shared/button";
 
 type FormValues = {
   username: string;

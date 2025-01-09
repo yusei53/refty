@@ -3,11 +3,11 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { AccordionDetails, Box, Typography } from "@mui/material";
 import { label } from "../../post-form/popup/select-tag/button/TagButton";
-import { Accordion, AccordionSummary } from "../../ui/shared/accordion";
-import { Button } from "../../ui/shared/button";
 import { AICalling, AIFeedbackArea } from "./ai-feedback";
 import { StyledMarkdown } from "./mark-down";
 import { useAIFeedbackHandler } from "@/src/hooks/ai-feedback/useAIFeedbackHandler";
+import { Accordion, AccordionSummary } from "@/src/ui/shared/accordion";
+import { Button } from "@/src/ui/shared/button";
 import { formatDate } from "@/src/utils/date-helper";
 import { theme } from "@/src/utils/theme";
 

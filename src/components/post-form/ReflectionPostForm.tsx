@@ -3,9 +3,6 @@ import { Controller } from "react-hook-form";
 import { Box, Stack, useMediaQuery } from "@mui/material";
 import type { MarkdownEditorRef } from "./markdown-editor";
 import type { Control, FieldErrors } from "react-hook-form";
-import { ErrorMessage } from "../ui/shared/alert";
-import { Button } from "../ui/shared/button";
-import { CustomInput } from "../ui/shared/input";
 import EmojiPicker from "./EmojiPicker";
 import { MarkdownEditor } from "./markdown-editor";
 import { MarkdownSupportPopupAreaContainer } from "./popup/markdown-support";
@@ -16,6 +13,9 @@ import {
 } from "./popup/reflection-template";
 import { SelectTagPopupContainer } from "./popup/select-tag/SelectTagContainer";
 import { useExtractTrueTags } from "@/src/hooks/reflection-tag/useExtractTrueTags";
+import { ErrorMessage } from "@/src/ui/shared/alert";
+import { Button } from "@/src/ui/shared/button";
+import { CustomInput } from "@/src/ui/shared/input";
 import { theme } from "@/src/utils/theme";
 
 type FormValues = {

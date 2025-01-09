@@ -1,5 +1,5 @@
 "use client";
-import { LogoutButton } from "@/src/components/ui/auth-button";
+import { LogoutButton } from "@/src/ui/auth-button";
 
 const page = () => {
   return <LogoutButton />;

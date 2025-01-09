@@ -1,8 +1,8 @@
 import Grid from "@mui/material/Grid2";
 import type { ReflectionWithUser } from "@/src/api/reflection-api";
 import type { User } from "@prisma/client";
-import { animation } from "../../ui/shared/animation";
 import ReflectionCardWithUser from "./ReflectionCardWithUser";
+import { animation } from "@/src/ui/shared/animation";
 
 type ReflectionAllCardListAreaProps = {
   currentUsername: User["username"];

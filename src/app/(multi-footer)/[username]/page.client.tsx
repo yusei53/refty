@@ -11,15 +11,15 @@ import ReflectionCardListArea from "@/src/components/reflection-list/card-list/R
 import { EmptyReflection } from "@/src/components/reflection-list/card-list/empty-reflection";
 import { GoodJobModal } from "@/src/components/reflection-list/modal";
 import UserProfileArea from "@/src/components/reflection-list/profile/UserProfileArea";
-import { PostNavigationButton } from "@/src/components/ui/shared/button";
-import {
-  ArrowPagination,
-  NumberedPagination
-} from "@/src/components/ui/shared/pagination";
-import { SearchBar } from "@/src/components/ui/shared/search-bar";
 import { usePagination } from "@/src/hooks/reflection/usePagination";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { useTagHandler } from "@/src/hooks/reflection-tag/useTagHandler";
+import { PostNavigationButton } from "@/src/ui/shared/button";
+import {
+  ArrowPagination,
+  NumberedPagination
+} from "@/src/ui/shared/pagination";
+import { SearchBar } from "@/src/ui/shared/search-bar";
 import { theme } from "@/src/utils/theme";
 
 type UserReflectionListPageProps = {

@@ -7,16 +7,13 @@ import type {
 import type { User } from "@prisma/client";
 import ReflectionAllCardListArea from "../components/reflection-all-list/card-list/ReflectionAllCardListArea";
 import { ReflectionAllHeader } from "../components/reflection-all-list/header";
-import { PostNavigationButton } from "../components/ui/shared/button";
-import { Footer } from "../components/ui/shared/footer";
-import {
-  ArrowPagination,
-  NumberedPagination
-} from "../components/ui/shared/pagination";
-import { SearchBar } from "../components/ui/shared/search-bar";
 import { usePagination } from "../hooks/reflection/usePagination";
 import { tagMap } from "../hooks/reflection-tag/useExtractTrueTags";
 import { useTagHandler } from "../hooks/reflection-tag/useTagHandler";
+import { PostNavigationButton } from "../ui/shared/button";
+import { Footer } from "../ui/shared/footer";
+import { ArrowPagination, NumberedPagination } from "../ui/shared/pagination";
+import { SearchBar } from "../ui/shared/search-bar";
 import { theme } from "../utils/theme";
 
 type RootPageProps = {

@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { AILoading } from "@/src/components/ui/shared/loading";
+import { AILoading } from "@/src/ui/shared/loading";
 
 export const AICalling = () => {
   return (

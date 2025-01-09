@@ -1,7 +1,7 @@
 import Image from "next/image";
 import CheckIcon from "@mui/icons-material/Check";
 import { Box, Typography } from "@mui/material";
-import { Button } from "@/src/components/ui/shared/button";
+import { Button } from "@/src/ui/shared/button";
 import { theme } from "@/src/utils/theme";
 
 type PublishStatusOptionButtonProps = {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography, useMediaQuery } from "@mui/material";
-import { IOSSwitch } from "@/src/components/ui/shared/switch";
+import { IOSSwitch } from "@/src/ui/shared/switch";
 import { theme } from "@/src/utils/theme";
 
 type ToggleJapaneseLabelProps = {
