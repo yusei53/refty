@@ -26,6 +26,91 @@ export const reflectionService = {
     };
   },
 
+  async getByUsername(
+    page: number,
+    userId: string,
+    isCurrentUser: boolean,
+    tag?: string
+  ) {
+    const offset = (page - 1) * COUNT_PER_PAGE;
+    const tagFilter = tag ? { [tag]: true } : undefined;
+
+    const filteredReflectionCount =
+      await reflectionRepository.countFilteredReflections({
+        userId,
+        isCurrentUser,
+        tagFilter
+      });
+
+    const totalPage = Math.ceil(filteredReflectionCount / COUNT_PER_PAGE);
+
+    const userWithReflections =
+      await reflectionRepository.getUserWithReflections({
+        userId,
+        isCurrentUser,
+        tagFilter,
+        offset,
+        limit: COUNT_PER_PAGE
+      });
+
+    // MEMO: タグ別の投稿数を全て取得しておく
+    const isPublic = isCurrentUser ? undefined : true;
+
+    const isLearningCount =
+      await reflectionRepository.countSelectedTagReflectionsByUserId(
+        userId,
+        isPublic,
+        { isLearning: true }
+      );
+
+    const isAwarenessCount =
+      await reflectionRepository.countSelectedTagReflectionsByUserId(
+        userId,
+        isPublic,
+        { isAwareness: true }
+      );
+
+    const isMonologueCount =
+      await reflectionRepository.countSelectedTagReflectionsByUserId(
+        userId,
+        isPublic,
+        { isMonologue: true }
+      );
+
+    const isInputLogCount =
+      await reflectionRepository.countSelectedTagReflectionsByUserId(
+        userId,
+        isPublic,
+        {
+          isInputLog: true
+        }
+      );
+
+    const isDailyReflectionCount =
+      await reflectionRepository.countSelectedTagReflectionsByUserId(
+        userId,
+        isPublic,
+        {
+          isDailyReflection: true
+        }
+      );
+
+    const tagCountList = {
+      isDailyReflection: isDailyReflectionCount,
+      isLearning: isLearningCount,
+      isAwareness: isAwarenessCount,
+      isMonologue: isMonologueCount,
+      isInputLog: isInputLogCount
+    };
+
+    return {
+      userWithReflections,
+      totalPage,
+      filteredReflectionCount,
+      tagCountList
+    };
+  },
+
   async getTagCounts() {
     const isDailyReflectionCount =
       await reflectionRepository.countPublicReflections({

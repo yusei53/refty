@@ -32,10 +32,78 @@ export const reflectionRepository = {
     });
   },
 
+  async getUserWithReflections(params: {
+    userId: string;
+    isCurrentUser: boolean;
+    tagFilter?: Record<string, boolean>;
+    offset: number;
+    limit: number;
+  }) {
+    const { userId, isCurrentUser, tagFilter, offset, limit } = params;
+    return prisma.user.findUnique({
+      where: {
+        id: userId
+      },
+      select: {
+        image: true,
+        bio: true,
+        goal: true,
+        website: true,
+        reflections: {
+          where: {
+            userId,
+            isPublic: isCurrentUser ? undefined : true,
+            ...tagFilter
+          },
+          orderBy: [{ isPinned: "desc" }, { createdAt: "desc" }],
+          take: limit,
+          skip: offset,
+          select: {
+            title: true,
+            reflectionCUID: true,
+            charStamp: true,
+            createdAt: true,
+            isPublic: true,
+            isPinned: true
+          }
+        }
+      }
+    });
+  },
+
   async countPublicReflections(tagFilter?: Record<string, boolean>) {
     return prisma.reflection.count({
       where: {
         isPublic: true,
+        ...tagFilter
+      }
+    });
+  },
+
+  async countSelectedTagReflectionsByUserId(
+    userId: string,
+    isPublic: boolean | undefined,
+    tagFilter: Record<string, boolean>
+  ) {
+    return prisma.reflection.count({
+      where: {
+        userId,
+        isPublic,
+        ...tagFilter
+      }
+    });
+  },
+
+  async countFilteredReflections(params: {
+    userId: string;
+    isCurrentUser: boolean;
+    tagFilter?: Record<string, boolean>;
+  }) {
+    const { userId, isCurrentUser, tagFilter } = params;
+    return await prisma.reflection.count({
+      where: {
+        userId,
+        isPublic: isCurrentUser ? undefined : true,
         ...tagFilter
       }
     });
