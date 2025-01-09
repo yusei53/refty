@@ -2,7 +2,6 @@ import { revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { reflectionRepository } from "@/src/infrastructure/repository/reflectionRepository";
-import prisma from "@/src/lib/prisma";
 import { reflectionService } from "@/src/service/reflectionService";
 import getCurrentUser from "@/src/utils/actions/get-current-user";
 export async function GET(
@@ -42,17 +41,7 @@ export async function PATCH(
   { params }: { params: { reflectionCUID: string } }
 ) {
   try {
-    const {
-      title,
-      content,
-      charStamp,
-      isPublic,
-      isDailyReflection,
-      isLearning,
-      isAwareness,
-      isInputLog,
-      isMonologue
-    } = await req.json();
+    const body = await req.json();
     const { reflectionCUID } = params;
 
     if (!reflectionCUID) {
@@ -81,19 +70,9 @@ export async function PATCH(
       return new NextResponse("権限がありません", { status: 403 });
     }
 
-    const updatedReflection = await prisma.reflection.update({
-      where: { reflectionCUID },
-      data: {
-        title,
-        content,
-        charStamp,
-        isPublic,
-        isDailyReflection,
-        isLearning,
-        isAwareness,
-        isInputLog,
-        isMonologue
-      }
+    const updatedReflection = await reflectionService.update({
+      reflectionCUID,
+      ...body
     });
 
     revalidateTag(`reflections-${currentUser.username}`);
