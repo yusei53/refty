@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import type { Reflection } from "@/src/api/reflection-api";
-import { KebabButtonPopupContainer } from "@/src/components/popup";
+import { KebabButtonPopupContainer } from "@/src/features/common/kebab-button-popup";
 import { formatDate } from "@/src/utils/date-helper";
 import { theme } from "@/src/utils/theme";
 

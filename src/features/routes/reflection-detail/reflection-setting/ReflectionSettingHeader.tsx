@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import ToEditPageButton from "./ToEditPageButton";
-import { KebabButtonPopupContainer } from "@/src/components/popup";
+import { KebabButtonPopupContainer } from "@/src/features/common/kebab-button-popup";
 
 type ReflectionSettingHeaderProps = {
   username: string;
