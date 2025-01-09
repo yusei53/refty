@@ -1,6 +1,6 @@
-import type { NextRequest} from "next/server";
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import prisma from "@/src/lib/prisma";
+import { reflectionService } from "@/src/service/reflectionService";
 
 export async function PATCH(
   req: NextRequest,
@@ -10,17 +10,10 @@ export async function PATCH(
     const { reflectionCUID } = params;
     const { isPinned } = await req.json();
 
-    const response = await prisma.reflection.update({
-      where: {
-        reflectionCUID
-      },
-      data: {
-        isPinned
-      }
-    });
+    const res = await reflectionService.updatePinned(reflectionCUID, isPinned);
 
     return NextResponse.json(
-      { message: "Reflection pinned successfully", data: response },
+      { message: "Reflection pinned successfully", data: res },
       { status: 200 }
     );
   } catch (error) {

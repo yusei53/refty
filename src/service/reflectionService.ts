@@ -26,6 +26,45 @@ export const reflectionService = {
     };
   },
 
+  // MEMO: 結構複雑なので、コメント多め
+  async getCountByUsername(userId: string) {
+    const total =
+      await reflectionRepository.getTotalReflectionsByUserId(userId);
+    const reflectionsDateGroup =
+      await reflectionRepository.getReflectionsDateByUserId(userId);
+
+    const formatDate = (createdAt: Date) =>
+      createdAt.toISOString().split("T")[0];
+
+    // NOTE: 日付ごとにグループ化して投稿数を計算(groupBy)
+    const countPerDate: DateCountMap = reflectionsDateGroup.reduce(
+      (dateCounts, currentValue) => {
+        const date = formatDate(currentValue.createdAt);
+
+        // NOTE: 存在する日付の場合はカウントを増やす
+        if (dateCounts[date]) {
+          dateCounts[date] = dateCounts[date] + 1;
+        } else {
+          dateCounts[date] = 1;
+        }
+
+        return dateCounts;
+      },
+      // NOTE: initialValue(初期値)として空のオブジェクトを渡す
+      {} as DateCountMap
+    );
+
+    // NOTE: 配列に変換
+    const reflectionsPerDate = Object.entries(countPerDate).map(
+      ([date, countReflections]) => ({ date, countReflections })
+    );
+
+    return {
+      total,
+      reflectionsPerDate
+    };
+  },
+
   async getByUsername(
     page: number,
     userId: string,
@@ -55,6 +94,14 @@ export const reflectionService = {
 
     // MEMO: タグ別の投稿数を全て取得しておく
     const isPublic = isCurrentUser ? undefined : true;
+    const isDailyReflectionCount =
+      await reflectionRepository.countSelectedTagReflectionsByUserId(
+        userId,
+        isPublic,
+        {
+          isDailyReflection: true
+        }
+      );
 
     const isLearningCount =
       await reflectionRepository.countSelectedTagReflectionsByUserId(
@@ -83,15 +130,6 @@ export const reflectionService = {
         isPublic,
         {
           isInputLog: true
-        }
-      );
-
-    const isDailyReflectionCount =
-      await reflectionRepository.countSelectedTagReflectionsByUserId(
-        userId,
-        isPublic,
-        {
-          isDailyReflection: true
         }
       );
 
@@ -139,7 +177,7 @@ export const reflectionService = {
     return tagCountList;
   },
 
-  async getReflection(reflectionCUID: string) {
+  async getDetail(reflectionCUID: string) {
     const reflection =
       await reflectionRepository.getReflectionDetail(reflectionCUID);
 
@@ -253,5 +291,21 @@ export const reflectionService = {
 
   async delete(reflectionCUID: string) {
     return await reflectionRepository.deleteReflection(reflectionCUID);
+  },
+
+  async updatePinned(reflectionCUID: string, isPinned: boolean) {
+    return await reflectionRepository.updatePinnedStatus({
+      reflectionCUID,
+      isPinned
+    });
+  },
+
+  async updatePublic(reflectionCUID: string, isPublic: boolean) {
+    return await reflectionRepository.updatePublicStatus({
+      reflectionCUID,
+      isPublic
+    });
   }
 };
+
+type DateCountMap = Record<string, number>;

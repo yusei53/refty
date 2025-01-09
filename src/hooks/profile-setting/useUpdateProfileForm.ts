@@ -72,6 +72,7 @@ export const useUpdateProfileForm = ({
       router.push(`/login`);
     } else {
       router.push(`/${formData.username}`);
+      router.refresh();
     }
   });
 

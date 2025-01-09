@@ -1,9 +1,8 @@
-import type { NextRequest} from "next/server";
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import prisma from "@/src/lib/prisma";
+import { reflectionService } from "@/src/service/reflectionService";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
 
-// MEMO: 結構複雑なので、コメント多め
 export async function GET(
   req: NextRequest,
   { params }: { params: { username: string } }
@@ -20,51 +19,12 @@ export async function GET(
       );
     }
 
-    const totalReflections = await prisma.reflection.count({
-      where: {
-        userId
-      }
-    });
-
-    const reflectionsDateByUsername = await prisma.reflection.findMany({
-      where: {
-        userId
-      },
-      select: {
-        createdAt: true
-      }
-    });
-
-    type DateCountMap = Record<string, number>;
-    const formatDate = (createdAt: Date) =>
-      createdAt.toISOString().split("T")[0];
-
-    // 日付ごとにグループ化して投稿数を計算(groupBy)
-    const countPerDate: DateCountMap = reflectionsDateByUsername.reduce(
-      (dateCounts, currentValue) => {
-        const date = formatDate(currentValue.createdAt);
-
-        // 存在する日付の場合はカウントを増やす
-        if (dateCounts[date]) {
-          dateCounts[date] = dateCounts[date] + 1;
-        } else {
-          dateCounts[date] = 1;
-        }
-
-        return dateCounts;
-      },
-      // initialValue(初期値)として空のオブジェクトを渡す
-      {} as DateCountMap
-    );
-
-    // 配列に変換
-    const reflectionsPerDate = Object.entries(countPerDate).map(
-      ([date, countReflections]) => ({ date, countReflections })
-    );
+    const { total, reflectionsPerDate } =
+      await reflectionService.getCountByUsername(userId);
 
     return NextResponse.json(
       {
-        totalReflections, // 全体の投稿数
+        totalReflections: total, // 全体の投稿数
         reflectionsPerDate // 日付ごとの投稿数
       },
       { status: 200 }

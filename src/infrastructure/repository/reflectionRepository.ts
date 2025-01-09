@@ -32,6 +32,25 @@ export const reflectionRepository = {
     });
   },
 
+  async getTotalReflectionsByUserId(userId: string) {
+    return prisma.reflection.count({
+      where: {
+        userId
+      }
+    });
+  },
+
+  async getReflectionsDateByUserId(userId: string) {
+    return prisma.reflection.findMany({
+      where: {
+        userId
+      },
+      select: {
+        createdAt: true
+      }
+    });
+  },
+
   async getUserWithReflections(params: {
     userId: string;
     isCurrentUser: boolean;
@@ -47,7 +66,7 @@ export const reflectionRepository = {
       select: {
         image: true,
         bio: true,
-        goal: true,
+        goal: isCurrentUser && true,
         website: true,
         reflections: {
           where: {
@@ -232,6 +251,30 @@ export const reflectionRepository = {
   async deleteReflection(reflectionCUID: string) {
     return prisma.reflection.delete({
       where: { reflectionCUID }
+    });
+  },
+
+  async updatePinnedStatus(params: {
+    reflectionCUID: string;
+    isPinned: boolean;
+  }) {
+    const { reflectionCUID, isPinned } = params;
+
+    return prisma.reflection.update({
+      where: { reflectionCUID },
+      data: { isPinned }
+    });
+  },
+
+  async updatePublicStatus(params: {
+    reflectionCUID: string;
+    isPublic: boolean;
+  }) {
+    const { reflectionCUID, isPublic } = params;
+
+    return prisma.reflection.update({
+      where: { reflectionCUID },
+      data: { isPublic }
     });
   }
 };
