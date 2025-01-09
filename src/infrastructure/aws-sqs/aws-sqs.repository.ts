@@ -6,10 +6,10 @@ if (!NEXT_PUBLIC_SQS_QUEUE_URL) {
   throw new Error("Missing SQS Queue URL in environment variables");
 }
 
-export async function sendMessageToSQS(params: {
+export const sendMessageToSQS = async (params: {
   content: string;
   reflectionCUID: string;
-}) {
+}) => {
   const { content, reflectionCUID } = params;
 
   const messageBody = JSON.stringify({ content, reflectionCUID });
@@ -21,4 +21,4 @@ export async function sendMessageToSQS(params: {
 
   const responseFromSQS = await sqsClient.send(command);
   return responseFromSQS;
-}
+};
