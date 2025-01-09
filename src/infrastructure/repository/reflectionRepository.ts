@@ -32,6 +32,25 @@ export const reflectionRepository = {
     });
   },
 
+  async getTotalReflectionsByUserId(userId: string) {
+    return prisma.reflection.count({
+      where: {
+        userId
+      }
+    });
+  },
+
+  async getReflectionsDateByUserId(userId: string) {
+    return prisma.reflection.findMany({
+      where: {
+        userId
+      },
+      select: {
+        createdAt: true
+      }
+    });
+  },
+
   async getUserWithReflections(params: {
     userId: string;
     isCurrentUser: boolean;

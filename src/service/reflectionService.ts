@@ -26,6 +26,45 @@ export const reflectionService = {
     };
   },
 
+  // MEMO: 結構複雑なので、コメント多め
+  async getCountByUsername(userId: string) {
+    const total =
+      await reflectionRepository.getTotalReflectionsByUserId(userId);
+    const reflectionsDateGroup =
+      await reflectionRepository.getReflectionsDateByUserId(userId);
+
+    const formatDate = (createdAt: Date) =>
+      createdAt.toISOString().split("T")[0];
+
+    // NOTE: 日付ごとにグループ化して投稿数を計算(groupBy)
+    const countPerDate: DateCountMap = reflectionsDateGroup.reduce(
+      (dateCounts, currentValue) => {
+        const date = formatDate(currentValue.createdAt);
+
+        // NOTE: 存在する日付の場合はカウントを増やす
+        if (dateCounts[date]) {
+          dateCounts[date] = dateCounts[date] + 1;
+        } else {
+          dateCounts[date] = 1;
+        }
+
+        return dateCounts;
+      },
+      // NOTE: initialValue(初期値)として空のオブジェクトを渡す
+      {} as DateCountMap
+    );
+
+    // NOTE: 配列に変換
+    const reflectionsPerDate = Object.entries(countPerDate).map(
+      ([date, countReflections]) => ({ date, countReflections })
+    );
+
+    return {
+      total,
+      reflectionsPerDate
+    };
+  },
+
   async getByUsername(
     page: number,
     userId: string,
@@ -268,3 +307,5 @@ export const reflectionService = {
     });
   }
 };
+
+type DateCountMap = Record<string, number>;
