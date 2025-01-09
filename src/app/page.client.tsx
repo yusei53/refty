@@ -5,8 +5,8 @@ import type {
   ReflectionWithUser
 } from "../api/reflection-api";
 import type { User } from "@prisma/client";
-import ReflectionAllCardListArea from "../components/reflection-all-list/card-list/ReflectionAllCardListArea";
-import { ReflectionAllHeader } from "../components/reflection-all-list/header";
+import ReflectionAllCardListArea from "../features/reflection-all-list/card-list/ReflectionAllCardListArea";
+import { ReflectionAllHeader } from "../features/reflection-all-list/header";
 import { usePagination } from "../hooks/reflection/usePagination";
 import { tagMap } from "../hooks/reflection-tag/useExtractTrueTags";
 import { useTagHandler } from "../hooks/reflection-tag/useTagHandler";

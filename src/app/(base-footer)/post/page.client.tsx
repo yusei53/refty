@@ -1,5 +1,5 @@
 "use client";
-import ReflectionPostForm from "@/src/components/post-form/ReflectionPostForm";
+import ReflectionPostForm from "@/src/features/post-form/ReflectionPostForm";
 import { useCreateReflectionForm } from "@/src/hooks/reflection/useCreateReflectionForm";
 
 type ReflectionPostFormPageProps = {

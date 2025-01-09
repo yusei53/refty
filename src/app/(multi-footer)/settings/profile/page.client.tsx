@@ -1,5 +1,5 @@
 "use client";
-import SettingProfileFormField from "@/src/components/settings-profile/SettingProfileFormField";
+import SettingProfileFormField from "@/src/features/settings-profile/SettingProfileFormField";
 import { useUpdateProfileForm } from "@/src/hooks/profile-setting/useUpdateProfileForm";
 
 type UpdateProfileSettingsPageProps = {

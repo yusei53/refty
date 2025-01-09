@@ -7,10 +7,10 @@ import type {
 } from "@/src/api/reflection-api";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import type { User } from "@prisma/client";
-import ReflectionCardListArea from "@/src/components/reflection-list/card-list/ReflectionCardListArea";
-import { EmptyReflection } from "@/src/components/reflection-list/card-list/empty-reflection";
-import { GoodJobModal } from "@/src/components/reflection-list/modal";
-import UserProfileArea from "@/src/components/reflection-list/profile/UserProfileArea";
+import ReflectionCardListArea from "@/src/features/reflection-list/card-list/ReflectionCardListArea";
+import { EmptyReflection } from "@/src/features/reflection-list/card-list/empty-reflection";
+import { GoodJobModal } from "@/src/features/reflection-list/modal";
+import UserProfileArea from "@/src/features/reflection-list/profile/UserProfileArea";
 import { usePagination } from "@/src/hooks/reflection/usePagination";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { useTagHandler } from "@/src/hooks/reflection-tag/useTagHandler";

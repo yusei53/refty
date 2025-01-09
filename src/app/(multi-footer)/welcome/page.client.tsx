@@ -1,7 +1,7 @@
 "use client";
-import FirstView from "@/src/components/welcome/first-view/FirstView";
-import SecondView from "@/src/components/welcome/second-view/SecondView";
-import ThirdView from "@/src/components/welcome/third-view/ThirdView";
+import FirstView from "@/src/features/welcome/first-view/FirstView";
+import SecondView from "@/src/features/welcome/second-view/SecondView";
+import ThirdView from "@/src/features/welcome/third-view/ThirdView";
 
 const WelcomePage = () => {
   return (

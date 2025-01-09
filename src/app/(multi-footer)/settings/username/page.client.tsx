@@ -5,7 +5,7 @@ import type {
 } from "@/src/api/reflection-api";
 import type { User } from "@prisma/client";
 import RootPage from "@/src/app/page.client";
-import SettingUsernameModalContainer from "@/src/components/setting-username/SettingUsernameModalContainer";
+import SettingUsernameModalContainer from "@/src/features/setting-username/SettingUsernameModalContainer";
 
 type SettingUsernameModalPageProps = {
   currentUsername: User["username"];
