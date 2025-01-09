@@ -103,14 +103,14 @@ export const UserInformationHeader: React.FC<UserInformationHeaderProps> = ({
                 color: `${theme.palette.primary.light}`,
                 display: "flex",
                 alignItems: "center",
-                fontSize: 14.5
+                fontSize: 14
               }}
             >
               <Image
                 src={"/link.svg"}
                 alt={"プロフィール設定アイコン"}
-                width={20}
-                height={20}
+                width={19}
+                height={19}
                 style={{
                   marginRight: 2
                 }}
