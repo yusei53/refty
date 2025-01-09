@@ -10,7 +10,7 @@ export const AIFeedbackArea: React.FC<AIFeedbackAreaProps> = ({
   AIFeedback
 }) => {
   return (
-    <Box p={2.5} borderRadius={1} bgcolor={theme.palette.grey[400]}>
+    <Box py={1} px={4} borderRadius={1} bgcolor={theme.palette.grey[400]}>
       <StyledMarkdown dangerouslySetInnerHTML={{ __html: AIFeedback }} />
     </Box>
   );
