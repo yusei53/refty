@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { Box, Container, Typography, useMediaQuery } from "@mui/material";
-import { LogoutButton } from "../../../features/login";
+import { LogoutButton } from "../../../features/routes/login";
 import { CustomLink } from "./CustomLink";
 import { theme } from "@/src/utils/theme";
 
