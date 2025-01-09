@@ -245,5 +245,17 @@ export const reflectionRepository = {
       where: { reflectionCUID },
       data: { isPinned }
     });
+  },
+
+  async updatePublicStatus(params: {
+    reflectionCUID: string;
+    isPublic: boolean;
+  }) {
+    const { reflectionCUID, isPublic } = params;
+
+    return prisma.reflection.update({
+      where: { reflectionCUID },
+      data: { isPublic }
+    });
   }
 };
