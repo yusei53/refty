@@ -18,7 +18,7 @@ export async function GET(
       );
     }
 
-    const res = await reflectionService.getReflection(reflectionCUID);
+    const res = await reflectionService.getDetail(reflectionCUID);
 
     if (!res) {
       return NextResponse.json(

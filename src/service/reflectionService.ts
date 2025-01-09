@@ -138,7 +138,7 @@ export const reflectionService = {
     return tagCountList;
   },
 
-  async getReflection(reflectionCUID: string) {
+  async getDetail(reflectionCUID: string) {
     const reflection =
       await reflectionRepository.getReflectionDetail(reflectionCUID);
 
