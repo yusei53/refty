@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import { UserInformationHeader } from "./header";
-import { LinearLoading } from "@/src/ui/shared/loading";
+import { LinearLoading } from "@/src/components/loading";
 
 const CalendarAreaFetcher = dynamic(
   () => import("./calendar").then((mod) => mod.CalendarAreaFetcher),

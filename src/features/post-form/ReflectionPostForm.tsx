@@ -12,10 +12,10 @@ import {
   ReflectionTemplatePopupAreaContainer
 } from "./popup/reflection-template";
 import { SelectTagPopupContainer } from "./popup/select-tag/SelectTagContainer";
+import { ErrorMessage } from "@/src/components/alert";
+import { Button } from "@/src/components/button";
+import { CustomInput } from "@/src/components/input";
 import { useExtractTrueTags } from "@/src/hooks/reflection-tag/useExtractTrueTags";
-import { ErrorMessage } from "@/src/ui/shared/alert";
-import { Button } from "@/src/ui/shared/button";
-import { CustomInput } from "@/src/ui/shared/input";
 import { theme } from "@/src/utils/theme";
 
 type FormValues = {

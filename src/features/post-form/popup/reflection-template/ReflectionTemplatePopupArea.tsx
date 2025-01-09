@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { Box, Divider, Fade, Popper, Typography } from "@mui/material";
 import type { ReflectionTemplateType } from "./reflection-templates";
 import { getReflectionTemplateName } from "./reflection-templates";
-import { Button } from "@/src/ui/shared/button";
+import { Button } from "@/src/components/button";
 import { theme } from "@/src/utils/theme";
 
 type ReflectionTemplatePopupAreaProps = {

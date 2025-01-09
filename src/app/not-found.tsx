@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import { Box, styled, Typography } from "@mui/material";
-import { Button } from "../ui/shared/button";
-import { Footer } from "../ui/shared/footer";
+import { Button } from "../components/button";
+import { Footer } from "../components/footer";
 import { theme } from "../utils/theme";
 
 const NotFound = () => {

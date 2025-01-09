@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid2";
 import type { Reflection } from "@/src/api/reflection-api";
 import ReflectionCard from "./ReflectionCard";
-import { animation } from "@/src/ui/shared/animation";
+import { animation } from "@/src/components/animation";
 
 type ReflectionCardListAreaProps = {
   username: string;

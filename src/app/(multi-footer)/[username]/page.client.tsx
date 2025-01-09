@@ -7,6 +7,12 @@ import type {
 } from "@/src/api/reflection-api";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import type { User } from "@prisma/client";
+import { PostNavigationButton } from "@/src/components/button";
+import {
+  ArrowPagination,
+  NumberedPagination
+} from "@/src/components/pagination";
+import { SearchBar } from "@/src/components/search-bar";
 import ReflectionCardListArea from "@/src/features/reflection-list/card-list/ReflectionCardListArea";
 import { EmptyReflection } from "@/src/features/reflection-list/card-list/empty-reflection";
 import { GoodJobModal } from "@/src/features/reflection-list/modal";
@@ -14,12 +20,6 @@ import UserProfileArea from "@/src/features/reflection-list/profile/UserProfileA
 import { usePagination } from "@/src/hooks/reflection/usePagination";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { useTagHandler } from "@/src/hooks/reflection-tag/useTagHandler";
-import { PostNavigationButton } from "@/src/ui/shared/button";
-import {
-  ArrowPagination,
-  NumberedPagination
-} from "@/src/ui/shared/pagination";
-import { SearchBar } from "@/src/ui/shared/search-bar";
 import { theme } from "@/src/utils/theme";
 
 type UserReflectionListPageProps = {

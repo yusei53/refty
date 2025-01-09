@@ -2,9 +2,9 @@ import Image from "next/image";
 import { Controller } from "react-hook-form";
 import { Box, Modal, Typography } from "@mui/material";
 import type { Control, FieldErrors } from "react-hook-form";
-import { ErrorMessage } from "@/src/ui/shared/alert";
-import { Button } from "@/src/ui/shared/button";
-import { CustomInput } from "@/src/ui/shared/input";
+import { ErrorMessage } from "@/src/components/alert";
+import { Button } from "@/src/components/button";
+import { CustomInput } from "@/src/components/input";
 import { theme } from "@/src/utils/theme";
 
 type FormValues = {

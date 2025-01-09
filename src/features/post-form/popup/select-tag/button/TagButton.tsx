@@ -1,4 +1,4 @@
-import { Button } from "@/src/ui/shared/button";
+import { Button } from "@/src/components/button";
 import { theme } from "@/src/utils/theme";
 
 type TagButtonProps = {

@@ -5,9 +5,9 @@ import { AccordionDetails, Box, Typography } from "@mui/material";
 import { label } from "../../post-form/popup/select-tag/button/TagButton";
 import { AICalling, AIFeedbackArea } from "./ai-feedback";
 import { StyledMarkdown } from "./mark-down";
+import { Accordion, AccordionSummary } from "@/src/components/accordion";
+import { Button } from "@/src/components/button";
 import { useAIFeedbackHandler } from "@/src/hooks/ai-feedback/useAIFeedbackHandler";
-import { Accordion, AccordionSummary } from "@/src/ui/shared/accordion";
-import { Button } from "@/src/ui/shared/button";
 import { formatDate } from "@/src/utils/date-helper";
 import { theme } from "@/src/utils/theme";
 
