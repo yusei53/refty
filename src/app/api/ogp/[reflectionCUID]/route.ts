@@ -1,6 +1,6 @@
-import type { NextRequest} from "next/server";
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import prisma from "@/src/lib/prisma";
+import { opengraphRepository } from "@/src/infrastructure/repository/opengraphRepository";
 
 export async function GET(
   request: NextRequest,
@@ -9,18 +9,7 @@ export async function GET(
   try {
     const { reflectionCUID } = params;
 
-    const reflection = await prisma.reflection.findUnique({
-      where: {
-        reflectionCUID
-      },
-      select: {
-        title: true,
-        user: {
-          select: { image: true, username: true }
-        }
-      }
-    });
-
+    const reflection = await opengraphRepository.getReflection(reflectionCUID);
     if (!reflection) {
       return NextResponse.json(
         { message: "Reflection not found" },
