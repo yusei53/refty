@@ -1,28 +1,24 @@
-import type { NextRequest} from "next/server";
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import prisma from "@/src/lib/prisma";
-import getCurrentUser from "@/src/utils/actions/get-current-user";
+import { getServerSession } from "next-auth";
+import authOptions from "../auth/[...nextauth]/options";
+import { userService } from "@/src/service/userService";
 
 export async function PATCH(req: NextRequest) {
   try {
     const { username } = await req.json();
+    const session = await getServerSession(authOptions);
 
-    const currentUser = await getCurrentUser();
-
-    if (!currentUser?.id) {
+    if (!session?.user.id) {
       return new NextResponse("認証されていません", { status: 401 });
     }
 
-    const response = await prisma.user.update({
-      where: {
-        id: currentUser.id
-      },
-      data: {
-        username: username
-      }
+    const res = await userService.updateUsername({
+      userId: session.user.id,
+      username
     });
 
-    return NextResponse.json(response, { status: 201 });
+    return NextResponse.json(res, { status: 201 });
   } catch (error) {
     console.error(error);
     return NextResponse.json(
