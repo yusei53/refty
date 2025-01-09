@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
@@ -48,6 +49,7 @@ export async function PATCH(req: NextRequest) {
       ...body
     });
 
+    revalidateTag(`profile-${session.user.username}`);
     return NextResponse.json(res, { status: 201 });
   } catch (error) {
     console.error(error);
