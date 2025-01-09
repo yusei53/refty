@@ -2,7 +2,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import authOptions from "../../auth/[...nextauth]/options";
-import prisma from "@/src/lib/prisma";
+import { userService } from "@/src/service/userService";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
 
 export async function GET(
@@ -21,17 +21,7 @@ export async function GET(
       );
     }
 
-    const profile = await prisma.user.findUnique({
-      where: {
-        id: userId
-      },
-      select: {
-        image: true,
-        bio: true,
-        goal: true,
-        website: true
-      }
-    });
+    const profile = await userService.getProfile({ userId });
 
     return NextResponse.json(profile, { status: 200 });
   } catch (error) {
@@ -45,7 +35,7 @@ export async function GET(
 
 export async function PATCH(req: NextRequest) {
   try {
-    const { username, bio, goal, website } = await req.json();
+    const body = await req.json();
 
     const session = await getServerSession(authOptions);
 
@@ -53,19 +43,12 @@ export async function PATCH(req: NextRequest) {
       return new NextResponse("認証されていません", { status: 401 });
     }
 
-    const response = await prisma.user.update({
-      where: {
-        id: session.user.id
-      },
-      data: {
-        username,
-        bio,
-        goal,
-        website
-      }
+    const res = userService.updateProfile({
+      userId: session.user.id,
+      ...body
     });
 
-    return NextResponse.json(response, { status: 201 });
+    return NextResponse.json(res, { status: 201 });
   } catch (error) {
     console.error(error);
     return NextResponse.json(
