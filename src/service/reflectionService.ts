@@ -55,6 +55,14 @@ export const reflectionService = {
 
     // MEMO: タグ別の投稿数を全て取得しておく
     const isPublic = isCurrentUser ? undefined : true;
+    const isDailyReflectionCount =
+      await reflectionRepository.countSelectedTagReflectionsByUserId(
+        userId,
+        isPublic,
+        {
+          isDailyReflection: true
+        }
+      );
 
     const isLearningCount =
       await reflectionRepository.countSelectedTagReflectionsByUserId(
@@ -83,15 +91,6 @@ export const reflectionService = {
         isPublic,
         {
           isInputLog: true
-        }
-      );
-
-    const isDailyReflectionCount =
-      await reflectionRepository.countSelectedTagReflectionsByUserId(
-        userId,
-        isPublic,
-        {
-          isDailyReflection: true
         }
       );
 

@@ -47,7 +47,7 @@ export const reflectionRepository = {
       select: {
         image: true,
         bio: true,
-        goal: true,
+        goal: isCurrentUser && true,
         website: true,
         reflections: {
           where: {
