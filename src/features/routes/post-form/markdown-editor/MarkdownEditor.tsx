@@ -5,7 +5,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 import Typography from "@tiptap/extension-typography";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import StyledEditorContent from "./StyledEditorContent";
+import { StyledEditorContent } from "./StyledEditorContent";
 import HighlightMark from "./highlight-mark";
 
 type MarkdownEditorProps = {
