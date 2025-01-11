@@ -1,17 +1,17 @@
 import { useRef, useState } from "react";
 import { Controller } from "react-hook-form";
 import { Box, Stack, useMediaQuery } from "@mui/material";
-import type { MarkdownEditorRef } from "./markdown-editor";
+import type { MarkdownEditorRef } from "../../routes/post/markdown-editor";
 import type { Control, FieldErrors } from "react-hook-form";
-import EmojiPicker from "./emoji/EmojiPicker";
-import { MarkdownEditor } from "./markdown-editor";
-import { MarkdownSupportPopupAreaContainer } from "./popup/markdown-support";
-import { PublishSettingPopupAreaContainer } from "./popup/publish-setting";
+import EmojiPicker from "../../routes/post/emoji/EmojiPicker";
+import { MarkdownEditor } from "../../routes/post/markdown-editor";
+import { MarkdownSupportPopupAreaContainer } from "../../routes/post/popup/markdown-support";
+import { PublishSettingPopupAreaContainer } from "../../routes/post/popup/publish-setting";
 import {
   REFLECTION_TEMPLATES,
   ReflectionTemplatePopupAreaContainer
-} from "./popup/reflection-template";
-import { SelectTagPopupContainer } from "./popup/select-tag/SelectTagContainer";
+} from "../../routes/post/popup/reflection-template";
+import { SelectTagPopupContainer } from "../../routes/post/popup/select-tag/SelectTagContainer";
 import { ErrorMessage } from "@/src/components/alert";
 import { Button } from "@/src/components/button";
 import { CustomInput } from "@/src/components/input";
@@ -47,6 +47,7 @@ type ReflectionPostFormProps = {
   isMonologue?: boolean;
 };
 
+// MEMO: このコンポーネントは新規作成と更新で共通で使用するためこのディレクトリに配置
 const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   control,
   isSubmitting,

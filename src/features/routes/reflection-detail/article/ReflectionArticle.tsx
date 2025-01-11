@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { AccordionDetails, Box, Typography } from "@mui/material";
-import { label } from "../../post-form/popup/select-tag/button/TagButton";
+import { label } from "../../post/popup/select-tag/button/TagButton";
 import { AICalling, AIFeedbackArea } from "./ai-feedback";
 import { StyledMarkdown } from "./mark-down";
 import { Accordion, AccordionSummary } from "@/src/components/accordion";
