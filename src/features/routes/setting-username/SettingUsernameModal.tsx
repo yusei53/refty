@@ -36,7 +36,7 @@ const modal = {
   borderRadius: 5
 };
 
-const SettingUsernameModal: React.FC<SettingUsernameModalProps> = ({
+export const SettingUsernameModal: React.FC<SettingUsernameModalProps> = ({
   onSubmit,
   control,
   errors,
@@ -47,22 +47,6 @@ const SettingUsernameModal: React.FC<SettingUsernameModalProps> = ({
   return (
     <Modal open={open} disableEscapeKeyDown>
       <Box>
-        {/* MEMO: ユーザーネーム設定をしないユーザーがいくつかいるためコメントアウト */}
-        {/* <IconButton
-          onClick={onClose}
-          sx={{
-            position: "absolute",
-            top: 30,
-            right: 30,
-          }}
-        >
-          <CloseIcon
-            fontSize="large"
-            sx={{
-              color: "white",
-            }}
-          />
-        </IconButton> */}
         <Box sx={modal}>
           <Typography component={"h2"} fontWeight={550} mb={2} fontSize={18}>
             ユーザーネーム設定
@@ -121,5 +105,3 @@ const SettingUsernameModal: React.FC<SettingUsernameModalProps> = ({
     </Modal>
   );
 };
-
-export default SettingUsernameModal;

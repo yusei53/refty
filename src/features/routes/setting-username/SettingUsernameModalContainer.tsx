@@ -1,4 +1,4 @@
-import UsernameModal from "../setting-username/SettingUsernameModal";
+import { SettingUsernameModal } from "./SettingUsernameModal";
 import { useUpdateUsernameForm } from "@/src/hooks/username/useUpdateUsernameForm";
 
 type SettingUsernameModalContainerProps = {
@@ -17,7 +17,7 @@ const SettingUsernameModalContainer: React.FC<
   };
 
   return (
-    <UsernameModal
+    <SettingUsernameModal
       onSubmit={handleSubmit}
       control={control}
       errors={errors}
