@@ -12,7 +12,7 @@ import {
   ArrowPagination,
   NumberedPagination
 } from "@/src/components/pagination";
-import { SearchBar } from "@/src/components/search-bar";
+import { SearchBar } from "@/src/features/common/search-bar";
 import ReflectionCardListArea from "@/src/features/routes/reflection-list/card-list/ReflectionCardListArea";
 import { EmptyReflection } from "@/src/features/routes/reflection-list/card-list/empty-reflection";
 import { GoodJobModal } from "@/src/features/routes/reflection-list/modal";

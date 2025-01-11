@@ -8,7 +8,7 @@ import type { User } from "@prisma/client";
 import { PostNavigationButton } from "../components/button";
 import { Footer } from "../components/footer";
 import { ArrowPagination, NumberedPagination } from "../components/pagination";
-import { SearchBar } from "../components/search-bar";
+import { SearchBar } from "../features/common/search-bar";
 import ReflectionAllCardListArea from "../features/routes/reflection-all-list/card-list/ReflectionAllCardListArea";
 import { ReflectionAllHeader } from "../features/routes/reflection-all-list/header";
 import { usePagination } from "../hooks/reflection/usePagination";
