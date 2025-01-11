@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { AccordionDetails, Box, Typography } from "@mui/material";
 import { label } from "../../../../components/button/TagButton";
 import { AICalling, AIFeedbackArea } from "./ai-feedback";
-import { StyledMarkdown } from "./mark-down";
+import { StyledMarkdown } from "./markdown";
 import { Accordion, AccordionSummary } from "@/src/components/accordion";
 import { Button } from "@/src/components/button";
 import { useAIFeedbackHandler } from "@/src/hooks/ai-feedback/useAIFeedbackHandler";
