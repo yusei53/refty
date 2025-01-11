@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Box, styled, Typography } from "@mui/material";
 import { Button } from "../components/button";
 import { Footer } from "../components/footer";
+import { animation } from "../features/common/animation";
 import { theme } from "../utils/theme";
 
 const NotFound = () => {
@@ -14,6 +15,7 @@ const NotFound = () => {
         justifyContent={"center"}
         flexDirection={"column"}
         height={"90vh"}
+        sx={{ ...animation(1) }}
       >
         <CustomImage
           src={"/not-found/404.png"}
