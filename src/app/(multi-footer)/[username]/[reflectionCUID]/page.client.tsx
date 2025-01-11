@@ -1,11 +1,10 @@
 "use client";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { Box } from "@mui/material";
 import { sqsAPI } from "@/src/api/send-to-sqs-api";
 import { animation } from "@/src/features/common/animation";
 import { ReflectionArticle } from "@/src/features/routes/reflection-detail/article";
-import ReflectionSettingHeader from "@/src/features/routes/reflection-detail/reflection-setting/ReflectionSettingHeader";
+import ReflectionSettingHeader from "@/src/features/routes/reflection-detail/header/ReflectionSettingHeader";
 import { UserInformationSection } from "@/src/features/routes/reflection-detail/user-information";
 import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
 
@@ -84,20 +83,12 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
       position={"relative"}
       sx={{ ...animation(0.6) }}
     >
-      <KeyboardBackspaceIcon
-        onClick={handleBackNavigation}
-        sx={{
-          position: { xs: "absolute", md: "fixed" },
-          left: { xs: 0, md: 20 },
-          top: { xs: -15, md: 20 },
-          cursor: "pointer"
-        }}
-      />
       <ReflectionSettingHeader
         username={username}
         reflectionCUID={reflectionCUID}
         isCurrentUser={isCurrentUser}
         isPublic={isPublic}
+        onBackNavigation={handleBackNavigation}
       />
       <ReflectionArticle
         reflectionCUID={reflectionCUID}

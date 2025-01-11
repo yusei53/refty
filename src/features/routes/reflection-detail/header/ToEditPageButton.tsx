@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button } from "@mui/material";
+import { Button } from "../../../../components/button";
 
 type ToEditPageButtonProps = {
   username: string;
@@ -14,16 +14,16 @@ const ToEditPageButton: React.FC<ToEditPageButtonProps> = ({
     <Button
       href={`/${username}/${reflectionCUID}/edit`}
       sx={{
-        color: "black",
-        letterSpacing: 0.5
+        display: "flex",
+        alignItems: "center"
       }}
     >
       <Image
         src={"/edit.svg"}
         alt={"編集するボタン"}
-        width={18}
-        height={18}
-        style={{ marginRight: 10 }}
+        width={17}
+        height={17}
+        style={{ marginRight: 3 }}
       />
       編集する
     </Button>
