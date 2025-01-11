@@ -1,5 +1,5 @@
 import { Container } from "@mui/material";
-import { DefaultFooter } from "@/src/components/ui/shared/footer/default";
+import { DefaultFooter } from "@/src/components/footer/default";
 
 export default function PostLayout({
   children

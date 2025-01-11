@@ -3,10 +3,10 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { Box } from "@mui/material";
 import { sqsAPI } from "@/src/api/send-to-sqs-api";
-import { ReflectionArticle } from "@/src/components/reflection-detail/article";
-import ReflectionSettingHeader from "@/src/components/reflection-detail/reflection-setting/ReflectionSettingHeader";
-import { UserInformationSection } from "@/src/components/reflection-detail/user-information/UserInformationSection";
-import { animation } from "@/src/components/ui/shared/animation";
+import { animation } from "@/src/features/common/animation";
+import { ReflectionArticle } from "@/src/features/routes/reflection-detail/article";
+import ReflectionSettingHeader from "@/src/features/routes/reflection-detail/reflection-setting/ReflectionSettingHeader";
+import { UserInformationSection } from "@/src/features/routes/reflection-detail/user-information";
 import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
 
 type ReflectionDetailPageProps = {

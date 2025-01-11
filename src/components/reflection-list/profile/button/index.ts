@@ -1,1 +1,0 @@
-export { ToHomePageButton } from "./ToHomePageButton";
