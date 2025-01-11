@@ -11,7 +11,7 @@ type PopupButtonProps = {
   textcolor?: string;
 };
 
-const PopupButton: React.FC<PopupButtonProps> = ({
+export const PopupButton: React.FC<PopupButtonProps> = ({
   text,
   href,
   src,
@@ -49,5 +49,3 @@ const PopupButton: React.FC<PopupButtonProps> = ({
     </Button>
   );
 };
-
-export default PopupButton;
