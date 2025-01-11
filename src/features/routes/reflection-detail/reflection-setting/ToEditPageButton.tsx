@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button } from "../../ui/shared/button";
+import { Button } from "../../../../components/button";
 
 type ToEditPageButtonProps = {
   username: string;
