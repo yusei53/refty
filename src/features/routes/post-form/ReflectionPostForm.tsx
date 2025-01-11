@@ -3,7 +3,7 @@ import { Controller } from "react-hook-form";
 import { Box, Stack, useMediaQuery } from "@mui/material";
 import type { MarkdownEditorRef } from "./markdown-editor";
 import type { Control, FieldErrors } from "react-hook-form";
-import EmojiPicker from "./EmojiPicker";
+import EmojiPicker from "./emoji/EmojiPicker";
 import { MarkdownEditor } from "./markdown-editor";
 import { MarkdownSupportPopupAreaContainer } from "./popup/markdown-support";
 import { PublishSettingPopupAreaContainer } from "./popup/publish-setting";
