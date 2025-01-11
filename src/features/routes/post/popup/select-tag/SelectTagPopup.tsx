@@ -1,7 +1,7 @@
 import CloseIcon from "@mui/icons-material/Close";
 import TagIcon from "@mui/icons-material/Tag";
 import { Box, Fade, Popper, Typography } from "@mui/material";
-import { label, TagButton } from "./button/TagButton";
+import { label, TagButton } from "../../../../../components/button/TagButton";
 import { Button } from "@/src/components/button";
 import { theme } from "@/src/utils/theme";
 
