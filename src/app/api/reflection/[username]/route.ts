@@ -2,7 +2,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import authOptions from "../../auth/[...nextauth]/options";
-import prisma from "@/src/lib/prisma";
+import { reflectionService } from "@/src/service/reflectionService";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
 
 export async function GET(
@@ -10,7 +10,6 @@ export async function GET(
   { params }: { params: { username: string } }
 ) {
   const username = params.username;
-  const COUNT_PER_PAGE = 12;
 
   if (!username) {
     return NextResponse.json(
@@ -33,75 +32,13 @@ export async function GET(
 
   try {
     const page = parseInt(req.nextUrl.searchParams.get("page") || "1", 10);
-    const offset = (page - 1) * COUNT_PER_PAGE;
-
-    const tag = req.nextUrl.searchParams.get("tag");
-    const tagFilter = tag && { [tag]: true };
-
-    const filteredReflectionCount = await prisma.reflection.count({
-      where: {
-        userId,
-        isPublic: isCurrentUser ? undefined : true,
-        ...tagFilter
-      }
-    });
-
-    const totalPage = Math.ceil(filteredReflectionCount / COUNT_PER_PAGE);
-
-    const userWithReflections = await prisma.user.findUnique({
-      where: {
-        id: userId
-      },
-      select: {
-        image: true,
-        bio: true,
-        goal: true,
-        website: true,
-        reflections: {
-          where: {
-            userId,
-            isPublic: isCurrentUser ? undefined : true,
-            ...tagFilter
-          },
-          orderBy: [{ isPinned: "desc" }, { createdAt: "desc" }],
-          take: COUNT_PER_PAGE,
-          skip: offset,
-          select: {
-            title: true,
-            reflectionCUID: true,
-            charStamp: true,
-            createdAt: true,
-            isPublic: true,
-            isPinned: true
-          }
-        }
-      }
-    });
-
-    // MEMO: タグ別の投稿数を全て取得しておく
-    const isLearningCount = await prisma.reflection.count({
-      where: { userId, isLearning: true }
-    });
-    const isAwarenessCount = await prisma.reflection.count({
-      where: { userId, isAwareness: true }
-    });
-    const isMonologueCount = await prisma.reflection.count({
-      where: { userId, isMonologue: true }
-    });
-    const isInputLogCount = await prisma.reflection.count({
-      where: { userId, isInputLog: true }
-    });
-    const isDailyReflectionCount = await prisma.reflection.count({
-      where: { userId, isDailyReflection: true }
-    });
-
-    const tagCountList = {
-      isDailyReflection: isDailyReflectionCount,
-      isLearning: isLearningCount,
-      isAwareness: isAwarenessCount,
-      isMonologue: isMonologueCount,
-      isInputLog: isInputLogCount
-    };
+    const tag = req.nextUrl.searchParams.get("tag") ?? undefined;
+    const {
+      userWithReflections,
+      totalPage,
+      filteredReflectionCount,
+      tagCountList
+    } = await reflectionService.getByUsername(page, userId, isCurrentUser, tag);
 
     if (!userWithReflections) {
       return NextResponse.json(

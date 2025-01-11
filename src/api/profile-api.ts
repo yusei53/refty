@@ -14,7 +14,7 @@ export const profileAPI = {
     const path = `/api/${username}/profile-setting`;
     const options: FetchURLOptions = {
       method: "GET",
-      next: { tags: ["profile-setting"] }
+      next: { tags: [`profile-${username}`] }
     };
     return await fetchURL<Profile, 404>(path, options);
   },
@@ -28,7 +28,6 @@ export const profileAPI = {
     const path = `/api/${username}/profile-setting`;
     const options: FetchURLOptions = {
       method: "PATCH",
-      next: { tags: ["profile-setting"] },
       body: {
         username,
         bio,

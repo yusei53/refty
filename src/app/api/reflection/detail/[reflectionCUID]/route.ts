@@ -1,11 +1,11 @@
 import { revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import prisma from "@/src/lib/prisma";
+import { reflectionRepository } from "@/src/infrastructure/repository/reflectionRepository";
 import { reflectionService } from "@/src/service/reflectionService";
 import getCurrentUser from "@/src/utils/actions/get-current-user";
 export async function GET(
-  request: NextRequest,
+  req: NextRequest,
   { params }: { params: { reflectionCUID: string } }
 ) {
   try {
@@ -18,15 +18,15 @@ export async function GET(
       );
     }
 
-    const data = await reflectionService.getReflection(reflectionCUID);
+    const res = await reflectionService.getDetail(reflectionCUID);
 
-    if (!data) {
+    if (!res) {
       return NextResponse.json(
         { message: "Reflection not found" },
         { status: 404 }
       );
     }
-    return NextResponse.json(data);
+    return NextResponse.json(res);
   } catch (error) {
     console.error("Error fetching reflection:", error);
     return NextResponse.json(
@@ -41,17 +41,7 @@ export async function PATCH(
   { params }: { params: { reflectionCUID: string } }
 ) {
   try {
-    const {
-      title,
-      content,
-      charStamp,
-      isPublic,
-      isDailyReflection,
-      isLearning,
-      isAwareness,
-      isInputLog,
-      isMonologue
-    } = await req.json();
+    const body = await req.json();
     const { reflectionCUID } = params;
 
     if (!reflectionCUID) {
@@ -67,10 +57,8 @@ export async function PATCH(
       return new NextResponse("認証されていません", { status: 401 });
     }
 
-    const reflection = await prisma.reflection.findUnique({
-      where: { reflectionCUID }
-    });
-
+    const reflection =
+      await reflectionRepository.getReflectionRecord(reflectionCUID);
     if (!reflection) {
       return NextResponse.json(
         { message: "Reflection not found" },
@@ -82,19 +70,9 @@ export async function PATCH(
       return new NextResponse("権限がありません", { status: 403 });
     }
 
-    const updatedReflection = await prisma.reflection.update({
-      where: { reflectionCUID },
-      data: {
-        title,
-        content,
-        charStamp,
-        isPublic,
-        isDailyReflection,
-        isLearning,
-        isAwareness,
-        isInputLog,
-        isMonologue
-      }
+    const updatedReflection = await reflectionService.update({
+      reflectionCUID,
+      ...body
     });
 
     revalidateTag(`reflections-${currentUser.username}`);
@@ -123,9 +101,7 @@ export async function DELETE(
       return new NextResponse("認証されていません", { status: 401 });
     }
 
-    const reflection = await prisma.reflection.delete({
-      where: { reflectionCUID }
-    });
+    const reflection = await reflectionService.delete(reflectionCUID);
 
     if (!reflection) {
       return NextResponse.json(

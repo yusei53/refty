@@ -1,6 +1,6 @@
-import type { NextRequest} from "next/server";
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import prisma from "@/src/lib/prisma";
+import { opengraphRepository } from "@/src/infrastructure/repository/opengraphRepository";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
 
 export async function GET(
@@ -19,20 +19,10 @@ export async function GET(
       );
     }
 
-    const totalReflections = await prisma.reflection.count({
-      where: {
-        userId
-      }
-    });
+    const totalReflections =
+      await opengraphRepository.getTotalReflections(userId);
 
-    const image = await prisma.user.findUnique({
-      where: {
-        id: userId
-      },
-      select: {
-        image: true
-      }
-    });
+    const image = await opengraphRepository.getUserImage(userId);
 
     return NextResponse.json(
       {

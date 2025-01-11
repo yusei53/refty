@@ -5,15 +5,12 @@ import type {
   ReflectionWithUser
 } from "../api/reflection-api";
 import type { User } from "@prisma/client";
-import ReflectionAllCardListArea from "../components/reflection-all-list/card-list/ReflectionAllCardListArea";
-import { ReflectionAllHeader } from "../components/reflection-all-list/header";
-import { PostNavigationButton } from "../components/ui/shared/button";
-import { Footer } from "../components/ui/shared/footer";
-import {
-  ArrowPagination,
-  NumberedPagination
-} from "../components/ui/shared/pagination";
-import { SearchBar } from "../components/ui/shared/search-bar";
+import { PostNavigationButton } from "../components/button";
+import { Footer } from "../components/footer";
+import { ArrowPagination, NumberedPagination } from "../components/pagination";
+import { SearchBar } from "../features/common/search-bar";
+import ReflectionAllCardListArea from "../features/routes/reflection-all-list/card-list/ReflectionAllCardListArea";
+import { ReflectionAllHeader } from "../features/routes/reflection-all-list/header";
 import { usePagination } from "../hooks/reflection/usePagination";
 import { tagMap } from "../hooks/reflection-tag/useExtractTrueTags";
 import { useTagHandler } from "../hooks/reflection-tag/useTagHandler";
