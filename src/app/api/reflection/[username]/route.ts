@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import authOptions from "../../auth/[...nextauth]/options";
 import { reflectionService } from "@/src/service/reflectionService";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
+import { internalServerError, notFoundError } from "@/src/utils/http-error";
 
 export async function GET(
   req: NextRequest,
@@ -12,20 +13,14 @@ export async function GET(
   const username = params.username;
 
   if (!username) {
-    return NextResponse.json(
-      { message: "ユーザーが見つかりません" },
-      { status: 404 }
-    );
+    return notFoundError("ユーザーネームが見つかりません");
   }
 
   const userId = await getUserIdByUsername(username);
   const session = await getServerSession(authOptions);
 
   if (!userId) {
-    return NextResponse.json(
-      { message: "ユーザーが見つかりません" },
-      { status: 404 }
-    );
+    return notFoundError("ユーザーが見つかりません");
   }
 
   const isCurrentUser = session?.user.username === username;
@@ -41,10 +36,7 @@ export async function GET(
     } = await reflectionService.getByUsername(page, userId, isCurrentUser, tag);
 
     if (!userWithReflections) {
-      return NextResponse.json(
-        { message: "振り返りが見つかりません" },
-        { status: 404 }
-      );
+      return notFoundError("ユーザーの振り返り一覧が見つかりません");
     }
 
     return NextResponse.json({
@@ -58,10 +50,6 @@ export async function GET(
       tagCountList
     });
   } catch (error) {
-    console.error("Error fetching user reflections:", error);
-    return NextResponse.json(
-      { message: "振り返りの取得に失敗しました" },
-      { status: 500 }
-    );
+    return internalServerError("GET", "ユーザーの振り返り一覧", error);
   }
 }

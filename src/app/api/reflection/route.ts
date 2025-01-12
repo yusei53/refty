@@ -3,6 +3,11 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { reflectionService } from "@/src/service/reflectionService";
 import getCurrentUser from "@/src/utils/actions/get-current-user";
+import {
+  internalServerError,
+  notFoundError,
+  unauthorizedError
+} from "@/src/utils/http-error";
 
 export async function GET(req: NextRequest) {
   try {
@@ -15,10 +20,7 @@ export async function GET(req: NextRequest) {
     );
 
     if (!reflections) {
-      return NextResponse.json(
-        { message: "振り返りが見つかりません" },
-        { status: 404 }
-      );
+      return notFoundError("公開のみの投稿一覧が見つかりません");
     }
 
     return NextResponse.json({
@@ -26,7 +28,7 @@ export async function GET(req: NextRequest) {
       totalPage
     });
   } catch (error) {
-    return NextResponse.json({ message: "Error get posts" }, { status: 500 });
+    return internalServerError("GET", "公開のみの投稿一覧", error);
   }
 }
 
@@ -36,7 +38,7 @@ export async function POST(req: NextRequest) {
 
     const currentUser = await getCurrentUser();
     if (!currentUser?.id) {
-      return new NextResponse("認証されていません", { status: 401 });
+      return unauthorizedError("認証されていません");
     }
     const reflection = await reflectionService.create({
       ...body,
@@ -49,9 +51,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(reflection, { status: 201 });
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { message: "Error creating posts" },
-      { status: 500 }
-    );
+    return internalServerError("POST", "新規投稿", error);
   }
 }
