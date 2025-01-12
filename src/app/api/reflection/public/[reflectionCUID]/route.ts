@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { reflectionService } from "@/src/service/reflectionService";
+import { internalServerError } from "@/src/utils/http-error";
 
 export async function PATCH(
   req: NextRequest,
@@ -18,9 +19,6 @@ export async function PATCH(
     );
   } catch (error) {
     console.error("Error patch reflection:", error);
-    return NextResponse.json(
-      { message: "Internal Server Error" },
-      { status: 500 }
-    );
+    return internalServerError("PATCH", "投稿の公開設定", error);
   }
 }

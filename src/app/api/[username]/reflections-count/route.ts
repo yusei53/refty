@@ -2,6 +2,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { reflectionService } from "@/src/service/reflectionService";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
+import { internalServerError, notFoundError } from "@/src/utils/http-error";
 
 export async function GET(
   req: NextRequest,
@@ -13,10 +14,7 @@ export async function GET(
     const userId = await getUserIdByUsername(username);
 
     if (!userId) {
-      return NextResponse.json(
-        { message: "ユーザーが見つかりません" },
-        { status: 404 }
-      );
+      return notFoundError("ユーザーが見つかりません");
     }
 
     const { total, reflectionsPerDate } =
@@ -30,10 +28,6 @@ export async function GET(
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error fetching contributions:", error);
-    return NextResponse.json(
-      { message: "Contributions data could not be retrieved" },
-      { status: 500 }
-    );
+    return internalServerError("GET", "ユーザーの投稿数", error);
   }
 }

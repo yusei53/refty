@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { reflectionService } from "@/src/service/reflectionService";
+import { internalServerError } from "@/src/utils/http-error";
 
 export async function GET() {
   try {
@@ -9,9 +10,6 @@ export async function GET() {
       tagCountList
     });
   } catch (error) {
-    return NextResponse.json(
-      { message: "Error get reflection tag counts" },
-      { status: 500 }
-    );
+    return internalServerError("GET", "タグ別の投稿数", error);
   }
 }
