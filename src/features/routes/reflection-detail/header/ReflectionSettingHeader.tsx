@@ -23,9 +23,9 @@ const ReflectionSettingHeader: React.FC<ReflectionSettingHeaderProps> = ({
       component={"header"}
       position={"fixed"}
       top={{ xs: 0, md: 15 }}
-      bgcolor={{ xs: "white", md: "transparent" }}
-      left={{ xs: 0, md: 25 }}
+      left={{ xs: 0, md: 10 }}
       right={{ xs: 0, md: 25 }}
+      bgcolor={{ xs: "white", md: "transparent" }}
       display={"flex"}
       justifyContent={"space-between"}
       alignItems={"center"}
@@ -36,7 +36,7 @@ const ReflectionSettingHeader: React.FC<ReflectionSettingHeaderProps> = ({
     >
       <KeyboardBackspaceIcon
         onClick={onBackNavigation}
-        sx={{ cursor: "pointer" }}
+        sx={{ cursor: "pointer", mb: 2 }}
       />
 
       <Box display="flex" alignItems="center" gap={1}>
