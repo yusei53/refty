@@ -1,4 +1,4 @@
-import type { ErrorCode } from "./http-responses";
+import type { ErrorCode } from "./http-error";
 import type { Result } from "./types/result";
 
 export type HTTPMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
