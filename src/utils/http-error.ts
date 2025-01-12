@@ -17,9 +17,11 @@ export const notFoundError = (message: string) => httpError(message, 404);
 export const internalServerError = (
   httpMethod: HTTPMethod,
   domain: string,
-  error: unknown,
-  message: string
+  error: unknown
 ) => {
-  console.error(`${domain}の${httpMethod}メソッドで失敗しました`, error);
-  httpError(message, 500);
+  console.error(
+    `${domain}の${httpMethod}メソッドで500エラーが発生しました`,
+    error
+  );
+  httpError(`${domain}の${httpMethod}メソッドで500エラーが発生しました`, 500);
 };
