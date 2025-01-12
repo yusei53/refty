@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import Loading from "./loading";
 import { reflectionAPI } from "@/src/api/reflection-api";
 import authOptions from "@/src/app/api/auth/[...nextauth]/options";
+import { addIdsToHeadings } from "@/src/utils/add-ids-to-headings";
 import { generateMeta } from "@/src/utils/metadata";
 
 const ReflectionDetailPage = dynamic(
@@ -44,12 +45,15 @@ const page = async ({ params }: PageProps) => {
 
   const isCurrentUser = session?.user.username === reflection.user.username;
 
+  //MEMO: contentの見出しにidを追加
+  const contentWithIds = addIdsToHeadings(reflection.content);
+
   return (
     <ReflectionDetailPage
       title={reflection.title}
       userImage={reflection.user.image}
       username={reflection.user.username}
-      content={reflection.content}
+      content={contentWithIds}
       isDailyReflection={reflection.isDailyReflection}
       isLearning={reflection.isLearning}
       isAwareness={reflection.isAwareness}

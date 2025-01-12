@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import * as tocbot from "tocbot";
 import { AccordionDetails, Box, Typography } from "@mui/material";
 import { label } from "../../post-form/popup/select-tag/button/TagButton";
 import { Accordion, AccordionSummary } from "../../ui/shared/accordion";
@@ -52,6 +54,16 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
 }) => {
   const { data: session } = useSession();
   const isCurrentUser = session?.user?.username === username;
+
+  useEffect(() => {
+    tocbot.init({
+      tocSelector: ".toc",
+      contentSelector: ".content",
+      headingSelector: "h1, h2, h3, h4"
+    });
+
+    return () => tocbot.destroy();
+  }, []);
 
   const {
     animatedFeedback,
@@ -111,7 +123,8 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
           ))}
         </Box>
       )}
-      <Box mt={8}>
+      <nav className="toc" />
+      <Box mt={8} className="content">
         <StyledMarkdown dangerouslySetInnerHTML={{ __html: content }} />
       </Box>
       <Accordion>
