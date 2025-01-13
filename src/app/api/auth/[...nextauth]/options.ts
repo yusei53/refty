@@ -37,17 +37,31 @@ const authOptions: NextAuthOptions = {
     strategy: "jwt"
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id;
         token.username = user.username;
       }
-      return token;
+      if (trigger === "update" && session?.user?.username) {
+        // Note, that `session` can be any arbitrary object, remember to validate it!
+        token.username = session.user.username;
+      }
+      return {
+        ...user,
+        ...token
+      };
     },
-    async session({ session, token }) {
+    async session({ session, token, trigger, newSession }) {
       if (token) {
         session.user.id = token.id as string;
         session.user.username = token.username as string;
+      }
+      if (trigger === "update" && newSession?.user?.username) {
+        // You can update the session in the database if it's not already updated.
+        // await adapter.updateUser(session.user.id, { name: newSession.name })
+
+        // Make sure the updated value is reflected on the client
+        session.user.username = newSession.user.username as string;
       }
       return session;
     }

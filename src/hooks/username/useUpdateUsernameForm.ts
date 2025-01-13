@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import usernameAPI from "@/src/api/username-api";
@@ -18,6 +19,7 @@ type UpdateUsernameSchemaType = z.infer<typeof updateUsernameSchema>;
 
 export const useUpdateUsernameForm = () => {
   const router = useRouter();
+  const { update } = useSession();
 
   const {
     handleSubmit,
@@ -36,6 +38,7 @@ export const useUpdateUsernameForm = () => {
       router.push(`/`);
     } else {
       router.push(`/${formData.username}`);
+      await update({ username: formData.username });
     }
   });
 
