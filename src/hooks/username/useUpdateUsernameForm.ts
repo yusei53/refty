@@ -37,8 +37,13 @@ export const useUpdateUsernameForm = () => {
     if (res === 401) {
       router.push(`/`);
     } else {
+      await update({
+        user: {
+          username: formData.username
+        }
+      });
       router.push(`/${formData.username}`);
-      await update({ username: formData.username });
+      router.refresh();
     }
   });
 

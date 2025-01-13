@@ -43,13 +43,9 @@ const authOptions: NextAuthOptions = {
         token.username = user.username;
       }
       if (trigger === "update" && session?.user?.username) {
-        // Note, that `session` can be any arbitrary object, remember to validate it!
         token.username = session.user.username;
       }
-      return {
-        ...user,
-        ...token
-      };
+      return token;
     },
     async session({ session, token, trigger, newSession }) {
       if (token) {
@@ -57,10 +53,6 @@ const authOptions: NextAuthOptions = {
         session.user.username = token.username as string;
       }
       if (trigger === "update" && newSession?.user?.username) {
-        // You can update the session in the database if it's not already updated.
-        // await adapter.updateUser(session.user.id, { name: newSession.name })
-
-        // Make sure the updated value is reflected on the client
         session.user.username = newSession.user.username as string;
       }
       return session;

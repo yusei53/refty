@@ -1,4 +1,3 @@
-import { useSession } from "next-auth/react";
 import { SettingUsernameModal } from "./SettingUsernameModal";
 import { useUpdateUsernameForm } from "@/src/hooks/username/useUpdateUsernameForm";
 
@@ -9,14 +8,12 @@ type SettingUsernameModalContainerProps = {
 const SettingUsernameModalContainer: React.FC<
   SettingUsernameModalContainerProps
 > = ({ open }) => {
-  const { update } = useSession();
   const { control, isSubmitting, isSubmitSuccessful, errors, onSubmit } =
     useUpdateUsernameForm();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await onSubmit(e);
-    await update();
   };
 
   return (
