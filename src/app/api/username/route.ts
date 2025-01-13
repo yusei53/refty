@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import authOptions from "../auth/[...nextauth]/options";
 import { userService } from "@/src/service/userService";
+import { internalServerError, unauthorizedError } from "@/src/utils/http-error";
 
 export async function PATCH(req: NextRequest) {
   try {
@@ -10,7 +11,7 @@ export async function PATCH(req: NextRequest) {
     const session = await getServerSession(authOptions);
 
     if (!session?.user.id) {
-      return new NextResponse("認証されていません", { status: 401 });
+      return unauthorizedError("認証されていません");
     }
 
     const res = await userService.updateUsername({
@@ -21,9 +22,6 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json(res, { status: 201 });
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { message: "Error creating posts" },
-      { status: 500 }
-    );
+    return internalServerError("PATCH", "ユーザー名変更", error);
   }
 }

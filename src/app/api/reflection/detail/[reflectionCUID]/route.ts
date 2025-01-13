@@ -4,6 +4,14 @@ import { NextResponse } from "next/server";
 import { reflectionRepository } from "@/src/infrastructure/repository/reflectionRepository";
 import { reflectionService } from "@/src/service/reflectionService";
 import getCurrentUser from "@/src/utils/actions/get-current-user";
+import {
+  badRequestError,
+  forbiddenError,
+  internalServerError,
+  notFoundError,
+  unauthorizedError
+} from "@/src/utils/http-error";
+
 export async function GET(
   req: NextRequest,
   { params }: { params: { reflectionCUID: string } }
@@ -12,27 +20,17 @@ export async function GET(
     const { reflectionCUID } = params;
 
     if (!reflectionCUID) {
-      return NextResponse.json(
-        { message: "Reflection CUID is required" },
-        { status: 400 }
-      );
+      return badRequestError("ReflectionCUIDが必要です");
     }
 
     const res = await reflectionService.getDetail(reflectionCUID);
 
     if (!res) {
-      return NextResponse.json(
-        { message: "Reflection not found" },
-        { status: 404 }
-      );
+      return notFoundError("振り返りが見つかりません");
     }
     return NextResponse.json(res);
   } catch (error) {
-    console.error("Error fetching reflection:", error);
-    return NextResponse.json(
-      { message: "Internal Server Error" },
-      { status: 500 }
-    );
+    return internalServerError("GET", "詳細ページ", error);
   }
 }
 
@@ -45,29 +43,23 @@ export async function PATCH(
     const { reflectionCUID } = params;
 
     if (!reflectionCUID) {
-      return NextResponse.json(
-        { message: "Reflection ID is required" },
-        { status: 400 }
-      );
+      return badRequestError("ReflectionCUIDが必要です");
     }
 
     const currentUser = await getCurrentUser();
 
     if (!currentUser?.id) {
-      return new NextResponse("認証されていません", { status: 401 });
+      return unauthorizedError("認証されていません");
     }
 
     const reflection =
       await reflectionRepository.getReflectionRecord(reflectionCUID);
     if (!reflection) {
-      return NextResponse.json(
-        { message: "Reflection not found" },
-        { status: 404 }
-      );
+      return notFoundError("振り返りが見つかりません");
     }
 
     if (reflection.userId !== currentUser.id) {
-      return new NextResponse("権限がありません", { status: 403 });
+      return forbiddenError("振り返りの編集権限がありません");
     }
 
     const updatedReflection = await reflectionService.update({
@@ -80,11 +72,7 @@ export async function PATCH(
 
     return NextResponse.json(updatedReflection, { status: 200 });
   } catch (error) {
-    console.error("Error updating reflection:", error);
-    return NextResponse.json(
-      { message: "Error updating reflection" },
-      { status: 500 }
-    );
+    return internalServerError("PATCH", "詳細ページ", error);
   }
 }
 
@@ -98,16 +86,13 @@ export async function DELETE(
     const currentUser = await getCurrentUser();
 
     if (!currentUser?.id) {
-      return new NextResponse("認証されていません", { status: 401 });
+      return unauthorizedError("認証されていません");
     }
 
     const reflection = await reflectionService.delete(reflectionCUID);
 
     if (!reflection) {
-      return NextResponse.json(
-        { message: "Reflection not found" },
-        { status: 404 }
-      );
+      return notFoundError("振り返りが見つかりません");
     }
 
     return NextResponse.json(
@@ -115,10 +100,6 @@ export async function DELETE(
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error deleting reflection:", error);
-    return NextResponse.json(
-      { message: "Internal Server Error" },
-      { status: 500 }
-    );
+    return internalServerError("DELETE", "詳細ページ", error);
   }
 }

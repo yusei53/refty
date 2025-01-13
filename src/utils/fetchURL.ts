@@ -1,9 +1,10 @@
-import type { ErrorCode, Result } from "./types/result";
+import type { ErrorCode } from "./http-error";
+import type { Result } from "./types/result";
 
-type FetchMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+export type HTTPMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 
 export type FetchURLOptions = {
-  method: FetchMethod;
+  method: HTTPMethod;
   cache?: RequestCache;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   body?: any;
@@ -24,9 +25,9 @@ export async function fetchURL<T, E extends ErrorCode>(
     const response = await fetch(`${defaultURL}${path}`, {
       ...options,
       headers: {
-        ...options.headers,
+        ...options.headers
       },
-      body: options.body ? JSON.stringify(options.body) : undefined,
+      body: options.body ? JSON.stringify(options.body) : undefined
     });
 
     if (!response.ok) {

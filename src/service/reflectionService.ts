@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
 import { reflectionRepository } from "../infrastructure/repository/reflectionRepository";
 import { toJST } from "../utils/date-helper";
+import { notFoundError } from "../utils/http-error";
 import prisma from "@/src/lib/prisma";
 
 const COUNT_PER_PAGE = 12;
@@ -269,10 +269,7 @@ export const reflectionService = {
     });
 
     if (!reflection) {
-      return NextResponse.json(
-        { message: "Reflection not found" },
-        { status: 404 }
-      );
+      return notFoundError("振り返りが見つかりません");
     }
 
     return await reflectionRepository.updateReflection({
