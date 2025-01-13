@@ -12,24 +12,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. ソースコードをチェックアウト
       - name: Check out repository
         uses: actions/checkout@v3
 
-      # 2. Go のセットアップ
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
-          go-version: "1.19"  # or 1.20 など、使うバージョン
+          go-version: "1.19"
 
-      # 3. ビルド & ZIP作成
       - name: Build and zip
         run: |
           cd lambda-function
           GOOS=linux GOARCH=arm64 go build -tags lambda.norpc -o bootstrap main.go query.go
           zip function.zip bootstrap
 
-      # 4. Lambda へデプロイ
       - name: Deploy to Lambda
         run: |
           aws lambda update-function-code \
