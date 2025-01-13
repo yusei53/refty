@@ -26,7 +26,7 @@ jobs:
       - name: Build and zip
         run: |
           cd lambda-function
-          GOOS=linux GOARCH=arm64 go build -tags lambda.norpc -o bootstrap main.go
+          GOOS=linux GOARCH=arm64 go build -tags lambda.norpc -o bootstrap main.go query.go
           zip function.zip bootstrap
 
       # 4. Lambda へデプロイ
