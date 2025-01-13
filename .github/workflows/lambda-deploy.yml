@@ -34,5 +34,5 @@ jobs:
         run: |
           aws lambda update-function-code \
             --region ${{ secrets.AWS_REGION }} \
-            --function-name ${{ secrets.LAMBDA_FUNCTION_ARN }} \
+            --function-name ${{ secrets.AWS_ROLE_ARN }} \
             --zip-file fileb://lambda-function/function.zip
