@@ -16,7 +16,7 @@ export const MobileFooter = () => {
       justifyContent={"center"}
       gap={8}
       pt={1}
-      pb={4}
+      pb={3.5}
       position={"sticky"}
       bottom={0}
     >
@@ -30,7 +30,7 @@ export const MobileFooter = () => {
         imagePass={"contents.svg"}
         alt={"リフティのランディングページへ行くボタン"}
       />
-      {session?.user.username ? (
+      {session ? (
         <>
           <MobileFooterButton
             href={`/post`}

@@ -30,7 +30,7 @@ const NotFound = () => {
         <Typography color={`${theme.palette.grey[600]}`} mb={3} mx={3}>
           お探しのページはアクセスができないか、削除された可能性があります。
         </Typography>
-        <Button>ホームに戻る</Button>
+        <Button href={"/"}>ホームに戻る</Button>
       </Box>
       <Footer />
     </>

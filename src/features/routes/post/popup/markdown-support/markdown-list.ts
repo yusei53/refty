@@ -36,7 +36,7 @@ export const markdownList: MarkdownSectionType[] = [
   {
     image: "line.svg",
     title: "--- 水平線",
-    description: "資格的に分割するための水平線を作成します。"
+    description: "視覚的に分割するための水平線を作成します。"
   },
   {
     image: "border-left.svg",
