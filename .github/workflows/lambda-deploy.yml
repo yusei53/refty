@@ -2,7 +2,7 @@ name: Deploy to AWS Lambda
 
 on:
   push:
-    branches: [ "181-begithubactions+awscliによるcicd構築" ]
+    branches: [ "main" ]
     paths:
       - 'lambda-function/**'
     # ↑ mainブランチへのPush/マージでも、lambda-functionディレクトリ以下の変更がある場合のみ実行
