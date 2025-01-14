@@ -134,8 +134,8 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
           ".toc": {
             position: "absolute",
             top: 200,
-            right: { xs: -125, lg: -200 },
-            maxWidth: { xs: "11ch", lg: "20ch" }
+            right: { xs: -150, lg: -225 },
+            maxWidth: { xs: "14ch", lg: "25ch" }
           },
           ".toc-list-item": {
             listStyle: "none"
