@@ -137,6 +137,9 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
             right: { xs: -125, lg: -200 },
             maxWidth: { xs: "11ch", lg: "20ch" }
           },
+          ".toc-list-item": {
+            listStyle: "none"
+          },
           ".toc-link": {
             textDecoration: "none",
             color: theme.palette.grey[600],
@@ -145,9 +148,12 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
               cursor: "pointer"
             }
           },
-          ".is-active-link": {
+          ".toc-list li::before": {
+            content: '"•"',
             color: theme.palette.grey[600],
-            textDecoration: "underline"
+            display: "inline-block",
+            width: "1em",
+            marginLeft: "-1em"
           }
         }}
       >
