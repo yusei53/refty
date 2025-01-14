@@ -21,7 +21,7 @@ type SQSMessageBody struct {
 
 func handler(ctx context.Context, sqsEvent events.SQSEvent) {
 	
-	err := godotenv.Load()
+	// err := godotenv.Load()
 	if err != nil {
 		log.Fatalf(".envファイルの読み込みに失敗しました: %v", err)
 	}
