@@ -1,0 +1,34 @@
+name: Deploy to AWS Lambda
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'lambda-function/**'
+    # これによってmainマージされてもlambda-functionディレクトリ以下の変更があった場合にのみ走るようになる
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: "1.19"
+
+      - name: Build and zip
+        run: |
+          cd lambda-function
+          GOOS=linux GOARCH=arm64 go build -tags lambda.norpc -o bootstrap main.go query.go
+          zip function.zip bootstrap
+
+      - name: Deploy to Lambda
+        run: |
+          aws lambda update-function-code \
+            --region ${{ secrets.AWS_REGION }} \
+            --function-name ${{ secrets.AWS_ROLE_ARN }} \
+            --zip-file fileb://lambda-function/function.zip
