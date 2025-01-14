@@ -36,7 +36,7 @@ const ReflectionSettingHeader: React.FC<ReflectionSettingHeaderProps> = ({
     >
       <KeyboardBackspaceIcon
         onClick={onBackNavigation}
-        sx={{ cursor: "pointer", mb: 2 }}
+        sx={{ cursor: "pointer", mb: { md: 2 } }}
       />
 
       <Box display="flex" alignItems="center" gap={1}>
