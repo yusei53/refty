@@ -10,6 +10,7 @@ import ReflectionSettingHeader from "@/src/components/reflection-detail/reflecti
 import { UserInformationSection } from "@/src/components/reflection-detail/user-information/UserInformationSection";
 import { animation } from "@/src/components/ui/shared/animation";
 import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
+import { theme } from "@/src/utils/theme";
 
 type ReflectionDetailPageProps = {
   title: string;
@@ -135,6 +136,18 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
             top: 200,
             right: { xs: -125, lg: -200 },
             maxWidth: { xs: "11ch", lg: "20ch" }
+          },
+          ".toc-link": {
+            textDecoration: "none",
+            color: theme.palette.grey[600],
+            "&:hover": {
+              textDecoration: "underline",
+              cursor: "pointer"
+            }
+          },
+          ".is-active-link": {
+            color: theme.palette.grey[600],
+            textDecoration: "underline"
           }
         }}
       >
