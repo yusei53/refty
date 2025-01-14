@@ -1,5 +1,7 @@
 "use client";
+import { useEffect } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import * as tocbot from "tocbot";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { Box } from "@mui/material";
 import { sqsAPI } from "@/src/api/send-to-sqs-api";
@@ -42,6 +44,16 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
   username,
   reflectionCount
 }) => {
+  useEffect(() => {
+    tocbot.init({
+      tocSelector: ".toc",
+      contentSelector: ".content",
+      headingSelector: "h1, h2, h3, h4"
+    });
+
+    return () => tocbot.destroy();
+  }, []);
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const { parseTagsToValue } = useParseTagsToValue();
@@ -115,6 +127,9 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
         userImage={userImage}
         reflectionCount={reflectionCount}
       />
+      <Box position={"absolute"} right={-170} top={200}>
+        <nav className="toc" />
+      </Box>
     </Box>
   );
 };
