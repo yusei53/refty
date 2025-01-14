@@ -9,7 +9,7 @@ import (
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	openai "github.com/sashabaranov/go-openai"
-	"github.com/joho/godotenv"
+	// "github.com/joho/godotenv"
 	_ "github.com/jackc/pgx/v5/stdlib"
 	// "refty.go/content"
 )
