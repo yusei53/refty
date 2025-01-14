@@ -129,9 +129,12 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
       />
       <Box
         position={"absolute"}
-        right={{ xs: -120, lg: -200 }}
+        right={{ xs: -125, lg: -200 }}
         top={200}
         display={{ xs: "none", md: "block" }}
+        sx={{
+          maxWidth: { xs: "11ch", lg: "20ch" }
+        }}
       >
         <nav className="toc" />
       </Box>
