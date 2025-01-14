@@ -128,12 +128,14 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
         reflectionCount={reflectionCount}
       />
       <Box
-        position={"absolute"}
-        right={{ xs: -125, lg: -200 }}
-        top={200}
         display={{ xs: "none", md: "block" }}
         sx={{
-          maxWidth: { xs: "11ch", lg: "20ch" }
+          ".toc": {
+            position: "absolute",
+            top: 200,
+            right: { xs: -125, lg: -200 },
+            maxWidth: { xs: "11ch", lg: "20ch" }
+          }
         }}
       >
         <nav className="toc" />
