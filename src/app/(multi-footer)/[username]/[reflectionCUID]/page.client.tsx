@@ -127,7 +127,12 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
         userImage={userImage}
         reflectionCount={reflectionCount}
       />
-      <Box position={"absolute"} right={-170} top={200}>
+      <Box
+        position={"absolute"}
+        right={-170}
+        top={200}
+        display={{ xs: "none", lg: "block" }}
+      >
         <nav className="toc" />
       </Box>
     </Box>
