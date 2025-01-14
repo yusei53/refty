@@ -2,33 +2,49 @@ name: Deploy to AWS Lambda
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "181-begithubactions+awscliによるcicd構築" ]
     paths:
       - 'lambda-function/**'
-    # これによってmainマージされてもlambda-functionディレクトリ以下の変更があった場合にのみ走るようになる
+    # ↑ mainブランチへのPush/マージでも、lambda-functionディレクトリ以下の変更がある場合のみ実行
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    # OIDCを利用するためにはid-tokenパーミッションが必要
+    permissions:
+      id-token: write
+      contents: read
+
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
+      # (1) OIDC経由でAWSにログインするステップ
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-session-name: GitHubActions
+
+      # (2) Go のセットアップ
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
           go-version: "1.22.2"
 
+      # (3) ビルド & ZIP作成
       - name: Build and zip
         run: |
           cd lambda-function
           GOOS=linux GOARCH=arm64 go build -tags lambda.norpc -o bootstrap main.go query.go
           zip function.zip bootstrap
 
+      # (4) Lambda へデプロイ
       - name: Deploy to Lambda
         run: |
           aws lambda update-function-code \
             --region ${{ secrets.AWS_REGION }} \
-            --function-name ${{ secrets.AWS_ROLE_ARN }} \
+            --function-name ${{ secrets.LAMBDA_FUNCTION_NAME }} \
             --zip-file fileb://lambda-function/function.zip
