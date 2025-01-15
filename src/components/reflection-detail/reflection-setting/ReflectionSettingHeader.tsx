@@ -82,8 +82,25 @@ const ReflectionSettingHeader: React.FC<ReflectionSettingHeaderProps> = ({
                       >
                         <Link
                           href={item.href}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            // MEMO: ヘッダーを含めた時にロジックまで飛ばすロジック
+                            const targetElement = document.querySelector(
+                              item.href
+                            );
+                            if (targetElement) {
+                              const headerOffset = 55;
+                              const elementPosition =
+                                targetElement.getBoundingClientRect().top;
+                              const offsetPosition =
+                                elementPosition + window.scrollY - headerOffset;
+                              window.scrollTo({
+                                top: offsetPosition,
+                                behavior: "smooth"
+                              });
+                            }
+                          }}
                           style={{
-                            scrollBehavior: "smooth",
                             textDecoration: "none",
                             color: theme.palette.grey[600]
                           }}
