@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import * as tocbot from "tocbot";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
@@ -45,12 +45,23 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
   username,
   reflectionCount
 }) => {
+  const [tocArray, setTocArray] = useState<{ href: string; title: string }[]>(
+    []
+  );
   useEffect(() => {
     tocbot.init({
       tocSelector: ".toc",
       contentSelector: ".content",
       headingSelector: "h1, h2, h3, h4"
     });
+
+    // MEMO:DOMから目次の情報を抽出
+    const tocLinks = document.querySelectorAll(".toc-link");
+    const tocLinksArray = Array.from(tocLinks).map((link) => ({
+      href: link.getAttribute("href") || "",
+      title: link.textContent || ""
+    }));
+    setTocArray(tocLinksArray);
 
     return () => tocbot.destroy();
   }, []);
@@ -111,6 +122,7 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
         reflectionCUID={reflectionCUID}
         isCurrentUser={isCurrentUser}
         isPublic={isPublic}
+        tocArray={tocArray}
       />
       <ReflectionArticle
         reflectionCUID={reflectionCUID}
