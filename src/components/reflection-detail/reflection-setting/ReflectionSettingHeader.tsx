@@ -77,10 +77,19 @@ const ReflectionSettingHeader: React.FC<ReflectionSettingHeaderProps> = ({
                         key={item.href}
                         display={"flex"}
                         flexDirection={"column"}
-                        px={1}
-                        py={0.5}
+                        px={2}
+                        py={0.75}
                       >
-                        <Link href={item.href}>{item.title}</Link>
+                        <Link
+                          href={item.href}
+                          style={{
+                            scrollBehavior: "smooth",
+                            textDecoration: "none",
+                            color: theme.palette.grey[600]
+                          }}
+                        >
+                          {item.title}
+                        </Link>
                       </Box>
                     ))}
                   </Box>
