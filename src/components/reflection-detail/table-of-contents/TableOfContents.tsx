@@ -11,7 +11,10 @@ const TableOfContents = () => {
           position: "absolute",
           top: 200,
           right: { xs: -150, lg: -225 },
-          maxWidth: { xs: "14ch", lg: "25ch" }
+          maxWidth: { xs: "14ch", lg: "25ch" },
+          backgroundColor: theme.palette.grey[400],
+          borderRadius: 2,
+          pr: 2
         },
         ".toc-list-item": {
           listStyle: "none"
