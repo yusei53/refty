@@ -7,10 +7,10 @@ import { Box } from "@mui/material";
 import { sqsAPI } from "@/src/api/send-to-sqs-api";
 import { ReflectionArticle } from "@/src/components/reflection-detail/article";
 import ReflectionSettingHeader from "@/src/components/reflection-detail/reflection-setting/ReflectionSettingHeader";
+import TableOfContents from "@/src/components/reflection-detail/table-of-contents/TableOfContents";
 import { UserInformationSection } from "@/src/components/reflection-detail/user-information/UserInformationSection";
 import { animation } from "@/src/components/ui/shared/animation";
 import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
-import { theme } from "@/src/utils/theme";
 
 type ReflectionDetailPageProps = {
   title: string;
@@ -140,37 +140,7 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
         userImage={userImage}
         reflectionCount={reflectionCount}
       />
-      <Box
-        display={{ xs: "none", md: "block" }}
-        sx={{
-          ".toc": {
-            position: "absolute",
-            top: 200,
-            right: { xs: -150, lg: -225 },
-            maxWidth: { xs: "14ch", lg: "25ch" }
-          },
-          ".toc-list-item": {
-            listStyle: "none"
-          },
-          ".toc-link": {
-            textDecoration: "none",
-            color: theme.palette.grey[600],
-            "&:hover": {
-              textDecoration: "underline",
-              cursor: "pointer"
-            }
-          },
-          ".toc-list li::before": {
-            content: '"•"',
-            color: theme.palette.grey[600],
-            display: "inline-block",
-            width: "1em",
-            marginLeft: "-1em"
-          }
-        }}
-      >
-        <nav className="toc" />
-      </Box>
+      <TableOfContents />
     </Box>
   );
 };
