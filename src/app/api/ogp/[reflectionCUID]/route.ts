@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { opengraphRepository } from "@/src/infrastructure/repository/opengraphRepository";
+import { internalServerError, notFoundError } from "@/src/utils/http-error";
 
 export async function GET(
   request: NextRequest,
@@ -11,10 +12,7 @@ export async function GET(
 
     const reflection = await opengraphRepository.getReflection(reflectionCUID);
     if (!reflection) {
-      return NextResponse.json(
-        { message: "Reflection not found" },
-        { status: 404 }
-      );
+      return notFoundError("振り返りが見つかりません");
     }
 
     return NextResponse.json({
@@ -22,10 +20,6 @@ export async function GET(
       user: reflection.user
     });
   } catch (error) {
-    console.error("Error fetching reflection:", error);
-    return NextResponse.json(
-      { message: "Internal Server Error" },
-      { status: 500 }
-    );
+    return internalServerError("GET", "振り返り詳細ページのOGP", error);
   }
 }

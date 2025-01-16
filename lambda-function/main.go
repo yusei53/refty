@@ -9,7 +9,7 @@ import (
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	openai "github.com/sashabaranov/go-openai"
-	"github.com/joho/godotenv"
+	// "github.com/joho/godotenv"
 	_ "github.com/jackc/pgx/v5/stdlib"
 	// "refty.go/content"
 )
@@ -21,10 +21,12 @@ type SQSMessageBody struct {
 
 func handler(ctx context.Context, sqsEvent events.SQSEvent) {
 	
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf(".envファイルの読み込みに失敗しました: %v", err)
-	}
+	// err := godotenv.Load()
+	// if err != nil {
+	// 	log.Fatalf(".envファイルの読み込みに失敗しました: %v", err)
+	// }
+	// hello
+	// world
 	dsn := os.Getenv("DATABASE_URL")
 	if dsn == "" {
 		log.Println("Missing DATABASE_URL environment variable")

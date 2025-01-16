@@ -1,8 +1,9 @@
 "use client";
 import Image from "next/image";
 import { Box, styled, Typography } from "@mui/material";
-import { Button } from "../components/ui/shared/button";
-import { Footer } from "../components/ui/shared/footer";
+import { Button } from "../components/button";
+import { Footer } from "../components/footer";
+import { animation } from "../features/common/animation";
 import { theme } from "../utils/theme";
 
 const NotFound = () => {
@@ -14,6 +15,7 @@ const NotFound = () => {
         justifyContent={"center"}
         flexDirection={"column"}
         height={"90vh"}
+        sx={{ ...animation(1) }}
       >
         <CustomImage
           src={"/not-found/404.png"}
@@ -28,7 +30,7 @@ const NotFound = () => {
         <Typography color={`${theme.palette.grey[600]}`} mb={3} mx={3}>
           お探しのページはアクセスができないか、削除された可能性があります。
         </Typography>
-        <Button>ホームに戻る</Button>
+        <Button href={"/"}>ホームに戻る</Button>
       </Box>
       <Footer />
     </>

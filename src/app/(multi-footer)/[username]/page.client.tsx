@@ -7,16 +7,16 @@ import type {
 } from "@/src/api/reflection-api";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import type { User } from "@prisma/client";
-import ReflectionCardListArea from "@/src/components/reflection-list/card-list/ReflectionCardListArea";
-import { EmptyReflection } from "@/src/components/reflection-list/card-list/empty-reflection";
-import { GoodJobModal } from "@/src/components/reflection-list/modal";
-import UserProfileArea from "@/src/components/reflection-list/profile/UserProfileArea";
-import { PostNavigationButton } from "@/src/components/ui/shared/button";
+import { PostNavigationButton } from "@/src/components/button";
 import {
   ArrowPagination,
   NumberedPagination
-} from "@/src/components/ui/shared/pagination";
-import { SearchBar } from "@/src/components/ui/shared/search-bar";
+} from "@/src/components/pagination";
+import { SearchBar } from "@/src/features/common/search-bar";
+import ReflectionCardListArea from "@/src/features/routes/reflection-list/card-list/ReflectionCardListArea";
+import { EmptyReflection } from "@/src/features/routes/reflection-list/card-list/empty-reflection";
+import { GoodJobModal } from "@/src/features/routes/reflection-list/modal";
+import UserProfileArea from "@/src/features/routes/reflection-list/profile/UserProfileArea";
 import { usePagination } from "@/src/hooks/reflection/usePagination";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { useTagHandler } from "@/src/hooks/reflection-tag/useTagHandler";

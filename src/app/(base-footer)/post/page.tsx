@@ -8,9 +8,10 @@ import { meta } from "@/src/utils/metadata";
 export const metadata: Metadata = meta.reflectionPostFormPage;
 
 const page = async () => {
+  // MEMO: getServerSessionだと新規ユーザーのログイン後、投稿ページで/loginに行ってしまうのでこれを使う
   const session = await getServerSession(authOptions);
 
-  if (!session?.user.username) {
+  if (!session?.user?.username) {
     redirect("/login");
   }
 

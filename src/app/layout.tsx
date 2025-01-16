@@ -1,8 +1,10 @@
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { getServerSession } from "next-auth/next";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { Snowfall } from "../components/ui/shared/snow-fall";
+import { Snowfall } from "../components/snow-fall";
 import { NextAuthProvider } from "../providers";
 import { theme } from "../utils/theme/theme";
+import authOptions from "./api/auth/[...nextauth]/options";
 
 const GA_TAG_ID = process.env.NEXT_PUBLIC_GA_ID as string;
 
@@ -11,6 +13,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession(authOptions);
   return (
     <html lang="en">
       <head>
@@ -31,7 +34,7 @@ export default async function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body style={{ margin: 0 }}>
-        <NextAuthProvider>
+        <NextAuthProvider session={session}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <Snowfall />
