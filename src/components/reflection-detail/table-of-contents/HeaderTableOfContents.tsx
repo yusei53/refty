@@ -7,6 +7,16 @@ type HeaderTableOfContentsProps = {
   tocArray: { href: string; title: string }[];
 };
 
+const scrollToHeading = (heading: { href: string; title: string }) => {
+  const targetElement = document.querySelector(heading.href);
+  if (targetElement) {
+    const headerOffset = 55;
+    const elementPosition = targetElement.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.scrollY - headerOffset;
+    window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+  }
+};
+
 const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
   tocArray
 }) => {
@@ -44,40 +54,27 @@ const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
             <Box boxShadow={1} borderRadius={2} bgcolor={"white"}>
-              {tocArray.map((content) => (
+              {tocArray.map((heading) => (
                 <Box
-                  key={content.href}
+                  key={heading.href}
                   display={"flex"}
                   flexDirection={"column"}
                   px={2}
                   py={0.75}
                 >
                   <Link
-                    href={content.href}
+                    href={heading.href}
                     onClick={(e) => {
                       e.preventDefault();
-                      // MEMO: ヘッダーを含めた時にロジックまで飛ばすロジック
-                      const targetElement = document.querySelector(
-                        content.href
-                      );
-                      if (targetElement) {
-                        const headerOffset = 55;
-                        const elementPosition =
-                          targetElement.getBoundingClientRect().top;
-                        const offsetPosition =
-                          elementPosition + window.scrollY - headerOffset;
-                        window.scrollTo({
-                          top: offsetPosition,
-                          behavior: "smooth"
-                        });
-                      }
+                      // MEMO: ヘッダー分だけスクロールをずらすロジック;
+                      scrollToHeading(heading);
                     }}
                     style={{
                       textDecoration: "none",
                       color: theme.palette.grey[600]
                     }}
                   >
-                    {content.title}
+                    {heading.title}
                   </Link>
                 </Box>
               ))}
