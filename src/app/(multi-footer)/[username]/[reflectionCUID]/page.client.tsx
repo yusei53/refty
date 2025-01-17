@@ -5,11 +5,10 @@ import { sqsAPI } from "@/src/api/send-to-sqs-api";
 import { TableOfContents } from "@/src/components/reflection-detail/table-of-contents";
 import { animation } from "@/src/features/common/animation";
 import { ReflectionArticle } from "@/src/features/routes/reflection-detail/article";
-
-import { UserInformationSection } from "@/src/features/routes/reflection-detail/user-information";
-import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
 import ReflectionSettingHeader from "@/src/features/routes/reflection-detail/header/ReflectionSettingHeader";
+import { UserInformationSection } from "@/src/features/routes/reflection-detail/user-information";
 import { useCreateTableOfContents } from "@/src/hooks/reflection/useCreateTableOfContents";
+import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
 
 type ReflectionDetailPageProps = {
   title: string;
@@ -44,6 +43,8 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
   username,
   reflectionCount
 }) => {
+  const { tocArray } = useCreateTableOfContents();
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const { parseTagsToValue } = useParseTagsToValue();
@@ -56,8 +57,6 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
     isInputLog && parseTagsToValue("isInputLog"),
     isMonologue && parseTagsToValue("isMonologue")
   ].filter(Boolean) as string[];
-
-  const { tocArray } = useCreateTableOfContents();
 
   const handleBackNavigation = () => {
     // MEMO: 投稿編集後のリダイレクトで来た場合と外部からきたときは/{username}に戻り、それ以外は一つ前のページに戻る
