@@ -7,9 +7,9 @@ export const TableOfContents = () => {
       display={{ xs: "none", md: "block" }}
       sx={{
         ".toc": {
-          position: "absolute",
+          position: "fixed",
           top: 200,
-          right: { xs: -150, lg: -225 },
+          right: { xs: 25, lg: 125 },
           maxWidth: { xs: "14ch", lg: "25ch" },
           backgroundColor: theme.palette.grey[400],
           borderRadius: 2,
