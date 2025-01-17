@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { theme } from "@/src/utils/theme";
 
 const TableOfContents = () => {
@@ -36,7 +36,7 @@ const TableOfContents = () => {
         }
       }}
     >
-      <nav className="toc" />
+      <Typography component="nav" className="toc" />
     </Box>
   );
 };
