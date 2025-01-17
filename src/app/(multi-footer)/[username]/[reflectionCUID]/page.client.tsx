@@ -1,7 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import * as tocbot from "tocbot";
 import { Box } from "@mui/material";
 import { sqsAPI } from "@/src/api/send-to-sqs-api";
 import { TableOfContents } from "@/src/components/reflection-detail/table-of-contents";
@@ -11,6 +9,7 @@ import { ReflectionArticle } from "@/src/features/routes/reflection-detail/artic
 import { UserInformationSection } from "@/src/features/routes/reflection-detail/user-information";
 import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
 import ReflectionSettingHeader from "@/src/features/routes/reflection-detail/header/ReflectionSettingHeader";
+import { useCreateTableOfContents } from "@/src/hooks/reflection/useCreateTableOfContents";
 
 type ReflectionDetailPageProps = {
   title: string;
@@ -45,27 +44,6 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
   username,
   reflectionCount
 }) => {
-  const [tocArray, setTocArray] = useState<{ href: string; title: string }[]>(
-    []
-  );
-  useEffect(() => {
-    tocbot.init({
-      tocSelector: ".toc",
-      contentSelector: ".content",
-      headingSelector: "h1, h2, h3, h4"
-    });
-
-    // MEMO:DOMから目次の情報を抽出
-    const tocLinks = document.querySelectorAll(".toc-link");
-    const tocLinksArray = Array.from(tocLinks).map((link) => ({
-      href: link.getAttribute("href") || "",
-      title: link.textContent || ""
-    }));
-    setTocArray(tocLinksArray);
-
-    return () => tocbot.destroy();
-  }, []);
-
   const router = useRouter();
   const searchParams = useSearchParams();
   const { parseTagsToValue } = useParseTagsToValue();
@@ -78,6 +56,8 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
     isInputLog && parseTagsToValue("isInputLog"),
     isMonologue && parseTagsToValue("isMonologue")
   ].filter(Boolean) as string[];
+
+  const { tocArray } = useCreateTableOfContents();
 
   const handleBackNavigation = () => {
     // MEMO: 投稿編集後のリダイレクトで来た場合と外部からきたときは/{username}に戻り、それ以外は一つ前のページに戻る
