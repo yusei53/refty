@@ -9,7 +9,7 @@ export const TableOfContents = () => {
         ".toc": {
           position: "fixed",
           top: 200,
-          right: { xs: 25, lg: 125 },
+          right: { xs: 10, lg: 60 },
           maxWidth: { xs: "14ch", lg: "25ch" },
           backgroundColor: theme.palette.grey[400],
           borderRadius: 2,
