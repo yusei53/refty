@@ -1,8 +1,8 @@
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { Box } from "@mui/material";
 import ToEditPageButton from "./ToEditPageButton";
-import HeaderTableOfContents from "@/src/components/reflection-detail/table-of-contents/HeaderTableOfContents";
 import { KebabButtonPopupContainer } from "@/src/features/common/kebab-button-popup";
+import { HeaderTableOfContents } from "@/src/components/reflection-detail/table-of-contents";
 
 type ReflectionSettingHeaderProps = {
   username: string;

@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { theme } from "@/src/utils/theme";
 
-const TableOfContents = () => {
+export const TableOfContents = () => {
   return (
     <Box
       display={{ xs: "none", md: "block" }}
@@ -39,5 +39,3 @@ const TableOfContents = () => {
     </Box>
   );
 };
-
-export default TableOfContents;

@@ -17,7 +17,7 @@ const scrollToHeading = (heading: { href: string; title: string }) => {
   }
 };
 
-const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
+export const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
   tocArray
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -85,5 +85,3 @@ const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
     </>
   );
 };
-
-export default HeaderTableOfContents;

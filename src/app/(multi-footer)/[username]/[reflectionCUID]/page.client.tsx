@@ -4,12 +4,13 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import * as tocbot from "tocbot";
 import { Box } from "@mui/material";
 import { sqsAPI } from "@/src/api/send-to-sqs-api";
-import TableOfContents from "@/src/components/reflection-detail/table-of-contents/TableOfContents";
+import { TableOfContents } from "@/src/components/reflection-detail/table-of-contents";
 import { animation } from "@/src/features/common/animation";
 import { ReflectionArticle } from "@/src/features/routes/reflection-detail/article";
-import ReflectionSettingHeader from "@/src/features/routes/reflection-detail/header/ReflectionSettingHeader";
+
 import { UserInformationSection } from "@/src/features/routes/reflection-detail/user-information";
 import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
+import ReflectionSettingHeader from "@/src/features/routes/reflection-detail/header/ReflectionSettingHeader";
 
 type ReflectionDetailPageProps = {
   title: string;
