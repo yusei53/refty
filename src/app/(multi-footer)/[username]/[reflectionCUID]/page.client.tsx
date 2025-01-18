@@ -5,6 +5,7 @@ import { sqsAPI } from "@/src/api/send-to-sqs-api";
 import { TableOfContents } from "@/src/components/reflection-detail/table-of-contents";
 import { animation } from "@/src/features/common/animation";
 import { ReflectionArticle } from "@/src/features/routes/reflection-detail/article";
+import { AIFeedbackAreaContainer } from "@/src/features/routes/reflection-detail/article/ai-feedback";
 import ReflectionSettingHeader from "@/src/features/routes/reflection-detail/header/ReflectionSettingHeader";
 import { UserInformationSection } from "@/src/features/routes/reflection-detail/user-information";
 import { useCreateTableOfContents } from "@/src/hooks/reflection/useCreateTableOfContents";
@@ -95,17 +96,23 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
         tocArray={tocArray}
         onBackNavigation={handleBackNavigation}
       />
-      <ReflectionArticle
-        reflectionCUID={reflectionCUID}
-        username={username}
-        userImage={userImage}
-        createdAt={createdAt}
-        title={title}
-        content={content}
-        aiFeedback={aiFeedback}
-        onSendToSQS={handleSendToSQS}
-        activeTags={activeTags}
-      />
+      <Box>
+        <ReflectionArticle
+          username={username}
+          userImage={userImage}
+          createdAt={createdAt}
+          title={title}
+          content={content}
+          activeTags={activeTags}
+        />
+        <AIFeedbackAreaContainer
+          isCurrentUser={isCurrentUser}
+          reflectionCUID={reflectionCUID}
+          aiFeedback={aiFeedback}
+          content={content}
+          onSendToSQS={handleSendToSQS}
+        />
+      </Box>
       <UserInformationSection
         username={username}
         userImage={userImage}

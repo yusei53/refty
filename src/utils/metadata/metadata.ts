@@ -108,5 +108,24 @@ export const meta = {
       title: `投稿作成 | ${REFTY}`,
       description: `${REFTY}の投稿作成ページ`
     }
+  },
+
+  reflectionsBookPage(username: string) {
+    return {
+      ...baseMetadata,
+      title: `${username}さんの振り返りブック | ${REFTY}`,
+      description: `${username}さんだけの振り返りブックページ`,
+      openGraph: {
+        type: "website",
+        url: `https://www.refty.jp/${username}`,
+        title: `${username}さんの振り返りブック | ${REFTY}`,
+        description: `${username}さんだけの振り返りブックページ`,
+        siteName: REFTY
+      },
+      twitter: {
+        title: `${username}さんの振り返りブック | ${REFTY}`,
+        description: `${username}さんだけの振り返りブックページ`
+      }
+    };
   }
 };

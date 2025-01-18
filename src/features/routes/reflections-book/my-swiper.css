@@ -1,0 +1,67 @@
+.swiper {
+  width: 650px;
+  height: 800px;
+}
+
+@media (max-width: 900px) {
+  .swiper {
+    width: 500px;
+    height: 700px;
+  }
+}
+
+@media (max-width: 500px) {
+  .swiper {
+    width: 90vw;
+    height: 80vh;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none !important;
+  }
+}
+
+.swiper-slide {
+  display: flex;
+  border-radius: 2px;
+  background-color: white;
+  border: 1.5px solid #ededed;
+  border-radius: 2px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #707070;
+  background-color: #f5f5f5;
+  width: 44px;
+  height: 44px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(300%);
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 24px;
+}
+.swiper-button-prev {
+  left: -150px !important;
+}
+
+/* 次へボタンをもっと右へ */
+.swiper-button-next {
+  right: -150px !important;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background-color: #ededed;
+}
+
+.swiper-button-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background-color: #f5f5f5;
+}
