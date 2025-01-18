@@ -36,7 +36,7 @@ export const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
         onClick={handleClick}
         onBlur={handleClose}
         sx={{
-          display: { xs: "block", md: "none" },
+          display: { md: "none" },
           border: "none",
           color: theme.palette.grey[600]
         }}
