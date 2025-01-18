@@ -1,2 +1,1 @@
-export { AIFeedbackArea } from "./AIFeedbackArea";
-export { AICalling } from "./AICalling";
+export { AIFeedbackAreaContainer } from "./AIFeedbackAreaContainer";
