@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Box, Typography } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 import { label } from "../../../../components/button/TagButton";
 import { StyledMarkdown } from "./markdown";
 import { formatDate } from "@/src/utils/date-helper";
@@ -43,7 +43,7 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
   isReflectionBook = false
 }) => {
   return (
-    <Box component={"article"}>
+    <Box component={"article"} position={"relative"}>
       <Box
         display={"flex"}
         alignItems={"center"}
@@ -81,23 +81,9 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
         </Typography>
       </Box>
       {isReflectionBook ? (
-        <Typography
-          component={"h1"}
-          sx={{
-            ...h1,
-            "&:hover": {
-              textDecoration: "underline"
-            }
-          }}
-        >
-          <Link
-            href={`/${username}/${reflectionCUID}`}
-            target="_blank"
-            style={{ color: "black", textDecoration: "none" }}
-          >
-            {title}
-          </Link>
-        </Typography>
+        <LinkTitle href={`/${username}/${reflectionCUID}`} target="_blank">
+          {title}
+        </LinkTitle>
       ) : (
         <Typography component={"h1"} sx={h1}>
           {title}
@@ -118,3 +104,12 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
     </Box>
   );
 };
+
+const LinkTitle = styled(Link)(() => ({
+  ...h1,
+  color: "black",
+  textDecoration: "none",
+  "&:hover": {
+    textDecoration: "underline"
+  }
+}));
