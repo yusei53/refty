@@ -2,13 +2,13 @@
 import "swiper/css";
 import "swiper/css/effect-cards";
 import "swiper/css/navigation";
-import "./styles.css";
 import { EffectCards, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Box, useMediaQuery } from "@mui/material";
 import type { ReflectionBook } from "@/src/api/reflections-book-api";
 import { ReflectionArticle } from "@/src/features/routes/reflection-detail/article";
 import { SwipeIconDisplay } from "@/src/features/routes/reflections-book/SwipeIconDisplay";
+import "@/src/features/routes/reflections-book/my-swiper.css";
 import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
 import { useSwipeIconVisibility } from "@/src/hooks/reflections-book/useSwipeIconVisibility";
 import { theme } from "@/src/utils/theme";
