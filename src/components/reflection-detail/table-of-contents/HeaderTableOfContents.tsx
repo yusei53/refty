@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Box, Fade, Popper } from "@mui/material";
-import { theme } from "@/src/utils/theme";
 import { Button } from "../../button";
+import { theme } from "@/src/utils/theme";
 
 type HeaderTableOfContentsProps = {
   tocArray: { href: string; title: string }[];
