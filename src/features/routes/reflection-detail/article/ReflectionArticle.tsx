@@ -13,6 +13,8 @@ type ReflectionArticleProps = {
   title: string;
   content: string;
   activeTags: string[];
+  reflectionCUID?: string;
+  isReflectionBook?: boolean;
 };
 
 export const link = {
@@ -25,7 +27,6 @@ export const link = {
 
 const h1 = {
   p: 0,
-  width: "100%",
   fontSize: "21px",
   border: "none",
   outline: "none"
@@ -37,7 +38,9 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
   createdAt,
   title,
   content,
-  activeTags
+  activeTags,
+  reflectionCUID,
+  isReflectionBook = false
 }) => {
   return (
     <Box component={"article"}>
@@ -77,9 +80,29 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
           {formatDate(createdAt)}
         </Typography>
       </Box>
-      <Typography component={"h1"} sx={h1}>
-        {title}
-      </Typography>
+      {isReflectionBook ? (
+        <Typography
+          component={"h1"}
+          sx={{
+            ...h1,
+            "&:hover": {
+              textDecoration: "underline"
+            }
+          }}
+        >
+          <Link
+            href={`/${username}/${reflectionCUID}`}
+            target="_blank"
+            style={{ color: "black", textDecoration: "none" }}
+          >
+            {title}
+          </Link>
+        </Typography>
+      ) : (
+        <Typography component={"h1"} sx={h1}>
+          {title}
+        </Typography>
+      )}
       {activeTags.length > 0 && (
         <Box display={"flex"} gap={1} mt={2}>
           {activeTags.map((tag) => (
