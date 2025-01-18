@@ -39,7 +39,10 @@ const ReflectionsBookPage: React.FC<ReflectionsBookPageProps> = ({
       <EmptyReflection />
     </Box>
   ) : (
-    <Box position={"relative"}>
+    <Box
+      position={"relative"}
+      sx={{ overflowX: { xs: "hidden", md: "visible" } }}
+    >
       {isVisible && <SwipeIconDisplay isVisible={isVisible} />}
       <Swiper
         effect="cards"
