@@ -15,8 +15,8 @@ const link = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  width: "40px",
-  height: "40px",
+  width: "42px",
+  height: "42px",
   borderRadius: "50%",
   transition: "background-color 0.3s ease"
 };
@@ -65,8 +65,8 @@ export const UserInformationHeader: React.FC<UserInformationHeaderProps> = ({
                 <Image
                   src={"/book.svg"}
                   alt={"マイブックへ行くアイコンボタン"}
-                  width={35}
-                  height={35}
+                  width={36}
+                  height={36}
                 />
               </Link>
               <Link
@@ -82,8 +82,8 @@ export const UserInformationHeader: React.FC<UserInformationHeaderProps> = ({
                 <Image
                   src={"/setting.svg"}
                   alt={"プロフィール設定へ行くアイコンボタン"}
-                  width={35}
-                  height={35}
+                  width={36}
+                  height={36}
                 />
               </Link>
             </>
@@ -102,8 +102,8 @@ export const UserInformationHeader: React.FC<UserInformationHeaderProps> = ({
               <Image
                 src={"/home.svg"}
                 alt={"ホームへ行くアイコンボタン"}
-                width={35}
-                height={35}
+                width={36}
+                height={36}
               />
             </Link>
           )}
