@@ -5,7 +5,7 @@ import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 
 export const Accordion = styled((props: AccordionProps) => (
-  <MuiAccordion disableGutters elevation={0} square sx={{ mt: 8 }} {...props} />
+  <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
   backgroundColor: "white",
   padding: "5px",
@@ -26,7 +26,7 @@ export const AccordionSummary = styled((props: AccordionSummaryProps) => (
     {...props}
   />
 ))({
-  width: "150px",
+  width: "275px",
   padding: 0,
   "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
     transform: "rotate(90deg)"
