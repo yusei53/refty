@@ -11,15 +11,8 @@
 }
 
 @media (max-width: 500px) {
-  /* MEMO: UIが崩れるので全体のスクロールを禁止する */
-  html,
-  body {
-    overflow: hidden !important;
-    height: 100%;
-  }
-
   .swiper {
-    width: 330px;
+    width: 90vw;
     height: 80vh;
   }
 
