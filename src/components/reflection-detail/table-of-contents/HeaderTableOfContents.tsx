@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Link from "next/link";
-import { Box, Button, Fade, Popper } from "@mui/material";
+import { Box, Fade, Popper } from "@mui/material";
 import { theme } from "@/src/utils/theme";
+import { Button } from "../../button";
 
 type HeaderTableOfContentsProps = {
   tocArray: { href: string; title: string }[];
@@ -36,10 +37,7 @@ export const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
         onBlur={handleClose}
         sx={{
           display: { xs: "block", md: "none" },
-          width: "90px",
           border: "none",
-          alignItems: "center",
-          whiteSpace: "nowrap",
           color: theme.palette.grey[600]
         }}
       >
