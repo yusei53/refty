@@ -11,7 +11,7 @@ export const TableOfContents = () => {
           top: 200,
           right: { xs: 10, lg: 60 },
           maxWidth: { xs: "14ch", lg: "25ch" },
-          backgroundColor: theme.palette.grey[400],
+          backgroundColor: theme.palette.grey[50],
           borderRadius: 2,
           pr: 2
         },
