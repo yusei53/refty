@@ -32,6 +32,13 @@ export const FieldInput: React.FC<FieldInputProps> = ({
   control,
   errors
 }) => {
+  // MEMO: 複数行が許可されていない場合、Enterキーで送信されてしまうのを防ぐ
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!allowMultiline && event.key === "Enter") {
+      event.preventDefault();
+    }
+  };
+
   return name === "username" ? (
     <>
       <Box display={"flex"} alignItems={"baseline"}>
@@ -54,6 +61,7 @@ export const FieldInput: React.FC<FieldInputProps> = ({
               defaultValue={field.value}
               multiline={allowMultiline}
               onChange={field.onChange}
+              onKeyDown={handleKeyDown}
               fullWidth={false}
             />
           )}
@@ -74,6 +82,7 @@ export const FieldInput: React.FC<FieldInputProps> = ({
             fullWidth
             multiline={allowMultiline}
             onChange={field.onChange}
+            onKeyDown={handleKeyDown}
           />
         )}
       />
