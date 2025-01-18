@@ -50,23 +50,43 @@ export const UserInformationHeader: React.FC<UserInformationHeaderProps> = ({
         </Box>
         <Box display={"flex"} gap={0.5}>
           {isCurrentUser && (
-            <Link
-              href={"/settings/profile"}
-              style={link}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.backgroundColor = `${theme.palette.grey[100]}`)
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.backgroundColor = "transparent")
-              }
-            >
-              <Image
-                src={"/setting.svg"}
-                alt={"プロフィール設定へ行くアイコンボタン"}
-                width={35}
-                height={35}
-              />
-            </Link>
+            <>
+              {/* // TODO: コンポーネント化したい */}
+              <Link
+                href={`${username}/book`}
+                style={link}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor = `${theme.palette.grey[100]}`)
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor = "transparent")
+                }
+              >
+                <Image
+                  src={"/book.svg"}
+                  alt={"マイブックへ行くアイコンボタン"}
+                  width={35}
+                  height={35}
+                />
+              </Link>
+              <Link
+                href={"/settings/profile"}
+                style={link}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor = `${theme.palette.grey[100]}`)
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor = "transparent")
+                }
+              >
+                <Image
+                  src={"/setting.svg"}
+                  alt={"プロフィール設定へ行くアイコンボタン"}
+                  width={35}
+                  height={35}
+                />
+              </Link>
+            </>
           )}
           {isLargeScreen && (
             <Link
