@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Box, useMediaQuery } from "@mui/material";
 import type { ReflectionBook } from "@/src/api/reflections-book-api";
 import { ReflectionArticle } from "@/src/features/routes/reflection-detail/article";
+import { EmptyReflection } from "@/src/features/routes/reflection-list/card-list/empty-reflection";
 import { SwipeIconDisplay } from "@/src/features/routes/reflections-book/SwipeIconDisplay";
 import "@/src/features/routes/reflections-book/my-swiper.css";
 import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
@@ -28,7 +29,16 @@ const ReflectionsBookPage: React.FC<ReflectionsBookPageProps> = ({
   const isVisible = useSwipeIconVisibility();
   const { parseTagsToValue } = useParseTagsToValue();
 
-  return (
+  return reflections.length === 0 ? (
+    <Box
+      height={"90vh"}
+      display={"flex"}
+      justifyContent={"center"}
+      alignItems={"center"}
+    >
+      <EmptyReflection />
+    </Box>
+  ) : (
     <Box position={"relative"}>
       {isVisible && <SwipeIconDisplay isVisible={isVisible} />}
       <Swiper
