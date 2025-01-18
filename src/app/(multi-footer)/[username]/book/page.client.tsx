@@ -3,14 +3,14 @@ import "swiper/css";
 import "swiper/css/effect-cards";
 import "swiper/css/navigation";
 import "./styles.css";
-import { useState, useEffect } from "react";
 import { EffectCards, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwipeIcon from "@mui/icons-material/Swipe";
 import { Box, useMediaQuery } from "@mui/material";
 import type { ReflectionBook } from "@/src/api/reflections-book-api";
 import { ReflectionArticle } from "@/src/features/routes/reflection-detail/article";
+import { SwipeIconDisplay } from "@/src/features/routes/reflections-book/SwipeIconDisplay";
 import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
+import { useSwipeIconVisibility } from "@/src/hooks/reflections-book/useSwipeIconVisibility";
 import { theme } from "@/src/utils/theme";
 
 type ReflectionsBookPageProps = {
@@ -24,51 +24,13 @@ const ReflectionsBookPage: React.FC<ReflectionsBookPageProps> = ({
   username,
   userImage
 }) => {
-  const { parseTagsToValue } = useParseTagsToValue();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const [showSwipeIcon, setShowSwipeIcon] = useState(true);
-
-  useEffect(() => {
-    setShowSwipeIcon(true);
-
-    const timer = setTimeout(() => {
-      setShowSwipeIcon(false);
-    }, 4000);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const isVisible = useSwipeIconVisibility();
+  const { parseTagsToValue } = useParseTagsToValue();
 
   return (
     <Box position={"relative"}>
-      {showSwipeIcon && (
-        <Box
-          position={"absolute"}
-          top={0}
-          right={{ xs: 25, md: 75 }}
-          zIndex={10}
-          color={theme.palette.grey[500]}
-          sx={{
-            animation: "fadeInOut 4s forwards",
-            "@keyframes fadeInOut": {
-              "0%": {
-                opacity: 0
-              },
-              "20%": {
-                opacity: 1
-              },
-              "80%": {
-                opacity: 1
-              },
-              "100%": {
-                opacity: 0
-              }
-            }
-          }}
-        >
-          <SwipeIcon sx={{ fontSize: { xs: 55, sm: 70 } }} />
-        </Box>
-      )}
-
+      {isVisible && <SwipeIconDisplay isVisible={isVisible} />}
       <Swiper
         effect="cards"
         grabCursor={true}
