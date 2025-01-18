@@ -26,7 +26,7 @@ const page = async ({ params }: { params: { username: string } }) => {
   const session = await getServerSession(authOptions);
 
   const res = await reflectionsBookAPI.getReflections(params.username);
-  if (res === 404) {
+  if (res === 404 || !res || params.username !== session?.user.username) {
     return notFound();
   }
 
