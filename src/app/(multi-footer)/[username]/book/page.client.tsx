@@ -48,7 +48,7 @@ const ReflectionsBookPage: React.FC<ReflectionsBookPageProps> = ({
         cardsEffect={{
           slideShadows: false,
           perSlideRotate: isSmallScreen ? 0 : 2,
-          perSlideOffset: isSmallScreen ? 3 : 8
+          perSlideOffset: isSmallScreen ? 0 : 8
         }}
         navigation
       >
