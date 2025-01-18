@@ -44,7 +44,7 @@ const ReflectionsBookPage: React.FC<ReflectionsBookPageProps> = ({
         <Box
           position={"absolute"}
           top={0}
-          right={80}
+          right={{ xs: 25, md: 75 }}
           zIndex={10}
           color={theme.palette.grey[500]}
           sx={{
@@ -65,7 +65,7 @@ const ReflectionsBookPage: React.FC<ReflectionsBookPageProps> = ({
             }
           }}
         >
-          <SwipeIcon sx={{ fontSize: 55 }} />
+          <SwipeIcon sx={{ fontSize: { xs: 55, sm: 70 } }} />
         </Box>
       )}
 
