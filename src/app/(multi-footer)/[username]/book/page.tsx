@@ -1,9 +1,11 @@
+import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { reflectionsBookAPI } from "@/src/api/reflections-book-api";
 import authOptions from "@/src/app/api/auth/[...nextauth]/options";
 import { Loading } from "@/src/components/loading";
+import { meta } from "@/src/utils/metadata";
 
 const ReflectionsBookPage = dynamic(
   () => import("./page.client").then((mod) => mod.default),
@@ -11,6 +13,14 @@ const ReflectionsBookPage = dynamic(
     loading: () => <Loading />
   }
 );
+
+export const generateMetadata = async ({
+  params
+}: {
+  params: { username: string };
+}): Promise<Metadata> => {
+  return meta.reflectionsBookPage(params.username);
+};
 
 const page = async ({ params }: { params: { username: string } }) => {
   const session = await getServerSession(authOptions);
