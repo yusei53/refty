@@ -2,11 +2,13 @@
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Box } from "@mui/material";
 import { sqsAPI } from "@/src/api/send-to-sqs-api";
+import { TableOfContents } from "@/src/components/reflection-detail/table-of-contents";
 import { animation } from "@/src/features/common/animation";
 import { ReflectionArticle } from "@/src/features/routes/reflection-detail/article";
 import { AIFeedbackAreaContainer } from "@/src/features/routes/reflection-detail/article/ai-feedback";
 import ReflectionSettingHeader from "@/src/features/routes/reflection-detail/header/ReflectionSettingHeader";
 import { UserInformationSection } from "@/src/features/routes/reflection-detail/user-information";
+import { useCreateTableOfContents } from "@/src/hooks/reflection/useCreateTableOfContents";
 import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
 
 type ReflectionDetailPageProps = {
@@ -42,6 +44,8 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
   username,
   reflectionCount
 }) => {
+  const { tocArray } = useCreateTableOfContents();
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const { parseTagsToValue } = useParseTagsToValue();
@@ -89,30 +93,30 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
         reflectionCUID={reflectionCUID}
         isCurrentUser={isCurrentUser}
         isPublic={isPublic}
+        tocArray={tocArray}
         onBackNavigation={handleBackNavigation}
       />
-      <Box>
-        <ReflectionArticle
-          username={username}
-          userImage={userImage}
-          createdAt={createdAt}
-          title={title}
-          content={content}
-          activeTags={activeTags}
-        />
-        <AIFeedbackAreaContainer
-          isCurrentUser={isCurrentUser}
-          reflectionCUID={reflectionCUID}
-          aiFeedback={aiFeedback}
-          content={content}
-          onSendToSQS={handleSendToSQS}
-        />
-      </Box>
+      <ReflectionArticle
+        username={username}
+        userImage={userImage}
+        createdAt={createdAt}
+        title={title}
+        content={content}
+        activeTags={activeTags}
+      />
+      <AIFeedbackAreaContainer
+        isCurrentUser={isCurrentUser}
+        reflectionCUID={reflectionCUID}
+        aiFeedback={aiFeedback}
+        content={content}
+        onSendToSQS={handleSendToSQS}
+      />
       <UserInformationSection
         username={username}
         userImage={userImage}
         reflectionCount={reflectionCount}
       />
+      <TableOfContents />
     </Box>
   );
 };

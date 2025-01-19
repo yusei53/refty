@@ -98,7 +98,7 @@ export const ReflectionArticle: React.FC<ReflectionArticleProps> = ({
           ))}
         </Box>
       )}
-      <Box mt={8}>
+      <Box mt={8} className="content">
         <StyledMarkdown dangerouslySetInnerHTML={{ __html: content }} />
       </Box>
     </Box>
