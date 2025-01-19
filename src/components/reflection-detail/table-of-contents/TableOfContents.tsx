@@ -10,7 +10,9 @@ export const TableOfContents = () => {
           position: "fixed",
           top: 120,
           right: { md: 10, lg: 32 },
-          width: { md: "14vw", lg: "18vw" },
+          width: { md: "14vw", lg: "19vw" },
+          maxHeight: "70vh",
+          overflowY: "auto",
           backgroundColor: theme.palette.grey[50],
           borderRadius: 2,
           pr: 3,
@@ -18,7 +20,7 @@ export const TableOfContents = () => {
         },
         ".toc-list-item": {
           listStyle: "none",
-          fontSize: 14.5,
+          fontSize: 15,
           py: 0.6
         },
         ".toc-link": {
