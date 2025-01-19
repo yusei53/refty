@@ -10,7 +10,9 @@ export const useCreateTableOfContents = () => {
     tocbot.init({
       tocSelector: ".toc",
       contentSelector: ".content",
-      headingSelector: "h1, h2, h3, h4"
+      headingSelector: "h1, h2, h3, h4",
+      headingsOffset: 50,
+      scrollSmoothOffset: -50
     });
 
     // MEMO:DOMから目次の情報を抽出

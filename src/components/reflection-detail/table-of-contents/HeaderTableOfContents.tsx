@@ -13,7 +13,7 @@ const scrollToHeading = (heading: { href: string; title: string }) => {
   if (targetElement) {
     const headerOffset = 55;
     const elementPosition = targetElement.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.scrollY - headerOffset - 10;
+    const offsetPosition = elementPosition + window.scrollY - headerOffset - 50;
     window.scrollTo({ top: offsetPosition, behavior: "smooth" });
   }
 };
