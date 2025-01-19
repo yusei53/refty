@@ -9,14 +9,17 @@ export const TableOfContents = () => {
         ".toc": {
           position: "fixed",
           top: 200,
-          right: { xs: 10, lg: 60 },
-          maxWidth: { xs: "14ch", lg: "25ch" },
+          right: { md: 10, lg: 24 },
+          maxWidth: { md: "14ch", lg: "28ch" },
           backgroundColor: theme.palette.grey[50],
           borderRadius: 2,
-          pr: 2
+          pr: 3,
+          py: 1
         },
         ".toc-list-item": {
-          listStyle: "none"
+          listStyle: "none",
+          fontSize: 13.5,
+          py: 0.6
         },
         ".toc-link": {
           textDecoration: "none",
