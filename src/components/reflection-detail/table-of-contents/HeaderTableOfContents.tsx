@@ -13,7 +13,7 @@ const scrollToHeading = (heading: { href: string; title: string }) => {
   if (targetElement) {
     const headerOffset = 55;
     const elementPosition = targetElement.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.scrollY - headerOffset;
+    const offsetPosition = elementPosition + window.scrollY - headerOffset - 10;
     window.scrollTo({ top: offsetPosition, behavior: "smooth" });
   }
 };
@@ -38,7 +38,8 @@ export const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
         sx={{
           display: { md: "none" },
           border: "none",
-          color: theme.palette.grey[600]
+          color: theme.palette.grey[600],
+          mr: -2
         }}
       >
         目次
@@ -48,16 +49,24 @@ export const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
         anchorEl={anchorEl}
         transition
         sx={{ zIndex: 2 }}
+        placement={"bottom-start"}
       >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
-            <Box boxShadow={1} borderRadius={2} bgcolor={"white"}>
+            <Box
+              boxShadow={1}
+              borderRadius={2}
+              bgcolor={"white"}
+              minWidth={200}
+              maxWidth={300}
+              py={1.2}
+            >
               {tocArray.map((heading) => (
                 <Box
                   key={heading.href}
                   display={"flex"}
                   flexDirection={"column"}
-                  px={2}
+                  px={2.2}
                   py={0.75}
                 >
                   <Link

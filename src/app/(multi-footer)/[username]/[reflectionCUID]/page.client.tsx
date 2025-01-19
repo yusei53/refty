@@ -96,23 +96,21 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
         tocArray={tocArray}
         onBackNavigation={handleBackNavigation}
       />
-      <Box>
-        <ReflectionArticle
-          username={username}
-          userImage={userImage}
-          createdAt={createdAt}
-          title={title}
-          content={content}
-          activeTags={activeTags}
-        />
-        <AIFeedbackAreaContainer
-          isCurrentUser={isCurrentUser}
-          reflectionCUID={reflectionCUID}
-          aiFeedback={aiFeedback}
-          content={content}
-          onSendToSQS={handleSendToSQS}
-        />
-      </Box>
+      <ReflectionArticle
+        username={username}
+        userImage={userImage}
+        createdAt={createdAt}
+        title={title}
+        content={content}
+        activeTags={activeTags}
+      />
+      <AIFeedbackAreaContainer
+        isCurrentUser={isCurrentUser}
+        reflectionCUID={reflectionCUID}
+        aiFeedback={aiFeedback}
+        content={content}
+        onSendToSQS={handleSendToSQS}
+      />
       <UserInformationSection
         username={username}
         userImage={userImage}
