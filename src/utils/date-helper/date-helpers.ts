@@ -20,26 +20,6 @@ export const getOneYearAgo = (): Date => {
 };
 
 /**
- * 現在未使用
- * 今日から半年前の日付を取得する関数（JST）
- * @returns {Date} 半年前の日付
- */
-export const getHalfYearAgo = (): Date => {
-  const now = new Date();
-  return new Date(now.setMonth(now.getMonth() - 6));
-};
-
-/**
- * 現在未使用
- * 今日から半年後の日付を取得する関数（JST）
- * @returns {Date} 半年後の日付
- */
-export const getHalfYearLater = (): Date => {
-  const now = new Date();
-  return new Date(now.setMonth(now.getMonth() + 6));
-};
-
-/**
  * ISO8601形式の日付文字列をyyyy/MM/dd形式に変換する関数
  * @returns {string} yyyy/MM/dd形式の日付文字列
  */
