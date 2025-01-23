@@ -34,7 +34,7 @@ export const KebabButtonPopupContainer: React.FC<
   };
 
   const handleCopyLink = () => {
-    const link = `${process.env.NEXT_PUBLIC_API_URL}/${username}/${reflectionCUID}`;
+    const link = `${process.env.NEXT_PUBLIC_ROOT_URL}/${username}/${reflectionCUID}`;
     navigator.clipboard.writeText(link);
     handleClosePopup();
   };

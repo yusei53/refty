@@ -15,7 +15,7 @@ export type FetchURLOptions = {
   };
 };
 
-const defaultURL = process.env.NEXT_PUBLIC_API_URL;
+const defaultURL = process.env.NEXT_PUBLIC_ROOT_URL;
 
 export async function fetchURL<T, E extends ErrorCode>(
   path: string,

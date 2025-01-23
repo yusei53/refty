@@ -54,7 +54,7 @@ type OgImageProps = {
 const OgImage = ({ userImage, title, username }: OgImageProps) => (
   <div
     style={{
-      backgroundImage: `url(${process.env.NEXT_PUBLIC_API_URL}/ogp.png)`,
+      backgroundImage: `url(${process.env.NEXT_PUBLIC_ROOT_URL}/ogp.png)`,
       backgroundSize: "100% 100%",
       height: "100%",
       width: "100%",
