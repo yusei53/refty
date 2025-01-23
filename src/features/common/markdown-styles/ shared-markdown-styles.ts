@@ -5,6 +5,9 @@ export const sharedMarkdownStyles = (theme: Theme) => ({
   lineHeight: "2rem",
   fontSize: "1.05rem",
   fontWeight: 500,
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "1rem"
+  },
   ".tiptap p.is-editor-empty:first-of-type::before": {
     color: "#adb5bd",
     content: "attr(data-placeholder)",
@@ -42,7 +45,7 @@ export const sharedMarkdownStyles = (theme: Theme) => ({
 
     /* Heading styles */
     "h1, h2, h3, h4, h5, h6": {
-      lineHeight: 1.1,
+      lineHeight: 1.4,
       marginTop: "2rem",
       textWrap: "pretty"
     },
@@ -62,8 +65,11 @@ export const sharedMarkdownStyles = (theme: Theme) => ({
     },
 
     h3: {
-      marginTop: "2.5rem",
-      fontSize: "1.25rem"
+      marginTop: "3.8rem",
+      fontSize: "1.25rem",
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "1.1rem"
+      }
     },
 
     "h4, h5, h6": {
