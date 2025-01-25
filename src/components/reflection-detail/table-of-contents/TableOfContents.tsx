@@ -8,7 +8,7 @@ export const TableOfContents = () => {
       sx={{
         ".toc": {
           position: "fixed",
-          top: 120,
+          top: 200,
           right: { md: 10, lg: 32 },
           width: { md: "14vw", lg: "19vw" },
           maxHeight: "70vh",
@@ -20,7 +20,7 @@ export const TableOfContents = () => {
         },
         ".toc-list-item": {
           listStyle: "none",
-          fontSize: 15,
+          fontSize: 14,
           py: 0.6
         },
         ".toc-link": {
