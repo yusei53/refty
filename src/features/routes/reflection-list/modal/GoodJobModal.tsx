@@ -92,11 +92,17 @@ export const GoodJobModal: React.FC<GoodJobModalProps> = ({
               component={"h3"}
               my={0.5}
               letterSpacing={0.5}
-              fontSize={16}
+              whiteSpace={"nowrap"}
+              fontSize={{ xs: 15, sm: 16 }}
             >
               過去の投稿を少しだけ覗いてみませんか？
             </Typography>
-            <Typography letterSpacing={0.5} fontSize={14} mb={1.5}>
+            <Typography
+              letterSpacing={0.5}
+              fontSize={{ xs: 13, sm: 14 }}
+              mb={1.5}
+              whiteSpace={"nowrap"}
+            >
               この投稿が成長のきっかけだったのかもしれません✨
             </Typography>
             <Box bgcolor={theme.palette.grey[50]} borderRadius={1} p={1.5}>
