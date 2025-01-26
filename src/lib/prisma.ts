@@ -1,14 +1,14 @@
 import { PrismaClient } from "@prisma/client";
+import prismaRandom from "prisma-extension-random";
 
 declare global {
   // eslint-disable-next-line no-var
-  var prisma: PrismaClient | undefined;
+  var prisma: ReturnType<typeof createPrismaClient> | undefined;
 }
 
-// PrismaClientのインスタンス作成
-const prisma = globalThis.prisma || new PrismaClient();
+const createPrismaClient = () => new PrismaClient().$extends(prismaRandom());
+const prisma = globalThis.prisma || createPrismaClient();
 
-//開発環境と本番環境で異なる動作をするように設計
 if (process.env.NODE_ENV !== "production") {
   globalThis.prisma = prisma;
 }
