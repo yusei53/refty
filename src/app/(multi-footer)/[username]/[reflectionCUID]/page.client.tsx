@@ -61,7 +61,10 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
 
   const handleBackNavigation = () => {
     // MEMO: 投稿編集後のリダイレクトで来た場合と外部からきたときは/{username}に戻り、それ以外は一つ前のページに戻る
-    if (searchParams.get("updated") === "true") {
+    if (
+      searchParams.get("updated") === "true" ||
+      searchParams.get("status") === "posted"
+    ) {
       router.push(`/${username}`);
     } else if (window.history.length > 1) {
       router.back();
