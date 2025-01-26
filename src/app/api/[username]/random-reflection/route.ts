@@ -49,7 +49,9 @@ export async function GET(req: NextRequest, { params }: Params) {
       }
     });
 
-    console.log(randomReflection);
+    if (!randomReflection) {
+      return notFoundError("Reflectionが見つかりません");
+    }
 
     return NextResponse.json(randomReflection, { status: 200 });
   } catch (error) {

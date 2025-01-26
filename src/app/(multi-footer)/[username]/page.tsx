@@ -30,19 +30,6 @@ const page = async ({
   const selectedTag = searchParams.tag || undefined;
   const status = searchParams.status;
 
-  // MEMO: letは本来使いたくないが、頻繁に再代入はされないため一旦はこれ
-  let randomReflection = null;
-  if (status === "posted") {
-    randomReflection = await reflectionAPI.getRandomReflection(
-      headers,
-      username
-    );
-
-    if (randomReflection === 403 || randomReflection === 404) {
-      randomReflection = null;
-    }
-  }
-
   const countResult = await reflectionsCountAPI.getReflectionsCount(username);
   const reflectionsResult = await reflectionAPI.getReflectionsByUsername(
     headers,
@@ -53,6 +40,23 @@ const page = async ({
 
   if (countResult === 404 || reflectionsResult === 404) {
     return notFound();
+  }
+
+  // MEMO: letは本来使いたくないが、頻繁に再代入はされないため一旦はこれ
+  let randomReflection = null;
+  if (status === "posted") {
+    randomReflection = await reflectionAPI.getRandomReflection(
+      headers,
+      username
+    );
+
+    if (
+      randomReflection === 403 ||
+      randomReflection === 404 ||
+      countResult.totalReflections === "1" // MEMO: 1件しかない場合はランダム表示しない, 0件の場合は404判定
+    ) {
+      randomReflection = null;
+    }
   }
 
   // MEMO: 並列データフェッチ
