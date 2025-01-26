@@ -1,5 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import authOptions from "../../auth/[...nextauth]/options";
 import prisma from "@/src/lib/prisma";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
 import {
@@ -7,8 +9,6 @@ import {
   internalServerError,
   notFoundError
 } from "@/src/utils/http-error";
-import { getServerSession } from "next-auth";
-import authOptions from "../../auth/[...nextauth]/options";
 
 type Params = {
   params: {
