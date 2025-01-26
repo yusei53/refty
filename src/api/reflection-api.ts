@@ -2,6 +2,15 @@ import type { FetchURLOptions } from "../utils/fetchURL";
 import type { Result } from "../utils/types/result";
 import { fetchURL } from "../utils/fetchURL";
 
+export type RandomReflection = {
+  reflectionCUID: string;
+  title: string;
+  charStamp: string;
+  isPublic: boolean;
+  isPinned: boolean;
+  createdAt: string;
+};
+
 export type Reflection = {
   reflectionCUID: string;
   title: string;
@@ -97,6 +106,18 @@ export const reflectionAPI = {
       method: "GET"
     };
     return await fetchURL<ReflectionDetail, 404>(path, options);
+  },
+
+  async getRandomReflection(
+    headers: HeadersInit | undefined,
+    username: string
+  ): Promise<Result<RandomReflection, 403 | 404>> {
+    const path = `/api/${username}/random-reflection`;
+    const options: FetchURLOptions = {
+      method: "GET",
+      headers: headers
+    };
+    return await fetchURL<RandomReflection, 403 | 404>(path, options);
   },
 
   async createReflection({
