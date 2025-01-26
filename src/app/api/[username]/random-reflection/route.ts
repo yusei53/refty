@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+import prismaRandom from "prisma-extension-random";
 import authOptions from "../../auth/[...nextauth]/options";
 import prisma from "@/src/lib/prisma";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
@@ -16,6 +17,7 @@ type Params = {
   };
 };
 
+const customPrisma = prisma.$extends(prismaRandom());
 export async function GET(req: NextRequest, { params }: Params) {
   try {
     const username = params.username;
@@ -37,7 +39,7 @@ export async function GET(req: NextRequest, { params }: Params) {
       return notFoundError("ユーザーが見つかりません");
     }
 
-    const randomReflection = await prisma.reflection.findRandom({
+    const randomReflection = await customPrisma.reflection.findRandom({
       where: { userId },
       select: {
         reflectionCUID: true,
