@@ -2,6 +2,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { Box, useMediaQuery } from "@mui/material";
 import type {
+  RandomReflection,
   Reflection,
   ReflectionTagCountList
 } from "@/src/api/reflection-api";
@@ -33,6 +34,7 @@ type UserReflectionListPageProps = {
   currentPage: number;
   totalPage: number;
   tagCountList: ReflectionTagCountList;
+  randomReflection: RandomReflection | null;
 };
 
 const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
@@ -45,7 +47,8 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   reflections,
   currentPage,
   totalPage,
-  tagCountList
+  tagCountList,
+  randomReflection
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -116,7 +119,14 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           />
         )}
       </Box>
-      <GoodJobModal open={isModalOpen} onClose={handleCloseModal} />
+      {isModalOpen && (
+        <GoodJobModal
+          open={isModalOpen}
+          onClose={handleCloseModal}
+          username={username}
+          randomReflection={randomReflection}
+        />
+      )}
     </>
   );
 };

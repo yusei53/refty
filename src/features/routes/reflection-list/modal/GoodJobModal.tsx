@@ -1,10 +1,15 @@
 import Image from "next/image";
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, IconButton, Modal, Typography } from "@mui/material";
+import { Box, Divider, IconButton, Modal, Typography } from "@mui/material";
+import type { RandomReflection } from "@/src/api/reflection-api";
+import { ReflectionCardOfModal } from "./ReflectionCardOfModal";
+import { theme } from "@/src/utils/theme";
 
 type GoodJobModalProps = {
   open: boolean;
   onClose: () => void;
+  username: string;
+  randomReflection: RandomReflection | null;
 };
 
 const modal = {
@@ -13,10 +18,10 @@ const modal = {
   justifyContent: "center",
   flexDirection: "column",
   position: "absolute",
-  top: "45%",
+  top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: { xs: 360, sm: 500 },
+  width: { xs: "90%", sm: 500 },
   bgcolor: "background.paper",
   boxShadow: 4,
   p: 4,
@@ -26,7 +31,9 @@ const modal = {
 
 export const GoodJobModal: React.FC<GoodJobModalProps> = ({
   open,
-  onClose
+  onClose,
+  username,
+  randomReflection
 }) => {
   return (
     <Modal open={open} disableEscapeKeyDown>
@@ -71,6 +78,34 @@ export const GoodJobModal: React.FC<GoodJobModalProps> = ({
           priority
           style={{ marginBlock: 10 }}
         />
+        {randomReflection && (
+          <>
+            <Divider
+              sx={{
+                width: "95%",
+                borderColor: theme.palette.grey[500],
+                my: 2
+              }}
+            />
+            <Typography
+              component={"h3"}
+              mt={1}
+              letterSpacing={0.5}
+              fontSize={16}
+            >
+              過去の投稿を少しだけ覗いてみませんか？
+            </Typography>
+            <Typography letterSpacing={0.5} fontSize={14} my={1.5}>
+              この投稿が成長のきっかけだったのかもしれません✨
+            </Typography>
+            <Box bgcolor={theme.palette.grey[50]} borderRadius={1} p={1.5}>
+              <ReflectionCardOfModal
+                username={username}
+                reflection={randomReflection}
+              />
+            </Box>
+          </>
+        )}
       </Box>
     </Modal>
   );

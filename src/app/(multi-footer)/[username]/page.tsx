@@ -21,13 +21,27 @@ const page = async ({
   searchParams
 }: {
   params: { username: string };
-  searchParams: { page?: string; tag?: string };
+  searchParams: { page?: string; tag?: string; status?: string };
 }) => {
   const session = await getServerSession(authOptions);
   const headers = getHeaders();
   const { username } = params;
   const currentPage = searchParams.page ? parseInt(searchParams.page, 10) : 1;
   const selectedTag = searchParams.tag || undefined;
+  const status = searchParams.status;
+
+  // MEMO: letは本来使いたくないが、頻繁に再代入はされないため一旦はこれ
+  let randomReflection = null;
+  if (status === "posted") {
+    randomReflection = await reflectionAPI.getRandomReflection(
+      headers,
+      username
+    );
+
+    if (randomReflection === 403 || randomReflection === 404) {
+      randomReflection = null;
+    }
+  }
 
   const countResult = await reflectionsCountAPI.getReflectionsCount(username);
   const reflectionsResult = await reflectionAPI.getReflectionsByUsername(
@@ -60,6 +74,7 @@ const page = async ({
         currentPage={currentPage}
         totalPage={reflectionsWithUser.totalPage}
         tagCountList={reflectionsWithUser.tagCountList}
+        randomReflection={randomReflection}
       />
     </>
   );
