@@ -82,20 +82,21 @@ export const GoodJobModal: React.FC<GoodJobModalProps> = ({
           <>
             <Divider
               sx={{
-                width: "95%",
-                borderColor: theme.palette.grey[500],
-                my: 2
+                width: "100%",
+                borderColor: theme.palette.grey[400],
+                mt: 4,
+                mb: 2
               }}
             />
             <Typography
               component={"h3"}
-              mt={1}
+              my={0.5}
               letterSpacing={0.5}
               fontSize={16}
             >
               過去の投稿を少しだけ覗いてみませんか？
             </Typography>
-            <Typography letterSpacing={0.5} fontSize={14} my={1.5}>
+            <Typography letterSpacing={0.5} fontSize={14} mb={1.5}>
               この投稿が成長のきっかけだったのかもしれません✨
             </Typography>
             <Box bgcolor={theme.palette.grey[50]} borderRadius={1} p={1.5}>
