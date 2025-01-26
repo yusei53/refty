@@ -23,7 +23,7 @@ export const ReflectionCardOfModal: React.FC<ReflectionCardOfModalProps> = ({
     >
       <Box
         component={Link}
-        href={`/${username}/${reflection.reflectionCUID}`}
+        href={`/${username}/${reflection.reflectionCUID}?status=posted`}
         p={2}
         sx={box}
       >
