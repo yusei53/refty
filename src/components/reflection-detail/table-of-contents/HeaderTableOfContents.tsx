@@ -32,7 +32,6 @@ export const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
   };
   return (
     <>
-      <Box className="toc" display={"none"} />
       <Button
         onClick={handleClick}
         onBlur={handleClose}
