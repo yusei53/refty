@@ -36,7 +36,7 @@ const MarkdownSupportPopupArea: React.FC<MarkdownSupportPopupAreaProps> = ({
     <Box position={"relative"} display={"flex"} alignItems={"center"}>
       <Tooltip
         title={<Typography fontSize={13}>書き方ガイドはこちら</Typography>}
-        placement={"bottom"}
+        placement={"bottom-start"}
         open={showInitialTooltip}
         arrow
         slotProps={{
