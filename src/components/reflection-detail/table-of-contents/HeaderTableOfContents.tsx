@@ -59,7 +59,7 @@ export const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
               minWidth={200}
               maxWidth={300}
               py={1.2}
-              maxHeight={"calc(100vh - 100px)"}
+              maxHeight={"50vh"}
               sx={{
                 overflowY: "auto"
               }}
