@@ -32,11 +32,11 @@ export const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
   };
   return (
     <>
+      <Box className="toc" display={"none"} />
       <Button
         onClick={handleClick}
         onBlur={handleClose}
         sx={{
-          display: { md: "none" },
           border: "none",
           color: theme.palette.grey[600],
           mr: -2
