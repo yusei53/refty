@@ -1,1 +1,0 @@
-export { HeaderTableOfContents } from "./HeaderTableOfContents";

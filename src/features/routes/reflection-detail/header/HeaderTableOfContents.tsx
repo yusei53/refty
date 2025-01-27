@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Box, Fade, Popper } from "@mui/material";
-import { Button } from "../../button";
+import { Button } from "../../../../components/button";
 import { theme } from "@/src/utils/theme";
 
 type HeaderTableOfContentsProps = {
@@ -18,7 +18,7 @@ const scrollToHeading = (heading: { href: string; title: string }) => {
   }
 };
 
-export const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
+const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
   tocArray
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -95,3 +95,5 @@ export const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
     </>
   );
 };
+
+export default HeaderTableOfContents;
