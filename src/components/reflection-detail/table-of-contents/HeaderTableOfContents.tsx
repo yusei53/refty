@@ -59,9 +59,9 @@ export const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
               minWidth={200}
               maxWidth={300}
               py={1.2}
+              maxHeight={"calc(100vh - 100px)"}
               sx={{
-                overflowY: "auto",
-                maxHeight: "calc(100vh - 100px)"
+                overflowY: "auto"
               }}
             >
               {tocArray.map((heading) => (
