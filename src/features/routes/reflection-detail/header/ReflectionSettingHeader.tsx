@@ -43,6 +43,7 @@ const ReflectionSettingHeader: React.FC<ReflectionSettingHeaderProps> = ({
       />
 
       <Box display="flex" alignItems="center" gap={1}>
+        {/* これを入れておかないとtocArrayが生成されない */}
         <Box className="toc" display={"none"} />
         {tocArray.length > 0 && <HeaderTableOfContents tocArray={tocArray} />}
         <KebabButtonPopupContainer
