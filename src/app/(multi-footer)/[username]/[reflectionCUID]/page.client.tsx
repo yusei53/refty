@@ -2,7 +2,6 @@
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Box } from "@mui/material";
 import { sqsAPI } from "@/src/api/send-to-sqs-api";
-import { TableOfContents } from "@/src/components/reflection-detail/table-of-contents";
 import { animation } from "@/src/features/common/animation";
 import { ReflectionArticle } from "@/src/features/routes/reflection-detail/article";
 import { AIFeedbackAreaContainer } from "@/src/features/routes/reflection-detail/article/ai-feedback";
@@ -119,7 +118,6 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
         userImage={userImage}
         reflectionCount={reflectionCount}
       />
-      <TableOfContents />
     </Box>
   );
 };
