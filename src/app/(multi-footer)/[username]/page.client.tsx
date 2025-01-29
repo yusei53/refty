@@ -111,7 +111,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           }}
         >
           <Box my={10}>
-            <List sx={{ mb: 3 }}>
+            <List>
               <ListItem
                 sx={{
                   py: 0,
@@ -162,6 +162,8 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
                   />
                 </Box>
               </ListItem>
+            </List>
+            <List>
               <ListItem
                 sx={{
                   py: 0,
