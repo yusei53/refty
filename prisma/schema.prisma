@@ -24,6 +24,7 @@ model User {
   createdAt      DateTime  @default(now())
   accounts       Account[]
   reflections    Reflection[]
+  reflectionFolders ReflectionFolder[] 
   username       String?   @unique 
   bio            String?
   goal           String?
@@ -46,7 +47,19 @@ model Reflection {
   isInputLog        Boolean  @default(false)
   createdAt         DateTime @default(now())
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  folderId    String?  
+  folder      ReflectionFolder? @relation("ReflectionFolder", fields: [folderId], references: [id])
 }
+
+model ReflectionFolder {
+  id          String        @id @default(uuid())
+  name        String
+  userId      String
+  createdAt   DateTime      @default(now())
+  reflections Reflection[]  @relation("ReflectionFolder")
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 
 model Account {
   id                String   @id @default(uuid())
