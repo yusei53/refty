@@ -15,6 +15,9 @@ export const DefaultFooter = () => {
       component={"footer"}
       borderTop={`1.5px solid ${theme.palette.grey[400]}`}
       py={3}
+      position={"relative"}
+      zIndex={20}
+      bgcolor={"white"}
     >
       <Container maxWidth={"md"}>
         <Box mx={{ xs: 1, sm: 5 }}>

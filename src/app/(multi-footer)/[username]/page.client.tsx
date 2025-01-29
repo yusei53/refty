@@ -1,6 +1,19 @@
 "use client";
+import { useState } from "react";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Box, useMediaQuery } from "@mui/material";
+import FolderIcon from "@mui/icons-material/Folder";
+import MenuIcon from "@mui/icons-material/Menu";
+import TagIcon from "@mui/icons-material/Tag";
+import {
+  Box,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  useMediaQuery
+} from "@mui/material";
 import type {
   RandomReflection,
   Reflection,
@@ -50,6 +63,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   tagCountList,
   randomReflection
 }) => {
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
@@ -68,10 +82,130 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     router.push(`/${username}`);
   };
 
-  // TODO: ReflectionAllAreaのようなコンポーネントを作ってリファクタする
   return (
     <>
       <Box minHeight={"90vh"}>
+        <IconButton
+          disableRipple
+          onClick={() => setSidebarOpen((prev) => !prev)}
+          sx={{
+            position: "fixed",
+            top: 16,
+            left: 16,
+            zIndex: 10
+          }}
+        >
+          <MenuIcon sx={{ color: theme.palette.grey[500] }} />
+        </IconButton>
+        <Box
+          position={"fixed"}
+          top={0}
+          left={isSidebarOpen ? 0 : "-250px"}
+          width={"240px"}
+          height={"100vh"}
+          borderRight={`1px solid ${theme.palette.grey[400]}`}
+          px={1.2}
+          sx={{
+            transition: "left 0.3s ease-in-out",
+            backgroundColor: "white"
+          }}
+        >
+          <Box my={10}>
+            <List sx={{ mb: 3 }}>
+              <ListItem
+                sx={{
+                  py: 0,
+                  my: 1,
+                  borderRadius: 2,
+                  transition: "background-color 0.3s",
+                  "&:hover": {
+                    backgroundColor: theme.palette.grey[100],
+                    "& .hover-icons": { display: "flex" }
+                  }
+                }}
+              >
+                <ListItemIcon sx={{ minWidth: "27px" }}>
+                  <FolderIcon
+                    fontSize="small"
+                    sx={{ color: theme.palette.grey[500] }}
+                  />
+                </ListItemIcon>
+                <ListItemText
+                  primary="kotlin"
+                  primaryTypographyProps={{ fontSize: 14.5 }}
+                />
+                <Box
+                  className="hover-icons"
+                  display="none"
+                  gap={1}
+                  alignItems="center"
+                >
+                  <Box
+                    sx={{
+                      cursor: "pointer",
+                      "&:hover": {
+                        bgcolor: `${theme.palette.primary.contrastText}`
+                      }
+                    }}
+                  ></Box>
+                  <Image
+                    src={"/kebab-menu.svg"}
+                    alt={"ケバブボタン"}
+                    width={22}
+                    height={22}
+                  />
+                  <Image
+                    src={"/book.svg"}
+                    alt={"ブックアイコン"}
+                    width={22}
+                    height={22}
+                  />
+                </Box>
+              </ListItem>
+              <ListItem
+                sx={{
+                  py: 0,
+                  my: 1,
+                  transition: "background-color 0.3s",
+                  "&:hover": {
+                    backgroundColor: theme.palette.grey[100],
+                    "& .hover-icons": { display: "flex" }
+                  }
+                }}
+              >
+                <ListItemIcon sx={{ minWidth: "25px" }}>
+                  <TagIcon
+                    fontSize="small"
+                    sx={{ color: theme.palette.grey[500] }}
+                  />
+                </ListItemIcon>
+                <ListItemText
+                  primary="振り返り"
+                  primaryTypographyProps={{ fontSize: 14.5 }}
+                />
+                <Box
+                  className="hover-icons"
+                  display="none"
+                  gap={1}
+                  alignItems="center"
+                >
+                  <Image
+                    src={"/kebab-menu.svg"}
+                    alt={"ケバブボタン"}
+                    width={22}
+                    height={22}
+                  />
+                  <Image
+                    src={"/book.svg"}
+                    alt={"ブックアイコン"}
+                    width={22}
+                    height={22}
+                  />
+                </Box>
+              </ListItem>
+            </List>
+          </Box>
+        </Box>
         <UserProfileArea
           userImage={userImage}
           username={username}
