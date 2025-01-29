@@ -98,8 +98,7 @@ export const GoodJobModal: React.FC<GoodJobModalProps> = ({
               過去の投稿を少しだけ覗いてみませんか？
             </Typography>
             <Typography
-              letterSpacing={0.5}
-              fontSize={{ xs: 13, sm: 14 }}
+              fontSize={{ xs: 12.5, sm: 14 }}
               mb={1.5}
               whiteSpace={"nowrap"}
             >
