@@ -37,8 +37,13 @@ const page = async ({
     currentPage,
     selectedTag
   );
+  // const folderResult = await folderAPI.getFolder(username);
 
-  if (countResult === 404 || reflectionsResult === 404) {
+  if (
+    countResult === 404 ||
+    reflectionsResult === 404
+    // folderResult === 404
+  ) {
     return notFound();
   }
 
@@ -64,6 +69,8 @@ const page = async ({
     countResult,
     reflectionsResult
   ]);
+  // const [reflectionCount, reflectionsWithUser, reflectionFolder] =
+  //   await Promise.all([countResult, reflectionsResult, folderResult]);
 
   return (
     <>
