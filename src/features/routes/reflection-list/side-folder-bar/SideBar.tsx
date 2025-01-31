@@ -1,6 +1,7 @@
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box, IconButton, List } from "@mui/material";
+import { TAGS } from "../../post/popup/select-tag/SelectTagPopup";
 import { FolderItem } from "./ FolderItem";
 import { TagItem } from "./TagItem";
 import { theme } from "@/src/utils/theme";
@@ -8,7 +9,6 @@ import { theme } from "@/src/utils/theme";
 const SideBar: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const folders = ["C++", "javaScript", "Java"];
-  const tags = ["振り返り", "学び", "ちいかわ"];
   return (
     <>
       <IconButton
@@ -43,7 +43,7 @@ const SideBar: React.FC = () => {
             ))}
           </List>
           <List>
-            {tags.map((tag) => (
+            {TAGS.map((tag) => (
               <TagItem tagname={tag} key={tag} />
             ))}
           </List>
