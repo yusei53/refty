@@ -8,8 +8,7 @@ import type {
 } from "@/src/api/reflection-api";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import type { User } from "@prisma/client";
-import { folderAPI } from "@/src/api/folder-api";
-import { Button, PostNavigationButton } from "@/src/components/button";
+import { PostNavigationButton } from "@/src/components/button";
 import {
   ArrowPagination,
   NumberedPagination
@@ -70,23 +69,23 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     router.push(`/${username}`);
   };
 
-  const handleCreateFolder = async () => {
-    const folderName = prompt("新しいフォルダ名を入力してください"); // 直接入力
-    if (!folderName) return;
+  // const handleCreateFolder = async () => {
+  //   const folderName = prompt("新しいフォルダ名を入力してください"); // 直接入力
+  //   if (!folderName) return;
 
-    try {
-      const result = await folderAPI.createFolder(username, folderName);
-      if (result === 401) {
-        alert("フォルダの作成に失敗しました");
-      } else {
-        alert("フォルダが作成されました");
-        router.refresh();
-      }
-    } catch (error) {
-      console.error("フォルダ作成エラー:", error);
-      alert("エラーが発生しました");
-    }
-  };
+  //   try {
+  //     const result = await folderAPI.createFolder(username, folderName);
+  //     if (result === 401) {
+  //       alert("フォルダの作成に失敗しました");
+  //     } else {
+  //       alert("フォルダが作成されました");
+  //       router.refresh();
+  //     }
+  //   } catch (error) {
+  //     console.error("フォルダ作成エラー:", error);
+  //     alert("エラーが発生しました");
+  //   }
+  // };
 
   return (
     <>
