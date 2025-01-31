@@ -1,7 +1,7 @@
-import { Box } from "@mui/material";
+import { Box, List } from "@mui/material";
+import Folder from "./ Folder";
 import FolderIcon from "./FolderIcon ";
-import FolderList from "./FolderList";
-import TagList from "./TagList";
+import Tag from "./Tag";
 import { theme } from "@/src/utils/theme";
 
 type SideBarProps = {
@@ -10,6 +10,8 @@ type SideBarProps = {
 };
 
 const SideBar: React.FC<SideBarProps> = ({ setSidebarOpen, isSidebarOpen }) => {
+  const folders = ["C++", "javaScript", "Java"];
+  const tags = ["振り返り", "学び", "ちいかわ"];
   return (
     <>
       <FolderIcon setSidebarOpen={setSidebarOpen} />
@@ -27,8 +29,16 @@ const SideBar: React.FC<SideBarProps> = ({ setSidebarOpen, isSidebarOpen }) => {
         }}
       >
         <Box my={10}>
-          <FolderList />
-          <TagList />
+          <List>
+            {folders.map((folder) => (
+              <Folder foldername={folder} key={folder} />
+            ))}
+          </List>
+          <List>
+            {tags.map((tag) => (
+              <Tag tagname={tag} key={tag} />
+            ))}
+          </List>
         </Box>
       </Box>
     </>
