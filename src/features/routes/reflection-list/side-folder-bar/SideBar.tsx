@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Box, List } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Box, IconButton, List } from "@mui/material";
 import FolderItem from "./ FolderItem";
-import FolderIcon from "./FolderIcon ";
 import TagItem from "./TagItem";
 import { theme } from "@/src/utils/theme";
 
@@ -11,7 +11,18 @@ const SideBar: React.FC = () => {
   const tags = ["振り返り", "学び", "ちいかわ"];
   return (
     <>
-      <FolderIcon setSidebarOpen={setSidebarOpen} />
+      <IconButton
+        disableRipple
+        onClick={() => setSidebarOpen((prev) => !prev)}
+        sx={{
+          position: "fixed",
+          top: 16,
+          left: 16,
+          zIndex: 10
+        }}
+      >
+        <MenuIcon sx={{ color: theme.palette.grey[500] }} />
+      </IconButton>
       <Box
         position={"fixed"}
         top={0}
