@@ -1,8 +1,8 @@
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box, IconButton, List } from "@mui/material";
-import FolderItem from "./ FolderItem";
-import TagItem from "./TagItem";
+import { FolderItem } from "./ FolderItem";
+import { TagItem } from "./TagItem";
 import { theme } from "@/src/utils/theme";
 
 const SideBar: React.FC = () => {

@@ -7,7 +7,7 @@ type TagItemProps = {
   tagname: string;
 };
 
-const TagItem: React.FC<TagItemProps> = ({ tagname }) => {
+export const TagItem: React.FC<TagItemProps> = ({ tagname }) => {
   return (
     <ListItem
       sx={{
@@ -44,4 +44,3 @@ const TagItem: React.FC<TagItemProps> = ({ tagname }) => {
     </ListItem>
   );
 };
-export default TagItem;

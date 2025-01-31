@@ -7,7 +7,7 @@ type FolderItemProps = {
   foldername: string;
 };
 
-const FolderItem: React.FC<FolderItemProps> = ({ foldername }) => {
+export const FolderItem: React.FC<FolderItemProps> = ({ foldername }) => {
   return (
     <ListItem
       sx={{
@@ -53,5 +53,3 @@ const FolderItem: React.FC<FolderItemProps> = ({ foldername }) => {
     </ListItem>
   );
 };
-
-export default FolderItem;
