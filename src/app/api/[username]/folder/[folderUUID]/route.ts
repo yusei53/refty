@@ -35,3 +35,33 @@ export async function DELETE(
     return internalServerError("DELETE", "フォルダ", error);
   }
 }
+
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: { username: string; folderUUID: string } }
+) {
+  try {
+    const { folderUUID } = params;
+    const { name } = await req.json();
+
+    const currentUser = await getCurrentUser();
+
+    if (!currentUser?.id) {
+      return unauthorizedError("認証されていません");
+    }
+
+    const folder = await prisma.reflectionFolder.update({
+      where: { folderUUID },
+      data: { name }
+    });
+
+    if (!folder) {
+      return notFoundError("フォルダが見つかりません");
+    }
+
+    return NextResponse.json(folder, { status: 200 });
+  } catch (error) {
+    console.error(error);
+    return internalServerError("PATCH", "フォルダ", error);
+  }
+}

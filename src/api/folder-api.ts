@@ -48,5 +48,23 @@ export const folderAPI = {
       }
     };
     return await fetchURL<void, 401>(path, options);
+  },
+
+  async updateFolder(
+    username: string,
+    folderUUID: string,
+    name: string
+  ): Promise<Result<void, 401>> {
+    const path = `/api/${username}/folder/${folderUUID}`;
+    const options: FetchURLOptions = {
+      method: "PATCH",
+      body: {
+        name
+      },
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    return await fetchURL<void, 401>(path, options);
   }
 };
