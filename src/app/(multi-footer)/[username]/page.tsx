@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth";
 import authOptions from "../../api/auth/[...nextauth]/options";
 import UserReflectionListPage from "./page.client";
+import { folderAPI } from "@/src/api/folder-api";
 import { reflectionAPI } from "@/src/api/reflection-api";
 import { reflectionsCountAPI } from "@/src/api/reflections-count-api";
 import { getHeaders } from "@/src/utils/get-headers";
@@ -37,12 +38,12 @@ const page = async ({
     currentPage,
     selectedTag
   );
-  // const folderResult = await folderAPI.getFolder(username);
+  const folderResult = await folderAPI.getFolder(username);
 
   if (
     countResult === 404 ||
-    reflectionsResult === 404
-    // folderResult === 404
+    reflectionsResult === 404 ||
+    folderResult === 404
   ) {
     return notFound();
   }
@@ -65,12 +66,14 @@ const page = async ({
   }
 
   // MEMO: 並列データフェッチ
-  const [reflectionCount, reflectionsWithUser] = await Promise.all([
-    countResult,
-    reflectionsResult
-  ]);
-  // const [reflectionCount, reflectionsWithUser, reflectionFolder] =
-  //   await Promise.all([countResult, reflectionsResult, folderResult]);
+  // const [reflectionCount, reflectionsWithUser] = await Promise.all([
+  //   countResult,
+  //   reflectionsResult
+  // ]);
+  const [reflectionCount, reflectionsWithUser, reflectionFolder] =
+    await Promise.all([countResult, reflectionsResult, folderResult]);
+
+  console.log(reflectionFolder);
 
   return (
     <>
