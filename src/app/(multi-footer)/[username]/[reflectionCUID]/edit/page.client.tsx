@@ -72,6 +72,9 @@ const ReflectionUpdateFormPage: React.FC<ReflectionUpdateFormPageProps> = ({
       isAwareness={isAwareness}
       isInputLog={isInputLog}
       isMonologue={isMonologue}
+      selectedFolderUUID={null}
+      onFolderChange={() => {}}
+      folders={[]}
     />
   );
 };
