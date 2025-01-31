@@ -5,7 +5,6 @@ import { theme } from "@/src/utils/theme";
 
 type TagProps = {
   tagname: string;
-  key: string;
 };
 
 const Tag: React.FC<TagProps> = ({ tagname }) => {

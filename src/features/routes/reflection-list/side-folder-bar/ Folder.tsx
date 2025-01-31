@@ -5,7 +5,6 @@ import { theme } from "@/src/utils/theme";
 
 type FolderProps = {
   foldername: string;
-  key: string;
 };
 
 const Folder: React.FC<FolderProps> = ({ foldername }) => {
