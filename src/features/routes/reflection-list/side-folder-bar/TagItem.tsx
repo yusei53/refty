@@ -1,19 +1,18 @@
 import Image from "next/image";
-import FolderIcon from "@mui/icons-material/Folder";
+import TagIcon from "@mui/icons-material/Tag";
 import { Box, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { theme } from "@/src/utils/theme";
 
-type FolderProps = {
-  foldername: string;
+type TagItemProps = {
+  tagname: string;
 };
 
-const Folder: React.FC<FolderProps> = ({ foldername }) => {
+const TagItem: React.FC<TagItemProps> = ({ tagname }) => {
   return (
     <ListItem
       sx={{
         py: 0,
         my: 1,
-        borderRadius: 2,
         transition: "background-color 0.3s",
         "&:hover": {
           backgroundColor: theme.palette.grey[100],
@@ -21,22 +20,14 @@ const Folder: React.FC<FolderProps> = ({ foldername }) => {
         }
       }}
     >
-      <ListItemIcon sx={{ minWidth: "27px" }}>
-        <FolderIcon fontSize="small" sx={{ color: theme.palette.grey[500] }} />
+      <ListItemIcon sx={{ minWidth: "25px" }}>
+        <TagIcon fontSize="small" sx={{ color: theme.palette.grey[500] }} />
       </ListItemIcon>
       <ListItemText
-        primary={foldername}
+        primary={tagname}
         primaryTypographyProps={{ fontSize: 14.5 }}
       />
       <Box className="hover-icons" display="none" gap={1} alignItems="center">
-        <Box
-          sx={{
-            cursor: "pointer",
-            "&:hover": {
-              bgcolor: `${theme.palette.primary.contrastText}`
-            }
-          }}
-        ></Box>
         <Image
           src={"/kebab-menu.svg"}
           alt={"ケバブボタン"}
@@ -53,5 +44,4 @@ const Folder: React.FC<FolderProps> = ({ foldername }) => {
     </ListItem>
   );
 };
-
-export default Folder;
+export default TagItem;

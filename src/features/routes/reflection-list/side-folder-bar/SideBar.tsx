@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Box, List } from "@mui/material";
-import Folder from "./ Folder";
+import FolderItem from "./ FolderItem";
 import FolderIcon from "./FolderIcon ";
-import Tag from "./Tag";
+import TagItem from "./TagItem";
 import { theme } from "@/src/utils/theme";
 
 const SideBar: React.FC = () => {
@@ -28,12 +28,12 @@ const SideBar: React.FC = () => {
         <Box my={10}>
           <List>
             {folders.map((folder) => (
-              <Folder foldername={folder} key={folder} />
+              <FolderItem foldername={folder} key={folder} />
             ))}
           </List>
           <List>
             {tags.map((tag) => (
-              <Tag tagname={tag} key={tag} />
+              <TagItem tagname={tag} key={tag} />
             ))}
           </List>
         </Box>
