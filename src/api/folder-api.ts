@@ -31,5 +31,22 @@ export const folderAPI = {
       }
     };
     return await fetchURL<void, 401>(path, options);
+  },
+
+  async deleteFolder(
+    username: string,
+    folderUUID: string
+  ): Promise<Result<void, 401>> {
+    const path = `/api/${username}/folder/${folderUUID}`;
+    const options: FetchURLOptions = {
+      method: "DELETE",
+      body: {
+        folderUUID
+      },
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    return await fetchURL<void, 401>(path, options);
   }
 };
