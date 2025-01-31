@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Box, useMediaQuery } from "@mui/material";
 import type {
@@ -52,7 +51,6 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   tagCountList,
   randomReflection
 }) => {
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
@@ -74,10 +72,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   return (
     <>
       <Box minHeight={"90vh"}>
-        <SideBar
-          isSidebarOpen={isSidebarOpen}
-          setSidebarOpen={setSidebarOpen}
-        />
+        <SideBar />
         <UserProfileArea
           userImage={userImage}
           username={username}

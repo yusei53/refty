@@ -1,15 +1,12 @@
+import { useState } from "react";
 import { Box, List } from "@mui/material";
 import Folder from "./ Folder";
 import FolderIcon from "./FolderIcon ";
 import Tag from "./Tag";
 import { theme } from "@/src/utils/theme";
 
-type SideBarProps = {
-  isSidebarOpen: boolean;
-  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const SideBar: React.FC<SideBarProps> = ({ setSidebarOpen, isSidebarOpen }) => {
+const SideBar: React.FC = () => {
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
   const folders = ["C++", "javaScript", "Java"];
   const tags = ["振り返り", "学び", "ちいかわ"];
   return (
