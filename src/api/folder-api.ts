@@ -15,7 +15,6 @@ export const folderAPI = {
     };
     return await fetchURL<Folder[], 404>(path, options);
   },
-
   async createFolder(
     username: string,
     name: string
