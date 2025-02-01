@@ -142,6 +142,7 @@ export const reflectionRepository = {
         isInputLog: true,
         isMonologue: true,
         aiFeedback: true,
+        folderUUID: true,
         createdAt: true,
         userId: true,
         user: {
@@ -221,6 +222,7 @@ export const reflectionRepository = {
     isAwareness: boolean;
     isInputLog: boolean;
     isMonologue: boolean;
+    folderUUID?: string;
   }) {
     const {
       reflectionCUID,
@@ -232,7 +234,8 @@ export const reflectionRepository = {
       isLearning,
       isAwareness,
       isInputLog,
-      isMonologue
+      isMonologue,
+      folderUUID
     } = params;
 
     return prisma.reflection.update({
@@ -246,7 +249,8 @@ export const reflectionRepository = {
         isLearning,
         isAwareness,
         isInputLog,
-        isMonologue
+        isMonologue,
+        folderUUID
       }
     });
   },

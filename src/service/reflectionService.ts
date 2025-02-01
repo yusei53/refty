@@ -253,6 +253,7 @@ export const reflectionService = {
     isAwareness: boolean;
     isInputLog: boolean;
     isMonologue: boolean;
+    folderUUID?: string;
   }) {
     const {
       reflectionCUID,
@@ -264,7 +265,8 @@ export const reflectionService = {
       isLearning,
       isAwareness,
       isInputLog,
-      isMonologue
+      isMonologue,
+      folderUUID
     } = params;
 
     const reflection = await prisma.reflection.findUnique({
@@ -285,7 +287,8 @@ export const reflectionService = {
       isLearning,
       isAwareness,
       isInputLog,
-      isMonologue
+      isMonologue,
+      folderUUID
     });
   },
 

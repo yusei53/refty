@@ -1,4 +1,5 @@
 "use client";
+import type { Folder } from "@/src/api/folder-api";
 import ReflectionPostForm from "@/src/features/common/post-form/ReflectionPostForm";
 import { useUpdateReflectionForm } from "@/src/hooks/reflection/useUpdateReflectionForm";
 
@@ -14,6 +15,8 @@ type ReflectionUpdateFormPageProps = {
   isAwareness: boolean;
   isInputLog: boolean;
   isMonologue: boolean;
+  folderUUID?: string;
+  folders: Folder[];
 };
 
 const ReflectionUpdateFormPage: React.FC<ReflectionUpdateFormPageProps> = ({
@@ -27,7 +30,9 @@ const ReflectionUpdateFormPage: React.FC<ReflectionUpdateFormPageProps> = ({
   isLearning,
   isAwareness,
   isInputLog,
-  isMonologue
+  isMonologue,
+  folderUUID,
+  folders
 }) => {
   const {
     control,
@@ -37,7 +42,9 @@ const ReflectionUpdateFormPage: React.FC<ReflectionUpdateFormPageProps> = ({
     onSubmit,
     selectedEmoji,
     handleEmojiChange,
-    handleTagChange
+    handleTagChange,
+    selectedFolderUUID,
+    handleFolderChange
   } = useUpdateReflectionForm({
     reflectionCUID,
     username,
@@ -49,7 +56,8 @@ const ReflectionUpdateFormPage: React.FC<ReflectionUpdateFormPageProps> = ({
     isLearning,
     isAwareness,
     isInputLog,
-    isMonologue
+    isMonologue,
+    folderUUID
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -72,9 +80,9 @@ const ReflectionUpdateFormPage: React.FC<ReflectionUpdateFormPageProps> = ({
       isAwareness={isAwareness}
       isInputLog={isInputLog}
       isMonologue={isMonologue}
-      selectedFolderUUID={null}
-      onFolderChange={() => {}}
-      folders={[]}
+      selectedFolderUUID={selectedFolderUUID}
+      onFolderChange={handleFolderChange}
+      folders={folders}
     />
   );
 };
