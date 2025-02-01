@@ -18,6 +18,7 @@ import ReflectionCardListArea from "@/src/features/routes/reflection-list/card-l
 import { EmptyReflection } from "@/src/features/routes/reflection-list/card-list/empty-reflection";
 import { GoodJobModal } from "@/src/features/routes/reflection-list/modal";
 import UserProfileArea from "@/src/features/routes/reflection-list/profile/UserProfileArea";
+import SideBar from "@/src/features/routes/reflection-list/side-folder-bar/SideBar";
 import { usePagination } from "@/src/hooks/reflection/usePagination";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { useTagHandler } from "@/src/hooks/reflection-tag/useTagHandler";
@@ -68,10 +69,28 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     router.push(`/${username}`);
   };
 
-  // TODO: ReflectionAllAreaのようなコンポーネントを作ってリファクタする
+  // const handleCreateFolder = async () => {
+  //   const folderName = prompt("新しいフォルダ名を入力してください"); // 直接入力
+  //   if (!folderName) return;
+
+  //   try {
+  //     const result = await folderAPI.createFolder(username, folderName);
+  //     if (result === 401) {
+  //       alert("フォルダの作成に失敗しました");
+  //     } else {
+  //       alert("フォルダが作成されました");
+  //       router.refresh();
+  //     }
+  //   } catch (error) {
+  //     console.error("フォルダ作成エラー:", error);
+  //     alert("エラーが発生しました");
+  //   }
+  // };
+
   return (
     <>
       <Box minHeight={"90vh"}>
+        <SideBar />
         <UserProfileArea
           userImage={userImage}
           username={username}

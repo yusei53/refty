@@ -22,6 +22,7 @@ export type Reflection = {
   isAwareness: boolean;
   isInputLog: boolean;
   isMonologue: boolean;
+  folderUUID: string | null;
   createdAt: string;
 };
 
@@ -129,7 +130,8 @@ export const reflectionAPI = {
     isLearning,
     isAwareness,
     isInputLog,
-    isMonologue
+    isMonologue,
+    folderUUID
   }: {
     title: string;
     content: string;
@@ -140,6 +142,7 @@ export const reflectionAPI = {
     isAwareness: boolean;
     isInputLog: boolean;
     isMonologue: boolean;
+    folderUUID?: string;
   }): Promise<Result<void, 401>> {
     const path = `/api/reflection`;
     const options: FetchURLOptions = {
@@ -153,7 +156,8 @@ export const reflectionAPI = {
         isLearning,
         isAwareness,
         isInputLog,
-        isMonologue
+        isMonologue,
+        folderUUID: folderUUID || null
       },
       headers: {
         "Content-Type": "application/json"
@@ -172,7 +176,8 @@ export const reflectionAPI = {
     isLearning,
     isAwareness,
     isInputLog,
-    isMonologue
+    isMonologue,
+    folderUUID
   }: {
     reflectionCUID: string;
     title: string;
@@ -184,6 +189,7 @@ export const reflectionAPI = {
     isAwareness: boolean;
     isInputLog: boolean;
     isMonologue: boolean;
+    folderUUID?: string;
   }): Promise<Result<void, 400 | 401 | 403>> {
     const path = `/api/reflection/detail/${reflectionCUID}`;
     const options: FetchURLOptions = {
@@ -197,7 +203,8 @@ export const reflectionAPI = {
         isLearning,
         isAwareness,
         isInputLog,
-        isMonologue
+        isMonologue,
+        folderUUID: folderUUID || null
       },
       headers: {
         "Content-Type": "application/json"

@@ -23,7 +23,8 @@ export const createReflectionSchema = z.object({
   isLearning: z.boolean().default(false),
   isAwareness: z.boolean().default(false),
   isInputLog: z.boolean().default(false),
-  isMonologue: z.boolean().default(false)
+  isMonologue: z.boolean().default(false),
+  folderUUID: z.string().optional()
 });
 
 export type CreateReflectionSchemaType = z.infer<typeof createReflectionSchema>;
@@ -31,6 +32,9 @@ export type CreateReflectionSchemaType = z.infer<typeof createReflectionSchema>;
 export const useCreateReflectionForm = (username: string | undefined) => {
   const router = useRouter();
   const [selectedEmoji, setSelectedEmoji] = useState("💭");
+  const [selectedFolderUUID, setSelectedFolderUUID] = useState<string | null>(
+    null
+  );
 
   const {
     handleSubmit,
@@ -55,6 +59,11 @@ export const useCreateReflectionForm = (username: string | undefined) => {
   const handleEmojiChange = (emoji: string) => {
     setSelectedEmoji(emoji);
     setValue("charStamp", emoji);
+  };
+
+  const handleFolderChange = (folderUUID: string | null) => {
+    setSelectedFolderUUID(folderUUID);
+    setValue("folderUUID", folderUUID ?? undefined);
   };
 
   const { handleTagChange } = useParseValueToTags({ setValue });
@@ -92,6 +101,8 @@ export const useCreateReflectionForm = (username: string | undefined) => {
     onSubmit,
     selectedEmoji,
     handleEmojiChange,
+    selectedFolderUUID,
+    handleFolderChange,
     handleTagChange
   };
 };
