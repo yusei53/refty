@@ -1,7 +1,6 @@
-import { useState } from "react";
 import Image from "next/image";
 import { Box, TextField } from "@mui/material";
-import { folderAPI } from "@/src/api/folder-api";
+import { useNewFolder } from "@/src/hooks/sidebar/folder/useNewFolder";
 
 type NewFolderFieldProps = {
   username: string;
@@ -12,23 +11,17 @@ export const NewFolderField = ({
   username,
   onFolderCreated
 }: NewFolderFieldProps) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [folderName, setFolderName] = useState("");
-
-  const handleClick = () => {
-    setIsEditing(true);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (folderName.trim()) {
-      folderAPI.createFolder(username, folderName).then(() => {
-        setFolderName("");
-        setIsEditing(false);
-        onFolderCreated();
-      });
-    }
-  };
+  const {
+    isEditing,
+    folderName,
+    handleClick,
+    handleSubmit,
+    setFolderName,
+    setIsEditing
+  } = useNewFolder({
+    username,
+    onFolderCreated
+  });
 
   return (
     <Box>
