@@ -259,5 +259,29 @@ export const reflectionAPI = {
       }
     };
     return await fetchURL<void, 401>(path, options);
+  },
+
+  async bulkUpdateFolderReflection({
+    reflectionCUID,
+    folderUUID,
+    username
+  }: {
+    reflectionCUID: string[];
+    folderUUID: string;
+    username: string;
+  }): Promise<Result<void, 401>> {
+    const path = `/api/reflection/bulk-select`;
+    const options: FetchURLOptions = {
+      method: "POST",
+      body: {
+        reflectionCUID,
+        folderUUID,
+        username
+      },
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    return await fetchURL<void, 401>(path, options);
   }
 };
