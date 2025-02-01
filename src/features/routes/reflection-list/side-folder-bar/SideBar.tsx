@@ -6,7 +6,7 @@ import { TAGS } from "../../post/popup/select-tag/SelectTagPopup";
 import { FolderItem } from "./FolderItem";
 import { NewFolderField } from "./NewFolderField";
 import { TagItem } from "./TagItem";
-import { folderAPI } from "@/src/api/folder-api";
+import { useFolder } from "@/src/hooks/sidebar/folder/useFolder";
 import { theme } from "@/src/utils/theme";
 
 type SideBarProps = {
@@ -21,14 +21,11 @@ const SideBar: React.FC<SideBarProps> = ({
   initialFolders
 }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [folders, setFolders] = useState<Folder[]>(initialFolders);
 
-  const refreshFolders = async () => {
-    const updatedFolders = await folderAPI.getFolder(username);
-    if (Array.isArray(updatedFolders)) {
-      setFolders(updatedFolders);
-    }
-  };
+  const { folders, refreshFolders } = useFolder({
+    initialFolders,
+    username
+  });
 
   return (
     <>
