@@ -9,7 +9,7 @@ type SidebarProps = {
   onSelectMode: () => void;
 };
 
-const Sidebar: React.FC<SidebarProps> = ({ onSelectMode }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ onSelectMode }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const folders = ["C++", "javaScript", "Java"];
 
@@ -60,5 +60,3 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelectMode }) => {
     </>
   );
 };
-
-export default Sidebar;
