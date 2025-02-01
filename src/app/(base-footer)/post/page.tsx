@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import { Typography } from "@mui/material";
 import authOptions from "../../api/auth/[...nextauth]/options";
 import ReflectionPostFormPage from "./page.client";
 import { folderAPI } from "@/src/api/folder-api";
@@ -19,8 +18,8 @@ const page = async () => {
 
   const folders = await folderAPI.getFolder(session.user.username);
 
-  if (typeof folders === "number") {
-    return <Typography>フォルダ取得に失敗しました</Typography>;
+  if (folders === 404) {
+    return notFound();
   }
 
   return (

@@ -66,6 +66,7 @@ export type ReflectionDetail = Reflection & {
     image: string;
     username: string;
   };
+  folderUUID?: string;
   reflectionCount: number;
 };
 

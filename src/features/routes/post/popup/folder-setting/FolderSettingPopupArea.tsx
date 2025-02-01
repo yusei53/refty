@@ -22,7 +22,6 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
   onToggle,
   onClose
 }) => {
-  console.log(selectedFolderUUID);
   return (
     <>
       <Button

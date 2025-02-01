@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import ReflectionUpdateFormPage from "./page.client";
+import { folderAPI } from "@/src/api/folder-api";
 import { reflectionAPI } from "@/src/api/reflection-api";
 import authOptions from "@/src/app/api/auth/[...nextauth]/options";
 import { generateMeta } from "@/src/utils/metadata";
@@ -35,6 +36,12 @@ const page = async ({ params }: PageProps) => {
     redirect("/login");
   }
 
+  const folders = await folderAPI.getFolder(session.user.username);
+
+  if (folders === 404) {
+    return notFound();
+  }
+
   return (
     <ReflectionUpdateFormPage
       username={session.user.username}
@@ -48,6 +55,8 @@ const page = async ({ params }: PageProps) => {
       isAwareness={reflection.isAwareness}
       isInputLog={reflection.isInputLog}
       isMonologue={reflection.isMonologue}
+      folderUUID={reflection.folderUUID}
+      folders={folders}
     />
   );
 };
