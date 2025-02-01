@@ -65,11 +65,6 @@ const page = async ({
     }
   }
 
-  // MEMO: 並列データフェッチ
-  // const [reflectionCount, reflectionsWithUser] = await Promise.all([
-  //   countResult,
-  //   reflectionsResult
-  // ]);
   const [reflectionCount, reflectionsWithUser, reflectionFolder] =
     await Promise.all([countResult, reflectionsResult, folderResult]);
 
@@ -89,6 +84,7 @@ const page = async ({
         totalPage={reflectionsWithUser.totalPage}
         tagCountList={reflectionsWithUser.tagCountList}
         randomReflection={randomReflection}
+        folders={reflectionFolder}
       />
     </>
   );

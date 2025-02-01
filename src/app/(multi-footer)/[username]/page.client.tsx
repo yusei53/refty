@@ -2,13 +2,15 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Box, useMediaQuery } from "@mui/material";
-import type {
-  RandomReflection,
-  Reflection,
-  ReflectionTagCountList
-} from "@/src/api/reflection-api";
+import type { Folder } from "@/src/api/folder-api";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import type { User } from "@prisma/client";
+import {
+  reflectionAPI,
+  type RandomReflection,
+  type Reflection,
+  type ReflectionTagCountList
+} from "@/src/api/reflection-api";
 import { Button, PostNavigationButton } from "@/src/components/button";
 import {
   ArrowPagination,
@@ -37,6 +39,7 @@ type UserReflectionListPageProps = {
   totalPage: number;
   tagCountList: ReflectionTagCountList;
   randomReflection: RandomReflection | null;
+  folders: Folder[];
 };
 
 const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
@@ -50,10 +53,13 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   currentPage,
   totalPage,
   tagCountList,
-  randomReflection
+  randomReflection,
+  folders
 }) => {
   const [isSelectionMode, setIsSelectionMode] = useState(false);
   const [selectedReflections, setSelectedReflections] = useState<string[]>([]);
+  // 追加：選択されたフォルダの uuid を保持する state
+  const [selectedFolderUUID, setSelectedFolderUUID] = useState<string>("");
   const router = useRouter();
   const searchParams = useSearchParams();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
@@ -65,8 +71,10 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     getSelectedTagCount
   } = useTagHandler();
   const { handlePageChange } = usePagination();
-  const handleSelectMode = () => {
-    setIsSelectionMode((prev) => !prev);
+
+  const handleSelectMode = (folderUUID: string) => {
+    setIsSelectionMode(true);
+    setSelectedFolderUUID(folderUUID);
   };
 
   const handleSelect = (reflectionCUID: string) => {
@@ -82,10 +90,23 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   const onCancelSelectMode = () => {
     setIsSelectionMode(false);
     setSelectedReflections([]);
+    setSelectedFolderUUID("");
   };
 
-  const onAddSelected = () => {
+  const onAddSelected = async () => {
+    if (!selectedFolderUUID) {
+      console.error("フォルダが選択されていません");
+      return;
+    }
+    await reflectionAPI.bulkUpdateFolderReflection({
+      reflectionCUID: selectedReflections,
+      folderUUID: selectedFolderUUID,
+      username
+    });
+
     setIsSelectionMode(false);
+    setSelectedReflections([]);
+    setSelectedFolderUUID("");
   };
 
   const isCurrentUser = currentUsername === username;
@@ -115,7 +136,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   return (
     <>
       <Box minHeight={"90vh"}>
-        <Sidebar onSelectMode={handleSelectMode} />
+        <Sidebar folders={folders} onSelectMode={handleSelectMode} />
         <UserProfileArea
           userImage={userImage}
           username={username}
@@ -135,19 +156,11 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           />
           {isSelectionMode && (
             <Box>
-              <Button
-                sx={{
-                  ...label
-                }}
-                onClick={onCancelSelectMode}
-              >
+              <Button sx={label} onClick={onCancelSelectMode}>
                 キャンセル
               </Button>
               <Button
-                sx={{
-                  ...label,
-                  color: theme.palette.primary.light
-                }}
+                sx={{ ...label, color: theme.palette.primary.light }}
                 onClick={onAddSelected}
               >
                 追加
