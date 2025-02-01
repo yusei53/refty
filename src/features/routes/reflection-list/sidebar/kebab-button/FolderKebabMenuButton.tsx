@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Image from "next/image";
 import { Box, Fade, Popper } from "@mui/material";
 import { red } from "@mui/material/colors";
@@ -22,12 +21,6 @@ export const FolderKebabMenuButton: React.FC<FolderKebabMenuButtonProps> = ({
   onSelectMode,
   onEditFolderName
 }) => {
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
-  const handleDeleteModalToggle = () => {
-    setIsDeleteModalOpen(!isDeleteModalOpen);
-  };
-
   return (
     <>
       <Box
@@ -41,7 +34,6 @@ export const FolderKebabMenuButton: React.FC<FolderKebabMenuButtonProps> = ({
         alignItems={"center"}
         justifyContent={"center"}
         onClick={onOpenPopup}
-        onBlur={onClosePopup}
         sx={{
           cursor: "pointer",
           "&:hover": {
@@ -69,19 +61,24 @@ export const FolderKebabMenuButton: React.FC<FolderKebabMenuButtonProps> = ({
                 text={"投稿をフォルダに追加"}
                 src={"/pin.svg"}
                 alt={`フォルダに投稿を追加するボタン`}
-                onClick={onSelectMode}
+                onClick={() => {
+                  onClosePopup();
+                  onSelectMode();
+                }}
               />
               <PopupButton
                 text={"編集する"}
                 src={"/edit.svg"}
                 alt={`フォルダ名を編集するボタン`}
-                onClick={onEditFolderName}
+                onClick={() => {
+                  onEditFolderName();
+                  onClosePopup();
+                }}
               />
               <PopupButton
                 text={"削除する"}
                 src={"/delete.svg"}
                 alt={`フォルダを削除するボタン`}
-                onClick={handleDeleteModalToggle}
                 textcolor={red[400]}
               />
             </Box>
@@ -89,11 +86,6 @@ export const FolderKebabMenuButton: React.FC<FolderKebabMenuButtonProps> = ({
         )}
       </Popper>
       {/* // MEMO: フォルダの削除確認モーダルも作った方がいい */}
-      {/* <DeleteConfirmationModal
-        open={isDeleteModalOpen}
-        onClose={handleDeleteModalToggle}
-        reflectionCUID={reflectionCUID}
-      /> */}
     </>
   );
 };

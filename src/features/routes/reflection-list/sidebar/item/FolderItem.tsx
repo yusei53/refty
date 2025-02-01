@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Image from "next/image";
 import FolderIcon from "@mui/icons-material/Folder";
 import { Box, ListItem, ListItemIcon, ListItemText } from "@mui/material";
@@ -13,6 +14,8 @@ export const FolderItem: React.FC<FolderItemProps> = ({
   foldername,
   onSelectMode
 }) => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
   return (
     <ListItem
       sx={{
@@ -33,8 +36,16 @@ export const FolderItem: React.FC<FolderItemProps> = ({
         primary={foldername}
         primaryTypographyProps={{ fontSize: 14.5 }}
       />
-      <Box className="hover-icons" display="none" gap={1} alignItems="center">
-        <FolderKebabButtonPopupContainer onSelectMode={onSelectMode} />
+      <Box
+        className="hover-icons"
+        display={isPopupOpen ? "flex" : "none"}
+        gap={1}
+        alignItems="center"
+      >
+        <FolderKebabButtonPopupContainer
+          onSelectMode={onSelectMode}
+          onPopupChange={(open) => setIsPopupOpen(open)}
+        />
         <Image
           src={"/book.svg"}
           alt={"ブックアイコン"}

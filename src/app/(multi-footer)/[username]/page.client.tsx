@@ -19,7 +19,7 @@ import ReflectionCardListArea from "@/src/features/routes/reflection-list/card-l
 import { EmptyReflection } from "@/src/features/routes/reflection-list/card-list/empty-reflection";
 import { GoodJobModal } from "@/src/features/routes/reflection-list/modal";
 import UserProfileArea from "@/src/features/routes/reflection-list/profile/UserProfileArea";
-import Sidebar from "@/src/features/routes/reflection-list/sidebar/SideBar";
+import { Sidebar } from "@/src/features/routes/reflection-list/sidebar";
 import { usePagination } from "@/src/hooks/reflection/usePagination";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { useTagHandler } from "@/src/hooks/reflection-tag/useTagHandler";

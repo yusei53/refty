@@ -4,19 +4,24 @@ import { FolderKebabMenuButton } from "./FolderKebabMenuButton";
 
 type FolderKebabButtonPopupContainerProps = {
   onSelectMode: () => void;
+  onPopupChange?: (isOpen: boolean) => void;
 };
 
 export const FolderKebabButtonPopupContainer: React.FC<
   FolderKebabButtonPopupContainerProps
-> = ({ onSelectMode }) => {
+> = ({ onSelectMode, onPopupChange }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const handleOpenPopup = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
+    if (!anchorEl) {
+      setAnchorEl(event.currentTarget);
+      onPopupChange && onPopupChange(true);
+    }
   };
 
   const handleClosePopup = () => {
     setAnchorEl(null);
+    onPopupChange && onPopupChange(false);
   };
 
   const handleEditFolderName = () => {};
