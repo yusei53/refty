@@ -121,7 +121,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
         <SideBar
           onSelectMode={handleSelectMode}
           username={username}
-          folders={folders}
+          initialFolders={folders}
         />
         <UserProfileArea
           userImage={userImage}

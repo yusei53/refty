@@ -6,20 +6,29 @@ import { TAGS } from "../../post/popup/select-tag/SelectTagPopup";
 import { FolderItem } from "./FolderItem";
 import { NewFolderField } from "./NewFolderField";
 import { TagItem } from "./TagItem";
+import { folderAPI } from "@/src/api/folder-api";
 import { theme } from "@/src/utils/theme";
 
 type SideBarProps = {
   onSelectMode: () => void;
   username: string;
-  folders: Folder[];
+  initialFolders: Folder[];
 };
 
 const SideBar: React.FC<SideBarProps> = ({
   onSelectMode,
   username,
-  folders
+  initialFolders
 }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [folders, setFolders] = useState<Folder[]>(initialFolders);
+
+  const refreshFolders = async () => {
+    const updatedFolders = await folderAPI.getFolder(username);
+    if (Array.isArray(updatedFolders)) {
+      setFolders(updatedFolders);
+    }
+  };
 
   return (
     <>
@@ -57,7 +66,10 @@ const SideBar: React.FC<SideBarProps> = ({
                 onToggleBulkSelect={onSelectMode}
               />
             ))}
-            <NewFolderField username={username} />
+            <NewFolderField
+              username={username}
+              onFolderCreated={refreshFolders}
+            />
           </List>
           <List>
             {TAGS.map((tag) => (

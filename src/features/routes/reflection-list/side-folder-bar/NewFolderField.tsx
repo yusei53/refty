@@ -5,9 +5,13 @@ import { folderAPI } from "@/src/api/folder-api";
 
 type NewFolderFieldProps = {
   username: string;
+  onFolderCreated: () => void;
 };
 
-export const NewFolderField = ({ username }: NewFolderFieldProps) => {
+export const NewFolderField = ({
+  username,
+  onFolderCreated
+}: NewFolderFieldProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [folderName, setFolderName] = useState("");
 
@@ -21,6 +25,7 @@ export const NewFolderField = ({ username }: NewFolderFieldProps) => {
       folderAPI.createFolder(username, folderName).then(() => {
         setFolderName("");
         setIsEditing(false);
+        onFolderCreated();
       });
     }
   };
