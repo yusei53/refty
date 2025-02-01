@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Box, Typography } from "@mui/material";
+import { Box, Checkbox, Typography } from "@mui/material";
 import type { Reflection } from "@/src/api/reflection-api";
 import { KebabButtonPopupContainer } from "@/src/features/common/kebab-button-popup";
 import { formatDate } from "@/src/utils/date-helper";
@@ -10,37 +10,74 @@ type ReflectionCardProps = {
   username: string;
   reflection: Reflection;
   isCurrentUser: boolean;
+  isSelectMode: boolean;
+  isSelected: boolean;
+  onSelect?: (reflectionCUID: string) => void;
 };
 
 // MEMO: ここ書き換えたら、../../reflection-all/ReflectionCardWithUser.tsxも書き換える
-const ReflectionCard: React.FC<ReflectionCardProps> = ({
+export const ReflectionCard: React.FC<ReflectionCardProps> = ({
   username,
   reflection,
-  isCurrentUser
+  isCurrentUser,
+  isSelectMode,
+  isSelected,
+  onSelect
 }) => {
+  const handleSelect = (e: React.MouseEvent) => {
+    if (isSelectMode && onSelect) {
+      e.preventDefault();
+      onSelect(reflection.reflectionCUID);
+    }
+  };
+
   return (
     <Box component={"article"} position={"relative"} sx={article}>
-      <Box
-        sx={{
-          position: "absolute",
-          right: 2,
-          top: 10,
-          zIndex: 2
-        }}
-      >
-        <KebabButtonPopupContainer
-          reflectionCUID={reflection.reflectionCUID}
-          username={username}
-          isPublic={reflection.isPublic}
-          isPinned={reflection.isPinned}
-          isCurrentUser={isCurrentUser}
-        />
-      </Box>
+      {isSelectMode ? (
+        <Box
+          position={"absolute"}
+          right={0}
+          top={3}
+          zIndex={2}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <Checkbox
+            size="medium"
+            disableRipple
+            checked={isSelected}
+            onChange={() => onSelect?.(reflection.reflectionCUID)}
+            sx={{
+              "& .MuiSvgIcon-root": {
+                fontSize: 28
+              },
+              color: theme.palette.primary.light,
+              "&.Mui-checked": {
+                color: theme.palette.primary.light
+              }
+            }}
+          />
+        </Box>
+      ) : (
+        <Box position={"absolute"} right={2} top={10} zIndex={2}>
+          <KebabButtonPopupContainer
+            reflectionCUID={reflection.reflectionCUID}
+            username={username}
+            isPublic={reflection.isPublic}
+            isPinned={reflection.isPinned}
+            isCurrentUser={isCurrentUser}
+          />
+        </Box>
+      )}
       <Box
         component={Link}
         href={`/${username}/${reflection.reflectionCUID}`}
         p={2}
-        sx={box}
+        sx={{
+          ...box,
+          opacity: isSelectMode ? 0.5 : 1,
+          zIndex: 1
+        }}
+        onClick={handleSelect}
       >
         <Box display={"flex"} mt={1.5}>
           <Typography
@@ -135,4 +172,3 @@ const box = {
   // MEMO: aタグにblock要素を指定すると長方形が表示できる
   display: "block"
 };
-export default ReflectionCard;

@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Box, useMediaQuery } from "@mui/material";
 import type {
@@ -8,7 +9,7 @@ import type {
 } from "@/src/api/reflection-api";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import type { User } from "@prisma/client";
-import { PostNavigationButton } from "@/src/components/button";
+import { Button, PostNavigationButton } from "@/src/components/button";
 import {
   ArrowPagination,
   NumberedPagination
@@ -51,6 +52,8 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   tagCountList,
   randomReflection
 }) => {
+  const [isSelectionMode, setIsSelectionMode] = useState(false);
+  const [selectedReflections, setSelectedReflections] = useState<string[]>([]);
   const router = useRouter();
   const searchParams = useSearchParams();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
@@ -62,6 +65,28 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     getSelectedTagCount
   } = useTagHandler();
   const { handlePageChange } = usePagination();
+  const handleSelectMode = () => {
+    setIsSelectionMode((prev) => !prev);
+  };
+
+  const handleSelect = (reflectionCUID: string) => {
+    setSelectedReflections((prev) => {
+      if (prev.includes(reflectionCUID)) {
+        return prev.filter((id) => id !== reflectionCUID);
+      } else {
+        return [...prev, reflectionCUID];
+      }
+    });
+  };
+
+  const onCancelSelectMode = () => {
+    setIsSelectionMode(false);
+    setSelectedReflections([]);
+  };
+
+  const onAddSelected = () => {
+    setIsSelectionMode(false);
+  };
 
   const isCurrentUser = currentUsername === username;
   const isModalOpen = searchParams.get("status") === "posted";
@@ -90,7 +115,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   return (
     <>
       <Box minHeight={"90vh"}>
-        <SideBar />
+        <SideBar onSelectMode={handleSelectMode} />
         <UserProfileArea
           userImage={userImage}
           username={username}
@@ -99,14 +124,37 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           reflectionCount={reflectionCount}
           isCurrentUser={isCurrentUser}
         />
-        <SearchBar
-          tags={Object.values(tagMap)}
-          selectedTag={selectedTag}
-          selectedTagCount={getSelectedTagCount(tagCountList, selectedTag)}
-          isOpenTagList={isOpenTagList}
-          onToggleTags={handleToggleTags}
-          onTagChange={handleTagChange}
-        />
+        <Box display={"flex"} justifyContent={"space-between"}>
+          <SearchBar
+            tags={Object.values(tagMap)}
+            selectedTag={selectedTag}
+            selectedTagCount={getSelectedTagCount(tagCountList, selectedTag)}
+            isOpenTagList={isOpenTagList}
+            onToggleTags={handleToggleTags}
+            onTagChange={handleTagChange}
+          />
+          {isSelectionMode && (
+            <Box>
+              <Button
+                sx={{
+                  ...label
+                }}
+                onClick={onCancelSelectMode}
+              >
+                キャンセル
+              </Button>
+              <Button
+                sx={{
+                  ...label,
+                  color: theme.palette.primary.light
+                }}
+                onClick={onAddSelected}
+              >
+                追加
+              </Button>
+            </Box>
+          )}
+        </Box>
         {reflections.length === 0 ? (
           <EmptyReflection />
         ) : (
@@ -120,6 +168,11 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
               username={username}
               reflections={reflections}
               isCurrentUser={isCurrentUser}
+              isSelectMode={isSelectionMode}
+              isSelected={(reflectionCUID) =>
+                selectedReflections.includes(reflectionCUID)
+              }
+              onSelect={handleSelect}
             />
             <NumberedPagination
               currentPage={currentPage}
@@ -151,3 +204,12 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
 };
 
 export default UserReflectionListPage;
+
+export const label = {
+  fontSize: 13.8,
+  p: "4px 7px",
+  letterSpacing: 0.8,
+  borderRadius: 2,
+  border: "1px solid #DCDFE3",
+  backgroundColor: "white"
+};
