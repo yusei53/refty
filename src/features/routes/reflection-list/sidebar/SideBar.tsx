@@ -6,11 +6,11 @@ import { FolderItem } from "./FolderItem";
 import { TagItem } from "./TagItem";
 import { theme } from "@/src/utils/theme";
 
-type SideBarProps = {
+type SidebarProps = {
   onSelectMode: () => void;
 };
 
-const SideBar: React.FC<SideBarProps> = ({ onSelectMode }) => {
+const Sidebar: React.FC<SidebarProps> = ({ onSelectMode }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const folders = ["C++", "javaScript", "Java"];
 
@@ -62,4 +62,4 @@ const SideBar: React.FC<SideBarProps> = ({ onSelectMode }) => {
   );
 };
 
-export default SideBar;
+export default Sidebar;
