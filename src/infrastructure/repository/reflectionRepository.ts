@@ -169,6 +169,7 @@ export const reflectionRepository = {
     isMonologue: boolean;
     createdAt: Date;
     userId: string;
+    folderUUID?: string;
   }) {
     const {
       title,
@@ -181,7 +182,8 @@ export const reflectionRepository = {
       isInputLog,
       isMonologue,
       createdAt,
-      userId
+      userId,
+      folderUUID
     } = params;
 
     return prisma.reflection.create({
@@ -196,7 +198,8 @@ export const reflectionRepository = {
         isInputLog,
         isMonologue,
         createdAt,
-        userId
+        userId,
+        folderUUID
       }
     });
   },

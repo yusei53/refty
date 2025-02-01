@@ -207,6 +207,7 @@ export const reflectionService = {
     isInputLog: boolean;
     isMonologue: boolean;
     userId: string;
+    folderUUID?: string;
   }) {
     const {
       title,
@@ -218,7 +219,8 @@ export const reflectionService = {
       isAwareness,
       isInputLog,
       isMonologue,
-      userId
+      userId,
+      folderUUID
     } = params;
 
     const now = new Date();
@@ -235,7 +237,8 @@ export const reflectionService = {
       isInputLog,
       isMonologue,
       createdAt: jstDate,
-      userId
+      userId,
+      folderUUID
     });
   },
 
