@@ -1,16 +1,17 @@
 import Image from "next/image";
 import FolderIcon from "@mui/icons-material/Folder";
 import { Box, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { FolderKebabButtonPopupContainer } from "../kebab-button/FolderKebabMenuButtonContainer";
 import { theme } from "@/src/utils/theme";
 
 type FolderItemProps = {
   foldername: string;
-  onToggleBulkSelect: () => void;
+  onSelectMode: () => void;
 };
 
 export const FolderItem: React.FC<FolderItemProps> = ({
   foldername,
-  onToggleBulkSelect
+  onSelectMode
 }) => {
   return (
     <ListItem
@@ -33,22 +34,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
         primaryTypographyProps={{ fontSize: 14.5 }}
       />
       <Box className="hover-icons" display="none" gap={1} alignItems="center">
-        <Box
-          sx={{
-            cursor: "pointer",
-            "&:hover": {
-              bgcolor: `${theme.palette.primary.contrastText}`
-            }
-          }}
-          onClick={onToggleBulkSelect}
-        >
-          <Image
-            src={"/kebab-menu.svg"}
-            alt={"一括選択モード切替ボタン"}
-            width={22}
-            height={22}
-          />
-        </Box>
+        <FolderKebabButtonPopupContainer onSelectMode={onSelectMode} />
         <Image
           src={"/book.svg"}
           alt={"ブックアイコン"}

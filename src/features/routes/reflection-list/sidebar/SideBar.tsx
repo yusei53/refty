@@ -2,8 +2,7 @@ import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box, IconButton, List } from "@mui/material";
 import { TAGS } from "../../post/popup/select-tag/SelectTagPopup";
-import { FolderItem } from "./FolderItem";
-import { TagItem } from "./TagItem";
+import { FolderItem, TagItem } from "./item";
 import { theme } from "@/src/utils/theme";
 
 type SidebarProps = {
@@ -47,7 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelectMode }) => {
               <FolderItem
                 key={folder}
                 foldername={folder}
-                onToggleBulkSelect={onSelectMode}
+                onSelectMode={onSelectMode}
               />
             ))}
           </List>
