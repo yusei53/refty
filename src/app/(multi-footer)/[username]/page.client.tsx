@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Box, useMediaQuery } from "@mui/material";
+import type { Folder } from "@/src/api/folder-api";
 import type {
   RandomReflection,
   Reflection,
@@ -37,6 +38,7 @@ type UserReflectionListPageProps = {
   totalPage: number;
   tagCountList: ReflectionTagCountList;
   randomReflection: RandomReflection | null;
+  folders: Folder[];
 };
 
 const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
@@ -50,7 +52,8 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   currentPage,
   totalPage,
   tagCountList,
-  randomReflection
+  randomReflection,
+  folders
 }) => {
   const [isSelectionMode, setIsSelectionMode] = useState(false);
   const [selectedReflections, setSelectedReflections] = useState<string[]>([]);
@@ -115,7 +118,11 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   return (
     <>
       <Box minHeight={"90vh"}>
-        <SideBar onSelectMode={handleSelectMode} />
+        <SideBar
+          onSelectMode={handleSelectMode}
+          username={username}
+          folders={folders}
+        />
         <UserProfileArea
           userImage={userImage}
           username={username}

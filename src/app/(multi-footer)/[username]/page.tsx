@@ -75,6 +75,12 @@ const page = async ({
 
   console.log(reflectionFolder);
 
+  const folders = await folderAPI.getFolder(username);
+
+  if (folders === 404) {
+    return notFound();
+  }
+
   return (
     <>
       <UserReflectionListPage
@@ -89,6 +95,7 @@ const page = async ({
         totalPage={reflectionsWithUser.totalPage}
         tagCountList={reflectionsWithUser.tagCountList}
         randomReflection={randomReflection}
+        folders={folders}
       />
     </>
   );

@@ -1,18 +1,25 @@
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box, IconButton, List } from "@mui/material";
+import type { Folder } from "@/src/api/folder-api";
 import { TAGS } from "../../post/popup/select-tag/SelectTagPopup";
 import { FolderItem } from "./FolderItem";
+import { NewFolderField } from "./NewFolderField";
 import { TagItem } from "./TagItem";
 import { theme } from "@/src/utils/theme";
 
 type SideBarProps = {
   onSelectMode: () => void;
+  username: string;
+  folders: Folder[];
 };
 
-const SideBar: React.FC<SideBarProps> = ({ onSelectMode }) => {
+const SideBar: React.FC<SideBarProps> = ({
+  onSelectMode,
+  username,
+  folders
+}) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const folders = ["C++", "javaScript", "Java"];
 
   return (
     <>
@@ -45,11 +52,12 @@ const SideBar: React.FC<SideBarProps> = ({ onSelectMode }) => {
           <List>
             {folders.map((folder) => (
               <FolderItem
-                key={folder}
-                foldername={folder}
+                key={folder.folderUUID}
+                foldername={folder.name}
                 onToggleBulkSelect={onSelectMode}
               />
             ))}
+            <NewFolderField username={username} />
           </List>
           <List>
             {TAGS.map((tag) => (
