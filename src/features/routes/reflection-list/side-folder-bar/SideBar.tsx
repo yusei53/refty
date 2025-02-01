@@ -2,13 +2,18 @@ import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box, IconButton, List } from "@mui/material";
 import { TAGS } from "../../post/popup/select-tag/SelectTagPopup";
-import { FolderItem } from "./ FolderItem";
+import { FolderItem } from "./FolderItem";
 import { TagItem } from "./TagItem";
 import { theme } from "@/src/utils/theme";
 
-const SideBar: React.FC = () => {
+type SideBarProps = {
+  onSelectMode: () => void;
+};
+
+const SideBar: React.FC<SideBarProps> = ({ onSelectMode }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const folders = ["C++", "javaScript", "Java"];
+
   return (
     <>
       <IconButton
@@ -39,7 +44,11 @@ const SideBar: React.FC = () => {
         <Box my={10}>
           <List>
             {folders.map((folder) => (
-              <FolderItem foldername={folder} key={folder} />
+              <FolderItem
+                key={folder}
+                foldername={folder}
+                onToggleBulkSelect={onSelectMode}
+              />
             ))}
           </List>
           <List>

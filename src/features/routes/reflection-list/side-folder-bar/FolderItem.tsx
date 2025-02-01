@@ -5,9 +5,13 @@ import { theme } from "@/src/utils/theme";
 
 type FolderItemProps = {
   foldername: string;
+  onToggleBulkSelect: () => void;
 };
 
-export const FolderItem: React.FC<FolderItemProps> = ({ foldername }) => {
+export const FolderItem: React.FC<FolderItemProps> = ({
+  foldername,
+  onToggleBulkSelect
+}) => {
   return (
     <ListItem
       sx={{
@@ -36,13 +40,15 @@ export const FolderItem: React.FC<FolderItemProps> = ({ foldername }) => {
               bgcolor: `${theme.palette.primary.contrastText}`
             }
           }}
-        ></Box>
-        <Image
-          src={"/kebab-menu.svg"}
-          alt={"ケバブボタン"}
-          width={22}
-          height={22}
-        />
+          onClick={onToggleBulkSelect}
+        >
+          <Image
+            src={"/kebab-menu.svg"}
+            alt={"一括選択モード切替ボタン"}
+            width={22}
+            height={22}
+          />
+        </Box>
         <Image
           src={"/book.svg"}
           alt={"ブックアイコン"}
