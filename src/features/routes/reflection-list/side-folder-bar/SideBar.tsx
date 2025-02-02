@@ -8,7 +8,13 @@ import { theme } from "@/src/utils/theme";
 
 const SideBar: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const folders = ["C++", "javaScript", "Java"];
+  const folders = [
+    "C++",
+    "javaScript",
+    "Java",
+    "ああああああああああ",
+    "ああああああああああああああああああ"
+  ];
   return (
     <>
       <IconButton

@@ -25,7 +25,7 @@ export const TagItem: React.FC<TagItemProps> = ({ tagname }) => {
       </ListItemIcon>
       <ListItemText
         primary={tagname}
-        primaryTypographyProps={{ fontSize: 14.5 }}
+        primaryTypographyProps={{ fontSize: 14.5, noWrap: true }}
       />
       <Box className="hover-icons" display="none" gap={1} alignItems="center">
         <Image
