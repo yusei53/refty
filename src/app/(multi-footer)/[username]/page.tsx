@@ -22,13 +22,19 @@ const page = async ({
   searchParams
 }: {
   params: { username: string };
-  searchParams: { page?: string; tag?: string; status?: string };
+  searchParams: {
+    page?: string;
+    tag?: string;
+    status?: string;
+    folder?: string;
+  };
 }) => {
   const session = await getServerSession(authOptions);
   const headers = getHeaders();
   const { username } = params;
   const currentPage = searchParams.page ? parseInt(searchParams.page, 10) : 1;
   const selectedTag = searchParams.tag || undefined;
+  const selectedFolder = searchParams.folder || undefined;
   const status = searchParams.status;
 
   const countResult = await reflectionsCountAPI.getReflectionsCount(username);
@@ -36,7 +42,8 @@ const page = async ({
     headers,
     username,
     currentPage,
-    selectedTag
+    selectedTag,
+    selectedFolder
   );
   const folderResult = await folderAPI.getFolder(username);
 
