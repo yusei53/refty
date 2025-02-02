@@ -36,6 +36,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
       return;
     } else {
       setIsEditFieldOpen(false);
+      //refreshFoldersを呼ぶ（別ブランチのもの）
     }
   };
 
