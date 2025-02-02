@@ -5,6 +5,7 @@ import type { Folder } from "@/src/api/folder-api";
 import { TAGS } from "../../post/popup/select-tag/SelectTagPopup";
 import { FolderItem, TagItem } from "./item";
 import { theme } from "@/src/utils/theme";
+import { tagMap, TagType } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 
 type SidebarProps = {
   folders: Folder[];
@@ -58,8 +59,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ folders, onSelectMode }) => {
             ))}
           </List>
           <List>
-            {TAGS.map((tag) => (
-              <TagItem tagname={tag} key={tag} />
+            {Object.entries(tagMap).map(([key, label]) => (
+              <TagItem
+                tagKey={key as keyof TagType}
+                tagname={label}
+                key={key}
+              />
             ))}
           </List>
         </Box>
