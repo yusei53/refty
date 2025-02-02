@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'lambda-function/**'
+      - 'lambda-function/ai-func/**'
     # ↑ mainブランチへのPush/マージでも、lambda-functionディレクトリ以下の変更がある場合のみ実行
 
 jobs:
