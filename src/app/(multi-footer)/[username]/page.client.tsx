@@ -140,7 +140,11 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     <>
       <Box minHeight={"90vh"}>
         {isPCScreen && (
-          <Sidebar folders={folders} onSelectMode={handleSelectMode} />
+          <Sidebar
+            folders={folders}
+            onSelectMode={handleSelectMode}
+            tagCountList={tagCountList}
+          />
         )}
         <UserProfileArea
           userImage={userImage}

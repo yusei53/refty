@@ -2,17 +2,22 @@ import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box, IconButton, List } from "@mui/material";
 import type { Folder } from "@/src/api/folder-api";
-import { TAGS } from "../../post/popup/select-tag/SelectTagPopup";
 import { FolderItem, TagItem } from "./item";
 import { theme } from "@/src/utils/theme";
 import { tagMap, TagType } from "@/src/hooks/reflection-tag/useExtractTrueTags";
+import type { ReflectionTagCountList } from "@/src/api/reflection-api"; // 仮のパス
 
 type SidebarProps = {
   folders: Folder[];
   onSelectMode: (folderUUID: string) => void;
+  tagCountList: ReflectionTagCountList;
 };
 
-export const Sidebar: React.FC<SidebarProps> = ({ folders, onSelectMode }) => {
+export const Sidebar: React.FC<SidebarProps> = ({
+  folders,
+  onSelectMode,
+  tagCountList
+}) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [selectedFolderUUID, setSelectedFolderUUID] = useState<string | null>(
     null
@@ -64,6 +69,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ folders, onSelectMode }) => {
                 tagKey={key as keyof TagType}
                 tagname={label}
                 key={key}
+                isSelected={selectedFolderUUID === key}
+                onSelect={setSelectedFolderUUID}
+                count={tagCountList[key as keyof ReflectionTagCountList] || 0} // CountTagList を適用
               />
             ))}
           </List>
