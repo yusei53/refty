@@ -26,6 +26,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
   onSelectMode
 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  //カスタムフックに切り出したいが、名前が別ブランチと被りそうなので一旦べた書き
   const [isEditFieldOpen, setIsEditFieldOpen] = useState(false);
   const [foldername, setFoldername] = useState(initialFoldername);
 

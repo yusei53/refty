@@ -22,6 +22,7 @@ export const FolderKebabButtonPopupContainer: React.FC<
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
+  //カスタムフックに切り出したいが、名前が別ブランチと被りそうなので一旦べた書き
   const handleOpenPopup = (event: React.MouseEvent<HTMLElement>) => {
     if (!anchorEl) {
       setAnchorEl(event.currentTarget);
@@ -44,6 +45,8 @@ export const FolderKebabButtonPopupContainer: React.FC<
       return;
     }
     handleClosePopup();
+    //削除後にフォルダを更新する
+    //refreshFoldersを呼ぶ（別ブランチのもの）
   };
 
   return (
