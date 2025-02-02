@@ -51,7 +51,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             {folders.map((folder) => (
               <FolderItem
                 key={folder.folderUUID}
-                foldername={folder.name}
+                initialFoldername={folder.name}
                 folderUUID={folder.folderUUID}
                 username={username}
                 onSelectMode={() => onSelectMode(folder.folderUUID)}

@@ -6,13 +6,20 @@ import { folderAPI } from "@/src/api/folder-api";
 type FolderKebabButtonPopupContainerProps = {
   folderUUID: string;
   username: string;
+  setIsEditFieldOpen: (isEditFieldOpen: boolean) => void;
   onSelectMode: () => void;
   onPopupChange?: (isOpen: boolean) => void;
 };
 
 export const FolderKebabButtonPopupContainer: React.FC<
   FolderKebabButtonPopupContainerProps
-> = ({ folderUUID, username, onSelectMode, onPopupChange }) => {
+> = ({
+  folderUUID,
+  username,
+  setIsEditFieldOpen,
+  onSelectMode,
+  onPopupChange
+}) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const handleOpenPopup = (event: React.MouseEvent<HTMLElement>) => {
@@ -27,7 +34,9 @@ export const FolderKebabButtonPopupContainer: React.FC<
     onPopupChange && onPopupChange(false);
   };
 
-  const handleEditFolderName = () => {};
+  const handleEditFolderName = () => {
+    setIsEditFieldOpen(true);
+  };
 
   const handleDeleteFolder = async () => {
     const res = await folderAPI.deleteFolder(username, folderUUID);

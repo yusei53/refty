@@ -1,24 +1,42 @@
 import { useState } from "react";
 import Image from "next/image";
 import FolderIcon from "@mui/icons-material/Folder";
-import { Box, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import {
+  Box,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  TextField
+} from "@mui/material";
 import { FolderKebabButtonPopupContainer } from "../kebab-button/FolderKebabMenuButtonContainer";
+import { folderAPI } from "@/src/api/folder-api";
 import { theme } from "@/src/utils/theme";
 
 type FolderItemProps = {
-  foldername: string;
+  initialFoldername: string;
   folderUUID: string;
   username: string;
   onSelectMode: () => void;
 };
 
 export const FolderItem: React.FC<FolderItemProps> = ({
-  foldername,
+  initialFoldername,
   folderUUID,
   username,
   onSelectMode
 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isEditFieldOpen, setIsEditFieldOpen] = useState(false);
+  const [foldername, setFoldername] = useState(initialFoldername);
+
+  const handleEditFolderName = async () => {
+    const res = await folderAPI.updateFolder(username, folderUUID, foldername);
+    if (res === 401) {
+      return;
+    } else {
+      setIsEditFieldOpen(false);
+    }
+  };
 
   return (
     <ListItem
@@ -36,29 +54,54 @@ export const FolderItem: React.FC<FolderItemProps> = ({
       <ListItemIcon sx={{ minWidth: "27px" }}>
         <FolderIcon fontSize="small" sx={{ color: theme.palette.grey[500] }} />
       </ListItemIcon>
-      <ListItemText
-        primary={foldername}
-        primaryTypographyProps={{ fontSize: 14.5 }}
-      />
-      <Box
-        className="hover-icons"
-        display={isPopupOpen ? "flex" : "none"}
-        gap={1}
-        alignItems="center"
-      >
-        <FolderKebabButtonPopupContainer
-          folderUUID={folderUUID}
-          username={username}
-          onSelectMode={onSelectMode}
-          onPopupChange={(open) => setIsPopupOpen(open)}
+      {isEditFieldOpen ? (
+        <TextField
+          value={foldername}
+          onChange={(e) => setFoldername(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleEditFolderName();
+            }
+          }}
+          onBlur={handleEditFolderName}
+          size="small"
+          sx={{
+            width: "100%",
+            "& .MuiInputBase-input": {
+              py: 0.5,
+              px: 1,
+              fontSize: 14.5
+            }
+          }}
         />
-        <Image
-          src={"/book.svg"}
-          alt={"ブックアイコン"}
-          width={22}
-          height={22}
-        />
-      </Box>
+      ) : (
+        <>
+          <ListItemText
+            primary={foldername}
+            primaryTypographyProps={{ fontSize: 14.5 }}
+          />
+          <Box
+            className="hover-icons"
+            display={isPopupOpen ? "flex" : "none"}
+            gap={1}
+            alignItems="center"
+          >
+            <FolderKebabButtonPopupContainer
+              folderUUID={folderUUID}
+              username={username}
+              setIsEditFieldOpen={setIsEditFieldOpen}
+              onSelectMode={onSelectMode}
+              onPopupChange={(open) => setIsPopupOpen(open)}
+            />
+            <Image
+              src={"/book.svg"}
+              alt={"ブックアイコン"}
+              width={22}
+              height={22}
+            />
+          </Box>
+        </>
+      )}
     </ListItem>
   );
 };
