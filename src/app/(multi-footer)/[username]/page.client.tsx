@@ -136,11 +136,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   return (
     <>
       <Box minHeight={"90vh"}>
-        <Sidebar
-          folders={folders}
-          username={username}
-          onSelectMode={handleSelectMode}
-        />
+        <Sidebar folders={folders} onSelectMode={handleSelectMode} />
         <UserProfileArea
           userImage={userImage}
           username={username}
