@@ -13,6 +13,9 @@ type SidebarProps = {
 
 export const Sidebar: React.FC<SidebarProps> = ({ folders, onSelectMode }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [selectedFolderUUID, setSelectedFolderUUID] = useState<string | null>(
+    null
+  );
 
   return (
     <>
@@ -46,8 +49,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ folders, onSelectMode }) => {
             {folders.map((folder) => (
               <FolderItem
                 key={folder.folderUUID}
+                folderUUID={folder.folderUUID}
                 foldername={folder.name}
+                isSelected={selectedFolderUUID === folder.folderUUID}
                 onSelectMode={() => onSelectMode(folder.folderUUID)}
+                onSelect={setSelectedFolderUUID}
               />
             ))}
           </List>
