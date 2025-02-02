@@ -66,9 +66,9 @@ export const reflectionService = {
   },
 
   async getByUsername(
-    page: number,
     userId: string,
     isCurrentUser: boolean,
+    page: number,
     tag?: string,
     folderUUID?: string
   ) {
