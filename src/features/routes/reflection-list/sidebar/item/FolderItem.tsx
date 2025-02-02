@@ -7,11 +7,15 @@ import { theme } from "@/src/utils/theme";
 
 type FolderItemProps = {
   foldername: string;
+  folderUUID: string;
+  username: string;
   onSelectMode: () => void;
 };
 
 export const FolderItem: React.FC<FolderItemProps> = ({
   foldername,
+  folderUUID,
+  username,
   onSelectMode
 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -43,6 +47,8 @@ export const FolderItem: React.FC<FolderItemProps> = ({
         alignItems="center"
       >
         <FolderKebabButtonPopupContainer
+          folderUUID={folderUUID}
+          username={username}
           onSelectMode={onSelectMode}
           onPopupChange={(open) => setIsPopupOpen(open)}
         />

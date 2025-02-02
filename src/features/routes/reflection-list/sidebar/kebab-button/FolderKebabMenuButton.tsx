@@ -11,6 +11,7 @@ type FolderKebabMenuButtonProps = {
   onClosePopup: () => void;
   onSelectMode: () => void;
   onEditFolderName: () => void;
+  onDeleteFolder: () => void;
 };
 
 export const FolderKebabMenuButton: React.FC<FolderKebabMenuButtonProps> = ({
@@ -19,7 +20,8 @@ export const FolderKebabMenuButton: React.FC<FolderKebabMenuButtonProps> = ({
   onOpenPopup,
   onClosePopup,
   onSelectMode,
-  onEditFolderName
+  onEditFolderName,
+  onDeleteFolder
 }) => {
   return (
     <>
@@ -80,6 +82,10 @@ export const FolderKebabMenuButton: React.FC<FolderKebabMenuButtonProps> = ({
                 src={"/delete.svg"}
                 alt={`フォルダを削除するボタン`}
                 textcolor={red[400]}
+                onClick={() => {
+                  onDeleteFolder();
+                  onClosePopup();
+                }}
               />
             </Box>
           </Fade>

@@ -8,10 +8,15 @@ import { theme } from "@/src/utils/theme";
 
 type SidebarProps = {
   folders: Folder[];
+  username: string;
   onSelectMode: (folderUUID: string) => void;
 };
 
-export const Sidebar: React.FC<SidebarProps> = ({ folders, onSelectMode }) => {
+export const Sidebar: React.FC<SidebarProps> = ({
+  folders,
+  username,
+  onSelectMode
+}) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -47,6 +52,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ folders, onSelectMode }) => {
               <FolderItem
                 key={folder.folderUUID}
                 foldername={folder.name}
+                folderUUID={folder.folderUUID}
+                username={username}
                 onSelectMode={() => onSelectMode(folder.folderUUID)}
               />
             ))}
