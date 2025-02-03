@@ -1,17 +1,28 @@
 import { useState } from "react";
 import { Box } from "@mui/material";
 import { FolderKebabMenuButton } from "./FolderKebabMenuButton";
+import { folderAPI } from "@/src/api/folder-api";
 
 type FolderKebabButtonPopupContainerProps = {
+  folderUUID: string;
+  username: string;
+  setIsEditFieldOpen: (isEditFieldOpen: boolean) => void;
   onSelectMode: () => void;
   onPopupChange?: (isOpen: boolean) => void;
 };
 
 export const FolderKebabButtonPopupContainer: React.FC<
   FolderKebabButtonPopupContainerProps
-> = ({ onSelectMode, onPopupChange }) => {
+> = ({
+  folderUUID,
+  username,
+  setIsEditFieldOpen,
+  onSelectMode,
+  onPopupChange
+}) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
+  //カスタムフックに切り出したいが、名前が別ブランチと被りそうなので一旦べた書き
   const handleOpenPopup = (event: React.MouseEvent<HTMLElement>) => {
     if (!anchorEl) {
       setAnchorEl(event.currentTarget);
@@ -24,7 +35,19 @@ export const FolderKebabButtonPopupContainer: React.FC<
     onPopupChange && onPopupChange(false);
   };
 
-  const handleEditFolderName = () => {};
+  const handleEditFolderName = () => {
+    setIsEditFieldOpen(true);
+  };
+
+  const handleDeleteFolder = async () => {
+    const res = await folderAPI.deleteFolder(username, folderUUID);
+    if (res === 401) {
+      return;
+    }
+    handleClosePopup();
+    //削除後にフォルダを更新する
+    //refreshFoldersを呼ぶ（別ブランチのもの）
+  };
 
   return (
     <>
@@ -47,6 +70,7 @@ export const FolderKebabButtonPopupContainer: React.FC<
         onClosePopup={handleClosePopup}
         onSelectMode={onSelectMode}
         onEditFolderName={handleEditFolderName}
+        onDeleteFolder={handleDeleteFolder}
       />
     </>
   );

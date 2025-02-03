@@ -142,6 +142,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
         {isPCScreen && (
           <Sidebar
             folders={folders}
+            username={username}
             onSelectMode={handleSelectMode}
             tagCountList={tagCountList}
           />

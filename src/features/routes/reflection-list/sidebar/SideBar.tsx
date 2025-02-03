@@ -2,21 +2,24 @@ import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box, IconButton, List } from "@mui/material";
 import type { Folder } from "@/src/api/folder-api";
-import { FolderItem, TagItem } from "./item";
-import { theme } from "@/src/utils/theme";
-import { tagMap, TagType } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import type { ReflectionTagCountList } from "@/src/api/reflection-api"; // 仮のパス
+import type { TagType } from "@/src/hooks/reflection-tag/useExtractTrueTags";
+import { FolderItem, TagItem } from "./item";
+import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
+import { theme } from "@/src/utils/theme";
 
 type SidebarProps = {
   folders: Folder[];
-  onSelectMode: (folderUUID: string) => void;
   tagCountList: ReflectionTagCountList;
+  username: string;
+  onSelectMode: (folderUUID: string) => void;
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({
   folders,
-  onSelectMode,
-  tagCountList
+  tagCountList,
+  username,
+  onSelectMode
 }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [selectedFolderUUID, setSelectedFolderUUID] = useState<string | null>(
@@ -55,11 +58,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
             {folders.map((folder) => (
               <FolderItem
                 key={folder.folderUUID}
+                initialFoldername={folder.name}
                 folderUUID={folder.folderUUID}
-                foldername={folder.name}
-                isSelected={selectedFolderUUID === folder.folderUUID}
+                username={username}
                 onSelectMode={() => onSelectMode(folder.folderUUID)}
                 onSelect={setSelectedFolderUUID}
+                isSelected={selectedFolderUUID === folder.folderUUID}
               />
             ))}
           </List>
