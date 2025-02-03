@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import usernameAPI from "@/src/api/username-api";
+import { profileAPI } from "@/src/api/profile-api";
 
 const updateUsernameSchema = z.object({
   username: z
@@ -31,7 +31,7 @@ export const useUpdateUsernameForm = () => {
   });
 
   const onSubmit = handleSubmit(async (formData: UpdateUsernameSchemaType) => {
-    const res = await usernameAPI.updateUsername(formData);
+    const res = await profileAPI.updateUsername(formData.username);
 
     // MEMO: 401が返ってきたらログイン画面に遷移
     if (res === 401) {
