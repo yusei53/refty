@@ -6,7 +6,7 @@ type Username = {
   username: string;
 };
 
-export type Profile = {
+type Profile = {
   image: string;
   bio: string;
   goal: string;
