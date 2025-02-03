@@ -13,9 +13,9 @@ import {
   ArrowPagination,
   NumberedPagination
 } from "@/src/components/pagination";
+import { EmptyReflection } from "@/src/features/common/empty-reflection";
 import { SearchBar } from "@/src/features/common/search-bar";
 import ReflectionCardListArea from "@/src/features/routes/reflection-list/card-list/ReflectionCardListArea";
-import { EmptyReflection } from "@/src/features/routes/reflection-list/card-list/empty-reflection";
 import { GoodJobModal } from "@/src/features/routes/reflection-list/modal";
 import UserProfileArea from "@/src/features/routes/reflection-list/profile/UserProfileArea";
 import { usePagination } from "@/src/hooks/reflection/usePagination";
