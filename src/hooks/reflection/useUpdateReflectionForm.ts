@@ -19,6 +19,7 @@ export type useUpdateReflectionFormProps = {
   isAwareness: boolean;
   isInputLog: boolean;
   isMonologue: boolean;
+  folderUUID?: string;
 };
 
 export const useUpdateReflectionForm = ({
@@ -32,10 +33,14 @@ export const useUpdateReflectionForm = ({
   isLearning,
   isAwareness,
   isInputLog,
-  isMonologue
+  isMonologue,
+  folderUUID
 }: useUpdateReflectionFormProps) => {
   const router = useRouter();
   const [selectedEmoji, setSelectedEmoji] = useState(charStamp);
+  const [selectedFolderUUID, setSelectedFolderUUID] = useState<string | null>(
+    folderUUID ?? null
+  );
 
   const {
     handleSubmit,
@@ -62,6 +67,11 @@ export const useUpdateReflectionForm = ({
     setValue("charStamp", emoji);
   };
 
+  const handleFolderChange = (folderUUID: string | null) => {
+    setSelectedFolderUUID(folderUUID);
+    setValue("folderUUID", folderUUID ?? undefined);
+  };
+
   const { handleTagChange } = useParseValueToTags({ setValue });
 
   const onSubmit = handleSubmit(
@@ -76,7 +86,8 @@ export const useUpdateReflectionForm = ({
         isLearning: formData.isLearning,
         isAwareness: formData.isAwareness,
         isInputLog: formData.isInputLog,
-        isMonologue: formData.isMonologue
+        isMonologue: formData.isMonologue,
+        folderUUID: formData.folderUUID
       });
 
       if (res === 401) {
@@ -97,6 +108,8 @@ export const useUpdateReflectionForm = ({
     onSubmit,
     selectedEmoji,
     handleEmojiChange,
-    handleTagChange
+    handleTagChange,
+    selectedFolderUUID,
+    handleFolderChange
   };
 };
