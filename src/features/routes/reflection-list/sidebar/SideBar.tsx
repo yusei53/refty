@@ -75,7 +75,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 key={key}
                 isSelected={selectedFolderUUID === key}
                 onSelect={setSelectedFolderUUID}
-                count={tagCountList[key as keyof ReflectionTagCountList] || 0} // CountTagList を適用
+                count={tagCountList[key as keyof ReflectionTagCountList] || 0}
               />
             ))}
           </List>
