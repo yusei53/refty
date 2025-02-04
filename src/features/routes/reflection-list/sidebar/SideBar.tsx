@@ -2,7 +2,7 @@ import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box, IconButton, List } from "@mui/material";
 import type { Folder } from "@/src/api/folder-api";
-import type { ReflectionTagCountList } from "@/src/api/reflection-api"; // 仮のパス
+import type { ReflectionTagCountList } from "@/src/api/reflection-api";
 import type { TagType } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { FolderItem, TagItem } from "./item";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
