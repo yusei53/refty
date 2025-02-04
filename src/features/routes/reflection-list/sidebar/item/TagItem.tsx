@@ -52,7 +52,8 @@ export const TagItem: React.FC<TagItemProps> = ({
           primary={tagname}
           primaryTypographyProps={{
             fontSize: 14.5,
-            color: "black"
+            color: "black",
+            noWrap: true
           }}
           secondary={count.toString()}
           secondaryTypographyProps={{

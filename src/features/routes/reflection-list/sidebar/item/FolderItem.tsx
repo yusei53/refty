@@ -99,8 +99,11 @@ export const FolderItem: React.FC<FolderItemProps> = ({
         ) : (
           <ListItemText
             primary={foldername}
-            primaryTypographyProps={{ fontSize: 14.5 }}
-            sx={{ color: "black" }}
+            primaryTypographyProps={{
+              fontSize: 14.5,
+              color: "black",
+              noWrap: true
+            }}
           />
         )}
       </Link>
