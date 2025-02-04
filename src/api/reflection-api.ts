@@ -69,6 +69,18 @@ export type ReflectionDetail = Reflection & {
   reflectionCount: number;
 };
 
+const getQueryParameters = (
+  page: number,
+  tag?: string,
+  folderUUID?: string
+) => {
+  const params = new URLSearchParams();
+  params.append("page", page.toString());
+  if (tag) params.append("tag", tag);
+  if (folderUUID) params.append("folder", folderUUID);
+  return params;
+};
+
 export const reflectionAPI = {
   async getReflectionAll(
     page: number = 1,
@@ -87,10 +99,11 @@ export const reflectionAPI = {
     headers: HeadersInit | undefined,
     username: string,
     page: number = 1,
-    tag?: string
+    tag?: string,
+    folderUUID?: string
   ): Promise<Result<Reflections, 404>> {
-    const tagParam = tag && `&tag=${tag}`;
-    const path = `/api/reflection/${username}?page=${page}${tagParam}`;
+    const q = getQueryParameters(page, tag, folderUUID);
+    const path = `/api/reflection/${username}?${q.toString()}`;
     const options: FetchURLOptions = {
       method: "GET",
       next: { tags: [`reflections-${username}`] },
@@ -253,6 +266,30 @@ export const reflectionAPI = {
       method: "PATCH",
       body: {
         isPublic
+      },
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    return await fetchURL<void, 401>(path, options);
+  },
+
+  async bulkUpdateFolderReflection({
+    reflectionCUID,
+    folderUUID,
+    username
+  }: {
+    reflectionCUID: string[];
+    folderUUID: string;
+    username: string;
+  }): Promise<Result<void, 401>> {
+    const path = `/api/reflection/bulk-select`;
+    const options: FetchURLOptions = {
+      method: "POST",
+      body: {
+        reflectionCUID,
+        folderUUID,
+        username
       },
       headers: {
         "Content-Type": "application/json"

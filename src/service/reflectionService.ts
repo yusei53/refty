@@ -66,19 +66,22 @@ export const reflectionService = {
   },
 
   async getByUsername(
-    page: number,
     userId: string,
     isCurrentUser: boolean,
-    tag?: string
+    page: number,
+    tag?: string,
+    folderUUID?: string
   ) {
     const offset = (page - 1) * COUNT_PER_PAGE;
     const tagFilter = tag ? { [tag]: true } : undefined;
+    const folderFilter = folderUUID ?? undefined;
 
     const filteredReflectionCount =
       await reflectionRepository.countFilteredReflections({
         userId,
         isCurrentUser,
-        tagFilter
+        tagFilter,
+        folderFilter
       });
 
     const totalPage = Math.ceil(filteredReflectionCount / COUNT_PER_PAGE);
@@ -88,6 +91,7 @@ export const reflectionService = {
         userId,
         isCurrentUser,
         tagFilter,
+        folderFilter,
         offset,
         limit: COUNT_PER_PAGE
       });

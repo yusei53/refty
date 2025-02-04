@@ -55,10 +55,12 @@ export const reflectionRepository = {
     userId: string;
     isCurrentUser: boolean;
     tagFilter?: Record<string, boolean>;
+    folderFilter?: string;
     offset: number;
     limit: number;
   }) {
-    const { userId, isCurrentUser, tagFilter, offset, limit } = params;
+    const { userId, isCurrentUser, tagFilter, folderFilter, offset, limit } =
+      params;
     return prisma.user.findUnique({
       where: {
         id: userId
@@ -72,7 +74,8 @@ export const reflectionRepository = {
           where: {
             userId,
             isPublic: isCurrentUser ? undefined : true,
-            ...tagFilter
+            ...tagFilter,
+            folderUUID: folderFilter
           },
           orderBy: [{ isPinned: "desc" }, { createdAt: "desc" }],
           take: limit,
@@ -117,13 +120,15 @@ export const reflectionRepository = {
     userId: string;
     isCurrentUser: boolean;
     tagFilter?: Record<string, boolean>;
+    folderFilter?: string;
   }) {
-    const { userId, isCurrentUser, tagFilter } = params;
+    const { userId, isCurrentUser, tagFilter, folderFilter } = params;
     return await prisma.reflection.count({
       where: {
         userId,
         isPublic: isCurrentUser ? undefined : true,
-        ...tagFilter
+        ...tagFilter,
+        folderUUID: folderFilter
       }
     });
   },
