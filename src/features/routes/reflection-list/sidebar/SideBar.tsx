@@ -4,19 +4,21 @@ import { Box, IconButton, List } from "@mui/material";
 import type { Folder } from "@/src/api/folder-api";
 import type { ReflectionTagCountList } from "@/src/api/reflection-api";
 import type { TagType } from "@/src/hooks/reflection-tag/useExtractTrueTags";
+import { NewFolderField } from "../side-folder-bar/NewFolderField";
 import { FolderItem, TagItem } from "./item";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
+import { useFolder } from "@/src/hooks/sidebar/folder/useFolder";
 import { theme } from "@/src/utils/theme";
 
 type SidebarProps = {
-  folders: Folder[];
+  initialFolders: Folder[];
   tagCountList: ReflectionTagCountList;
   username: string;
   onSelectMode: (folderUUID: string) => void;
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({
-  folders,
+  initialFolders,
   tagCountList,
   username,
   onSelectMode
@@ -25,6 +27,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const [selectedFolderUUID, setSelectedFolderUUID] = useState<string | null>(
     null
   );
+
+  const { folders, refreshFolders } = useFolder({
+    initialFolders,
+    username
+  });
 
   return (
     <>
@@ -67,6 +74,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
               />
             ))}
           </List>
+          <NewFolderField
+            username={username}
+            onFolderCreated={refreshFolders}
+          />
           <List>
             {Object.entries(tagMap).map(([key, label]) => (
               <TagItem

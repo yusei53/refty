@@ -2,9 +2,9 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Box, useMediaQuery } from "@mui/material";
+import type { Folder } from "@/src/api/folder-api";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import type { User } from "@prisma/client";
-import { type Folder } from "@/src/api/folder-api";
 import {
   reflectionAPI,
   type RandomReflection,
@@ -141,7 +141,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
       <Box minHeight={"90vh"}>
         {isPCScreen && (
           <Sidebar
-            folders={folders}
+            initialFolders={folders}
             username={username}
             onSelectMode={handleSelectMode}
             tagCountList={tagCountList}
