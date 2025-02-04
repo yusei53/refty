@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-type TagType = {
+export type TagType = {
   isDailyReflection: boolean;
   isLearning: boolean;
   isAwareness: boolean;

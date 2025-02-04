@@ -3,13 +3,14 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Box, useMediaQuery } from "@mui/material";
 import type { Folder } from "@/src/api/folder-api";
-import type {
-  RandomReflection,
-  Reflection,
-  ReflectionTagCountList
-} from "@/src/api/reflection-api";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import type { User } from "@prisma/client";
+import {
+  reflectionAPI,
+  type RandomReflection,
+  type Reflection,
+  type ReflectionTagCountList
+} from "@/src/api/reflection-api";
 import { Button, PostNavigationButton } from "@/src/components/button";
 import {
   ArrowPagination,
@@ -20,7 +21,7 @@ import ReflectionCardListArea from "@/src/features/routes/reflection-list/card-l
 import { EmptyReflection } from "@/src/features/routes/reflection-list/card-list/empty-reflection";
 import { GoodJobModal } from "@/src/features/routes/reflection-list/modal";
 import UserProfileArea from "@/src/features/routes/reflection-list/profile/UserProfileArea";
-import SideBar from "@/src/features/routes/reflection-list/side-folder-bar/SideBar";
+import { Sidebar } from "@/src/features/routes/reflection-list/sidebar";
 import { usePagination } from "@/src/hooks/reflection/usePagination";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { useTagHandler } from "@/src/hooks/reflection-tag/useTagHandler";
@@ -55,11 +56,14 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   randomReflection,
   folders
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [isSelectionMode, setIsSelectionMode] = useState(false);
   const [selectedReflections, setSelectedReflections] = useState<string[]>([]);
+  const [selectedFolderUUID, setSelectedFolderUUID] = useState<string>("");
   const router = useRouter();
   const searchParams = useSearchParams();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
+  const isPCScreen = useMediaQuery(theme.breakpoints.up("lg"));
   const {
     isOpenTagList,
     selectedTag,
@@ -68,8 +72,10 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     getSelectedTagCount
   } = useTagHandler();
   const { handlePageChange } = usePagination();
-  const handleSelectMode = () => {
-    setIsSelectionMode((prev) => !prev);
+
+  const handleSelectMode = (folderUUID: string) => {
+    setIsSelectionMode(true);
+    setSelectedFolderUUID(folderUUID);
   };
 
   const handleSelect = (reflectionCUID: string) => {
@@ -82,13 +88,28 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     });
   };
 
-  const onCancelSelectMode = () => {
+  const handleCancelSelectMode = () => {
     setIsSelectionMode(false);
     setSelectedReflections([]);
+    setSelectedFolderUUID("");
   };
 
-  const onAddSelected = () => {
+  const handleAddReflectionToFolder = async () => {
+    setIsLoading(true);
+    if (!selectedFolderUUID) {
+      console.error("フォルダが選択されていません");
+      return;
+    }
+    await reflectionAPI.bulkUpdateFolderReflection({
+      reflectionCUID: selectedReflections,
+      folderUUID: selectedFolderUUID,
+      username
+    });
+
     setIsSelectionMode(false);
+    setSelectedReflections([]);
+    setSelectedFolderUUID("");
+    setIsLoading(false);
   };
 
   const isCurrentUser = currentUsername === username;
@@ -118,11 +139,14 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   return (
     <>
       <Box minHeight={"90vh"}>
-        <SideBar
-          onSelectMode={handleSelectMode}
-          username={username}
-          initialFolders={folders}
-        />
+        {isPCScreen && (
+          <Sidebar
+            initialFolders={folders}
+            username={username}
+            onSelectMode={handleSelectMode}
+            tagCountList={tagCountList}
+          />
+        )}
         <UserProfileArea
           userImage={userImage}
           username={username}
@@ -131,7 +155,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           reflectionCount={reflectionCount}
           isCurrentUser={isCurrentUser}
         />
-        <Box display={"flex"} justifyContent={"space-between"}>
+        {!isPCScreen && (
           <SearchBar
             tags={Object.values(tagMap)}
             selectedTag={selectedTag}
@@ -140,28 +164,21 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
             onToggleTags={handleToggleTags}
             onTagChange={handleTagChange}
           />
-          {isSelectionMode && (
-            <Box>
-              <Button
-                sx={{
-                  ...label
-                }}
-                onClick={onCancelSelectMode}
-              >
-                キャンセル
-              </Button>
-              <Button
-                sx={{
-                  ...label,
-                  color: theme.palette.primary.light
-                }}
-                onClick={onAddSelected}
-              >
-                追加
-              </Button>
-            </Box>
-          )}
-        </Box>
+        )}
+        {isSelectionMode && isPCScreen && (
+          <Box display={"flex"} justifyContent={"right"} gap={1}>
+            <Button sx={button} onClick={handleCancelSelectMode}>
+              キャンセル
+            </Button>
+            <Button
+              sx={{ ...button, color: theme.palette.primary.light }}
+              onClick={handleAddReflectionToFolder}
+              disabled={selectedFolderUUID.length === 0 || isLoading}
+            >
+              追加
+            </Button>
+          </Box>
+        )}
         {reflections.length === 0 ? (
           <EmptyReflection />
         ) : (
@@ -212,9 +229,9 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
 
 export default UserReflectionListPage;
 
-export const label = {
-  fontSize: 13.8,
-  p: "4px 7px",
+const button = {
+  fontSize: 13.5,
+  p: "3px 6px",
   letterSpacing: 0.8,
   borderRadius: 2,
   border: "1px solid #DCDFE3",
