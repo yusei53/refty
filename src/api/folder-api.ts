@@ -5,6 +5,7 @@ import { fetchURL } from "../utils/fetchURL";
 export type Folder = {
   folderUUID: string;
   name: string;
+  countByFolder: number;
 };
 
 export const folderAPI = {
