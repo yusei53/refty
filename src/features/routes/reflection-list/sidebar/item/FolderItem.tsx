@@ -102,7 +102,8 @@ export const FolderItem: React.FC<FolderItemProps> = ({
             primaryTypographyProps={{
               fontSize: 14.5,
               color: "black",
-              noWrap: true
+              noWrap: true,
+              maxWidth: "120px"
             }}
           />
         )}
