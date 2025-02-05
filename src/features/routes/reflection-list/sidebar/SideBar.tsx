@@ -67,6 +67,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 key={folder.folderUUID}
                 initialFoldername={folder.name}
                 folderUUID={folder.folderUUID}
+                count={folder.countByFolder}
                 username={username}
                 onSelectMode={() => onSelectMode(folder.folderUUID)}
                 onSelect={setSelectedFolderUUID}

@@ -19,6 +19,7 @@ type FolderItemProps = {
   onSelectMode: () => void;
   isSelected: boolean;
   onSelect: (folderUUID: string) => void;
+  count: number;
 };
 
 export const FolderItem: React.FC<FolderItemProps> = ({
@@ -27,7 +28,8 @@ export const FolderItem: React.FC<FolderItemProps> = ({
   username,
   onSelectMode,
   isSelected,
-  onSelect
+  onSelect,
+  count
 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   //カスタムフックに切り出したいが、名前が別ブランチと被りそうなので一旦べた書き
@@ -50,11 +52,13 @@ export const FolderItem: React.FC<FolderItemProps> = ({
         py: 0,
         my: 1,
         borderRadius: 2,
+        height: 30,
         transition: "background-color 0.3s",
         backgroundColor: isSelected ? theme.palette.grey[200] : "transparent",
         "&:hover": {
           backgroundColor: theme.palette.grey[100],
-          "& .hover-icons": { display: "flex" }
+          "& .hover-icons": { display: "flex" },
+          "& .secondary-text": { opacity: 1 }
         }
       }}
     >
@@ -103,6 +107,29 @@ export const FolderItem: React.FC<FolderItemProps> = ({
               fontSize: 14.5,
               color: "black",
               noWrap: true
+            }}
+            secondary={count.toString()}
+            secondaryTypographyProps={{
+              className: "secondary-text",
+              sx: {
+                opacity: 0,
+                transition: "opacity 0.3s",
+                color: theme.palette.grey[600],
+                bgcolor: theme.palette.grey[400],
+                fontSize: 12.5,
+                width: 21,
+                height: 21,
+                borderRadius: "50%",
+                textAlign: "center",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }
+            }}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1
             }}
           />
         )}
