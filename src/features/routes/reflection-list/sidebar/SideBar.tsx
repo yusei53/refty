@@ -15,19 +15,19 @@ type SidebarProps = {
   tagCountList: ReflectionTagCountList;
   username: string;
   onSelectMode: (folderUUID: string) => void;
+  selectedFolderUUID: string;
+  onSelect: (folderUUID: string) => void;
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({
   initialFolders,
   tagCountList,
   username,
-  onSelectMode
+  onSelectMode,
+  selectedFolderUUID,
+  onSelect
 }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [selectedFolderUUID, setSelectedFolderUUID] = useState<string | null>(
-    null
-  );
-
   const { folders, refreshFolders } = useFolder({
     initialFolders,
     username
@@ -70,7 +70,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 count={folder.countByFolder}
                 username={username}
                 onSelectMode={() => onSelectMode(folder.folderUUID)}
-                onSelect={setSelectedFolderUUID}
+                onSelect={onSelect}
                 isSelected={selectedFolderUUID === folder.folderUUID}
               />
             ))}
@@ -86,7 +86,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 tagname={label}
                 key={key}
                 isSelected={selectedFolderUUID === key}
-                onSelect={setSelectedFolderUUID}
+                onSelect={onSelect}
                 count={tagCountList[key as keyof ReflectionTagCountList] || 0}
               />
             ))}
