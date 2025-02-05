@@ -118,24 +118,6 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     router.push(`/${username}`);
   };
 
-  // const handleCreateFolder = async () => {
-  //   const folderName = prompt("新しいフォルダ名を入力してください"); // 直接入力
-  //   if (!folderName) return;
-
-  //   try {
-  //     const result = await folderAPI.createFolder(username, folderName);
-  //     if (result === 401) {
-  //       alert("フォルダの作成に失敗しました");
-  //     } else {
-  //       alert("フォルダが作成されました");
-  //       router.refresh();
-  //     }
-  //   } catch (error) {
-  //     console.error("フォルダ作成エラー:", error);
-  //     alert("エラーが発生しました");
-  //   }
-  // };
-
   return (
     <>
       <Box minHeight={"90vh"}>
