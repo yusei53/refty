@@ -24,14 +24,24 @@ export async function GET(
       return notFoundError("ユーザーが見つかりません");
     }
 
-    const reflectionFolder = await prisma.reflectionFolder.findMany({
+    const reflectionFolders = await prisma.reflectionFolder.findMany({
       where: { userId: user.id },
       select: {
         folderUUID: true,
-        name: true
+        name: true,
+        _count: {
+          select: { reflections: true }
+        }
       }
     });
-    return NextResponse.json(reflectionFolder, { status: 200 });
+
+    const folders = reflectionFolders.map((folder) => ({
+      folderUUID: folder.folderUUID,
+      name: folder.name,
+      countByFolder: folder._count.reflections
+    }));
+
+    return NextResponse.json(folders, { status: 200 });
   } catch (error) {
     return internalServerError("GET", "フォルダ", error);
   }

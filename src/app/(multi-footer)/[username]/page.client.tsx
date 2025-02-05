@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Box, useMediaQuery } from "@mui/material";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import type { Folder } from "@/src/api/folder-api";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
+import type { TagType } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import type { User } from "@prisma/client";
 import {
   reflectionAPI,
@@ -61,6 +62,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   const [selectedReflections, setSelectedReflections] = useState<string[]>([]);
   const [selectedFolderUUID, setSelectedFolderUUID] = useState<string>("");
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const isPCScreen = useMediaQuery(theme.breakpoints.up("lg"));
@@ -74,6 +76,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   const { handlePageChange } = usePagination();
 
   const handleSelectMode = (folderUUID: string) => {
+    router.push(pathname);
     setIsSelectionMode(true);
     setSelectedFolderUUID(folderUUID);
   };
@@ -118,23 +121,22 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     router.push(`/${username}`);
   };
 
-  // const handleCreateFolder = async () => {
-  //   const folderName = prompt("新しいフォルダ名を入力してください"); // 直接入力
-  //   if (!folderName) return;
-
-  //   try {
-  //     const result = await folderAPI.createFolder(username, folderName);
-  //     if (result === 401) {
-  //       alert("フォルダの作成に失敗しました");
-  //     } else {
-  //       alert("フォルダが作成されました");
-  //       router.refresh();
-  //     }
-  //   } catch (error) {
-  //     console.error("フォルダ作成エラー:", error);
-  //     alert("エラーが発生しました");
-  //   }
-  // };
+  let selectedInfo: { name: string; count: number } | null = null;
+  if (selectedFolderUUID !== "") {
+    const folder = folders.find((f) => f.folderUUID === selectedFolderUUID);
+    if (folder) {
+      selectedInfo = {
+        name: folder.name,
+        count: folder.countByFolder || 0
+      };
+    } else if (tagMap[selectedFolderUUID as keyof TagType]) {
+      selectedInfo = {
+        name: tagMap[selectedFolderUUID as keyof TagType],
+        count:
+          tagCountList[selectedFolderUUID as keyof ReflectionTagCountList] || 0
+      };
+    }
+  }
 
   return (
     <>
@@ -145,6 +147,8 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
             username={username}
             onSelectMode={handleSelectMode}
             tagCountList={tagCountList}
+            selectedFolderUUID={selectedFolderUUID}
+            onSelect={setSelectedFolderUUID}
           />
         )}
         <UserProfileArea
@@ -165,20 +169,37 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
             onTagChange={handleTagChange}
           />
         )}
-        {isSelectionMode && isPCScreen && (
-          <Box display={"flex"} justifyContent={"right"} gap={1}>
-            <Button sx={button} onClick={handleCancelSelectMode}>
-              キャンセル
-            </Button>
-            <Button
-              sx={{ ...button, color: theme.palette.primary.light }}
-              onClick={handleAddReflectionToFolder}
-              disabled={selectedFolderUUID.length === 0 || isLoading}
-            >
-              追加
-            </Button>
-          </Box>
-        )}
+        <Box
+          height={32}
+          mx={3}
+          my={1}
+          letterSpacing={0.8}
+          display={"flex"}
+          alignItems={"center"}
+          justifyContent={"space-between"}
+        >
+          {selectedInfo && (
+            <>
+              <Typography component={"span"} fontWeight={550}>
+                {selectedInfo.name} {selectedInfo.count}件
+              </Typography>
+            </>
+          )}
+          {isSelectionMode && isPCScreen && (
+            <Box display={"flex"} justifyContent={"right"} gap={1}>
+              <Button sx={button} onClick={handleCancelSelectMode}>
+                キャンセル
+              </Button>
+              <Button
+                sx={{ ...button, color: theme.palette.primary.light }}
+                onClick={handleAddReflectionToFolder}
+                disabled={selectedFolderUUID.length === 0 || isLoading}
+              >
+                追加
+              </Button>
+            </Box>
+          )}
+        </Box>
         {reflections.length === 0 ? (
           <EmptyReflection />
         ) : (
