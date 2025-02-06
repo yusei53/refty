@@ -1,7 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import TagIcon from "@mui/icons-material/Tag";
-import { Box, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { theme } from "@/src/utils/theme";
 
 type TagItemProps = {
@@ -80,14 +79,15 @@ export const TagItem: React.FC<TagItemProps> = ({
           }}
         />
       </Link>
-      <Box className="hover-icons" display="none" gap={1} alignItems="center">
+      {/* TODO: マイブック機能 */}
+      {/* <Box className="hover-icons" display="none" gap={1} alignItems="center">
         <Image
           src={"/book.svg"}
           alt={"ブックアイコン"}
           width={22}
           height={22}
         />
-      </Box>
+      </Box> */}
     </ListItem>
   );
 };
