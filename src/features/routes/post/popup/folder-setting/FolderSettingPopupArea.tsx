@@ -1,3 +1,4 @@
+import FolderIcon from "@mui/icons-material/Folder";
 import { Box, Fade, Popper, Typography } from "@mui/material";
 import type { Folder } from "@/src/api/folder-api";
 import { Button } from "@/src/components/button";
@@ -35,11 +36,14 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
             border: "#ededed solid 1px",
             borderRadius: 2,
             height: "30px",
-            p: 0,
+            px: 0.5,
             cursor: "pointer"
           }}
         >
-          {/* <TagIcon sx={{ color: theme.palette.grey[500], fontSize: 18 }} /> */}
+          <FolderIcon
+            fontSize="small"
+            sx={{ color: theme.palette.grey[500] }}
+          />
           フォルダ
         </Button>
         <Typography>
