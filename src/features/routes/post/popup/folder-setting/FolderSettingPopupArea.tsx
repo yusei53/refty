@@ -51,7 +51,10 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
         >
           <FolderIcon
             fontSize="small"
-            sx={{ color: theme.palette.grey[500] }}
+            sx={{
+              color: theme.palette.grey[500],
+              mr: 0.5
+            }}
           />
           フォルダ
         </Button>
