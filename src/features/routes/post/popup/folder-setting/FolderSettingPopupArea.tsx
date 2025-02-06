@@ -126,9 +126,7 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
                           : "white"
                     }}
                   >
-                    <Typography fontSize={12} color={theme.palette.grey[600]}>
-                      {folder.name}
-                    </Typography>
+                    <Typography fontSize={12}>{folder.name}</Typography>
                   </Button>
                 ))}
               </Box>
