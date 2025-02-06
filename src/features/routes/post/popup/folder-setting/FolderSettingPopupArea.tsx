@@ -15,6 +15,15 @@ type FolderSettingPopupAreaProps = {
   onPopupOpen: (event: React.MouseEvent<HTMLElement>) => void;
 };
 
+export const label = {
+  fontSize: 13.8,
+  p: "4px 7px",
+  letterSpacing: 0.8,
+  borderRadius: 2,
+  border: "1px solid #DCDFE3",
+  backgroundColor: "white"
+};
+
 export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
   selectedFolderUUID,
   setSelectedFolderUUID,
@@ -58,30 +67,46 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
       <Popper open={open} anchorEl={anchorEl} transition sx={{ zIndex: 2 }}>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
-            <Box boxShadow={1} borderRadius={2} bgcolor={"white"}>
-              {folders.map((folder) => (
-                <Button
-                  key={folder.folderUUID}
-                  onClick={() => {
-                    setSelectedFolderUUID(folder.folderUUID);
-                    onClose();
-                  }}
-                  sx={{
-                    border: "none",
-                    display: "block",
-                    textAlign: "left",
-                    width: "100%",
-                    borderRadius: "none",
-                    "&:hover": {
-                      backgroundColor: theme.palette.primary.contrastText
-                    }
-                  }}
-                >
-                  <Typography fontSize={12} color={theme.palette.grey[600]}>
-                    {folder.name}
-                  </Typography>
-                </Button>
-              ))}
+            <Box
+              p={1}
+              maxWidth="250px"
+              bgcolor="#f8fbff"
+              border={`1px solid ${theme.palette.grey[400]}`}
+              borderRadius={4}
+            >
+              <Typography
+                component={"span"}
+                sx={{ color: theme.palette.grey[500] }}
+                fontSize={12}
+                ml={1}
+              >
+                フォルダを選択してください
+              </Typography>
+              <Box
+                display={"flex"}
+                flexDirection={"row"}
+                flexWrap={"wrap"}
+                gap={1}
+                mt={0.5}
+              >
+                {folders.map((folder) => (
+                  // TODO: 後でリファクタする
+                  <Button
+                    key={folder.folderUUID}
+                    onClick={() => {
+                      setSelectedFolderUUID(folder.folderUUID);
+                      onClose();
+                    }}
+                    sx={{
+                      ...label
+                    }}
+                  >
+                    <Typography fontSize={12} color={theme.palette.grey[600]}>
+                      {folder.name}
+                    </Typography>
+                  </Button>
+                ))}
+              </Box>
             </Box>
           </Fade>
         )}
