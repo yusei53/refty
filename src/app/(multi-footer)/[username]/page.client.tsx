@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import FolderIcon from "@mui/icons-material/Folder";
+import TagIcon from "@mui/icons-material/Tag";
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import type { Folder } from "@/src/api/folder-api";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
@@ -179,11 +181,23 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           justifyContent={"space-between"}
         >
           {selectedInfo && (
-            <>
+            <Box display="flex" alignItems="center">
+              {folders.some((f) => f.folderUUID === selectedFolderUUID) ? (
+                <FolderIcon
+                  fontSize="small"
+                  sx={{ color: theme.palette.grey[500], mr: "4px" }}
+                />
+              ) : (
+                <TagIcon
+                  fontSize="small"
+                  sx={{ color: theme.palette.grey[500], mr: "4px" }}
+                />
+              )}
               <Typography component={"span"} fontWeight={550}>
-                {selectedInfo.name} {selectedInfo.count}件
+                {selectedInfo.name}
               </Typography>
-            </>
+              <Typography>{`　${selectedInfo.count}件`}</Typography>
+            </Box>
           )}
           {isSelectionMode && isPCScreen && (
             <Box display={"flex"} justifyContent={"right"} gap={1}>
