@@ -119,7 +119,11 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
                       onClose();
                     }}
                     sx={{
-                      ...label
+                      ...label,
+                      bgcolor:
+                        selectedFolderUUID === folder.folderUUID
+                          ? theme.palette.primary.main
+                          : "white"
                     }}
                   >
                     <Typography fontSize={12} color={theme.palette.grey[600]}>
