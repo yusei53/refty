@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Box, TextField } from "@mui/material";
-import { useNewFolder } from "@/src/hooks/sidebar/folder/useNewFolder";
+import { useNewFolder } from "@/src/hooks/folder/useNewFolder";
 
 type NewFolderFieldProps = {
   username: string;
