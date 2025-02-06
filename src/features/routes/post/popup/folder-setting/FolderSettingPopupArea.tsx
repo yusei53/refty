@@ -58,14 +58,22 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
           />
           フォルダ
         </Button>
-        <Typography>
-          {selectedFolderUUID ? (
-            folders.find((folder) => folder.folderUUID === selectedFolderUUID)
-              ?.name
-          ) : (
-            <></>
-          )}
-        </Typography>
+        {selectedFolderUUID ? (
+          <Box display={"flex"} mx={0.4} zIndex={3}>
+            <Box
+              display={"flex"}
+              alignItems={"center"}
+              height={"30px"}
+              sx={label}
+            >
+              {
+                folders.find(
+                  (folder) => folder.folderUUID === selectedFolderUUID
+                )?.name
+              }
+            </Box>
+          </Box>
+        ) : null}
       </Box>
       <Popper open={open} anchorEl={anchorEl} transition sx={{ zIndex: 2 }}>
         {({ TransitionProps }) => (
