@@ -50,7 +50,7 @@ export const TagItem: React.FC<TagItemProps> = ({
         <ListItemText
           primary={tagname}
           primaryTypographyProps={{
-            fontSize: 14.5,
+            fontSize: 14,
             color: "black",
             noWrap: true
           }}
@@ -63,8 +63,8 @@ export const TagItem: React.FC<TagItemProps> = ({
               color: theme.palette.grey[600],
               bgcolor: theme.palette.grey[400],
               fontSize: 12.5,
-              width: 21,
-              height: 21,
+              width: 20,
+              height: 20,
               borderRadius: "50%",
               textAlign: "center",
               display: "flex",

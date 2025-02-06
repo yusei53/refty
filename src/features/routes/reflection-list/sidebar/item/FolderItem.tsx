@@ -49,6 +49,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
   return (
     <ListItem
       sx={{
+        position: "relative",
         py: 0,
         my: 1,
         borderRadius: 2,
@@ -104,7 +105,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
           <ListItemText
             primary={foldername}
             primaryTypographyProps={{
-              fontSize: 14.5,
+              fontSize: 14,
               color: "black",
               noWrap: true,
               maxWidth: "120px"
@@ -118,8 +119,8 @@ export const FolderItem: React.FC<FolderItemProps> = ({
                 color: theme.palette.grey[600],
                 bgcolor: theme.palette.grey[400],
                 fontSize: 12.5,
-                width: 21,
-                height: 21,
+                width: 20,
+                height: 20,
                 borderRadius: "50%",
                 textAlign: "center",
                 display: "flex",
@@ -138,8 +139,10 @@ export const FolderItem: React.FC<FolderItemProps> = ({
       <Box
         className="hover-icons"
         display={isPopupOpen ? "flex" : "none"}
+        alignItems={"center"}
         gap={1}
-        alignItems="center"
+        position={"absolute"}
+        right={4}
       >
         <FolderKebabButtonPopupContainer
           onSelectMode={onSelectMode}

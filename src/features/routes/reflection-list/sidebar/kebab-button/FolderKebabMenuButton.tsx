@@ -30,8 +30,8 @@ export const FolderKebabMenuButton: React.FC<FolderKebabMenuButtonProps> = ({
         type={"button"}
         bgcolor={"transparent"}
         border={"none"}
-        width={28}
-        height={28}
+        width={22}
+        height={22}
         borderRadius={10}
         display={"flex"}
         alignItems={"center"}
@@ -47,8 +47,8 @@ export const FolderKebabMenuButton: React.FC<FolderKebabMenuButtonProps> = ({
         <Image
           src={"/kebab-menu.svg"}
           alt={"ケバブボタン"}
-          width={22}
-          height={22}
+          width={18}
+          height={18}
         />
       </Box>
       <Popper
@@ -62,7 +62,7 @@ export const FolderKebabMenuButton: React.FC<FolderKebabMenuButtonProps> = ({
             <Box boxShadow={1} borderRadius={2.5} bgcolor={"white"}>
               <PopupButton
                 text={"投稿をフォルダに追加"}
-                src={"/pin.svg"}
+                src={"/add-to-folder.svg"}
                 alt={`フォルダに投稿を追加するボタン`}
                 onClick={() => {
                   onClosePopup();
