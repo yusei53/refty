@@ -11,6 +11,7 @@ type FolderSettingPopupAreaProps = {
   anchorEl: HTMLElement | null;
   onToggle: (event: React.MouseEvent<HTMLElement>) => void;
   onClose: () => void;
+  onPopupOpen: (event: React.MouseEvent<HTMLElement>) => void;
 };
 
 export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
@@ -20,33 +21,36 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
   open,
   anchorEl,
   onToggle,
-  onClose
+  onClose,
+  onPopupOpen
 }) => {
   return (
     <>
-      <Button
-        onClick={onToggle}
-        onBlur={onClose}
-        sx={{
-          width: "90px",
-          border: "none",
-          display: "flex",
-          alignItems: "center",
-          whiteSpace: "nowrap"
-        }}
-      >
-        {/* <Image
-          src={value ? "/unlock.png" : "/lock.png"}
-          alt={value ? "非公開アイコン" : "公開アイコン"}
-          width={18}
-          height={18}
-          style={{ marginRight: 4 }}
-        /> */}
-        {selectedFolderUUID
-          ? folders.find((folder) => folder.folderUUID === selectedFolderUUID)
+      <Box display="flex" alignItems="center">
+        <Button
+          onClick={onPopupOpen}
+          sx={{
+            mr: 0.5,
+            bgcolor: theme.palette.primary.main,
+            border: "#ededed solid 1px",
+            borderRadius: 2,
+            height: "30px",
+            p: 0,
+            cursor: "pointer"
+          }}
+        >
+          {/* <TagIcon sx={{ color: theme.palette.grey[500], fontSize: 18 }} /> */}
+          フォルダ
+        </Button>
+        <Typography>
+          {selectedFolderUUID ? (
+            folders.find((folder) => folder.folderUUID === selectedFolderUUID)
               ?.name
-          : "フォルダを選択"}
-      </Button>
+          ) : (
+            <></>
+          )}
+        </Typography>
+      </Box>
       <Popper open={open} anchorEl={anchorEl} transition sx={{ zIndex: 2 }}>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
@@ -74,27 +78,6 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
                   </Typography>
                 </Button>
               ))}
-              {/* <PublishStatusOptionButton
-                isActive={value}
-                onClick={() => {
-                  onChange(true);
-                  onClose();
-                }}
-                icon="/unlock.png"
-                text="公開"
-                description="他の人も見えるようになります"
-              />
-              <Divider sx={{ borderColor: theme.palette.grey[400] }} />
-              <PublishStatusOptionButton
-                isActive={!value}
-                onClick={() => {
-                  onChange(false);
-                  onClose();
-                }}
-                icon="/lock.png"
-                text="非公開"
-                description="自分だけが見えるようになります"
-              /> */}
             </Box>
           </Fade>
         )}
