@@ -10,7 +10,6 @@ type FolderSettingPopupAreaProps = {
   folders: Folder[];
   open: boolean;
   anchorEl: HTMLElement | null;
-  onToggle: (event: React.MouseEvent<HTMLElement>) => void;
   onClose: () => void;
   onPopupOpen: (event: React.MouseEvent<HTMLElement>) => void;
 };
@@ -30,7 +29,6 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
   folders,
   open,
   anchorEl,
-  onToggle,
   onClose,
   onPopupOpen
 }) => {

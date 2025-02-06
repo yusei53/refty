@@ -15,10 +15,6 @@ export const FolderSettingPopupAreaContainer: React.FC<
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
-  };
-
   const handleClose = () => {
     setAnchorEl(null);
     setIsPopupOpen(false);
@@ -48,7 +44,6 @@ export const FolderSettingPopupAreaContainer: React.FC<
         folders={folders}
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
-        onToggle={handleClick}
         onClose={handleClose}
         onPopupOpen={handlePopupOpen}
       />
