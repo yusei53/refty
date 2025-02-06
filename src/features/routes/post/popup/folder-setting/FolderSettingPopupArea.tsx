@@ -1,3 +1,4 @@
+import CloseIcon from "@mui/icons-material/Close";
 import FolderIcon from "@mui/icons-material/Folder";
 import { Box, Fade, Popper, Typography } from "@mui/material";
 import type { Folder } from "@/src/api/folder-api";
@@ -68,6 +69,18 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
                   (folder) => folder.folderUUID === selectedFolderUUID
                 )?.name
               }
+              <CloseIcon
+                sx={{
+                  color: theme.palette.grey[500],
+                  fontSize: 15,
+                  ml: 0.5,
+                  cursor: "pointer"
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedFolderUUID(null);
+                }}
+              />
             </Box>
           </Box>
         ) : null}
