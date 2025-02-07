@@ -1,5 +1,7 @@
+"use client";
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 import FolderIcon from "@mui/icons-material/Folder";
 import {
   Box,
@@ -39,6 +41,14 @@ export const FolderItem: React.FC<FolderItemProps> = ({
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isEditFieldOpen, setIsEditFieldOpen] = useState(false);
   const [foldername, setFoldername] = useState(initialFoldername);
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentFolder = searchParams.get("folder");
+
+  const href =
+    currentFolder === folderUUID
+      ? pathname
+      : `${pathname}?folder=${folderUUID}`;
 
   const handleEditFolderName = async () => {
     const updatedFolder = await folderAPI.updateFolder(
@@ -138,8 +148,10 @@ export const FolderItem: React.FC<FolderItemProps> = ({
         </Box>
       ) : (
         <Link
-          href={`?folder=${folderUUID}`}
-          onClick={() => onSelect(folderUUID)}
+          href={href}
+          onClick={() =>
+            onSelect(currentFolder === folderUUID ? "" : folderUUID)
+          }
           style={{
             display: "flex",
             alignItems: "center",

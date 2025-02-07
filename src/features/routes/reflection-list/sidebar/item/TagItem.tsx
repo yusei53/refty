@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 import TagIcon from "@mui/icons-material/Tag";
 import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { theme } from "@/src/utils/theme";
@@ -18,6 +19,12 @@ export const TagItem: React.FC<TagItemProps> = ({
   isSelected,
   onSelect
 }) => {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentTag = searchParams.get("tag");
+
+  const href = currentTag === tagKey ? pathname : `${pathname}?tag=${tagKey}`;
+
   return (
     <ListItem
       sx={{
@@ -35,13 +42,16 @@ export const TagItem: React.FC<TagItemProps> = ({
       }}
     >
       <Link
-        href={`?tag=${tagKey}`}
-        onClick={() => onSelect(tagKey)}
+        href={href}
+        onClick={() => {
+          onSelect(currentTag === tagKey ? "" : tagKey);
+        }}
         style={{
           display: "flex",
           alignItems: "center",
           textDecoration: "none",
-          width: "100%"
+          width: "100%",
+          cursor: "pointer"
         }}
       >
         <ListItemIcon sx={{ minWidth: "25px" }}>
@@ -79,15 +89,6 @@ export const TagItem: React.FC<TagItemProps> = ({
           }}
         />
       </Link>
-      {/* TODO: マイブック機能 */}
-      {/* <Box className="hover-icons" display="none" gap={1} alignItems="center">
-        <Image
-          src={"/book.svg"}
-          alt={"ブックアイコン"}
-          width={22}
-          height={22}
-        />
-      </Box> */}
     </ListItem>
   );
 };
