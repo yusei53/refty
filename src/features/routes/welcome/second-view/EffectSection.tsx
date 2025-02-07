@@ -9,6 +9,7 @@ type EffectSectionProps = {
   description: string;
   isEvenNumber?: boolean;
   isShareSection?: boolean;
+  isSmartphone?: boolean;
 };
 
 const EffectSection: React.FC<EffectSectionProps> = ({
@@ -16,7 +17,8 @@ const EffectSection: React.FC<EffectSectionProps> = ({
   title,
   description,
   isEvenNumber = false,
-  isShareSection = false
+  isShareSection = false,
+  isSmartphone = false
 }) => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -27,18 +29,36 @@ const EffectSection: React.FC<EffectSectionProps> = ({
         xs: "column",
         md: isEvenNumber ? "row-reverse" : "row"
       }}
-      gap={4}
+      gap={5}
       my={{ xs: 6, md: 12 }}
+      mx={{ xs: 0, md: 20 }}
     >
       {!isSmallScreen && (
-        <Image
-          src={image}
-          alt={"feature image"}
-          width={350}
-          height={350}
-          priority
-        />
+        <Box
+          bgcolor={"#f3f4f5"}
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          width={"90vw"}
+          height={325}
+        >
+          <Image
+            src={image}
+            alt={"feature image"}
+            width={500}
+            height={350}
+            priority
+            style={{
+              borderRadius: 5,
+              boxShadow: "0 5px 5px 0 rgba(47, 47, 47, 0.1)",
+              maxHeight: "90%",
+              width: "90%",
+              height: "auto"
+            }}
+          />
+        </Box>
       )}
+
       <Box
         display={"flex"}
         flexDirection={"column"}
@@ -56,14 +76,28 @@ const EffectSection: React.FC<EffectSectionProps> = ({
           {title}
         </Typography>
         {isSmallScreen && (
-          <Box m={{ xs: "0 auto", md: 0 }}>
+          <Box
+            my={2.5}
+            bgcolor={"#f3f4f5"}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            width={"90vw"}
+            height={200}
+          >
             <Image
               src={image}
               alt={"feature image"}
               width={170}
               height={170}
               priority
-              style={{ margin: "15px 0px" }}
+              style={{
+                borderRadius: 5,
+                boxShadow: "0 5px 5px 0 rgba(47, 47, 47, 0.1)",
+                maxHeight: "90%",
+                width: "90%",
+                height: "auto"
+              }}
             />
           </Box>
         )}
