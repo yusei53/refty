@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Box } from "@mui/material";
 import { FolderKebabMenuButton } from "./FolderKebabMenuButton";
 import { folderAPI } from "@/src/api/folder-api";
@@ -22,6 +23,8 @@ export const FolderKebabButtonPopupContainer: React.FC<
   onPopupChange,
   onRefetch
 }) => {
+  const router = useRouter();
+
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   //カスタムフックに切り出したいが、名前が別ブランチと被りそうなので一旦べた書き
@@ -48,6 +51,7 @@ export const FolderKebabButtonPopupContainer: React.FC<
     }
     handleClosePopup();
     await onRefetch();
+    router.push(`/${username}`);
   };
 
   return (
