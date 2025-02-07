@@ -4,10 +4,10 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import FolderIcon from "@mui/icons-material/Folder";
 import TagIcon from "@mui/icons-material/Tag";
 import { Box, Typography, useMediaQuery } from "@mui/material";
-import type { Folder } from "@/src/api/folder-api";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import type { TagType } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import type { User } from "@prisma/client";
+import { folderAPI, type Folder } from "@/src/api/folder-api";
 import {
   reflectionAPI,
   type RandomReflection,
@@ -112,11 +112,17 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
       folderUUID: selectedFolderUUID,
       username
     });
+    const updatedFolders = await folderAPI.getFolder(username);
+    if (updatedFolders === 404) {
+      return router.refresh();
+    }
 
+    setFoldersState(updatedFolders);
     setIsSelectionMode(false);
     setSelectedReflections([]);
-    setSelectedFolderUUID("");
     setIsLoading(false);
+    router.push(`/${username}?folder=${selectedFolderUUID}`);
+    router.refresh();
   };
 
   const isCurrentUser = currentUsername === username;
@@ -194,7 +200,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           justifyContent={"space-between"}
         >
           {selectedInfo && (
-            <Box display="flex" alignItems="center">
+            <Box display={"flex"} alignItems={"center"}>
               {foldersState.some((f) => f.folderUUID === selectedFolderUUID) ? (
                 <FolderIcon
                   fontSize="small"
