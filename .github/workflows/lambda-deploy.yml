@@ -37,7 +37,7 @@ jobs:
       # (3) ビルド & ZIP作成
       - name: Build and zip
         run: |
-          cd lambda-function
+          cd lambda-function/ai-func
           GOOS=linux GOARCH=arm64 go build -tags lambda.norpc -o bootstrap main.go query.go
           zip function.zip bootstrap
 
