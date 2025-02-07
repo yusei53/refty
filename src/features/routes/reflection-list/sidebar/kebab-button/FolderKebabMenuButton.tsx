@@ -70,7 +70,7 @@ export const FolderKebabMenuButton: React.FC<FolderKebabMenuButtonProps> = ({
                 }}
               />
               <PopupButton
-                text={"編集する"}
+                text={"名前を変更する"}
                 src={"/edit.svg"}
                 alt={`フォルダ名を編集するボタン`}
                 onClick={() => {
