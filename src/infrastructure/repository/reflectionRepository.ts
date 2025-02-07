@@ -55,10 +55,12 @@ export const reflectionRepository = {
     userId: string;
     isCurrentUser: boolean;
     tagFilter?: Record<string, boolean>;
+    folderFilter?: string;
     offset: number;
     limit: number;
   }) {
-    const { userId, isCurrentUser, tagFilter, offset, limit } = params;
+    const { userId, isCurrentUser, tagFilter, folderFilter, offset, limit } =
+      params;
     return prisma.user.findUnique({
       where: {
         id: userId
@@ -72,7 +74,8 @@ export const reflectionRepository = {
           where: {
             userId,
             isPublic: isCurrentUser ? undefined : true,
-            ...tagFilter
+            ...tagFilter,
+            folderUUID: folderFilter
           },
           orderBy: [{ isPinned: "desc" }, { createdAt: "desc" }],
           take: limit,
@@ -117,13 +120,15 @@ export const reflectionRepository = {
     userId: string;
     isCurrentUser: boolean;
     tagFilter?: Record<string, boolean>;
+    folderFilter?: string;
   }) {
-    const { userId, isCurrentUser, tagFilter } = params;
+    const { userId, isCurrentUser, tagFilter, folderFilter } = params;
     return await prisma.reflection.count({
       where: {
         userId,
         isPublic: isCurrentUser ? undefined : true,
-        ...tagFilter
+        ...tagFilter,
+        folderUUID: folderFilter
       }
     });
   },
@@ -142,6 +147,7 @@ export const reflectionRepository = {
         isInputLog: true,
         isMonologue: true,
         aiFeedback: true,
+        folderUUID: true,
         createdAt: true,
         userId: true,
         user: {
@@ -169,6 +175,7 @@ export const reflectionRepository = {
     isMonologue: boolean;
     createdAt: Date;
     userId: string;
+    folderUUID?: string;
   }) {
     const {
       title,
@@ -181,7 +188,8 @@ export const reflectionRepository = {
       isInputLog,
       isMonologue,
       createdAt,
-      userId
+      userId,
+      folderUUID
     } = params;
 
     return prisma.reflection.create({
@@ -196,7 +204,8 @@ export const reflectionRepository = {
         isInputLog,
         isMonologue,
         createdAt,
-        userId
+        userId,
+        folderUUID
       }
     });
   },
@@ -218,6 +227,7 @@ export const reflectionRepository = {
     isAwareness: boolean;
     isInputLog: boolean;
     isMonologue: boolean;
+    folderUUID?: string;
   }) {
     const {
       reflectionCUID,
@@ -229,7 +239,8 @@ export const reflectionRepository = {
       isLearning,
       isAwareness,
       isInputLog,
-      isMonologue
+      isMonologue,
+      folderUUID
     } = params;
 
     return prisma.reflection.update({
@@ -243,7 +254,8 @@ export const reflectionRepository = {
         isLearning,
         isAwareness,
         isInputLog,
-        isMonologue
+        isMonologue,
+        folderUUID
       }
     });
   },

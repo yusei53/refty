@@ -2,9 +2,11 @@ import { useRef, useState } from "react";
 import { Controller } from "react-hook-form";
 import { Box, Stack, useMediaQuery } from "@mui/material";
 import type { MarkdownEditorRef } from "../../routes/post/markdown-editor";
+import type { Folder } from "@/src/api/folder-api";
 import type { Control, FieldErrors } from "react-hook-form";
 import EmojiPicker from "../../routes/post/emoji/EmojiPicker";
 import { MarkdownEditor } from "../../routes/post/markdown-editor";
+import { FolderSettingPopupAreaContainer } from "../../routes/post/popup/folder-setting";
 import { MarkdownSupportPopupAreaContainer } from "../../routes/post/popup/markdown-support";
 import { PublishSettingPopupAreaContainer } from "../../routes/post/popup/publish-setting";
 import {
@@ -28,6 +30,7 @@ type FormValues = {
   isAwareness: boolean;
   isInputLog: boolean;
   isMonologue: boolean;
+  folderUUID?: string;
 };
 
 type ReflectionPostFormProps = {
@@ -38,6 +41,8 @@ type ReflectionPostFormProps = {
   onSubmit: (event: React.FormEvent) => Promise<void>;
   selectedEmoji: string;
   onEmojiChange: (emoji: string) => void;
+  selectedFolderUUID: string | null;
+  onFolderChange: (folderUUID: string | null) => void;
   onTagChange: (tag: string, isSelected: boolean) => void;
   // NOTE: ここから下はUpdateReflectionFormでのみ使用
   isDailyReflection?: boolean;
@@ -45,6 +50,7 @@ type ReflectionPostFormProps = {
   isAwareness?: boolean;
   isInputLog?: boolean;
   isMonologue?: boolean;
+  folders: Folder[];
 };
 
 // MEMO: このコンポーネントは新規作成と更新で共通で使用するためこのディレクトリに配置
@@ -56,12 +62,15 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   onSubmit,
   selectedEmoji,
   onEmojiChange,
+  selectedFolderUUID,
+  onFolderChange,
   onTagChange,
   isDailyReflection = false,
   isLearning = false,
   isAwareness = false,
   isInputLog = false,
-  isMonologue = false
+  isMonologue = false,
+  folders
 }) => {
   const [isComposing, setIsComposing] = useState(false);
   const editorRef = useRef<MarkdownEditorRef>(null);
@@ -171,10 +180,26 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
             )}
           />
           {!isSmallScreen && (
-            <SelectTagPopupContainer
-              value={activeTags}
-              onTagChange={onTagChange}
-            />
+            <Box display={"flex"} flexDirection={"row"} gap={2}>
+              <SelectTagPopupContainer
+                value={activeTags}
+                onTagChange={onTagChange}
+              />
+              <Controller
+                name="folderUUID"
+                control={control}
+                render={({ field }) => (
+                  <FolderSettingPopupAreaContainer
+                    selectedFolderUUID={selectedFolderUUID}
+                    setSelectedFolderUUID={(value) => {
+                      onFolderChange(value);
+                      field.onChange(value);
+                    }}
+                    folders={folders}
+                  />
+                )}
+              />
+            </Box>
           )}
           <Controller
             name="content"

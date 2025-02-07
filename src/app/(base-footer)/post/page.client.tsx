@@ -1,13 +1,16 @@
 "use client";
+import type { Folder } from "@/src/api/folder-api";
 import ReflectionPostForm from "@/src/features/common/post-form/ReflectionPostForm";
 import { useCreateReflectionForm } from "@/src/hooks/reflection/useCreateReflectionForm";
 
 type ReflectionPostFormPageProps = {
   username: string;
+  folders: Folder[];
 };
 
 const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
-  username
+  username,
+  folders
 }) => {
   const {
     control,
@@ -17,6 +20,8 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
     onSubmit,
     selectedEmoji,
     handleEmojiChange,
+    selectedFolderUUID,
+    handleFolderChange,
     handleTagChange
   } = useCreateReflectionForm(username);
 
@@ -34,7 +39,10 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
       onSubmit={handleSubmit}
       selectedEmoji={selectedEmoji}
       onEmojiChange={handleEmojiChange}
+      selectedFolderUUID={selectedFolderUUID}
+      onFolderChange={handleFolderChange}
       onTagChange={handleTagChange}
+      folders={folders}
     />
   );
 };

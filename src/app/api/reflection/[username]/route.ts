@@ -28,12 +28,20 @@ export async function GET(
   try {
     const page = parseInt(req.nextUrl.searchParams.get("page") || "1", 10);
     const tag = req.nextUrl.searchParams.get("tag") ?? undefined;
+    const folder = req.nextUrl.searchParams.get("folder") ?? undefined;
+
     const {
       userWithReflections,
       totalPage,
       filteredReflectionCount,
       tagCountList
-    } = await reflectionService.getByUsername(page, userId, isCurrentUser, tag);
+    } = await reflectionService.getByUsername(
+      userId,
+      isCurrentUser,
+      page,
+      tag,
+      folder
+    );
 
     if (!userWithReflections) {
       return notFoundError("ユーザーの振り返り一覧が見つかりません");

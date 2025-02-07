@@ -66,19 +66,22 @@ export const reflectionService = {
   },
 
   async getByUsername(
-    page: number,
     userId: string,
     isCurrentUser: boolean,
-    tag?: string
+    page: number,
+    tag?: string,
+    folderUUID?: string
   ) {
     const offset = (page - 1) * COUNT_PER_PAGE;
     const tagFilter = tag ? { [tag]: true } : undefined;
+    const folderFilter = folderUUID ?? undefined;
 
     const filteredReflectionCount =
       await reflectionRepository.countFilteredReflections({
         userId,
         isCurrentUser,
-        tagFilter
+        tagFilter,
+        folderFilter
       });
 
     const totalPage = Math.ceil(filteredReflectionCount / COUNT_PER_PAGE);
@@ -88,6 +91,7 @@ export const reflectionService = {
         userId,
         isCurrentUser,
         tagFilter,
+        folderFilter,
         offset,
         limit: COUNT_PER_PAGE
       });
@@ -207,6 +211,7 @@ export const reflectionService = {
     isInputLog: boolean;
     isMonologue: boolean;
     userId: string;
+    folderUUID?: string;
   }) {
     const {
       title,
@@ -218,7 +223,8 @@ export const reflectionService = {
       isAwareness,
       isInputLog,
       isMonologue,
-      userId
+      userId,
+      folderUUID
     } = params;
 
     const now = new Date();
@@ -235,7 +241,8 @@ export const reflectionService = {
       isInputLog,
       isMonologue,
       createdAt: jstDate,
-      userId
+      userId,
+      folderUUID
     });
   },
 
@@ -250,6 +257,7 @@ export const reflectionService = {
     isAwareness: boolean;
     isInputLog: boolean;
     isMonologue: boolean;
+    folderUUID?: string;
   }) {
     const {
       reflectionCUID,
@@ -261,7 +269,8 @@ export const reflectionService = {
       isLearning,
       isAwareness,
       isInputLog,
-      isMonologue
+      isMonologue,
+      folderUUID
     } = params;
 
     const reflection = await prisma.reflection.findUnique({
@@ -282,7 +291,8 @@ export const reflectionService = {
       isLearning,
       isAwareness,
       isInputLog,
-      isMonologue
+      isMonologue,
+      folderUUID
     });
   },
 
