@@ -12,7 +12,8 @@ export const folderAPI = {
   async getFolder(username: string): Promise<Result<Folder[], 404>> {
     const path = `/api/${username}/folder`;
     const options: FetchURLOptions = {
-      method: "GET"
+      method: "GET",
+      next: { tags: [`${username}-folder`] }
     };
     return await fetchURL<Folder[], 404>(path, options);
   },

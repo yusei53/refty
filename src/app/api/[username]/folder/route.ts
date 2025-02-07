@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
@@ -65,6 +66,7 @@ export async function POST(req: NextRequest) {
         userId: session.user.id
       }
     });
+    revalidateTag(`${session.user.username}-folder`);
 
     return NextResponse.json(folder, { status: 201 });
   } catch (error) {
