@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
     const { name } = await req.json();
     const session = await getServerSession(authOptions);
 
-    if (!session?.user.id) {
+    if (!session?.user.username) {
       return unauthorizedError("認証されていません");
     }
 

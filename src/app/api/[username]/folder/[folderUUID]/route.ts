@@ -1,6 +1,8 @@
+import { revalidateTag } from "next/cache";
 import { NextResponse, type NextRequest } from "next/server";
+import { getServerSession } from "next-auth";
+import authOptions from "../../../auth/[...nextauth]/options";
 import prisma from "@/src/lib/prisma";
-import getCurrentUser from "@/src/utils/actions/get-current-user";
 import {
   internalServerError,
   notFoundError,
@@ -13,9 +15,9 @@ export async function DELETE(
 ) {
   try {
     const { folderUUID } = params;
-    const currentUser = await getCurrentUser();
+    const session = await getServerSession(authOptions);
 
-    if (!currentUser?.id) {
+    if (!session?.user.username) {
       return unauthorizedError("認証されていません");
     }
 
@@ -28,7 +30,7 @@ export async function DELETE(
     if (!folder) {
       return notFoundError("フォルダが見つかりません");
     }
-
+    revalidateTag(`${session.user.username}-folder`);
     return NextResponse.json(folder, { status: 200 });
   } catch (error) {
     console.error(error);
@@ -43,10 +45,9 @@ export async function PATCH(
   try {
     const { folderUUID } = params;
     const { name } = await req.json();
+    const session = await getServerSession(authOptions);
 
-    const currentUser = await getCurrentUser();
-
-    if (!currentUser?.id) {
+    if (!session?.user.username) {
       return unauthorizedError("認証されていません");
     }
 
@@ -58,6 +59,8 @@ export async function PATCH(
     if (!folder) {
       return notFoundError("フォルダが見つかりません");
     }
+
+    revalidateTag(`${session.user.username}-folder`);
 
     return NextResponse.json(folder, { status: 200 });
   } catch (error) {
