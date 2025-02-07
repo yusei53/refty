@@ -75,12 +75,6 @@ const page = async ({
   const [reflectionCount, reflectionsWithUser, reflectionFolder] =
     await Promise.all([countResult, reflectionsResult, folderResult]);
 
-  const folders = await folderAPI.getFolder(username);
-
-  if (folders === 404) {
-    return notFound();
-  }
-
   return (
     <>
       <UserReflectionListPage
