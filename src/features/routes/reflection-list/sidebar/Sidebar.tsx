@@ -4,7 +4,7 @@ import { Box, IconButton, List } from "@mui/material";
 import type { Folder } from "@/src/api/folder-api";
 import type { ReflectionTagCountList } from "@/src/api/reflection-api";
 import type { TagType } from "@/src/hooks/reflection-tag/useExtractTrueTags";
-import { NewFolderField } from "./NewFolderField";
+import { CreateFolderField } from "./CreateFolderField";
 import { FolderItem, TagItem } from "./item";
 import { useFolder } from "@/src/hooks/folder/useFolder";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
@@ -81,7 +81,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 setSelectedFolderUUID={setSelectedFolderUUID}
               />
             ))}
-            <NewFolderField
+            <CreateFolderField
               username={username}
               onRefetchFolder={refreshFolders}
             />

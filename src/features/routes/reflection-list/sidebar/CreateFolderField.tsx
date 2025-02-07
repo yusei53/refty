@@ -5,16 +5,15 @@ import { Box, TextField, Typography } from "@mui/material";
 import { useCreateFolder } from "@/src/hooks/folder/useCreateFolder";
 import { theme } from "@/src/utils/theme";
 
-type NewFolderFieldProps = {
+type CreateFolderFieldProps = {
   username: string;
   onRefetchFolder: () => void;
 };
 
-//TODO: 命名をCreateFolderFieldに変更する
-export const NewFolderField = ({
+export const CreateFolderField = ({
   username,
   onRefetchFolder
-}: NewFolderFieldProps) => {
+}: CreateFolderFieldProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const createFolderHook = useCreateFolder({
