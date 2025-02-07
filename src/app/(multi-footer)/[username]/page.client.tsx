@@ -155,7 +155,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   return (
     <>
       <Box minHeight={"90vh"}>
-        {isPCScreen && (
+        {isPCScreen && isCurrentUser && (
           <Sidebar
             initialFolders={foldersState}
             username={username}
