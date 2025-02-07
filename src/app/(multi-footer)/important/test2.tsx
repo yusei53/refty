@@ -1,25 +1,17 @@
 import Image from "next/image";
-import Link from "next/link";
-import { Box, Typography, useMediaQuery } from "@mui/material";
-import { theme } from "@/src/utils/theme";
+import { Box, Typography } from "@mui/material";
 
 type EffectSectionProps = {
   image: string;
   title: string;
   description: string;
-  isEvenNumber?: boolean;
-  isShareSection?: boolean;
 };
 
 const EffectSection: React.FC<EffectSectionProps> = ({
   image,
   title,
-  description,
-  isEvenNumber = false,
-  isShareSection = false
+  description
 }) => {
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
   return (
     <Box
       display={"flex"}
@@ -50,8 +42,8 @@ const EffectSection: React.FC<EffectSectionProps> = ({
         <Image
           src={image}
           alt={"feature image"}
-          width={370}
-          height={370}
+          width={220}
+          height={220}
           priority
           style={{ margin: "15px 0px" }}
         />
