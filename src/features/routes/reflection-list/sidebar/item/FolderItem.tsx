@@ -32,7 +32,6 @@ export const FolderItem: React.FC<FolderItemProps> = ({
   count
 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  //カスタムフックに切り出したいが、名前が別ブランチと被りそうなので一旦べた書き
   const [isEditFieldOpen, setIsEditFieldOpen] = useState(false);
   const [foldername, setFoldername] = useState(initialFoldername);
 
@@ -40,11 +39,71 @@ export const FolderItem: React.FC<FolderItemProps> = ({
     const res = await folderAPI.updateFolder(username, folderUUID, foldername);
     if (res === 401) {
       return;
-    } else {
-      setIsEditFieldOpen(false);
-      //refreshFoldersを呼ぶ（別ブランチのもの）
     }
+    setIsEditFieldOpen(false);
   };
+
+  const Content = (
+    <>
+      <ListItemIcon sx={{ minWidth: "27px" }}>
+        <FolderIcon fontSize="small" sx={{ color: theme.palette.grey[500] }} />
+      </ListItemIcon>
+      {isEditFieldOpen ? (
+        <TextField
+          value={foldername}
+          onChange={(e) => setFoldername(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleEditFolderName();
+            }
+          }}
+          onBlur={handleEditFolderName}
+          size="small"
+          sx={{
+            width: "100%",
+            "& .MuiInputBase-input": {
+              py: 0.5,
+              px: 1,
+              fontSize: 14.5
+            }
+          }}
+        />
+      ) : (
+        <ListItemText
+          primary={foldername}
+          primaryTypographyProps={{
+            fontSize: 14,
+            color: "black",
+            noWrap: true,
+            maxWidth: "120px"
+          }}
+          secondary={count.toString()}
+          secondaryTypographyProps={{
+            className: "secondary-text",
+            sx: {
+              opacity: 0,
+              transition: "opacity 0.3s",
+              color: theme.palette.grey[600],
+              bgcolor: theme.palette.grey[400],
+              fontSize: 12.5,
+              width: 20,
+              height: 20,
+              borderRadius: "50%",
+              textAlign: "center",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
+            }
+          }}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1
+          }}
+        />
+      )}
+    </>
+  );
 
   return (
     <ListItem
@@ -63,79 +122,24 @@ export const FolderItem: React.FC<FolderItemProps> = ({
         }
       }}
     >
-      <Link
-        href={`?folder=${folderUUID}`}
-        onClick={() => {
-          onSelect(folderUUID);
-        }}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          textDecoration: "none",
-          width: "100%"
-        }}
-      >
-        <ListItemIcon sx={{ minWidth: "27px" }}>
-          <FolderIcon
-            fontSize="small"
-            sx={{ color: theme.palette.grey[500] }}
-          />
-        </ListItemIcon>
-        {isEditFieldOpen ? (
-          <TextField
-            value={foldername}
-            onChange={(e) => setFoldername(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleEditFolderName();
-              }
-            }}
-            onBlur={handleEditFolderName}
-            size="small"
-            sx={{
-              width: "100%",
-              "& .MuiInputBase-input": {
-                py: 0.5,
-                px: 1,
-                fontSize: 14.5
-              }
-            }}
-          />
-        ) : (
-          <ListItemText
-            primary={foldername}
-            primaryTypographyProps={{
-              fontSize: 14,
-              color: "black",
-              noWrap: true,
-              maxWidth: "120px"
-            }}
-            secondary={count.toString()}
-            secondaryTypographyProps={{
-              className: "secondary-text",
-              sx: {
-                opacity: 0,
-                transition: "opacity 0.3s",
-                color: theme.palette.grey[600],
-                bgcolor: theme.palette.grey[400],
-                fontSize: 12.5,
-                width: 20,
-                height: 20,
-                borderRadius: "50%",
-                textAlign: "center",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center"
-              }
-            }}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 1
-            }}
-          />
-        )}
-      </Link>
+      {isEditFieldOpen ? (
+        <Box display={"flex"} alignItems={"center"}>
+          {Content}
+        </Box>
+      ) : (
+        <Link
+          href={`?folder=${folderUUID}`}
+          onClick={() => onSelect(folderUUID)}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            textDecoration: "none",
+            width: "100%"
+          }}
+        >
+          {Content}
+        </Link>
+      )}
       <Box
         className="hover-icons"
         display={isPopupOpen ? "flex" : "none"}
