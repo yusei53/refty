@@ -25,8 +25,7 @@ func handler(ctx context.Context, sqsEvent events.SQSEvent) {
 	// if err != nil {
 	// 	log.Fatalf(".envファイルの読み込みに失敗しました: %v", err)
 	// }
-	// hello
-	// world
+	
 	dsn := os.Getenv("DATABASE_URL")
 	if dsn == "" {
 		log.Println("Missing DATABASE_URL environment variable")

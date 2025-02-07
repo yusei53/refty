@@ -37,7 +37,7 @@ jobs:
       # (3) ビルド & ZIP作成
       - name: Build and zip
         run: |
-          cd lambda-function
+          cd lambda-function/ai-func
           GOOS=linux GOARCH=arm64 go build -tags lambda.norpc -o bootstrap main.go query.go
           zip function.zip bootstrap
 
@@ -47,4 +47,4 @@ jobs:
           aws lambda update-function-code \
             --region ${{ secrets.AWS_REGION }} \
             --function-name ${{ secrets.LAMBDA_FUNCTION_NAME }} \
-            --zip-file fileb://lambda-function/function.zip
+            --zip-file fileb://lambda-function/ai-func/function.zip
