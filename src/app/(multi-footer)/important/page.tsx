@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import ImportantPage from "./page.client";
 import { meta } from "@/src/utils/metadata";
 
