@@ -4,18 +4,14 @@ import { Box, Typography } from "@mui/material";
 const FirstView: React.FC = () => {
   return (
     <Box textAlign={"center"}>
-      <Image
-        src="/favicon.svg"
-        alt={"feature image"}
-        width={140}
-        height={140}
-        priority
-      />
-      <Typography fontSize={19} fontWeight={"bold"}>
-        リフティ / refty.jp
-      </Typography>
-      <Typography fontSize={16} my={2}>
-        ~ 日々の振り返りを手助けする振り返りプラットフォーム ~
+      <Typography
+        component={"h1"}
+        fontWeight={"bold"}
+        letterSpacing={1}
+        fontSize={{ xs: 22, md: 40 }}
+        my={15}
+      >
+        なぜ、振り返りを行うのか
       </Typography>
     </Box>
   );
