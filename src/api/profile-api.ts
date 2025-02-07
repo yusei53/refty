@@ -2,7 +2,11 @@ import type { FetchURLOptions } from "../utils/fetchURL";
 import type { Result } from "../utils/types/result";
 import { fetchURL } from "../utils/fetchURL";
 
-export type Profile = {
+type Username = {
+  username: string;
+};
+
+type Profile = {
   image: string;
   bio: string;
   goal: string;
@@ -17,6 +21,19 @@ export const profileAPI = {
       next: { tags: [`profile-${username}`] }
     };
     return await fetchURL<Profile, 404>(path, options);
+  },
+  async updateUsername(username: string): Promise<Result<Username, 401>> {
+    const path = `/api/username`;
+    const options: FetchURLOptions = {
+      method: "PATCH",
+      body: {
+        username
+      },
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    return await fetchURL<Username, 401>(path, options);
   },
 
   async updateUserProfile(

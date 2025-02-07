@@ -47,7 +47,7 @@ type ReflectionAll = {
   filteredReflectionCount: number;
 };
 
-export type Reflections = {
+type Reflections = {
   userImage: string;
   bio: string;
   goal: string;
@@ -58,7 +58,7 @@ export type Reflections = {
   tagCountList: ReflectionTagCountList;
 };
 
-export type ReflectionDetail = Reflection & {
+type ReflectionDetail = Reflection & {
   content: string;
   aiFeedback: string;
   userId: string;
