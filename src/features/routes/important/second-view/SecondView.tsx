@@ -1,4 +1,4 @@
-import EffectSection from "./test2";
+import EffectSection from "./EffectSection";
 
 const SecondView = () => {
   return (
