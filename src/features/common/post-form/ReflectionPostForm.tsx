@@ -112,20 +112,6 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
 
   return (
     <Box component={"form"} onSubmit={onSubmit} minHeight={"80vh"}>
-      <Controller
-        name="folderUUID"
-        control={control}
-        render={({ field }) => (
-          <FolderSettingPopupAreaContainer
-            selectedFolderUUID={selectedFolderUUID}
-            setSelectedFolderUUID={(value) => {
-              onFolderChange(value);
-              field.onChange(value);
-            }}
-            folders={folders}
-          />
-        )}
-      />
       <Box
         component={"header"}
         position={"fixed"}
@@ -194,10 +180,26 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
             )}
           />
           {!isSmallScreen && (
-            <SelectTagPopupContainer
-              value={activeTags}
-              onTagChange={onTagChange}
-            />
+            <Box display={"flex"} flexDirection={"row"} gap={2}>
+              <SelectTagPopupContainer
+                value={activeTags}
+                onTagChange={onTagChange}
+              />
+              <Controller
+                name="folderUUID"
+                control={control}
+                render={({ field }) => (
+                  <FolderSettingPopupAreaContainer
+                    selectedFolderUUID={selectedFolderUUID}
+                    setSelectedFolderUUID={(value) => {
+                      onFolderChange(value);
+                      field.onChange(value);
+                    }}
+                    folders={folders}
+                  />
+                )}
+              />
+            </Box>
           )}
           <Controller
             name="content"
