@@ -58,7 +58,20 @@ const EffectSection: React.FC<EffectSectionProps> = ({
           />
         </Box>
       )}
-
+      {isSmartphone && !isSmallScreen && (
+        <Image
+          src={"/lp/mp.png"}
+          alt="mp image"
+          width={120}
+          height={200}
+          style={{
+            position: "absolute",
+            right: 155,
+            marginTop: 100,
+            height: "auto"
+          }}
+        />
+      )}
       <Box
         display={"flex"}
         flexDirection={"column"}
@@ -100,6 +113,20 @@ const EffectSection: React.FC<EffectSectionProps> = ({
               }}
             />
           </Box>
+        )}
+        {isSmartphone && isSmallScreen && (
+          <Image
+            src={"/lp/mp.png"}
+            alt="mp image"
+            width={80}
+            height={200}
+            style={{
+              position: "absolute",
+              right: 10,
+              marginTop: 88,
+              height: "auto"
+            }}
+          />
         )}
         <Typography
           letterSpacing={0.5}
