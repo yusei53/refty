@@ -24,6 +24,7 @@ type FolderItemProps = {
   count: number;
   onFolderUpdate: (updatedFolder: Folder) => void;
   onRefetch: () => Promise<void>;
+  setSelectedFolderUUID: (folderUUID: string) => void;
 };
 
 export const FolderItem: React.FC<FolderItemProps> = ({
@@ -35,7 +36,8 @@ export const FolderItem: React.FC<FolderItemProps> = ({
   onSelect,
   count,
   onFolderUpdate,
-  onRefetch
+  onRefetch,
+  setSelectedFolderUUID
 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isEditFieldOpen, setIsEditFieldOpen] = useState(false);
@@ -176,6 +178,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
           username={username}
           setIsEditFieldOpen={setIsEditFieldOpen}
           onRefetch={onRefetch}
+          setSelectedFolderUUID={setSelectedFolderUUID}
         />
       </Box>
     </ListItem>

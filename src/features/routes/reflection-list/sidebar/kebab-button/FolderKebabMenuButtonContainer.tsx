@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Box } from "@mui/material";
 import { FolderKebabMenuButton } from "./FolderKebabMenuButton";
 import { folderAPI } from "@/src/api/folder-api";
@@ -10,6 +11,7 @@ type FolderKebabButtonPopupContainerProps = {
   onSelectMode: () => void;
   onPopupChange?: (isOpen: boolean) => void;
   onRefetch: () => Promise<void>;
+  setSelectedFolderUUID: (folderUUID: string) => void;
 };
 
 export const FolderKebabButtonPopupContainer: React.FC<
@@ -20,8 +22,11 @@ export const FolderKebabButtonPopupContainer: React.FC<
   setIsEditFieldOpen,
   onSelectMode,
   onPopupChange,
-  onRefetch
+  onRefetch,
+  setSelectedFolderUUID
 }) => {
+  const router = useRouter();
+
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   //カスタムフックに切り出したいが、名前が別ブランチと被りそうなので一旦べた書き
@@ -48,6 +53,8 @@ export const FolderKebabButtonPopupContainer: React.FC<
     }
     handleClosePopup();
     await onRefetch();
+    setSelectedFolderUUID("");
+    router.push(`/${username}`);
   };
 
   return (
