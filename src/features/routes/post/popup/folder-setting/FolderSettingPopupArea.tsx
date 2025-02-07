@@ -101,7 +101,7 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
                 fontSize={12}
                 ml={1}
               >
-                フォルダを選択してください
+                1つ選択できます
               </Typography>
               <Box
                 display={"flex"}
