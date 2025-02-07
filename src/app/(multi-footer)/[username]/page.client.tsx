@@ -164,6 +164,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
             selectedFolderUUID={selectedFolderUUID}
             onSelect={setSelectedFolderUUID}
             onFolderUpdate={handleFolderUpdate}
+            setSelectedFolderUUID={setSelectedFolderUUID}
           />
         )}
         <UserProfileArea

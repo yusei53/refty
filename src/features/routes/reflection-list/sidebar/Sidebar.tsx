@@ -18,6 +18,7 @@ type SidebarProps = {
   selectedFolderUUID: string;
   onFolderUpdate: (updatedFolder: Folder) => void;
   onSelect: (folderUUID: string) => void;
+  setSelectedFolderUUID: (folderUUID: string) => void;
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -27,7 +28,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onSelectMode,
   selectedFolderUUID,
   onFolderUpdate,
-  onSelect
+  onSelect,
+  setSelectedFolderUUID
 }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const { folders, refreshFolders } = useFolder({
@@ -76,6 +78,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 isSelected={selectedFolderUUID === folder.folderUUID}
                 onFolderUpdate={onFolderUpdate}
                 onRefetch={refreshFolders}
+                setSelectedFolderUUID={setSelectedFolderUUID}
               />
             ))}
             <NewFolderField
