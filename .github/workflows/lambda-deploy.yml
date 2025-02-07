@@ -47,4 +47,4 @@ jobs:
           aws lambda update-function-code \
             --region ${{ secrets.AWS_REGION }} \
             --function-name ${{ secrets.LAMBDA_FUNCTION_NAME }} \
-            --zip-file fileb://lambda-function/function.zip
+            --zip-file fileb://lambda-function/ai-func/function.zip
