@@ -122,7 +122,6 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     setSelectedReflections([]);
     setIsLoading(false);
     router.push(`/${username}?folder=${selectedFolderUUID}`);
-    router.refresh();
   };
 
   const isCurrentUser = currentUsername === username;
