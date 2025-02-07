@@ -8,6 +8,7 @@ import {
   ListItemText,
   TextField
 } from "@mui/material";
+import type { Folder } from "@/src/api/folder-api";
 import { FolderKebabButtonPopupContainer } from "../kebab-button/FolderKebabMenuButtonContainer";
 import { folderAPI } from "@/src/api/folder-api";
 import { theme } from "@/src/utils/theme";
@@ -20,6 +21,7 @@ type FolderItemProps = {
   isSelected: boolean;
   onSelect: (folderUUID: string) => void;
   count: number;
+  onFolderUpdate: (updatedFolder: Folder) => void;
   onRefetch: () => Promise<void>;
 };
 
@@ -31,6 +33,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
   isSelected,
   onSelect,
   count,
+  onFolderUpdate,
   onRefetch
 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -38,11 +41,16 @@ export const FolderItem: React.FC<FolderItemProps> = ({
   const [foldername, setFoldername] = useState(initialFoldername);
 
   const handleEditFolderName = async () => {
-    const res = await folderAPI.updateFolder(username, folderUUID, foldername);
-    if (res === 401) {
+    const updatedFolder = await folderAPI.updateFolder(
+      username,
+      folderUUID,
+      foldername
+    );
+    if (updatedFolder === 401) {
       return;
     }
     setIsEditFieldOpen(false);
+    onFolderUpdate(updatedFolder);
   };
 
   const Content = (

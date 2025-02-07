@@ -55,7 +55,7 @@ export const folderAPI = {
     username: string,
     folderUUID: string,
     name: string
-  ): Promise<Result<void, 401>> {
+  ): Promise<Result<Folder, 401>> {
     const path = `/api/${username}/folder/${folderUUID}`;
     const options: FetchURLOptions = {
       method: "PATCH",
@@ -66,6 +66,6 @@ export const folderAPI = {
         "Content-Type": "application/json"
       }
     };
-    return await fetchURL<void, 401>(path, options);
+    return await fetchURL<Folder, 401>(path, options);
   }
 };

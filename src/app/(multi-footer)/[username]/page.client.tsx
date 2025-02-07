@@ -63,6 +63,8 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   const [isSelectionMode, setIsSelectionMode] = useState(false);
   const [selectedReflections, setSelectedReflections] = useState<string[]>([]);
   const [selectedFolderUUID, setSelectedFolderUUID] = useState<string>("");
+  const [foldersState, setFoldersState] = useState<Folder[]>(folders);
+
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -125,7 +127,9 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
 
   let selectedInfo: { name: string; count: number } | null = null;
   if (selectedFolderUUID !== "") {
-    const folder = folders.find((f) => f.folderUUID === selectedFolderUUID);
+    const folder = foldersState.find(
+      (f) => f.folderUUID === selectedFolderUUID
+    );
     if (folder) {
       selectedInfo = {
         name: folder.name,
@@ -140,17 +144,26 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     }
   }
 
+  const handleFolderUpdate = (updatedFolder: Folder) => {
+    setFoldersState((prev) =>
+      prev.map((folder) =>
+        folder.folderUUID === updatedFolder.folderUUID ? updatedFolder : folder
+      )
+    );
+  };
+
   return (
     <>
       <Box minHeight={"90vh"}>
         {isPCScreen && (
           <Sidebar
-            initialFolders={folders}
+            initialFolders={foldersState}
             username={username}
             onSelectMode={handleSelectMode}
             tagCountList={tagCountList}
             selectedFolderUUID={selectedFolderUUID}
             onSelect={setSelectedFolderUUID}
+            onFolderUpdate={handleFolderUpdate}
           />
         )}
         <UserProfileArea
@@ -182,7 +195,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
         >
           {selectedInfo && (
             <Box display="flex" alignItems="center">
-              {folders.some((f) => f.folderUUID === selectedFolderUUID) ? (
+              {foldersState.some((f) => f.folderUUID === selectedFolderUUID) ? (
                 <FolderIcon
                   fontSize="small"
                   sx={{ color: theme.palette.grey[500], mr: "4px" }}
