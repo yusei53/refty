@@ -9,7 +9,7 @@ type EffectSectionProps = {
   description: string;
   isEvenNumber?: boolean;
   isShareSection?: boolean;
-  isSmartphone?: boolean;
+  isSmartphonePicture?: boolean;
 };
 
 const EffectSection: React.FC<EffectSectionProps> = ({
@@ -18,7 +18,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
   description,
   isEvenNumber = false,
   isShareSection = false,
-  isSmartphone = false
+  isSmartphonePicture = false
 }) => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -58,10 +58,10 @@ const EffectSection: React.FC<EffectSectionProps> = ({
           />
         </Box>
       )}
-      {isSmartphone && !isSmallScreen && (
+      {isSmartphonePicture && !isSmallScreen && (
         <Image
-          src={"/lp/mp.png"}
-          alt="mp image"
+          src={"/lp/welcome-4-sp.png"}
+          alt="sp image"
           width={120}
           height={200}
           style={{
@@ -114,9 +114,9 @@ const EffectSection: React.FC<EffectSectionProps> = ({
             />
           </Box>
         )}
-        {isSmartphone && isSmallScreen && (
+        {isSmartphonePicture && isSmallScreen && (
           <Image
-            src={"/lp/mp.png"}
+            src={"/lp/welcome-4-sp.png"}
             alt="mp image"
             width={80}
             height={200}
