@@ -77,7 +77,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </List>
           <NewFolderField
             username={username}
-            onFolderCreated={refreshFolders}
+            onRefetchFolder={refreshFolders}
           />
           <List>
             {Object.entries(tagMap).map(([key, label]) => (
