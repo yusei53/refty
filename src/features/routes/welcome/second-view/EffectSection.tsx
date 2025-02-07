@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Box, Typography, useMediaQuery } from "@mui/material";
+import { Box, Container, Typography, useMediaQuery } from "@mui/material";
 import { theme } from "@/src/utils/theme";
 
 type EffectSectionProps = {
@@ -24,6 +24,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
 
   return (
     <Box
+      width={"75vw"}
       display={"flex"}
       flexDirection={{
         xs: "column",
@@ -31,7 +32,6 @@ const EffectSection: React.FC<EffectSectionProps> = ({
       }}
       gap={5}
       my={{ xs: 6, md: 12 }}
-      mx={{ xs: 0, md: 20 }}
     >
       {!isSmallScreen && (
         <Box
@@ -39,7 +39,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
           display={"flex"}
           justifyContent={"center"}
           alignItems={"center"}
-          width={"90vw"}
+          width={"100%"}
           height={325}
         >
           <Image
