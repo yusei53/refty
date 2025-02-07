@@ -9,6 +9,7 @@ type FolderKebabButtonPopupContainerProps = {
   setIsEditFieldOpen: (isEditFieldOpen: boolean) => void;
   onSelectMode: () => void;
   onPopupChange?: (isOpen: boolean) => void;
+  onRefetch: () => Promise<void>;
 };
 
 export const FolderKebabButtonPopupContainer: React.FC<
@@ -18,7 +19,8 @@ export const FolderKebabButtonPopupContainer: React.FC<
   username,
   setIsEditFieldOpen,
   onSelectMode,
-  onPopupChange
+  onPopupChange,
+  onRefetch
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -45,8 +47,7 @@ export const FolderKebabButtonPopupContainer: React.FC<
       return;
     }
     handleClosePopup();
-    //削除後にフォルダを更新する
-    //refreshFoldersを呼ぶ（別ブランチのもの）
+    await onRefetch();
   };
 
   return (

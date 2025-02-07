@@ -72,6 +72,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 onSelectMode={() => onSelectMode(folder.folderUUID)}
                 onSelect={onSelect}
                 isSelected={selectedFolderUUID === folder.folderUUID}
+                onRefetch={refreshFolders}
               />
             ))}
           </List>
