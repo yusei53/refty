@@ -48,6 +48,7 @@ export const CreateFolderField = ({
                   placeholder="フォルダ名"
                   error={Boolean(errors?.name)}
                   helperText={errors?.name?.message}
+                  onBlur={() => setIsEditing(false)}
                   sx={{
                     width: "100%",
                     fontSize: 14,
