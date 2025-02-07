@@ -16,7 +16,17 @@ export const createFolderSchema = z.object({
 
 export type CreateFolderSchemaType = z.infer<typeof createFolderSchema>;
 
-export const useCreateFolder = (username: string | undefined) => {
+type UseCreateFolderProps = {
+  username: string | undefined;
+  onRefetchFolder: () => void;
+  setIsEditing: (isEditing: boolean) => void;
+};
+
+export const useCreateFolder = ({
+  username,
+  onRefetchFolder,
+  setIsEditing
+}: UseCreateFolderProps) => {
   const router = useRouter();
   const {
     handleSubmit,
@@ -38,6 +48,10 @@ export const useCreateFolder = (username: string | undefined) => {
     if (res === 401) {
       router.push(`/`);
       router.refresh();
+    } else {
+      onRefetchFolder();
+      reset();
+      setIsEditing(false);
     }
   });
 

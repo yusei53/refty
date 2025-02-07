@@ -17,50 +17,52 @@ export const NewFolderField = ({
 }: NewFolderFieldProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
-  const createFolderHook = useCreateFolder(username);
+  const createFolderHook = useCreateFolder({
+    username,
+    onRefetchFolder,
+    setIsEditing
+  });
   if (!createFolderHook) return null;
-  const { control, errors, onSubmit, reset } = createFolderHook;
+  const { control, errors, onSubmit } = createFolderHook;
 
   const handleFolderSubmit = async (e: React.FormEvent) => {
     await onSubmit(e);
-    onRefetchFolder();
-    reset();
-    setIsEditing(false);
   };
 
   return (
     <Box>
       {isEditing ? (
-        <Box
-          component="form"
-          onSubmit={handleFolderSubmit}
-          sx={{ display: "flex", alignItems: "center", gap: 1 }}
-        >
-          <Controller
-            name="name"
-            control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                autoFocus
-                size="small"
-                placeholder="フォルダ名"
-                error={Boolean(errors?.name)}
-                helperText={errors?.name?.message}
-                onBlur={() => setIsEditing(false)}
-                sx={{
-                  width: "100%",
-                  fontSize: 14,
-                  mx: 1.5,
-                  "& .MuiInputBase-root": {
+        <>
+          <Box
+            component="form"
+            onSubmit={handleFolderSubmit}
+            sx={{ display: "flex", alignItems: "center", gap: 1 }}
+          >
+            <Controller
+              name="name"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  autoFocus
+                  size="small"
+                  placeholder="フォルダ名"
+                  error={Boolean(errors?.name)}
+                  helperText={errors?.name?.message}
+                  sx={{
+                    width: "100%",
                     fontSize: 14,
-                    height: 30
-                  }
-                }}
-              />
-            )}
-          />
-        </Box>
+                    mx: 1.5,
+                    "& .MuiInputBase-root": {
+                      fontSize: 14,
+                      height: 30
+                    }
+                  }}
+                />
+              )}
+            />
+          </Box>
+        </>
       ) : (
         <Box
           display={"flex"}
