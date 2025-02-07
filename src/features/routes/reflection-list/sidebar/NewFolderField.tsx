@@ -10,7 +10,7 @@ type NewFolderFieldProps = {
   onRefetchFolder: () => void;
 };
 
-//TODO: 命名
+//TODO: 命名をCreateFolderFieldに変更する
 export const NewFolderField = ({
   username,
   onRefetchFolder
