@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Image from "next/image";
 import { Controller } from "react-hook-form";
-import { Box, TextField } from "@mui/material";
-import { Button } from "@/src/components/button";
+import AddIcon from "@mui/icons-material/Add";
+import { Box, TextField, Typography } from "@mui/material";
 import { useCreateFolder } from "@/src/hooks/folder/useCreateFolder";
+import { theme } from "@/src/utils/theme";
 
 type NewFolderFieldProps = {
   username: string;
@@ -19,7 +19,7 @@ export const NewFolderField = ({
 
   const createFolderHook = useCreateFolder(username);
   if (!createFolderHook) return null;
-  const { control, isSubmitting, errors, onSubmit, reset } = createFolderHook;
+  const { control, errors, onSubmit, reset } = createFolderHook;
 
   const handleFolderSubmit = async (e: React.FormEvent) => {
     await onSubmit(e);
@@ -49,7 +49,9 @@ export const NewFolderField = ({
                 helperText={errors?.name?.message}
                 onBlur={() => setIsEditing(false)}
                 sx={{
+                  width: "100%",
                   fontSize: 14,
+                  mx: 1.5,
                   "& .MuiInputBase-root": {
                     fontSize: 14,
                     height: 30
@@ -58,32 +60,28 @@ export const NewFolderField = ({
               />
             )}
           />
-          <Button type="submit" disabled={isSubmitting} sx={button}>
-            作成
-          </Button>
         </Box>
       ) : (
         <Box
-          sx={{ ml: 2, cursor: "pointer", display: "inline-block" }}
+          display={"flex"}
+          alignItems={"center"}
+          mx={1.5}
+          mb={1}
+          gap={0.3}
+          sx={{ cursor: "pointer" }}
           onClick={() => setIsEditing(true)}
         >
-          <Image
-            src={"/add.svg"}
-            alt={"新規フォルダ作成ボタン"}
-            width={24}
-            height={24}
-          />
+          <AddIcon fontSize="small" sx={{ color: theme.palette.grey[500] }} />
+          <Typography
+            component={"span"}
+            fontSize={13}
+            color={theme.palette.grey[600]}
+            letterSpacing={0.8}
+          >
+            新規フォルダ作成
+          </Typography>
         </Box>
       )}
     </Box>
   );
-};
-
-const button = {
-  fontSize: 13.5,
-  p: "3px 6px",
-  letterSpacing: 0.8,
-  borderRadius: 2,
-  border: "1px solid #DCDFE3",
-  backgroundColor: "white"
 };

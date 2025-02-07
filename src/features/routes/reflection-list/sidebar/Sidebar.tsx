@@ -78,11 +78,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 onRefetch={refreshFolders}
               />
             ))}
+            <NewFolderField
+              username={username}
+              onRefetchFolder={refreshFolders}
+            />
           </List>
-          <NewFolderField
-            username={username}
-            onRefetchFolder={refreshFolders}
-          />
           <List>
             {Object.entries(tagMap).map(([key, label]) => (
               <TagItem
