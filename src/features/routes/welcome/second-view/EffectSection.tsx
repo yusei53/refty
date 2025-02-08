@@ -55,6 +55,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
               width={600}
               height={380}
               priority
+              sizes="100vw"
               style={{
                 borderRadius: 5,
                 boxShadow: "0 5px 5px 0 rgba(47, 47, 47, 0.1)",
@@ -108,6 +109,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
                 width={170}
                 height={170}
                 priority
+                sizes="100vw"
                 style={{
                   borderRadius: 5,
                   boxShadow: "0 5px 5px 0 rgba(47, 47, 47, 0.1)",
