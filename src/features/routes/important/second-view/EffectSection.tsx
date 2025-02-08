@@ -55,7 +55,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
             width={250}
             height={250}
             priority
-            style={{ margin: "15px 0px" }}
+            style={{ margin: "5px 0px 15px" }}
           />
         </Box>
       )}
@@ -67,7 +67,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
             width={250}
             height={250}
             priority
-            style={{ margin: "15px 0px" }}
+            style={{ margin: "5px 0px 15px" }}
           />
         </Box>
       )}
