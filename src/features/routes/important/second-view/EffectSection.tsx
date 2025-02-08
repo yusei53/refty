@@ -22,11 +22,12 @@ const EffectSection: React.FC<EffectSectionProps> = ({
       flexDirection={"column"}
       gap={2}
       my={{ xs: 6, md: 8 }}
-      mx={10}
+      maxWidth={{ xs: "90vw", md: "75vw" }}
+      margin={"0 auto"}
     >
       <Typography
         component={"h2"}
-        fontSize={{ xs: "1.2rem", md: "1.4rem" }}
+        fontSize={{ xs: 21, md: 28 }}
         fontWeight={"bold"}
         letterSpacing={{ xs: 1, md: 0.8 }}
         whiteSpace={"pre-line"}
@@ -37,7 +38,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
       </Typography>
       <Typography
         letterSpacing={"0.03em"}
-        fontSize={17}
+        fontSize={{ xs: 15, md: 17 }}
         lineHeight={"2rem"}
         whiteSpace={"pre-line"}
       >
