@@ -23,11 +23,12 @@ const EffectSection: React.FC<EffectSectionProps> = ({
       gap={2}
       my={{ xs: 6, md: 8 }}
       maxWidth={{ xs: "90vw", md: "75vw" }}
+      mx={{ md: 8 }}
       margin={"0 auto"}
     >
       <Typography
         component={"h2"}
-        fontSize={{ xs: 21, md: 28 }}
+        fontSize={{ xs: "1.2rem", md: "1.4rem" }}
         fontWeight={"bold"}
         letterSpacing={{ xs: 1, md: 0.8 }}
         whiteSpace={"pre-line"}
