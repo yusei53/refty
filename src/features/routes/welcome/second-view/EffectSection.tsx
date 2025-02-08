@@ -79,12 +79,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
             }}
           />
         )}
-        <Box
-          display="flex"
-          flexDirection="column"
-          justifyContent={{ md: "center" }}
-          flex={1}
-        >
+        <Box display="flex" flexDirection="column" flex={1}>
           <Typography
             component="h3"
             fontSize={{ xs: 21, md: 28 }}
@@ -93,6 +88,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
             whiteSpace="pre-line"
             m={{ xs: "0 auto", md: 0 }}
             mb={{ md: 1.5 }}
+            mt={{ md: 1.5 }}
           >
             {title}
           </Typography>
@@ -140,19 +136,20 @@ const EffectSection: React.FC<EffectSectionProps> = ({
             letterSpacing={0.5}
             fontSize={{ xs: 14, md: 15 }}
             whiteSpace="pre-line"
+            mt={{ md: 1 }}
           >
             {description}
           </Typography>
           {isShareSection && (
             <Link
-              href="/"
+              href="/important"
               style={{
                 color: "black",
                 marginTop: 15,
                 fontSize: 14
               }}
             >
-              みんなの振り返りはこちら
+              なぜ振り返りをするのか？
             </Link>
           )}
         </Box>
