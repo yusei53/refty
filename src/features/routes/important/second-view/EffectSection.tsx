@@ -22,7 +22,6 @@ const EffectSection: React.FC<EffectSectionProps> = ({
       flexDirection={"column"}
       gap={2}
       my={{ xs: 6, md: 8 }}
-      mx={10}
       maxWidth={{ xs: "90vw", md: "75vw" }}
       margin={"0 auto"}
     >
