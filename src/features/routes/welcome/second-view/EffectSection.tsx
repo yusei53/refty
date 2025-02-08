@@ -72,6 +72,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
             alt="sp image"
             width={120}
             height={200}
+            sizes="100vw"
             style={{
               position: "absolute",
               right: -10,
@@ -126,6 +127,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
               alt="mp image"
               width={80}
               height={200}
+              sizes="100vw"
               style={{
                 position: "absolute",
                 right: 10,
