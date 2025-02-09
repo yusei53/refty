@@ -31,7 +31,7 @@ export default async function RootLayout({
           href="/apple-touch-icon.png"
         />
         <meta name="apple-mobile-web-app-title" content="リフティ" />
-        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="manifest" href="/manifest.json" />
       </head>
       <body style={{ margin: 0 }}>
         <NextAuthProvider session={session}>

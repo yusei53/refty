@@ -1,5 +1,14 @@
+import nextPWA from "next-pwa";
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+
+const withPWA = nextPWA({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  disable: false
+});
+
+const nextConfig = withPWA({
   images: {
     domains: [
       "lh3.googleusercontent.com",
@@ -9,6 +18,6 @@ const nextConfig = {
       "avatars.githubusercontent.com"
     ]
   }
-};
+});
 
 export default nextConfig;
