@@ -67,7 +67,7 @@ export const sharedMarkdownStyles = (theme: Theme) => ({
     h3: {
       marginTop: "3.8rem",
       marginBottom: "1rem",
-      fontSize: "1.2rem",
+      fontSize: "1.24rem",
       [theme.breakpoints.down("sm")]: {
         fontSize: "1.1rem"
       }
