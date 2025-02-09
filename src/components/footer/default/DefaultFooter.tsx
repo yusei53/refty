@@ -47,7 +47,7 @@ export const DefaultFooter = () => {
             <Box display={"flex"} gap={8}>
               <Box display={"flex"} flexDirection={"column"} gap={2}>
                 <CustomLink href="/welcome">リフティとは</CustomLink>
-                <CustomLink href="/welcome">振り返りをする理由</CustomLink>
+                <CustomLink href="/important">振り返りをする理由</CustomLink>
                 <CustomLink href="/">みんなの振り返り</CustomLink>
               </Box>
               <Box display={"flex"} flexDirection={"column"} gap={2}>
