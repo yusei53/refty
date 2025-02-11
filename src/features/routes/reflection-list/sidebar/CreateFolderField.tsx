@@ -56,13 +56,12 @@ export const CreateFolderField = ({
                   size="small"
                   placeholder="フォルダ名"
                   error={Boolean(errors?.name)}
-                  helperText={errors?.name?.message}
                   onBlur={() => setIsEditing(false)}
                   onKeyDown={isMobile ? handleKeyDown : undefined}
                   sx={{
                     width: "100%",
                     fontSize: 14,
-                    mx: 1.5,
+                    mx: { lg: 1.5 },
                     "& .MuiInputBase-root": {
                       fontSize: 14,
                       height: 30
@@ -75,6 +74,7 @@ export const CreateFolderField = ({
               <Button
                 onClick={handleFolderSubmit}
                 onMouseDown={(e) => e.preventDefault()}
+                sx={button}
               >
                 作成
               </Button>
@@ -104,4 +104,13 @@ export const CreateFolderField = ({
       )}
     </Box>
   );
+};
+
+const button = {
+  fontSize: 13.5,
+  p: "3px",
+  letterSpacing: 0.8,
+  borderRadius: 2,
+  border: "1px solid #DCDFE3",
+  backgroundColor: "white"
 };
