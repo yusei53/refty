@@ -1,9 +1,7 @@
 "use client";
 import { useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import FolderIcon from "@mui/icons-material/Folder";
-import TagIcon from "@mui/icons-material/Tag";
-import { Box, Typography, useMediaQuery } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import type { TagType } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import type { User } from "@prisma/client";
@@ -14,7 +12,7 @@ import {
   type Reflection,
   type ReflectionTagCountList
 } from "@/src/api/reflection-api";
-import { Button, PostNavigationButton } from "@/src/components/button";
+import { PostNavigationButton } from "@/src/components/button";
 import {
   ArrowPagination,
   NumberedPagination
@@ -24,6 +22,7 @@ import { SearchBar } from "@/src/features/common/search-bar";
 import ReflectionCardListArea from "@/src/features/routes/reflection-list/card-list/ReflectionCardListArea";
 import { GoodJobModal } from "@/src/features/routes/reflection-list/modal";
 import UserProfileArea from "@/src/features/routes/reflection-list/profile/UserProfileArea";
+import { SelectionHeader } from "@/src/features/routes/reflection-list/selection-header/SelectionHeader";
 import { Sidebar } from "@/src/features/routes/reflection-list/sidebar";
 import { FolderInitializer } from "@/src/features/routes/reflection-list/sidebar/FolderInitializer";
 import { usePagination } from "@/src/hooks/reflection/usePagination";
@@ -129,6 +128,10 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     setIsLoading(false);
     router.push(`/${username}?folder=${selectedFolderUUID}`);
   };
+  const isFolderSelected = foldersState.some(
+    (f) => f.folderUUID === selectedFolderUUID
+  );
+  const disableAdd = selectedReflections.length === 0 || isLoading;
 
   const isCurrentUser = currentUsername === username;
   const isModalOpen = searchParams.get("status") === "posted";
@@ -186,49 +189,15 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
             onTagChange={handleTagChange}
           />
         )}
-        <Box
-          height={32}
-          mx={3}
-          my={1}
-          letterSpacing={0.8}
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"space-between"}
-        >
-          {selectedInfo && (
-            <Box display={"flex"} alignItems={"center"}>
-              {foldersState.some((f) => f.folderUUID === selectedFolderUUID) ? (
-                <FolderIcon
-                  fontSize="small"
-                  sx={{ color: theme.palette.grey[500], mr: "4px" }}
-                />
-              ) : (
-                <TagIcon
-                  fontSize="small"
-                  sx={{ color: theme.palette.grey[500], mr: "4px" }}
-                />
-              )}
-              <Typography component={"span"} fontWeight={550}>
-                {selectedInfo.name}
-              </Typography>
-              <Typography>{`　${selectedInfo.count}件`}</Typography>
-            </Box>
-          )}
-          {isSelectionMode && isPCScreen && (
-            <Box display={"flex"} justifyContent={"right"} gap={1}>
-              <Button sx={button} onClick={handleCancelSelectMode}>
-                キャンセル
-              </Button>
-              <Button
-                sx={{ ...button, color: theme.palette.primary.light }}
-                onClick={handleAddReflectionToFolder}
-                disabled={selectedFolderUUID.length === 0 || isLoading}
-              >
-                追加
-              </Button>
-            </Box>
-          )}
-        </Box>
+        <SelectionHeader
+          selectedInfo={selectedInfo}
+          isFolderSelected={isFolderSelected}
+          isSelectMode={isSelectMode}
+          isPCScreen={isPCScreen}
+          onCancel={handleCancelSelectMode}
+          onAdd={handleAddReflectionToFolder}
+          disableAdd={disableAdd}
+        />
         {reflections.length === 0 ? (
           <EmptyReflection />
         ) : (
@@ -278,12 +247,3 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
 };
 
 export default UserReflectionListPage;
-
-const button = {
-  fontSize: 13.5,
-  p: "3px 6px",
-  letterSpacing: 0.8,
-  borderRadius: 2,
-  border: "1px solid #DCDFE3",
-  backgroundColor: "white"
-};
