@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Controller } from "react-hook-form";
 import AddIcon from "@mui/icons-material/Add";
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, TextField, Typography, useMediaQuery } from "@mui/material";
+import { Button } from "@/src/components/button";
 import { useCreateFolder } from "@/src/hooks/folder/useCreateFolder";
 import { theme } from "@/src/utils/theme";
 
@@ -15,6 +16,7 @@ export const CreateFolderField = ({
   onRefetch
 }: CreateFolderFieldProps) => {
   const [isEditing, setIsEditing] = useState(false);
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   const createFolderHook = useCreateFolder({
     username,
@@ -23,6 +25,13 @@ export const CreateFolderField = ({
   });
   if (!createFolderHook) return null;
   const { control, errors, onSubmit } = createFolderHook;
+
+  // MEMO: スマホのEnterキー(改行ボタン等)で送信されてしまうのを防ぐ
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
+  };
 
   const handleFolderSubmit = async (e: React.FormEvent) => {
     await onSubmit(e);
@@ -49,6 +58,7 @@ export const CreateFolderField = ({
                   error={Boolean(errors?.name)}
                   helperText={errors?.name?.message}
                   onBlur={() => setIsEditing(false)}
+                  onKeyDown={isMobile ? handleKeyDown : undefined}
                   sx={{
                     width: "100%",
                     fontSize: 14,
@@ -61,6 +71,14 @@ export const CreateFolderField = ({
                 />
               )}
             />
+            {isMobile && (
+              <Button
+                onClick={handleFolderSubmit}
+                onMouseDown={(e) => e.preventDefault()}
+              >
+                作成
+              </Button>
+            )}
           </Box>
         </>
       ) : (
