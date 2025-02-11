@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Controller } from "react-hook-form";
 import AddIcon from "@mui/icons-material/Add";
 import { Box, TextField, Typography, useMediaQuery } from "@mui/material";
+import { ErrorMessage } from "@/src/components/alert";
 import { Button } from "@/src/components/button";
 import { useCreateFolder } from "@/src/hooks/folder/useCreateFolder";
 import { theme } from "@/src/utils/theme";
@@ -82,6 +83,12 @@ export const CreateFolderField = ({
               </Button>
             )}
           </Box>
+          {errors?.name?.message && (
+            <ErrorMessage
+              message={errors.name.message}
+              sx={{ mx: { lg: 1.5 }, display: "block" }}
+            />
+          )}
         </>
       ) : (
         <Box
