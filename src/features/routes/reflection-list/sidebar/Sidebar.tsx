@@ -1,4 +1,5 @@
 import { useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box, IconButton, List } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
@@ -52,10 +53,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
           position: isMobile ? "absolute" : "fixed",
           top: isMobile ? 10 : 16,
           left: isMobile ? 10 : 16,
-          zIndex: isMobile ? 11 : 1
+          zIndex: 11
         }}
       >
-        <MenuIcon sx={{ color: theme.palette.grey[500] }} />
+        {isSidebarOpen ? (
+          <CloseIcon sx={{ color: theme.palette.grey[500] }} />
+        ) : (
+          <MenuIcon sx={{ color: theme.palette.grey[500] }} />
+        )}
       </IconButton>
       {isMobile && isSidebarOpen && (
         <Box
@@ -83,7 +88,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           transition: "left 0.3s ease-in-out"
         }}
       >
-        <Box my={10}>
+        <Box my={8}>
           <List>
             {folders.map((folder) => (
               <FolderItem
