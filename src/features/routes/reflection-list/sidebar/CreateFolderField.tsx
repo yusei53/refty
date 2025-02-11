@@ -44,7 +44,9 @@ export const CreateFolderField = ({
           <Box
             component="form"
             onSubmit={handleFolderSubmit}
-            sx={{ display: "flex", alignItems: "center", gap: 1 }}
+            display={"flex"}
+            alignItems={"center"}
+            gap={1}
           >
             <Controller
               name="name"
