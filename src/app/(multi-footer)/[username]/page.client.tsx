@@ -112,10 +112,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
 
   const handleAddReflectionToFolder = async () => {
     setIsLoading(true);
-    if (!selectedFolderUUID) {
-      console.error("フォルダが選択されていません");
-      return;
-    }
+
     await reflectionAPI.bulkUpdateFolderReflection({
       reflectionCUID: selectedReflections,
       folderUUID: selectedFolderUUID,
