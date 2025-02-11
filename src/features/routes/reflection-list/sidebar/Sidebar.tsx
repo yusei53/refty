@@ -22,7 +22,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onSelectMode
 }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   const folders = useFolderStore((state) => state.folders);
   const selectedFolderUUID = useFolderStore(
@@ -49,10 +49,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
         disableRipple
         onClick={() => setSidebarOpen((prev) => !prev)}
         sx={{
-          position: "fixed",
-          top: 16,
-          left: 16,
-          zIndex: 11
+          position: isMobile ? "absolute" : "fixed",
+          top: isMobile ? 10 : 16,
+          left: isMobile ? 10 : 16,
+          zIndex: isMobile ? 11 : 1
         }}
       >
         <MenuIcon sx={{ color: theme.palette.grey[500] }} />
@@ -64,7 +64,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           left={0}
           width={"100vw"}
           height={"100vh"}
-          bgcolor={"rgba(0,0,0,0.5)"}
+          bgcolor={"rgba(0,0,0,0.2)"}
           zIndex={10}
           onClick={() => setSidebarOpen(false)}
         />
@@ -73,7 +73,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         position={"fixed"}
         top={0}
         left={isSidebarOpen ? 0 : isMobile ? "-80vw" : "-250px"}
-        width={isMobile ? "60vw" : "240px"}
+        width={"240px"}
         height={"100vh"}
         borderRight={`1px solid ${theme.palette.grey[400]}`}
         px={1.2}
