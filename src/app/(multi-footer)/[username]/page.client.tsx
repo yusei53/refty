@@ -61,7 +61,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   folders
 }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isSelectionMode, setIsSelectionMode] = useState(false);
+  const [isSelectMode, setIsSelectMode] = useState(false);
   const [selectedReflections, setSelectedReflections] = useState<string[]>([]);
   const router = useRouter();
   const pathname = usePathname();
@@ -89,7 +89,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
 
   const handleSelectMode = (folderUUID: string) => {
     router.push(pathname);
-    setIsSelectionMode(true);
+    setIsSelectMode(true);
     setSelectedFolderUUID(folderUUID);
   };
 
@@ -104,7 +104,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   };
 
   const handleCancelSelectMode = () => {
-    setIsSelectionMode(false);
+    setIsSelectMode(false);
     setSelectedReflections([]);
     setSelectedFolderUUID("");
   };
@@ -123,7 +123,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     }
 
     setFolders(updatedFolders);
-    setIsSelectionMode(false);
+    setIsSelectMode(false);
     setSelectedReflections([]);
     setIsLoading(false);
     router.push(`/${username}?folder=${selectedFolderUUID}`);
@@ -211,7 +211,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
               username={username}
               reflections={reflections}
               isCurrentUser={isCurrentUser}
-              isSelectMode={isSelectionMode}
+              isSelectMode={isSelectMode}
               isSelected={(reflectionCUID) =>
                 selectedReflections.includes(reflectionCUID)
               }
