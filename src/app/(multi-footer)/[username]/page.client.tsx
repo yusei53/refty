@@ -20,7 +20,6 @@ import {
   NumberedPagination
 } from "@/src/components/pagination";
 import { EmptyReflection } from "@/src/features/common/empty-reflection";
-import { SearchBar } from "@/src/features/common/search-bar";
 import ReflectionCardListArea from "@/src/features/routes/reflection-list/card-list/ReflectionCardListArea";
 import { GoodJobModal } from "@/src/features/routes/reflection-list/modal";
 import UserProfileArea from "@/src/features/routes/reflection-list/profile/UserProfileArea";
@@ -28,7 +27,6 @@ import { Sidebar } from "@/src/features/routes/reflection-list/sidebar";
 import { FolderInitializer } from "@/src/features/routes/reflection-list/sidebar/FolderInitializer";
 import { usePagination } from "@/src/hooks/reflection/usePagination";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
-import { useTagHandler } from "@/src/hooks/reflection-tag/useTagHandler";
 import { useFolderStore } from "@/src/utils/store/useFolderStore";
 import { theme } from "@/src/utils/theme";
 
@@ -68,15 +66,9 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
+  // TODO: 別ブランチでも分割したからisPCScreenは消せる
   const isPCScreen = useMediaQuery(theme.breakpoints.up("lg"));
 
-  const {
-    isOpenTagList,
-    selectedTag,
-    handleToggleTags,
-    handleTagChange,
-    getSelectedTagCount
-  } = useTagHandler();
   const { handlePageChange } = usePagination();
 
   const foldersState = useFolderStore((state) => state.folders);
@@ -158,7 +150,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   return (
     <>
       <Box minHeight={"90vh"}>
-        {isPCScreen && isCurrentUser && (
+        {isCurrentUser && (
           <>
             <FolderInitializer folders={folders} />
             <Sidebar
@@ -176,16 +168,6 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           reflectionCount={reflectionCount}
           isCurrentUser={isCurrentUser}
         />
-        {!isPCScreen && (
-          <SearchBar
-            tags={Object.values(tagMap)}
-            selectedTag={selectedTag}
-            selectedTagCount={getSelectedTagCount(tagCountList, selectedTag)}
-            isOpenTagList={isOpenTagList}
-            onToggleTags={handleToggleTags}
-            onTagChange={handleTagChange}
-          />
-        )}
         <Box
           height={32}
           mx={3}
