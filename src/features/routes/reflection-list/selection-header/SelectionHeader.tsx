@@ -1,6 +1,7 @@
 import FolderIcon from "@mui/icons-material/Folder";
 import TagIcon from "@mui/icons-material/Tag";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { Button } from "@/src/components/button";
 import { theme } from "@/src/utils/theme";
 
 type SelectionHeaderProps = {
