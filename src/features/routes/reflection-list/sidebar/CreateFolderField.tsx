@@ -7,18 +7,18 @@ import { theme } from "@/src/utils/theme";
 
 type CreateFolderFieldProps = {
   username: string;
-  onRefetchFolder: () => void;
+  onRefetch: (username: string) => Promise<void>;
 };
 
 export const CreateFolderField = ({
   username,
-  onRefetchFolder
+  onRefetch
 }: CreateFolderFieldProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const createFolderHook = useCreateFolder({
     username,
-    onRefetchFolder,
+    onRefetch,
     setIsEditing
   });
   if (!createFolderHook) return null;

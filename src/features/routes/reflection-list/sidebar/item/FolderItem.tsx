@@ -23,7 +23,7 @@ type FolderItemProps = {
   onSelect: (folderUUID: string) => void;
   count: number;
   onFolderUpdate: (updatedFolder: Folder) => void;
-  onRefetch: () => Promise<void>;
+  onRefetch: (username: string) => Promise<void>;
   setSelectedFolderUUID: (folderUUID: string) => void;
 };
 

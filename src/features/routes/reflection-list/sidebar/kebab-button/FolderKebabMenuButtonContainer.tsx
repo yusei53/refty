@@ -10,7 +10,7 @@ type FolderKebabButtonPopupContainerProps = {
   setIsEditFieldOpen: (isEditFieldOpen: boolean) => void;
   onSelectMode: () => void;
   onPopupChange?: (isOpen: boolean) => void;
-  onRefetch: () => Promise<void>;
+  onRefetch: (username: string) => Promise<void>;
   setSelectedFolderUUID: (folderUUID: string) => void;
 };
 
@@ -52,7 +52,7 @@ export const FolderKebabButtonPopupContainer: React.FC<
       return;
     }
     handleClosePopup();
-    await onRefetch();
+    await onRefetch(username);
     setSelectedFolderUUID("");
     router.push(`/${username}`);
   };
