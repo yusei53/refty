@@ -29,6 +29,7 @@ import { FolderInitializer } from "@/src/features/routes/reflection-list/sidebar
 import { usePagination } from "@/src/hooks/reflection/usePagination";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { useTagHandler } from "@/src/hooks/reflection-tag/useTagHandler";
+import { useFolderStore } from "@/src/stores/useFolderStore";
 import { theme } from "@/src/utils/theme";
 
 type UserReflectionListPageProps = {
@@ -63,14 +64,12 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isSelectionMode, setIsSelectionMode] = useState(false);
   const [selectedReflections, setSelectedReflections] = useState<string[]>([]);
-  const [selectedFolderUUID, setSelectedFolderUUID] = useState<string>("");
-  const [foldersState, setFoldersState] = useState<Folder[]>(folders);
-
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
   const isPCScreen = useMediaQuery(theme.breakpoints.up("lg"));
+
   const {
     isOpenTagList,
     selectedTag,
@@ -79,6 +78,15 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     getSelectedTagCount
   } = useTagHandler();
   const { handlePageChange } = usePagination();
+
+  const foldersState = useFolderStore((state) => state.folders);
+  const selectedFolderUUID = useFolderStore(
+    (state) => state.selectedFolderUUID
+  );
+  const setFolders = useFolderStore((state) => state.setFolders);
+  const setSelectedFolderUUID = useFolderStore(
+    (state) => state.setSelectedFolderUUID
+  );
 
   const handleSelectMode = (folderUUID: string) => {
     router.push(pathname);
@@ -118,7 +126,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
       return router.refresh();
     }
 
-    setFoldersState(updatedFolders);
+    setFolders(updatedFolders);
     setIsSelectionMode(false);
     setSelectedReflections([]);
     setIsLoading(false);
