@@ -6,7 +6,7 @@ type ErrorMessageProps = {
 
 export const ErrorMessage: React.FC<ErrorMessageProps> = ({ message }) => {
   return message ? (
-    <Typography color="error" variant="body2">
+    <Typography color="error" fontSize={12}>
       {message}
     </Typography>
   ) : null;
