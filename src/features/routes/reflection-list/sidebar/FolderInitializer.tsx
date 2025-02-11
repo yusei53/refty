@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import type { Folder } from "@/src/api/folder-api";
-import { useFolderStore } from "@/src/stores/useFolderStore";
+import { useFolderStore } from "@/src/utils/store/useFolderStore";
 
 type FolderInitializerProps = {
   folders: Folder[];

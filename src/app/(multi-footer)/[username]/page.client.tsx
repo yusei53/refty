@@ -29,7 +29,7 @@ import { FolderInitializer } from "@/src/features/routes/reflection-list/sidebar
 import { usePagination } from "@/src/hooks/reflection/usePagination";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { useTagHandler } from "@/src/hooks/reflection-tag/useTagHandler";
-import { useFolderStore } from "@/src/stores/useFolderStore";
+import { useFolderStore } from "@/src/utils/store/useFolderStore";
 import { theme } from "@/src/utils/theme";
 
 type UserReflectionListPageProps = {

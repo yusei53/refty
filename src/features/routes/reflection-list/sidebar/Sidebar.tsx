@@ -6,7 +6,7 @@ import type { TagType } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { CreateFolderField } from "./CreateFolderField";
 import { FolderItem, TagItem } from "./item";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
-import { useFolderStore } from "@/src/stores/useFolderStore";
+import { useFolderStore } from "@/src/utils/store/useFolderStore";
 import { theme } from "@/src/utils/theme";
 
 type SidebarProps = {
