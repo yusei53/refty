@@ -1,41 +1,35 @@
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box, IconButton, List } from "@mui/material";
-import type { Folder } from "@/src/api/folder-api";
 import type { ReflectionTagCountList } from "@/src/api/reflection-api";
 import type { TagType } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { CreateFolderField } from "./CreateFolderField";
 import { FolderItem, TagItem } from "./item";
-import { useFolder } from "@/src/hooks/folder/useFolder";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
+import { useFolderStore } from "@/src/stores/useFolderStore";
 import { theme } from "@/src/utils/theme";
 
 type SidebarProps = {
-  initialFolders: Folder[];
-  tagCountList: ReflectionTagCountList;
   username: string;
+  tagCountList: ReflectionTagCountList;
   onSelectMode: (folderUUID: string) => void;
-  selectedFolderUUID: string;
-  onFolderUpdate: (updatedFolder: Folder) => void;
-  onSelect: (folderUUID: string) => void;
-  setSelectedFolderUUID: (folderUUID: string) => void;
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({
-  initialFolders,
-  tagCountList,
   username,
-  onSelectMode,
-  selectedFolderUUID,
-  onFolderUpdate,
-  onSelect,
-  setSelectedFolderUUID
+  tagCountList,
+  onSelectMode
 }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const { folders, refreshFolders } = useFolder({
-    initialFolders,
-    username
-  });
+  const folders = useFolderStore((state) => state.folders);
+  const selectedFolderUUID = useFolderStore(
+    (state) => state.selectedFolderUUID
+  );
+  const setSelectedFolderUUID = useFolderStore(
+    (state) => state.setSelectedFolderUUID
+  );
+  const refreshFolders = useFolderStore((state) => state.refreshFolders);
+  const updatedFolders = useFolderStore((state) => state.updateFolder);
 
   return (
     <>
@@ -74,17 +68,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 count={folder.countByFolder}
                 username={username}
                 onSelectMode={() => onSelectMode(folder.folderUUID)}
-                onSelect={onSelect}
+                onSelect={() => setSelectedFolderUUID(folder.folderUUID)}
                 isSelected={selectedFolderUUID === folder.folderUUID}
-                onFolderUpdate={onFolderUpdate}
                 onRefetch={refreshFolders}
+                onFolderUpdate={updatedFolders}
                 setSelectedFolderUUID={setSelectedFolderUUID}
               />
             ))}
-            <CreateFolderField
-              username={username}
-              onRefetchFolder={refreshFolders}
-            />
+            <CreateFolderField username={username} onRefetch={refreshFolders} />
           </List>
           <List>
             {Object.entries(tagMap).map(([key, label]) => (
@@ -93,7 +84,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 tagname={label}
                 key={key}
                 isSelected={selectedFolderUUID === key}
-                onSelect={onSelect}
+                onSelect={() => setSelectedFolderUUID(key)}
                 count={tagCountList[key as keyof ReflectionTagCountList] || 0}
               />
             ))}

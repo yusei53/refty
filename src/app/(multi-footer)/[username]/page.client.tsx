@@ -25,6 +25,7 @@ import ReflectionCardListArea from "@/src/features/routes/reflection-list/card-l
 import { GoodJobModal } from "@/src/features/routes/reflection-list/modal";
 import UserProfileArea from "@/src/features/routes/reflection-list/profile/UserProfileArea";
 import { Sidebar } from "@/src/features/routes/reflection-list/sidebar";
+import { FolderInitializer } from "@/src/features/routes/reflection-list/sidebar/FolderInitializer";
 import { usePagination } from "@/src/hooks/reflection/usePagination";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { useTagHandler } from "@/src/hooks/reflection-tag/useTagHandler";
@@ -149,28 +150,18 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     }
   }
 
-  const handleFolderUpdate = (updatedFolder: Folder) => {
-    setFoldersState((prev) =>
-      prev.map((folder) =>
-        folder.folderUUID === updatedFolder.folderUUID ? updatedFolder : folder
-      )
-    );
-  };
-
   return (
     <>
       <Box minHeight={"90vh"}>
         {isPCScreen && isCurrentUser && (
-          <Sidebar
-            initialFolders={foldersState}
-            username={username}
-            onSelectMode={handleSelectMode}
-            tagCountList={tagCountList}
-            selectedFolderUUID={selectedFolderUUID}
-            onSelect={setSelectedFolderUUID}
-            onFolderUpdate={handleFolderUpdate}
-            setSelectedFolderUUID={setSelectedFolderUUID}
-          />
+          <>
+            <FolderInitializer folders={folders} />
+            <Sidebar
+              username={username}
+              onSelectMode={handleSelectMode}
+              tagCountList={tagCountList}
+            />
+          </>
         )}
         <UserProfileArea
           userImage={userImage}
