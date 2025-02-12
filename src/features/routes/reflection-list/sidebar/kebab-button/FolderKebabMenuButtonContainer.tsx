@@ -68,7 +68,6 @@ export const FolderKebabButtonPopupContainer: React.FC<
           left={0}
           width="100vw"
           height="100vh"
-          zIndex={3}
         />
       )}
       <FolderKebabMenuButton
