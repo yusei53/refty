@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import FolderIcon from "@mui/icons-material/Folder";
 import {
   Box,
@@ -56,6 +56,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentFolder = searchParams.get("folder");
+  const router = useRouter();
 
   const href =
     currentFolder === folderUUID
@@ -73,6 +74,14 @@ export const FolderItem: React.FC<FolderItemProps> = ({
     }
     setIsEditFieldOpen(false);
     onFolderUpdate(updatedFolder);
+  };
+
+  //TODO:page.clientに記載する
+  const handleClickBookIcon = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    e.preventDefault(); // MEMO:<Link> のデフォルトの遷移を防ぐ
+    router.push(`/book/?folder=${folderUUID}`);
   };
 
   const Content = (
@@ -185,6 +194,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
         <Link
           href={`${username}/book`}
           style={link}
+          onClick={handleClickBookIcon}
           onMouseEnter={(e) =>
             (e.currentTarget.style.backgroundColor = `${theme.palette.grey[100]}`)
           }
