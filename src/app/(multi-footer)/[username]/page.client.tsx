@@ -65,7 +65,6 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
-  const isPCScreen = useMediaQuery(theme.breakpoints.up("lg"));
 
   const { handlePageChange } = usePagination();
 
@@ -174,7 +173,6 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           selectedInfo={selectedInfo}
           isFolderSelected={isFolderSelected}
           isSelectMode={isSelectMode}
-          isPCScreen={isPCScreen}
           onCancel={handleCancelSelectMode}
           onAdd={handleAddReflectionToFolder}
           disableAdd={disableAdd}
