@@ -10,6 +10,7 @@ type FolderKebabMenuButtonProps = {
   onOpenPopup: (event: React.MouseEvent<HTMLElement>) => void;
   onClosePopup: () => void;
   onSelectMode: () => void;
+  onCloseSidebar: () => void;
   onEditFolderName: () => void;
   onDeleteFolder: () => void;
 };
@@ -20,6 +21,7 @@ export const FolderKebabMenuButton: React.FC<FolderKebabMenuButtonProps> = ({
   onOpenPopup,
   onClosePopup,
   onSelectMode,
+  onCloseSidebar,
   onEditFolderName,
   onDeleteFolder
 }) => {
@@ -77,6 +79,7 @@ export const FolderKebabMenuButton: React.FC<FolderKebabMenuButtonProps> = ({
                 onClick={() => {
                   onClosePopup();
                   onSelectMode();
+                  onCloseSidebar();
                 }}
               />
               <PopupButton

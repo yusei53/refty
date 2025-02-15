@@ -20,6 +20,7 @@ type FolderItemProps = {
   folderUUID: string;
   username: string;
   onSelectMode: () => void;
+  onCloseSidebar: () => void;
   isSelected: boolean;
   onSelect: (folderUUID: string) => void;
   count: number;
@@ -33,6 +34,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
   folderUUID,
   username,
   onSelectMode,
+  onCloseSidebar,
   isSelected,
   onSelect,
   count,
@@ -146,7 +148,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
       }}
     >
       {isEditFieldOpen ? (
-        <Box display={"flex"} alignItems={"center"}>
+        <Box display="flex" alignItems="center">
           {Content}
         </Box>
       ) : (
@@ -175,6 +177,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
       >
         <FolderKebabButtonPopupContainer
           onSelectMode={onSelectMode}
+          onCloseSidebar={onCloseSidebar}
           onPopupChange={(open) => setIsPopupOpen(open)}
           folderUUID={folderUUID}
           username={username}
