@@ -52,6 +52,7 @@ export const FolderKebabMenuButton: React.FC<FolderKebabMenuButtonProps> = ({
         />
       </Box>
       <Popper
+        disablePortal
         open={open}
         anchorEl={anchorEl}
         transition
@@ -63,7 +64,12 @@ export const FolderKebabMenuButton: React.FC<FolderKebabMenuButtonProps> = ({
       >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
-            <Box boxShadow={1} borderRadius={2.5} bgcolor={"white"}>
+            <Box
+              boxShadow={1}
+              borderRadius={2.5}
+              bgcolor={"white"}
+              minWidth={200}
+            >
               <PopupButton
                 text={"投稿をフォルダに追加"}
                 src={"/add-to-folder.svg"}
