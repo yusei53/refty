@@ -2,6 +2,7 @@
 import "swiper/css";
 import "swiper/css/effect-cards";
 import "swiper/css/navigation";
+import { useSearchParams } from "next/navigation";
 import { EffectCards, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Box, useMediaQuery } from "@mui/material";
@@ -13,7 +14,6 @@ import "@/src/features/routes/reflections-book/my-swiper.css";
 import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
 import { useSwipeIconVisibility } from "@/src/hooks/reflections-book/useSwipeIconVisibility";
 import { theme } from "@/src/utils/theme";
-import { useSearchParams } from "next/navigation";
 
 type ReflectionsBookPageProps = {
   reflections: ReflectionBook[];
