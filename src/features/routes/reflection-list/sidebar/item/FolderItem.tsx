@@ -81,7 +81,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
     e.preventDefault(); // MEMO:<Link> のデフォルトの遷移を防ぐ
-    router.push(`/book/?folder=${folderUUID}`);
+    router.push(`${username}/book/?folder=${folderUUID}`);
   };
 
   const Content = (
