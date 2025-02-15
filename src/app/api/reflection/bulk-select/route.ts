@@ -41,22 +41,28 @@ export async function POST(req: Request) {
       return forbiddenError("選択した投稿の中に自分の投稿以外が含まれています");
     }
 
-    // MEMO: 一括選択した投稿のフォルダを更新する。この時点ではまだ実行されず、Promiseとして準備される
-    const updatePromises = reflectionCUID.map((cuid) =>
-      prisma.reflection.update({
+    await prisma.$transaction([
+      prisma.reflection.updateMany({
         where: {
-          reflectionCUID: cuid
+          userId,
+          folderUUID,
+          // MEMO: 現在フォルダに入っているが、今回選択されていない投稿をフォルダから外す
+          reflectionCUID: { notIn: reflectionCUID }
         },
-        data: {
-          folderUUID
-        }
+        data: { folderUUID: null }
+      }),
+      prisma.reflection.updateMany({
+        where: {
+          userId,
+          // MEMO: 選択された投稿をフォルダに入れる
+          reflectionCUID: { in: reflectionCUID }
+        },
+        data: { folderUUID }
       })
-    );
-
-    await prisma.$transaction(updatePromises);
+    ]);
 
     return NextResponse.json(
-      { message: "選択した投稿をフォルダに追加しました" },
+      { message: "選択した投稿をフォルダに更新しました" },
       { status: 200 }
     );
   } catch (error) {
