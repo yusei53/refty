@@ -77,11 +77,14 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   const setSelectedFolderUUID = useFolderStore(
     (state) => state.setSelectedFolderUUID
   );
-
   const handleSelectMode = (folderUUID: string) => {
     router.push(pathname);
     setIsSelectMode(true);
     setSelectedFolderUUID(folderUUID);
+    const preSelected = reflections
+      .filter((r) => r.folderUUID === folderUUID)
+      .map((r) => r.reflectionCUID);
+    setSelectedReflections(preSelected);
   };
 
   const handleSelect = (reflectionCUID: string) => {
