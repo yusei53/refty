@@ -153,7 +153,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
             px={1.5}
             py={0.8}
             boxShadow={"0px 0.7px 1px rgba(0, 0, 0, 0.1)"}
-            display="flex"
+            display={"flex"}
             flexDirection={"row"}
             gap={2}
           >
