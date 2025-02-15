@@ -86,8 +86,7 @@ export const reflectionRepository = {
             charStamp: true,
             createdAt: true,
             isPublic: true,
-            isPinned: true,
-            folderUUID: true
+            isPinned: true
           }
         }
       }
