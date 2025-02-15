@@ -7,7 +7,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  TextField
+  TextField,
+  useMediaQuery
 } from "@mui/material";
 import type { Folder } from "@/src/api/folder-api";
 import { FolderKebabButtonPopupContainer } from "../kebab-button/FolderKebabMenuButtonContainer";
@@ -45,6 +46,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentFolder = searchParams.get("folder");
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   const href =
     currentFolder === folderUUID
@@ -165,7 +167,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
       )}
       <Box
         className="hover-icons"
-        display={isPopupOpen ? "flex" : "none"}
+        display={isMobile ? "flex" : isPopupOpen ? "flex" : "none"}
         alignItems={"center"}
         gap={1}
         position={"absolute"}
