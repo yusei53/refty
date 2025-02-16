@@ -156,6 +156,13 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
             display={"flex"}
             flexDirection={"row"}
             gap={2}
+            whiteSpace={"nowrap"}
+            sx={{
+              overflowX: "auto",
+              "&::-webkit-scrollbar": {
+                display: "none"
+              }
+            }}
           >
             <SelectTagPopupContainer
               value={activeTags}
