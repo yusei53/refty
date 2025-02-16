@@ -48,7 +48,6 @@ const page = async ({
       reflections={res.reflections}
       username={session?.user.username ?? ""}
       userImage={session?.user.image ?? ""}
-      folderUUID={folderUUID}
     />
   );
 };
