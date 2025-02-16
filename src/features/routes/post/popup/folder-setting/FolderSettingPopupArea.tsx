@@ -39,7 +39,6 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
         <Button
           onClick={onPopupOpen}
           sx={{
-            mr: 0.5,
             bgcolor: theme.palette.primary.main,
             border: "#ededed solid 1px",
             borderRadius: 2,
