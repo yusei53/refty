@@ -1,4 +1,13 @@
-import { AccordionDetails, Box, Typography } from "@mui/material";
+import { useState } from "react";
+import {
+  AccordionDetails,
+  Box,
+  Stack,
+  Popper,
+  Typography,
+  Fade,
+  Divider
+} from "@mui/material";
 import { AICalling } from "./AICalling";
 import { AIFeedbackArea } from "./AIFeedbackArea";
 import { Accordion, AccordionSummary } from "@/src/components/accordion";
@@ -14,6 +23,13 @@ type AIFeedbackAreaContainerProps = {
   onSendToSQS: () => Promise<void>;
 };
 
+const button = {
+  border: "none",
+  display: "block",
+  textAlign: "left",
+  width: "100%"
+};
+
 export const AIFeedbackAreaContainer: React.FC<
   AIFeedbackAreaContainerProps
 > = ({ isCurrentUser, reflectionCUID, aiFeedback, content, onSendToSQS }) => {
@@ -25,6 +41,17 @@ export const AIFeedbackAreaContainer: React.FC<
     handleSendToSQS
   } = useAIFeedbackHandler(reflectionCUID, aiFeedback, content, onSendToSQS);
 
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <Accordion>
       <AccordionSummary sx={{ mt: 8 }}>
@@ -33,19 +60,124 @@ export const AIFeedbackAreaContainer: React.FC<
         </Typography>
       </AccordionSummary>
       <AccordionDetails sx={{ py: 0.5, px: 0 }}>
-        <Button
-          onClick={handleSendToSQS}
-          disabled={!isAICallButtonEnabled || isLoading || !isCurrentUser}
-          sx={{
-            borderRadius: 2,
-            bgcolor: theme.palette.primary.contrastText,
-            "&:hover": {
-              bgcolor: theme.palette.primary.main
-            }
-          }}
-        >
-          AIからフィードバックをもらう
-        </Button>
+        <Box display="flex" flexDirection="row">
+          <Button
+            onClick={handleSendToSQS}
+            disabled={!isAICallButtonEnabled || isLoading || !isCurrentUser}
+            sx={{
+              borderRadius: 2,
+              bgcolor: theme.palette.primary.contrastText,
+              "&:hover": {
+                bgcolor: theme.palette.primary.main
+              }
+            }}
+          >
+            AIからフィードバックをもらう
+          </Button>
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={1}
+            border={`1px solid ${theme.palette.grey[300]}`}
+            borderRadius={8}
+            px={2}
+            py={1}
+            mx={3}
+            tabIndex={0}
+            onClick={handleClick}
+            onBlur={handleClose}
+            sx={{
+              "&:hover": {
+                cursor: "pointer"
+              }
+            }}
+          >
+            <Box>👹</Box>
+            <Box>👼</Box>
+            <Box>👻</Box>
+            <Box>👽</Box>
+          </Stack>
+          <Popper open={open} anchorEl={anchorEl} transition sx={{ zIndex: 2 }}>
+            {({ TransitionProps }) => (
+              <Fade {...TransitionProps} timeout={250}>
+                <Box
+                  boxShadow={1}
+                  borderRadius={2.5}
+                  bgcolor={"white"}
+                  zIndex={2}
+                  maxHeight={"320px"}
+                  overflow={"auto"}
+                  sx={{
+                    "&::-webkit-scrollbar": {
+                      width: "4px",
+                      height: "4px"
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                      backgroundColor: theme.palette.grey[400],
+                      borderRadius: "4px"
+                    },
+                    "&::-webkit-scrollbar-thumb:hover": {
+                      backgroundColor: theme.palette.grey[600]
+                    }
+                  }}
+                >
+                  <Button
+                    sx={{
+                      ...button,
+                      borderRadius: "none",
+                      letterSpacing: 0.8,
+                      "&:hover": {
+                        backgroundColor: theme.palette.primary.contrastText
+                      }
+                    }}
+                  >
+                    👹
+                  </Button>
+                  <Divider sx={{ borderColor: theme.palette.grey[400] }} />
+                  <Button
+                    sx={{
+                      ...button,
+                      borderRadius: "none",
+                      letterSpacing: 0.8,
+                      "&:hover": {
+                        backgroundColor: theme.palette.primary.contrastText
+                      }
+                    }}
+                  >
+                    👼
+                  </Button>
+                  <Divider sx={{ borderColor: theme.palette.grey[400] }} />
+                  <Button
+                    sx={{
+                      ...button,
+                      borderRadius: "none",
+                      letterSpacing: 0.8,
+                      "&:hover": {
+                        backgroundColor: theme.palette.primary.contrastText
+                      }
+                    }}
+                  >
+                    👻
+                  </Button>
+                  <Divider sx={{ borderColor: theme.palette.grey[400] }} />
+                  <Button
+                    sx={{
+                      ...button,
+                      borderRadius: "none",
+                      letterSpacing: 0.8,
+                      "&:hover": {
+                        backgroundColor: theme.palette.primary.contrastText
+                      }
+                    }}
+                  >
+                    👽
+                  </Button>
+                  <Divider sx={{ borderColor: theme.palette.grey[400] }} />
+                </Box>
+              </Fade>
+            )}
+          </Popper>
+        </Box>
         <Typography fontSize={12} color={theme.palette.grey[600]} mt={1}>
           文字数が100文字以上、かつまだAIからのフィードバックがない場合のみAIにフィードバックをもらえます
         </Typography>
