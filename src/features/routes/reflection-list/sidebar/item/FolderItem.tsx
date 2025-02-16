@@ -28,16 +28,6 @@ type FolderItemProps = {
   setSelectedFolderUUID: (folderUUID: string) => void;
 };
 
-const link = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  width: "30px",
-  height: "30px",
-  borderRadius: "50%",
-  transition: "background-color 0.3s ease"
-};
-
 export const FolderItem: React.FC<FolderItemProps> = ({
   initialFoldername,
   folderUUID,
@@ -211,4 +201,14 @@ export const FolderItem: React.FC<FolderItemProps> = ({
       </Box>
     </ListItem>
   );
+};
+
+const link = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "30px",
+  height: "30px",
+  borderRadius: "50%",
+  transition: "background-color 0.3s ease"
 };
