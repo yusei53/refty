@@ -70,17 +70,13 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   const { handlePageChange } = usePagination();
 
   const foldersState = useFolderStore((state) => state.folders);
-  const selectedFolderUUID = useFolderStore(
-    (state) => state.selectedFolderUUID
-  );
+  const selectedInfo = useFolderStore((state) => state.selectedInfo);
   const setFolders = useFolderStore((state) => state.setFolders);
-  const setSelectedFolderUUID = useFolderStore(
-    (state) => state.setSelectedFolderUUID
-  );
+  const setSelectedInfo = useFolderStore((state) => state.setSelectedInfo);
   const handleSelectMode = async (folderUUID: string) => {
     router.push(pathname);
     setIsSelectMode(true);
-    setSelectedFolderUUID(folderUUID);
+    setSelectedInfo(folderUUID);
     const info = await getReflectionWithFolderInfo(username, folderUUID);
     if (!info) return;
     const preSelected = info.map((i) => i.reflectionCUID);
@@ -100,7 +96,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   const handleCancelSelectMode = () => {
     setIsSelectMode(false);
     setSelectedReflections([]);
-    setSelectedFolderUUID("");
+    setSelectedInfo("");
   };
 
   const handleAddReflectionToFolder = async () => {
@@ -108,7 +104,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
 
     await reflectionAPI.bulkUpdateFolderReflection({
       reflectionCUID: selectedReflections,
-      folderUUID: selectedFolderUUID,
+      folderUUID: selectedInfo,
       username
     });
     const updatedFolders = await folderAPI.getFolder(username);
@@ -120,11 +116,11 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     setIsSelectMode(false);
     setSelectedReflections([]);
     setIsLoading(false);
-    router.push(`/${username}?folder=${selectedFolderUUID}`);
+    router.push(`/${username}?folder=${selectedInfo}`);
     router.refresh();
   };
   const isFolderSelected = foldersState.some(
-    (f) => f.folderUUID === selectedFolderUUID
+    (f) => f.folderUUID === selectedInfo
   );
   const disableAdd = selectedReflections.length === 0 || isLoading;
 
@@ -134,23 +130,18 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     router.push(`/${username}`);
   };
 
-  let selectedInfo: { name: string; count: number } | null = null;
-  if (selectedFolderUUID !== "") {
-    const folder = foldersState.find(
-      (f) => f.folderUUID === selectedFolderUUID
-    );
-    if (folder) {
-      selectedInfo = {
-        name: folder.name,
-        count: folder.countByFolder || 0
-      };
-    } else if (tagMap[selectedFolderUUID as keyof TagType]) {
-      selectedInfo = {
-        name: tagMap[selectedFolderUUID as keyof TagType],
-        count:
-          tagCountList[selectedFolderUUID as keyof ReflectionTagCountList] || 0
-      };
-    }
+  let selected: { name: string; count: number } | null = null;
+  const folder = foldersState.find((f) => f.folderUUID === selectedInfo);
+  if (folder) {
+    selected = {
+      name: folder.name,
+      count: folder.countByFolder || 0
+    };
+  } else if (tagMap[selectedInfo as keyof TagType]) {
+    selected = {
+      name: tagMap[selectedInfo as keyof TagType],
+      count: tagCountList[selectedInfo as keyof ReflectionTagCountList] || 0
+    };
   }
 
   return (
@@ -175,7 +166,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           isCurrentUser={isCurrentUser}
         />
         <SelectionHeader
-          selectedInfo={selectedInfo}
+          selectedInfo={selected}
           isFolderSelected={isFolderSelected}
           isSelectMode={isSelectMode}
           onCancel={handleCancelSelectMode}

@@ -26,29 +26,25 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   const folders = useFolderStore((state) => state.folders);
-  const selectedFolderUUID = useFolderStore(
-    (state) => state.selectedFolderUUID
-  );
-  const setSelectedFolderUUID = useFolderStore(
-    (state) => state.setSelectedFolderUUID
-  );
+  const selectedInfo = useFolderStore((state) => state.selectedInfo);
+  const setSelectedInfo = useFolderStore((state) => state.setSelectedInfo);
   const refreshFolders = useFolderStore((state) => state.refreshFolders);
   const updatedFolders = useFolderStore((state) => state.updateFolder);
 
   const handleFolderSelect = (folderUUID: string) => {
-    if (selectedFolderUUID === folderUUID) {
-      setSelectedFolderUUID("");
+    if (selectedInfo === folderUUID) {
+      setSelectedInfo("");
     } else {
-    setSelectedFolderUUID(folderUUID);
+      setSelectedInfo(folderUUID);
     }
     if (isMobile) setSidebarOpen(false);
   };
 
   const handleTagSelect = (tagKey: string) => {
-    if (selectedFolderUUID === tagKey) {
-      setSelectedFolderUUID("");
+    if (selectedInfo === tagKey) {
+      setSelectedInfo("");
     } else {
-    setSelectedFolderUUID(tagKey);
+      setSelectedInfo(tagKey);
     }
     if (isMobile) setSidebarOpen(false);
   };
@@ -109,10 +105,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 onSelectMode={() => onSelectMode(folder.folderUUID)}
                 onCloseSidebar={() => setSidebarOpen(false)} // TODO: バケツリレーしすぎなのでzustandに移行してもいいかも
                 onSelect={() => handleFolderSelect(folder.folderUUID)}
-                isSelected={selectedFolderUUID === folder.folderUUID}
+                isSelected={selectedInfo === folder.folderUUID}
                 onRefetch={refreshFolders}
                 onFolderUpdate={updatedFolders}
-                setSelectedFolderUUID={setSelectedFolderUUID}
+                setSelectedFolderUUID={setSelectedInfo}
               />
             ))}
             <CreateFolderField username={username} onRefetch={refreshFolders} />
@@ -123,7 +119,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 tagKey={key as keyof TagType}
                 tagname={label}
                 key={key}
-                isSelected={selectedFolderUUID === key}
+                isSelected={selectedInfo === key}
                 onSelect={() => handleTagSelect(key)}
                 count={tagCountList[key as keyof ReflectionTagCountList] || 0}
               />
