@@ -9,10 +9,11 @@ if (!NEXT_PUBLIC_SQS_QUEUE_URL) {
 export const sendMessageToSQS = async (params: {
   content: string;
   reflectionCUID: string;
+  AIType: 0 | 1 | 2 | 3;
 }) => {
-  const { content, reflectionCUID } = params;
+  const { content, reflectionCUID, AIType } = params;
 
-  const messageBody = JSON.stringify({ content, reflectionCUID });
+  const messageBody = JSON.stringify({ content, reflectionCUID, AIType });
 
   const command = new SendMessageCommand({
     QueueUrl: NEXT_PUBLIC_SQS_QUEUE_URL,

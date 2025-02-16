@@ -21,6 +21,8 @@ type AIFeedbackAreaContainerProps = {
   aiFeedback: string;
   content: string;
   onSendToSQS: () => Promise<void>;
+  setAIType: (type: 0 | 1 | 2 | 3) => void;
+  AIType: 0 | 1 | 2 | 3 | null;
 };
 
 const button = {
@@ -32,7 +34,15 @@ const button = {
 
 export const AIFeedbackAreaContainer: React.FC<
   AIFeedbackAreaContainerProps
-> = ({ isCurrentUser, reflectionCUID, aiFeedback, content, onSendToSQS }) => {
+> = ({
+  isCurrentUser,
+  reflectionCUID,
+  aiFeedback,
+  content,
+  onSendToSQS,
+  setAIType,
+  AIType
+}) => {
   const {
     animatedFeedback,
     isLoading,
@@ -40,8 +50,6 @@ export const AIFeedbackAreaContainer: React.FC<
     isAICallButtonEnabled,
     handleSendToSQS
   } = useAIFeedbackHandler(reflectionCUID, aiFeedback, content, onSendToSQS);
-
-  const [AIType, setAIType] = useState<0 | 1 | 2 | 3 | null>(null);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
