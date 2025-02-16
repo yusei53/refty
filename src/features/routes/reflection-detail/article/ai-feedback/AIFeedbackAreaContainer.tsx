@@ -41,6 +41,8 @@ export const AIFeedbackAreaContainer: React.FC<
     handleSendToSQS
   } = useAIFeedbackHandler(reflectionCUID, aiFeedback, content, onSendToSQS);
 
+  const [AIType, setAIType] = useState<0 | 1 | 2 | 3 | null>(null);
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -49,6 +51,11 @@ export const AIFeedbackAreaContainer: React.FC<
   };
 
   const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleAITypeSelect = (type: 0 | 1 | 2 | 3) => {
+    setAIType(type);
     setAnchorEl(null);
   };
 
@@ -92,10 +99,18 @@ export const AIFeedbackAreaContainer: React.FC<
               }
             }}
           >
-            <Box>👹</Box>
-            <Box>👼</Box>
-            <Box>👻</Box>
-            <Box>👽</Box>
+            {AIType === null && (
+              <>
+                <Box>👹</Box>
+                <Box>👼</Box>
+                <Box>👻</Box>
+                <Box>👽</Box>
+              </>
+            )}
+            {AIType === 0 && <Box>👹</Box>}
+            {AIType === 1 && <Box>👼</Box>}
+            {AIType === 2 && <Box>👻</Box>}
+            {AIType === 3 && <Box>👽</Box>}
           </Stack>
           <Popper open={open} anchorEl={anchorEl} transition sx={{ zIndex: 2 }}>
             {({ TransitionProps }) => (
@@ -122,6 +137,7 @@ export const AIFeedbackAreaContainer: React.FC<
                   }}
                 >
                   <Button
+                    onClick={() => handleAITypeSelect(0)}
                     sx={{
                       ...button,
                       borderRadius: "none",
@@ -135,6 +151,7 @@ export const AIFeedbackAreaContainer: React.FC<
                   </Button>
                   <Divider sx={{ borderColor: theme.palette.grey[400] }} />
                   <Button
+                    onClick={() => handleAITypeSelect(1)}
                     sx={{
                       ...button,
                       borderRadius: "none",
@@ -148,6 +165,7 @@ export const AIFeedbackAreaContainer: React.FC<
                   </Button>
                   <Divider sx={{ borderColor: theme.palette.grey[400] }} />
                   <Button
+                    onClick={() => handleAITypeSelect(2)}
                     sx={{
                       ...button,
                       borderRadius: "none",
@@ -161,6 +179,7 @@ export const AIFeedbackAreaContainer: React.FC<
                   </Button>
                   <Divider sx={{ borderColor: theme.palette.grey[400] }} />
                   <Button
+                    onClick={() => handleAITypeSelect(3)}
                     sx={{
                       ...button,
                       borderRadius: "none",
