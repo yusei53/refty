@@ -20,8 +20,15 @@ export async function GET(req: NextRequest, { params }: Params) {
       return notFoundError("ユーザーが見つかりません");
     }
 
+    const folderUUID = req.nextUrl.searchParams.get("folder") ?? undefined;
+
+    // MEMO: folderUUIDなしの場合、全データを取得
+    const whereCondition = folderUUID
+      ? { userId: user.id, folderUUID: folderUUID }
+      : { userId: user.id };
+
     const reflections = await prisma.reflection.findMany({
-      where: { userId: user.id },
+      where: whereCondition,
       orderBy: { createdAt: "asc" },
       take: 20,
       select: {
