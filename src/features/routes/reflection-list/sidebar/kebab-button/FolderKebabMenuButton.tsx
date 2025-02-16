@@ -71,7 +71,7 @@ export const FolderKebabMenuButton: React.FC<FolderKebabMenuButtonProps> = ({
               minWidth={200}
             >
               <PopupButton
-                text={"投稿をフォルダに追加"}
+                text={"フォルダ内を編集"}
                 src={"/add-to-folder.svg"}
                 alt={`フォルダに投稿を追加するボタン`}
                 onClick={() => {
