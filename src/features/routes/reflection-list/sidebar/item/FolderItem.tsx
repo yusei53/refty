@@ -148,7 +148,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
       }}
     >
       {isEditFieldOpen ? (
-        <Box display="flex" alignItems="center">
+        <Box display={"flex"} alignItems={"center"}>
           {Content}
         </Box>
       ) : (
