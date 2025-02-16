@@ -53,7 +53,7 @@ export const SelectionHeader: React.FC<SelectionHeaderProps> = ({
             onClick={onAdd}
             disabled={disableAdd}
           >
-            追加
+            更新
           </Button>
         </Box>
       )}

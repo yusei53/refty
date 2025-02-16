@@ -26,6 +26,7 @@ import { Sidebar } from "@/src/features/routes/reflection-list/sidebar";
 import { FolderInitializer } from "@/src/features/routes/reflection-list/sidebar/FolderInitializer";
 import { usePagination } from "@/src/hooks/reflection/usePagination";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
+import { getReflectionWithFolderInfo } from "@/src/utils/actions/get-reflection-with-folder-info";
 import { useFolderStore } from "@/src/utils/store/useFolderStore";
 import { theme } from "@/src/utils/theme";
 
@@ -77,11 +78,14 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   const setSelectedFolderUUID = useFolderStore(
     (state) => state.setSelectedFolderUUID
   );
-
-  const handleSelectMode = (folderUUID: string) => {
+  const handleSelectMode = async (folderUUID: string) => {
     router.push(pathname);
     setIsSelectMode(true);
     setSelectedFolderUUID(folderUUID);
+    const info = await getReflectionWithFolderInfo(username, folderUUID);
+    if (!info) return;
+    const preSelected = info.map((i) => i.reflectionCUID);
+    setSelectedReflections(preSelected);
   };
 
   const handleSelect = (reflectionCUID: string) => {
@@ -118,6 +122,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     setSelectedReflections([]);
     setIsLoading(false);
     router.push(`/${username}?folder=${selectedFolderUUID}`);
+    router.refresh();
   };
   const isFolderSelected = foldersState.some(
     (f) => f.folderUUID === selectedFolderUUID

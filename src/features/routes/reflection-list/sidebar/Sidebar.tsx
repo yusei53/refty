@@ -14,7 +14,7 @@ import { theme } from "@/src/utils/theme";
 type SidebarProps = {
   username: string;
   tagCountList: ReflectionTagCountList;
-  onSelectMode: (folderUUID: string) => void;
+  onSelectMode: (folderUUID: string) => Promise<void>;
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({
