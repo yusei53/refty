@@ -76,14 +76,6 @@ export const FolderItem: React.FC<FolderItemProps> = ({
     onFolderUpdate(updatedFolder);
   };
 
-  //TODO:page.clientに記載する
-  const handleClickBookIcon = (
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
-    e.preventDefault(); // MEMO:<Link> のデフォルトの遷移を防ぐ
-    router.push(`${username}/book/?folder=${folderUUID}`);
-  };
-
   const Content = (
     <>
       <ListItemIcon sx={{ minWidth: "27px" }}>
@@ -192,9 +184,8 @@ export const FolderItem: React.FC<FolderItemProps> = ({
         right={4}
       >
         <Link
-          href={`${username}/book`}
+          href={`${username}/book/?folder=${folderUUID}`}
           style={link}
-          onClick={handleClickBookIcon}
           onMouseEnter={(e) =>
             (e.currentTarget.style.backgroundColor = `${theme.palette.grey[100]}`)
           }
