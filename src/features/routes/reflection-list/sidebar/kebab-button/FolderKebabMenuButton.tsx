@@ -70,7 +70,7 @@ export const FolderKebabMenuButton: React.FC<FolderKebabMenuButtonProps> = ({
               boxShadow={1}
               borderRadius={2.5}
               bgcolor={"white"}
-              minWidth={200}
+              minWidth={180}
             >
               <PopupButton
                 text={"フォルダ内を編集"}
