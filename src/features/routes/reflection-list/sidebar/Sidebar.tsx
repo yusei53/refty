@@ -98,6 +98,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 count={folder.countByFolder}
                 username={username}
                 onSelectMode={() => onSelectMode(folder.folderUUID)}
+                onCloseSidebar={() => setSidebarOpen(false)} // TODO: バケツリレーしすぎなのでzustandに移行してもいいかも
                 onSelect={() => handleFolderSelect(folder.folderUUID)}
                 isSelected={selectedFolderUUID === folder.folderUUID}
                 onRefetch={refreshFolders}

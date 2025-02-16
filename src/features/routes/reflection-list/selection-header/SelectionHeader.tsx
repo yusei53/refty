@@ -8,7 +8,6 @@ type SelectionHeaderProps = {
   selectedInfo: { name: string; count: number } | null;
   isFolderSelected: boolean;
   isSelectMode: boolean;
-  isPCScreen: boolean;
   onCancel: () => void;
   onAdd: () => void;
   disableAdd: boolean;
@@ -18,7 +17,6 @@ type SelectionHeaderProps = {
 export const SelectionHeader: React.FC<SelectionHeaderProps> = ({
   selectedInfo,
   isSelectMode,
-  isPCScreen,
   onCancel,
   onAdd,
   isFolderSelected,
@@ -43,7 +41,7 @@ export const SelectionHeader: React.FC<SelectionHeaderProps> = ({
           <Typography>{`　${selectedInfo.count}件`}</Typography>
         </Box>
       )}
-      {isSelectMode && isPCScreen && (
+      {isSelectMode && (
         <Box display={"flex"} justifyContent={"right"} gap={1}>
           <Button sx={button} onClick={onCancel}>
             キャンセル

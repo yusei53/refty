@@ -7,7 +7,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  TextField
+  TextField,
+  useMediaQuery
 } from "@mui/material";
 import type { Folder } from "@/src/api/folder-api";
 import { FolderKebabButtonPopupContainer } from "../kebab-button/FolderKebabMenuButtonContainer";
@@ -19,6 +20,7 @@ type FolderItemProps = {
   folderUUID: string;
   username: string;
   onSelectMode: () => void;
+  onCloseSidebar: () => void;
   isSelected: boolean;
   onSelect: (folderUUID: string) => void;
   count: number;
@@ -32,6 +34,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
   folderUUID,
   username,
   onSelectMode,
+  onCloseSidebar,
   isSelected,
   onSelect,
   count,
@@ -45,6 +48,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentFolder = searchParams.get("folder");
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   const href =
     currentFolder === folderUUID
@@ -144,7 +148,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
       }}
     >
       {isEditFieldOpen ? (
-        <Box display={"flex"} alignItems={"center"}>
+        <Box display="flex" alignItems="center">
           {Content}
         </Box>
       ) : (
@@ -165,7 +169,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
       )}
       <Box
         className="hover-icons"
-        display={isPopupOpen ? "flex" : "none"}
+        display={isMobile ? "flex" : isPopupOpen ? "flex" : "none"}
         alignItems={"center"}
         gap={1}
         position={"absolute"}
@@ -173,6 +177,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
       >
         <FolderKebabButtonPopupContainer
           onSelectMode={onSelectMode}
+          onCloseSidebar={onCloseSidebar}
           onPopupChange={(open) => setIsPopupOpen(open)}
           folderUUID={folderUUID}
           username={username}
