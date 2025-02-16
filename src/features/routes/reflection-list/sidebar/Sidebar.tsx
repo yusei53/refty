@@ -36,11 +36,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const updatedFolders = useFolderStore((state) => state.updateFolder);
 
   const handleFolderSelect = (folderUUID: string) => {
+    if (selectedFolderUUID === folderUUID) {
+      setSelectedFolderUUID("");
+    } else {
     setSelectedFolderUUID(folderUUID);
+    }
     if (isMobile) setSidebarOpen(false);
   };
+
   const handleTagSelect = (tagKey: string) => {
+    if (selectedFolderUUID === tagKey) {
+      setSelectedFolderUUID("");
+    } else {
     setSelectedFolderUUID(tagKey);
+    }
     if (isMobile) setSidebarOpen(false);
   };
 
