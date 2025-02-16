@@ -19,18 +19,18 @@ type ReflectionsBookPageProps = {
   reflections: ReflectionBook[];
   username: string;
   userImage: string;
+  folderUUID: string | undefined;
 };
 
 const ReflectionsBookPage: React.FC<ReflectionsBookPageProps> = ({
   reflections,
   username,
-  userImage
+  userImage,
+  folderUUID
 }) => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const isVisible = useSwipeIconVisibility();
   const { parseTagsToValue } = useParseTagsToValue();
-  const searchParams = useSearchParams();
-  const folderUUID = searchParams.get("folder");
 
   return reflections.length === 0 ? (
     <Box
