@@ -34,7 +34,11 @@ const page = async ({
   const session = await getServerSession(authOptions);
   const folderUUID = searchParams.folder || undefined;
 
-  const res = await reflectionsBookAPI.getReflections(params.username);
+  const res = await reflectionsBookAPI.getReflections(
+    params.username,
+    folderUUID
+  );
+
   if (res === 404 || !res || params.username !== session?.user.username) {
     return notFound();
   }
