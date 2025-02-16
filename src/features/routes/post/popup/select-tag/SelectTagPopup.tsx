@@ -34,11 +34,12 @@ export const SelectTagPopup: React.FC<TagSelectionPopupProps> = ({
         <Button
           onClick={onPopupOpen}
           sx={{
+            mx: 0.5,
             bgcolor: theme.palette.primary.main,
             border: "#ededed solid 1px",
             borderRadius: 2,
             height: "30px",
-            p: 0
+            p: 1
           }}
         >
           <TagIcon sx={{ color: theme.palette.grey[500], fontSize: 18 }} />
