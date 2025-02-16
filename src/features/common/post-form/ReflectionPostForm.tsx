@@ -149,10 +149,38 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
           </Button>
         </Box>
         {isSmallScreen && (
-          <Box px={1.5} py={0.8} boxShadow={"0px 0.7px 1px rgba(0, 0, 0, 0.1)"}>
+          <Box
+            px={1.5}
+            py={0.8}
+            boxShadow={"0px 0.7px 1px rgba(0, 0, 0, 0.1)"}
+            display={"flex"}
+            flexDirection={"row"}
+            gap={2}
+            whiteSpace={"nowrap"}
+            sx={{
+              overflowX: "auto",
+              "&::-webkit-scrollbar": {
+                display: "none"
+              }
+            }}
+          >
             <SelectTagPopupContainer
               value={activeTags}
               onTagChange={onTagChange}
+            />
+            <Controller
+              name="folderUUID"
+              control={control}
+              render={({ field }) => (
+                <FolderSettingPopupAreaContainer
+                  selectedFolderUUID={selectedFolderUUID}
+                  setSelectedFolderUUID={(value) => {
+                    onFolderChange(value);
+                    field.onChange(value);
+                  }}
+                  folders={folders}
+                />
+              )}
             />
           </Box>
         )}
