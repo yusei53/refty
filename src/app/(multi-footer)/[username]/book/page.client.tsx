@@ -2,7 +2,6 @@
 import "swiper/css";
 import "swiper/css/effect-cards";
 import "swiper/css/navigation";
-import { useSearchParams } from "next/navigation";
 import { EffectCards, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Box, useMediaQuery } from "@mui/material";
