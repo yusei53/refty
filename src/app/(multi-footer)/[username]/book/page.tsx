@@ -22,8 +22,17 @@ export const generateMetadata = async ({
   return meta.reflectionsBookPage(params.username);
 };
 
-const page = async ({ params }: { params: { username: string } }) => {
+const page = async ({
+  params,
+  searchParams
+}: {
+  params: { username: string };
+  searchParams: {
+    folder?: string;
+  };
+}) => {
   const session = await getServerSession(authOptions);
+  const folderUUID = searchParams.folder || undefined;
 
   const res = await reflectionsBookAPI.getReflections(params.username);
   if (res === 404 || !res || params.username !== session?.user.username) {
@@ -35,6 +44,7 @@ const page = async ({ params }: { params: { username: string } }) => {
       reflections={res.reflections}
       username={session?.user.username ?? ""}
       userImage={session?.user.image ?? ""}
+      folderUUID={folderUUID}
     />
   );
 };

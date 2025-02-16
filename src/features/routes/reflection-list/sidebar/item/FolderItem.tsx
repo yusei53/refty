@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import FolderIcon from "@mui/icons-material/Folder";
@@ -171,6 +172,23 @@ export const FolderItem: React.FC<FolderItemProps> = ({
         position={"absolute"}
         right={4}
       >
+        <Link
+          href={`${username}/book/?folder=${folderUUID}`}
+          style={link}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = `${theme.palette.grey[100]}`)
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = "transparent")
+          }
+        >
+          <Image
+            src={"/book.svg"}
+            alt={"マイブックへ行くアイコンボタン"}
+            width={20}
+            height={20}
+          />
+        </Link>
         <FolderKebabButtonPopupContainer
           onSelectMode={onSelectMode}
           onPopupChange={(open) => setIsPopupOpen(open)}
@@ -183,4 +201,14 @@ export const FolderItem: React.FC<FolderItemProps> = ({
       </Box>
     </ListItem>
   );
+};
+
+const link = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "30px",
+  height: "30px",
+  borderRadius: "50%",
+  transition: "background-color 0.3s ease"
 };
