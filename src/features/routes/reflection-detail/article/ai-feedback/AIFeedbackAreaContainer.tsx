@@ -78,7 +78,12 @@ export const AIFeedbackAreaContainer: React.FC<
         <Box display="flex" flexDirection="row">
           <Button
             onClick={handleSendToSQS}
-            disabled={!isAICallButtonEnabled || isLoading || !isCurrentUser}
+            disabled={
+              !isAICallButtonEnabled ||
+              isLoading ||
+              !isCurrentUser ||
+              AIType === null
+            }
             sx={{
               borderRadius: 2,
               bgcolor: theme.palette.primary.contrastText,
