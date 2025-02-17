@@ -43,8 +43,16 @@ export const SelectTagPopup: React.FC<TagSelectionPopupProps> = ({
           }}
         >
           <TagIcon sx={{ color: theme.palette.grey[500], fontSize: 18 }} />
-          タグ
+          <Typography
+            sx={{
+              fontSize: "14px",
+              lineHeight: "1"
+            }}
+          >
+            タグ
+          </Typography>
         </Button>
+
         {activeTags.map((tag) => (
           <Box key={tag} display={"flex"} mx={0.4} zIndex={3}>
             <Box
