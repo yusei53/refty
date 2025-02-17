@@ -1,5 +1,5 @@
-import { Box, Stack, Popper, Fade, Divider } from "@mui/material";
-import { Button } from "@/src/components/button";
+import { Box, Stack, Popper, Fade } from "@mui/material";
+import { SelectAIButton } from "./SelectAIButton";
 import { theme } from "@/src/utils/theme";
 
 type SelectAITypePopupAreaProps = {
@@ -9,13 +9,6 @@ type SelectAITypePopupAreaProps = {
   onClose: () => void;
   onAITypeSelect: (type: 0 | 1 | 2 | 3) => void;
   AIType: 0 | 1 | 2 | 3 | null;
-};
-
-const button = {
-  border: "none",
-  display: "block",
-  textAlign: "left",
-  width: "100%"
 };
 
 export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
@@ -83,62 +76,30 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
                 }
               }}
             >
-              <Button
-                onClick={() => onAITypeSelect(0)}
-                sx={{
-                  ...button,
-                  borderRadius: "none",
-                  letterSpacing: 0.8,
-                  "&:hover": {
-                    backgroundColor: theme.palette.primary.contrastText
-                  }
-                }}
-              >
-                👹
-              </Button>
-              <Divider sx={{ borderColor: theme.palette.grey[400] }} />
-              <Button
-                onClick={() => onAITypeSelect(1)}
-                sx={{
-                  ...button,
-                  borderRadius: "none",
-                  letterSpacing: 0.8,
-                  "&:hover": {
-                    backgroundColor: theme.palette.primary.contrastText
-                  }
-                }}
-              >
-                👼
-              </Button>
-              <Divider sx={{ borderColor: theme.palette.grey[400] }} />
-              <Button
-                onClick={() => onAITypeSelect(2)}
-                sx={{
-                  ...button,
-                  borderRadius: "none",
-                  letterSpacing: 0.8,
-                  "&:hover": {
-                    backgroundColor: theme.palette.primary.contrastText
-                  }
-                }}
-              >
-                👻
-              </Button>
-              <Divider sx={{ borderColor: theme.palette.grey[400] }} />
-              <Button
-                onClick={() => onAITypeSelect(3)}
-                sx={{
-                  ...button,
-                  borderRadius: "none",
-                  letterSpacing: 0.8,
-                  "&:hover": {
-                    backgroundColor: theme.palette.primary.contrastText
-                  }
-                }}
-              >
-                👽
-              </Button>
-              <Divider sx={{ borderColor: theme.palette.grey[400] }} />
+              <SelectAIButton
+                onAITypeSelect={onAITypeSelect}
+                AIType={0}
+                emoji="👹"
+                detail="鬼コーチです"
+              />
+              <SelectAIButton
+                onAITypeSelect={onAITypeSelect}
+                AIType={1}
+                emoji="👼"
+                detail="ほげほげ"
+              />
+              <SelectAIButton
+                onAITypeSelect={onAITypeSelect}
+                AIType={2}
+                emoji="👻"
+                detail="foo"
+              />
+              <SelectAIButton
+                onAITypeSelect={onAITypeSelect}
+                AIType={3}
+                emoji="👽"
+                detail="ふがふが"
+              />
             </Box>
           </Fade>
         )}
