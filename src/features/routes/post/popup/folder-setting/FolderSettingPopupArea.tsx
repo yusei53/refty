@@ -35,7 +35,7 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
 }) => {
   return (
     <>
-      <Box display="flex" alignItems="center">
+      <Box display={"flex"} alignItems={"center"}>
         <Button
           onClick={onPopupOpen}
           sx={{
@@ -44,6 +44,8 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
             border: "#ededed solid 1px",
             borderRadius: 2,
             height: "30px",
+            display: "flex",
+            alignItems: "center",
             p: 1
           }}
         >
@@ -54,14 +56,7 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
               mr: 0.5
             }}
           />
-          <Typography
-            sx={{
-              fontSize: "14px",
-              lineHeight: "1"
-            }}
-          >
-            フォルダ
-          </Typography>
+          フォルダ
         </Button>
         {selectedFolderUUID ? (
           <Box display={"flex"} mx={0.4} zIndex={3}>
