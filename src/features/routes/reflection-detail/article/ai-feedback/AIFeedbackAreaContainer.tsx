@@ -1,3 +1,4 @@
+import { IoArrowUndoSharp } from "react-icons/io5";
 import { AccordionDetails, Box, Typography } from "@mui/material";
 import { AICalling } from "./AICalling";
 import { AIFeedbackArea } from "./AIFeedbackArea";
@@ -67,6 +68,19 @@ export const AIFeedbackAreaContainer: React.FC<
             setAIType={setAIType}
             AIType={AIType}
           />
+          <Box display="flex" flexDirection="row" alignItems="center">
+            <Box
+              component={IoArrowUndoSharp}
+              sx={{
+                color: theme.palette.grey[600],
+                fontSize: "30px",
+                mr: 1
+              }}
+            />
+            <Typography fontSize={15} color={theme.palette.grey[600]}>
+              AIのタイプを選択
+            </Typography>
+          </Box>
         </Box>
         <Typography fontSize={12} color={theme.palette.grey[600]} mt={1}>
           文字数が100文字以上、かつまだAIからのフィードバックがない場合のみAIにフィードバックをもらえます
