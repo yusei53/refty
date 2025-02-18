@@ -14,7 +14,7 @@ export const awsSQSService = {
     if (!reflectionCUID) {
       throw new Error("reflectionCUID is required");
     }
-    if (!AIType) {
+    if (AIType === undefined || AIType === null) {
       throw new Error("AIType is required");
     }
 
