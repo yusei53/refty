@@ -45,7 +45,7 @@ export const AIFeedbackAreaContainer: React.FC<
         </Typography>
       </AccordionSummary>
       <AccordionDetails sx={{ py: 0.5, px: 0 }}>
-        <Box display="flex" flexDirection="row">
+        <Box display={"flex"} flexDirection={"row"}>
           <Button
             onClick={handleSendToSQS}
             disabled={
@@ -68,7 +68,7 @@ export const AIFeedbackAreaContainer: React.FC<
             setAIType={setAIType}
             AIType={AIType}
           />
-          <Box display="flex" flexDirection="row" alignItems="center">
+          <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
             <Box
               component={IoArrowUndoSharp}
               sx={{
