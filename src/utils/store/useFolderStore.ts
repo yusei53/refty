@@ -4,18 +4,18 @@ import { folderAPI } from "@/src/api/folder-api";
 
 type FolderStore = {
   folders: Folder[];
-  selectedFolderUUID: string;
+  selectedInfo: string;
   setFolders: (folders: Folder[]) => void;
-  setSelectedFolderUUID: (uuid: string) => void;
+  setSelectedInfo: (uuid: string) => void;
   refreshFolders: (username: string) => Promise<void>;
   updateFolder: (updatedFolder: Folder) => void;
 };
 
 export const useFolderStore = create<FolderStore>((set) => ({
   folders: [],
-  selectedFolderUUID: "",
+  selectedInfo: "",
   setFolders: (folders: Folder[]) => set({ folders }),
-  setSelectedFolderUUID: (uuid: string) => set({ selectedFolderUUID: uuid }),
+  setSelectedInfo: (uuid: string) => set({ selectedInfo: uuid }),
   refreshFolders: async (username: string) => {
     const updatedFolders = await folderAPI.getFolder(username);
     if (Array.isArray(updatedFolders)) {
