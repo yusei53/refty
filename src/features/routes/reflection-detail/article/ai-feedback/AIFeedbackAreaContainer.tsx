@@ -54,7 +54,7 @@ export const AIFeedbackAreaContainer: React.FC<
       <AccordionDetails sx={{ py: 0.5, px: 0 }}>
         <Box
           display={"flex"}
-          flexDirection={isSmallScreen ? "column" : "row"}
+          flexDirection={isSmallScreen ? "column-reverse" : "row"}
           gap={isSmallScreen ? 2 : 0}
         >
           <Button
@@ -77,7 +77,6 @@ export const AIFeedbackAreaContainer: React.FC<
           </Button>
           <Box
             display={"flex"}
-            flexDirection={isSmallScreen ? "column" : "row"}
             alignItems={"center"}
             gap={isSmallScreen ? 2 : 0}
           >
@@ -86,16 +85,14 @@ export const AIFeedbackAreaContainer: React.FC<
               AIType={AIType}
             />
             <Box display={"flex"} flexDirection="row" alignItems="center">
-              {!isSmallScreen && (
-                <Box
-                  component={IoArrowUndoSharp}
-                  sx={{
-                    color: theme.palette.grey[600],
-                    fontSize: "30px",
-                    mr: 1
-                  }}
-                />
-              )}
+              <Box
+                component={IoArrowUndoSharp}
+                sx={{
+                  color: theme.palette.grey[600],
+                  fontSize: "30px",
+                  mr: 1
+                }}
+              />
               <Typography fontSize={15} color={theme.palette.grey[600]}>
                 AIのタイプを選択
               </Typography>
