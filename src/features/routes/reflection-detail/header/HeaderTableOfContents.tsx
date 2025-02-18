@@ -44,6 +44,7 @@ const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
         目次
       </Button>
       <Popper
+        disablePortal
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         transition
