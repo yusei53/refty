@@ -33,6 +33,8 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
   onClose,
   onPopupOpen
 }) => {
+  const isFoldersEmpty = folders.length === 0;
+
   return (
     <>
       <Box display="flex" alignItems="center">
@@ -101,7 +103,7 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
                 fontSize={12}
                 ml={1}
               >
-                1つ選択できます
+                {isFoldersEmpty ? "フォルダがありません" : "1つ選択できます"}
               </Typography>
               <Box
                 display={"flex"}
@@ -110,25 +112,26 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
                 gap={1}
                 mt={0.5}
               >
-                {folders.map((folder) => (
-                  // TODO: 後でリファクタする
-                  <Button
-                    key={folder.folderUUID}
-                    onClick={() => {
-                      setSelectedFolderUUID(folder.folderUUID);
-                      onClose();
-                    }}
-                    sx={{
-                      ...label,
-                      bgcolor:
-                        selectedFolderUUID === folder.folderUUID
-                          ? theme.palette.primary.main
-                          : "white"
-                    }}
-                  >
-                    <Typography fontSize={12}>{folder.name}</Typography>
-                  </Button>
-                ))}
+                {!isFoldersEmpty &&
+                  folders.map((folder) => (
+                    // TODO: 後でリファクタする
+                    <Button
+                      key={folder.folderUUID}
+                      onClick={() => {
+                        setSelectedFolderUUID(folder.folderUUID);
+                        onClose();
+                      }}
+                      sx={{
+                        ...label,
+                        bgcolor:
+                          selectedFolderUUID === folder.folderUUID
+                            ? theme.palette.primary.main
+                            : "white"
+                      }}
+                    >
+                      <Typography fontSize={12}>{folder.name}</Typography>
+                    </Button>
+                  ))}
               </Box>
             </Box>
           </Fade>
