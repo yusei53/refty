@@ -1,5 +1,6 @@
-import { Box, Stack, Popper, Fade } from "@mui/material";
+import { Box, Popper, Fade } from "@mui/material";
 import { SelectAIButton } from "./SelectAIButton";
+import { Button } from "@/src/components/button";
 import { theme } from "@/src/utils/theme";
 
 type SelectAITypePopupAreaProps = {
@@ -21,36 +22,25 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
 }) => {
   return (
     <>
-      <Stack
-        direction="row"
-        alignItems="center"
-        spacing={1}
-        border={`1px solid ${theme.palette.grey[300]}`}
-        borderRadius={8}
-        px={2}
-        py={1}
-        ml={3}
-        mr={1}
-        tabIndex={0}
+      <Button
+        variant="outlined"
         onClick={onClick}
         onBlur={onClose}
-        sx={{
-          cursor: "pointer"
-        }}
+        sx={{ mx: 2 }}
       >
         {AIType === null && (
           <>
-            <Box>👹</Box>
-            <Box>👼</Box>
-            <Box>👻</Box>
-            <Box>👽</Box>
+            <Box mx={1}>👹</Box>
+            <Box mx={1}>👼</Box>
+            <Box mx={1}>👻</Box>
+            <Box mx={1}>👽</Box>
           </>
         )}
-        {AIType === 0 && <Box>👹</Box>}
-        {AIType === 1 && <Box>👼</Box>}
-        {AIType === 2 && <Box>👻</Box>}
-        {AIType === 3 && <Box>👽</Box>}
-      </Stack>
+        {AIType === 0 && <Box>👹　鬼コーチ</Box>}
+        {AIType === 1 && <Box>👼　ほげほげ</Box>}
+        {AIType === 2 && <Box>👻　foo</Box>}
+        {AIType === 3 && <Box>👽　ふがふが</Box>}
+      </Button>
       <Popper open={open} anchorEl={anchorEl} transition sx={{ zIndex: 2 }}>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
