@@ -53,7 +53,7 @@ export const AIFeedbackAreaContainer: React.FC<
       </AccordionSummary>
       <AccordionDetails sx={{ py: 0.5, px: 0 }}>
         <Box
-          display="flex"
+          display={"flex"}
           flexDirection={isSmallScreen ? "column" : "row"}
           gap={isSmallScreen ? 2 : 0}
         >
@@ -76,7 +76,7 @@ export const AIFeedbackAreaContainer: React.FC<
             AIからフィードバックをもらう
           </Button>
           <Box
-            display="flex"
+            display={"flex"}
             flexDirection={isSmallScreen ? "column" : "row"}
             alignItems={"center"}
             gap={isSmallScreen ? 2 : 0}
@@ -85,7 +85,7 @@ export const AIFeedbackAreaContainer: React.FC<
               setAIType={setAIType}
               AIType={AIType}
             />
-            <Box display="flex" flexDirection="row" alignItems="center">
+            <Box display={"flex"} flexDirection="row" alignItems="center">
               {!isSmallScreen && (
                 <Box
                   component={IoArrowUndoSharp}
