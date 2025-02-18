@@ -154,7 +154,6 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
             py={0.8}
             boxShadow={"0px 0.7px 1px rgba(0, 0, 0, 0.1)"}
             display={"flex"}
-            flexDirection={"row"}
             gap={2}
             whiteSpace={"nowrap"}
             sx={{
@@ -208,7 +207,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
             )}
           />
           {!isSmallScreen && (
-            <Box display={"flex"} flexDirection={"row"} gap={2}>
+            <Box display={"flex"} gap={2}>
               <SelectTagPopupContainer
                 value={activeTags}
                 onTagChange={onTagChange}

@@ -35,15 +35,17 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
 }) => {
   return (
     <>
-      <Box display="flex" alignItems="center">
+      <Box display={"flex"} alignItems={"center"}>
         <Button
           onClick={onPopupOpen}
           sx={{
+            mx: 0.5,
             bgcolor: theme.palette.primary.main,
             border: "#ededed solid 1px",
             borderRadius: 2,
             height: "30px",
-            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
             p: 1
           }}
         >
