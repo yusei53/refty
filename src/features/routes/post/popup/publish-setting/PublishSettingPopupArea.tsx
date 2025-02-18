@@ -43,10 +43,10 @@ const PublishSettingPopupArea: React.FC<PublishSettingPopupAreaProps> = ({
         />
         {value ? "公開" : "非公開"}
       </Button>
-      <Popper open={open} anchorEl={anchorEl} transition sx={{ zIndex: 2 }}>
+      <Popper disablePortal open={open} anchorEl={anchorEl} transition sx={{ zIndex: 2 }}>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
-            <Box boxShadow={1} borderRadius={2} bgcolor={"white"}>
+            <Box boxShadow={1} borderRadius={2} bgcolor={"white"} minWidth={"200px"}>
               <PublishStatusOptionButton
                 isActive={value}
                 onClick={() => {
