@@ -1,10 +1,11 @@
+import type { AIFeedbackType } from "../api/send-to-sqs-api";
 import { sendMessageToSQS } from "../infrastructure/aws-sqs/aws-sqs.repository";
 
 export const awsSQSService = {
   async publish(params: {
     content: string;
     reflectionCUID: string;
-    AIType: 0 | 1 | 2 | 3;
+    AIType: AIFeedbackType;
   }) {
     const { content, reflectionCUID, AIType } = params;
 

@@ -1,9 +1,10 @@
+import type { AIFeedbackType } from "@/src/api/send-to-sqs-api";
 import { Button } from "@/src/components/button";
 import { theme } from "@/src/utils/theme";
 
 type SelectAIButtonProps = {
-  onAITypeSelect: (type: 0 | 1 | 2 | 3) => void;
-  AIType: 0 | 1 | 2 | 3;
+  onAITypeSelect: (type: AIFeedbackType) => void;
+  AIType: AIFeedbackType;
   emoji: string;
   detail: string;
 };
