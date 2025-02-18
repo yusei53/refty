@@ -1,4 +1,4 @@
-import { Box, Stack, Popper, Fade } from "@mui/material";
+import { Box, Stack, Popper, Fade, useMediaQuery } from "@mui/material";
 import { SelectAIButton } from "./SelectAIButton";
 import { theme } from "@/src/utils/theme";
 
@@ -19,6 +19,8 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
   onAITypeSelect,
   AIType
 }) => {
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <>
       <Stack
@@ -29,8 +31,8 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
         borderRadius={8}
         px={2}
         py={1}
-        ml={3}
-        mr={1}
+        ml={isSmallScreen ? 0 : 3}
+        mr={isSmallScreen ? 0 : 1}
         tabIndex={0}
         onClick={onClick}
         onBlur={onClose}
