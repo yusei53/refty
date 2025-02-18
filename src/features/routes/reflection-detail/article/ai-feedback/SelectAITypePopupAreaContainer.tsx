@@ -1,9 +1,10 @@
 import { useState } from "react";
+import type { AIFeedbackType } from "@/src/api/send-to-sqs-api";
 import { SelectAITypePopupArea } from "./SelectAITypePopupArea";
 
 type SelectAITypePopupAreaContainerProps = {
-  setAIType: (type: 0 | 1 | 2 | 3) => void;
-  AIType: 0 | 1 | 2 | 3 | null;
+  setAIType: (type: AIFeedbackType) => void;
+  AIType: AIFeedbackType;
 };
 
 export const SelectAITypePopupAreaContainer: React.FC<
@@ -20,7 +21,7 @@ export const SelectAITypePopupAreaContainer: React.FC<
     setAnchorEl(null);
   };
 
-  const handleAITypeSelect = (type: 0 | 1 | 2 | 3) => {
+  const handleAITypeSelect = (type: AIFeedbackType) => {
     setAIType(type);
     setAnchorEl(null);
   };

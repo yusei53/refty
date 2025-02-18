@@ -1,5 +1,6 @@
 import { IoArrowUndoSharp } from "react-icons/io5";
 import { AccordionDetails, Box, Typography } from "@mui/material";
+import type { AIFeedbackType } from "@/src/api/send-to-sqs-api";
 import { AICalling } from "./AICalling";
 import { AIFeedbackArea } from "./AIFeedbackArea";
 import { SelectAITypePopupAreaContainer } from "./SelectAITypePopupAreaContainer";
@@ -14,8 +15,8 @@ type AIFeedbackAreaContainerProps = {
   aiFeedback: string;
   content: string;
   onSendToSQS: () => Promise<void>;
-  setAIType: (type: 0 | 1 | 2 | 3) => void;
-  AIType: 0 | 1 | 2 | 3 | null;
+  setAIType: (type: AIFeedbackType) => void;
+  AIType: AIFeedbackType;
 };
 
 export const AIFeedbackAreaContainer: React.FC<

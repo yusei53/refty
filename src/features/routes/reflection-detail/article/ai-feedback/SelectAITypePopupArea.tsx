@@ -1,4 +1,5 @@
 import { Box, Popper, Fade } from "@mui/material";
+import type { AIFeedbackType } from "@/src/api/send-to-sqs-api";
 import { SelectAIButton } from "./SelectAIButton";
 import { Button } from "@/src/components/button";
 import { theme } from "@/src/utils/theme";
@@ -8,8 +9,8 @@ type SelectAITypePopupAreaProps = {
   anchorEl: HTMLElement | null;
   onClick: (event: React.MouseEvent<HTMLElement>) => void;
   onClose: () => void;
-  onAITypeSelect: (type: 0 | 1 | 2 | 3) => void;
-  AIType: 0 | 1 | 2 | 3 | null;
+  onAITypeSelect: (type: AIFeedbackType) => void;
+  AIType: AIFeedbackType;
 };
 
 export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
@@ -28,14 +29,6 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
         onBlur={onClose}
         sx={{ mx: 2 }}
       >
-        {AIType === null && (
-          <>
-            <Box mx={1}>👹</Box>
-            <Box mx={1}>👼</Box>
-            <Box mx={1}>👻</Box>
-            <Box mx={1}>👽</Box>
-          </>
-        )}
         {AIType === 0 && <Box>👹　鬼コーチ</Box>}
         {AIType === 1 && <Box>👼　ほげほげ</Box>}
         {AIType === 2 && <Box>👻　foo</Box>}
