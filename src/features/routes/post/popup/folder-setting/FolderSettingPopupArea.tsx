@@ -91,7 +91,8 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
             <Box
-              p={1}
+              px={1}
+              py={isFoldersEmpty ? 0.5 : 1}
               maxWidth="250px"
               bgcolor="#f8fbff"
               border={`1px solid ${theme.palette.grey[400]}`}
@@ -101,7 +102,7 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
                 component={"span"}
                 sx={{ color: theme.palette.grey[500] }}
                 fontSize={12}
-                ml={1}
+                ml={folders.length < 2 ? 0 : 1}
               >
                 {isFoldersEmpty ? "フォルダがありません" : "1つ選択できます"}
               </Typography>
