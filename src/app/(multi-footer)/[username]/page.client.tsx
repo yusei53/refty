@@ -130,19 +130,22 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     router.push(`/${username}`);
   };
 
-  let selected: { name: string; count: number } | null = null;
-  const folder = foldersState.find((f) => f.folderUUID === selectedInfo);
-  if (folder) {
-    selected = {
-      name: folder.name,
-      count: folder.countByFolder || 0
-    };
-  } else if (tagMap[selectedInfo as keyof TagType]) {
-    selected = {
-      name: tagMap[selectedInfo as keyof TagType],
-      count: tagCountList[selectedInfo as keyof ReflectionTagCountList] || 0
-    };
-  }
+  const currentFolder = foldersState.find((f) => f.folderUUID === selectedInfo);
+  const selected = (() => {
+    if (currentFolder) {
+      return {
+        name: currentFolder.name,
+        count: currentFolder.countByFolder || 0
+      };
+    }
+    if (tagMap[selectedInfo as keyof TagType]) {
+      return {
+        name: tagMap[selectedInfo as keyof TagType],
+        count: tagCountList[selectedInfo as keyof ReflectionTagCountList] || 0
+      };
+    }
+    return null;
+  })();
 
   return (
     <>
