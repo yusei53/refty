@@ -24,6 +24,62 @@ export const label = {
   backgroundColor: "white"
 };
 
+type FolderPopupContentProps = {
+  folders: Folder[];
+  selectedFolderUUID: string | null;
+  setSelectedFolderUUID: (value: string | null) => void;
+  isFoldersEmpty: boolean;
+  onClose: () => void;
+};
+
+const FolderPopupContent: React.FC<FolderPopupContentProps> = ({
+  folders,
+  selectedFolderUUID,
+  setSelectedFolderUUID,
+  isFoldersEmpty,
+  onClose
+}) => {
+  return (
+    <>
+      <Typography
+        component={"span"}
+        sx={{ color: theme.palette.grey[500] }}
+        fontSize={12}
+        ml={folders.length < 2 ? 0 : 1}
+      >
+        {isFoldersEmpty ? "フォルダがありません" : "1つ選択できます"}
+      </Typography>
+      <Box
+        display={"flex"}
+        flexDirection={"row"}
+        flexWrap={"wrap"}
+        gap={1}
+        mt={0.5}
+      >
+        {!isFoldersEmpty &&
+          folders.map((folder) => (
+            <Button
+              key={folder.folderUUID}
+              onClick={() => {
+                setSelectedFolderUUID(folder.folderUUID);
+                onClose();
+              }}
+              sx={{
+                ...label,
+                bgcolor:
+                  selectedFolderUUID === folder.folderUUID
+                    ? theme.palette.primary.main
+                    : "white"
+              }}
+            >
+              <Typography fontSize={12}>{folder.name}</Typography>
+            </Button>
+          ))}
+      </Box>
+    </>
+  );
+};
+
 export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
   selectedFolderUUID,
   setSelectedFolderUUID,
@@ -98,42 +154,13 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
               border={`1px solid ${theme.palette.grey[400]}`}
               borderRadius={4}
             >
-              <Typography
-                component={"span"}
-                sx={{ color: theme.palette.grey[500] }}
-                fontSize={12}
-                ml={folders.length < 2 ? 0 : 1}
-              >
-                {isFoldersEmpty ? "フォルダがありません" : "1つ選択できます"}
-              </Typography>
-              <Box
-                display={"flex"}
-                flexDirection={"row"}
-                flexWrap={"wrap"}
-                gap={1}
-                mt={0.5}
-              >
-                {!isFoldersEmpty &&
-                  folders.map((folder) => (
-                    // TODO: 後でリファクタする
-                    <Button
-                      key={folder.folderUUID}
-                      onClick={() => {
-                        setSelectedFolderUUID(folder.folderUUID);
-                        onClose();
-                      }}
-                      sx={{
-                        ...label,
-                        bgcolor:
-                          selectedFolderUUID === folder.folderUUID
-                            ? theme.palette.primary.main
-                            : "white"
-                      }}
-                    >
-                      <Typography fontSize={12}>{folder.name}</Typography>
-                    </Button>
-                  ))}
-              </Box>
+              <FolderPopupContent
+                folders={folders}
+                isFoldersEmpty={isFoldersEmpty}
+                selectedFolderUUID={selectedFolderUUID}
+                setSelectedFolderUUID={setSelectedFolderUUID}
+                onClose={onClose}
+              />
             </Box>
           </Fade>
         )}
