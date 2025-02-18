@@ -35,9 +35,7 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
         onClick={onClick}
         onBlur={onClose}
         sx={{
-          "&:hover": {
-            cursor: "pointer"
-          }
+          cursor: "pointer"
         }}
       >
         {AIType === null && (
