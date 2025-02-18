@@ -58,15 +58,15 @@ func handler(ctx context.Context, sqsEvent events.SQSEvent) {
 		return
 	}
 	switch sqsMsg.AIType {
-	case 1:
+	case 0:
 			FeedbackQuery = FriendlyQuery //優しめ
-	case 2:
+	case 1:
 			FeedbackQuery = OgreQuery //鬼
-	case 3:
+	case 2:
 			FeedbackQuery = CreativeQuery //クリエイティブ
-	case 4:
+	case 3:
 			FeedbackQuery = NextActionQuery //次のアクション
-	case 5:
+	case 4:
 			FeedbackQuery = QuotesQuery //名言
 		}
 	client := openai.NewClient(openaiAPIKey)
