@@ -83,6 +83,7 @@ const MarkdownSupportPopupArea: React.FC<MarkdownSupportPopupAreaProps> = ({
         />
       )}
       <Popper
+        disablePortal
         open={open}
         anchorEl={anchorEl}
         transition
@@ -123,6 +124,7 @@ const MarkdownSupportPopupArea: React.FC<MarkdownSupportPopupAreaProps> = ({
                 }
               }}
               onClick={(e) => e.stopPropagation()}
+              minWidth={"300px"}
             >
               {markdownList.map((markdown) => (
                 <MarkdownSection

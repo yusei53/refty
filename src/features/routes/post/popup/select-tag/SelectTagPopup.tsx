@@ -74,6 +74,7 @@ export const SelectTagPopup: React.FC<TagSelectionPopupProps> = ({
         ))}
       </Box>
       <Popper
+        disablePortal
         open={open}
         anchorEl={anchorEl}
         transition
@@ -96,6 +97,7 @@ export const SelectTagPopup: React.FC<TagSelectionPopupProps> = ({
               bgcolor="#f8fbff"
               border={`1px solid ${theme.palette.grey[400]}`}
               borderRadius={4}
+              minWidth={"200px"}
             >
               <Typography
                 component={"span"}
