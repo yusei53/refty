@@ -2,13 +2,16 @@ package main
 
 import (
 	"context"
-	"log"
-	"encoding/json"
-	"os"
 	"database/sql"
+	"encoding/json"
+	// "fmt"
+	"log"
+	"os"
+
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	openai "github.com/sashabaranov/go-openai"
+
 	// "github.com/joho/godotenv"
 	_ "github.com/jackc/pgx/v5/stdlib"
 	// "refty.go/content"
@@ -17,6 +20,7 @@ import (
 type SQSMessageBody struct {
 	Content        string `json:"content"`
 	ReflectionCUID string `json:"reflectionCUID"`
+	AIType         int `json:"AIType"`
 }
 
 func handler(ctx context.Context, sqsEvent events.SQSEvent) {
@@ -25,7 +29,6 @@ func handler(ctx context.Context, sqsEvent events.SQSEvent) {
 	// if err != nil {
 	// 	log.Fatalf(".envファイルの読み込みに失敗しました: %v", err)
 	// }
-	
 	dsn := os.Getenv("DATABASE_URL")
 	if dsn == "" {
 		log.Println("Missing DATABASE_URL environment variable")
@@ -43,15 +46,29 @@ func handler(ctx context.Context, sqsEvent events.SQSEvent) {
 		log.Fatalf("Failed to open database: %v\n", err)
 	}
 	
-
+	
 	if err := db.Ping(); err != nil {
 		log.Fatalf("Failed to ping database: %v\n", err)
 	}
 	var sqsMsg SQSMessageBody
+	var FeedbackQuery string
+	// fmt.Println("sqsMsg:", sqsMsg)
 	if err := json.Unmarshal([]byte(sqsEvent.Records[0].Body), &sqsMsg); err != nil {
 		log.Println("Error unmarshalling SQS message:", err)
 		return
 	}
+	switch sqsMsg.AIType {
+	case 0:
+			FeedbackQuery = FriendlyQuery //優しめ
+	case 1:
+			FeedbackQuery = OgreQuery //鬼
+	case 2:
+			FeedbackQuery = CreativeQuery //クリエイティブ
+	case 3:
+			FeedbackQuery = NextActionQuery //次のアクション
+	case 4:
+			FeedbackQuery = QuotesQuery //名言
+		}
 	client := openai.NewClient(openaiAPIKey)
 
 	req := openai.ChatCompletionRequest{
