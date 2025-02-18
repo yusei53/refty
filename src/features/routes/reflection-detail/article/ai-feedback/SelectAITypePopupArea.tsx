@@ -1,8 +1,5 @@
-
-import { Box, Stack, Popper, Fade, useMediaQuery } from "@mui/material";
-
+import { Box, Popper, Fade } from "@mui/material";
 import type { AIFeedbackType } from "@/src/api/send-to-sqs-api";
-
 import { SelectAIButton } from "./SelectAIButton";
 import { Button } from "@/src/components/button";
 import { theme } from "@/src/utils/theme";
@@ -24,14 +21,10 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
   onAITypeSelect,
   AIType
 }) => {
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
   return (
     <>
-
       <Button
         variant="outlined"
-
         onClick={onClick}
         onBlur={onClose}
         sx={{ mx: 2 }}
