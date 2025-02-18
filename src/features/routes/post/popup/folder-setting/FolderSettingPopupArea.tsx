@@ -2,6 +2,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import FolderIcon from "@mui/icons-material/Folder";
 import { Box, Fade, Popper, Typography } from "@mui/material";
 import type { Folder } from "@/src/api/folder-api";
+import { NotFoundFolder } from "./NotFolder";
 import { Button } from "@/src/components/button";
 import { theme } from "@/src/utils/theme";
 
@@ -98,41 +99,46 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
               border={`1px solid ${theme.palette.grey[400]}`}
               borderRadius={4}
             >
-              <Typography
-                component={"span"}
-                sx={{ color: theme.palette.grey[500] }}
-                fontSize={12}
-                ml={folders.length < 2 ? 0 : 1}
-              >
-                {isFoldersEmpty ? "フォルダがありません" : "1つ選択できます"}
-              </Typography>
-              <Box
-                display={"flex"}
-                flexDirection={"row"}
-                flexWrap={"wrap"}
-                gap={1}
-                mt={0.5}
-              >
-                {!isFoldersEmpty &&
-                  folders.map((folder) => (
-                    <Button
-                      key={folder.folderUUID}
-                      onClick={() => {
-                        setSelectedFolderUUID(folder.folderUUID);
-                        onClose();
-                      }}
-                      sx={{
-                        ...label,
-                        bgcolor:
-                          selectedFolderUUID === folder.folderUUID
-                            ? theme.palette.primary.main
-                            : "white"
-                      }}
-                    >
-                      <Typography fontSize={12}>{folder.name}</Typography>
-                    </Button>
-                  ))}
-              </Box>
+              {isFoldersEmpty ? (
+                <NotFoundFolder />
+              ) : (
+                <>
+                  <Typography
+                    component={"span"}
+                    sx={{ color: theme.palette.grey[500] }}
+                    fontSize={12}
+                    ml={folders.length === 1 ? 0 : 1}
+                  >
+                    1つ選択できます
+                  </Typography>
+                  <Box
+                    display={"flex"}
+                    flexDirection={"row"}
+                    flexWrap={"wrap"}
+                    gap={1}
+                    mt={0.5}
+                  >
+                    {folders.map((folder) => (
+                      <Button
+                        key={folder.folderUUID}
+                        onClick={() => {
+                          setSelectedFolderUUID(folder.folderUUID);
+                          onClose();
+                        }}
+                        sx={{
+                          ...label,
+                          bgcolor:
+                            selectedFolderUUID === folder.folderUUID
+                              ? theme.palette.primary.main
+                              : "white"
+                        }}
+                      >
+                        <Typography fontSize={12}>{folder.name}</Typography>
+                      </Button>
+                    ))}
+                  </Box>
+                </>
+              )}
             </Box>
           </Fade>
         )}
