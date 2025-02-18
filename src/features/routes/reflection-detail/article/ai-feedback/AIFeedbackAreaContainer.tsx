@@ -1,10 +1,14 @@
 import { IoArrowUndoSharp } from "react-icons/io5";
+
 import {
   AccordionDetails,
   Box,
   Typography,
   useMediaQuery
 } from "@mui/material";
+
+import type { AIFeedbackType } from "@/src/api/send-to-sqs-api";
+
 import { AICalling } from "./AICalling";
 import { AIFeedbackArea } from "./AIFeedbackArea";
 import { SelectAITypePopupAreaContainer } from "./SelectAITypePopupAreaContainer";
@@ -19,8 +23,8 @@ type AIFeedbackAreaContainerProps = {
   aiFeedback: string;
   content: string;
   onSendToSQS: () => Promise<void>;
-  setAIType: (type: 0 | 1 | 2 | 3) => void;
-  AIType: 0 | 1 | 2 | 3 | null;
+  setAIType: (type: AIFeedbackType) => void;
+  AIType: AIFeedbackType;
 };
 
 export const AIFeedbackAreaContainer: React.FC<
@@ -52,11 +56,13 @@ export const AIFeedbackAreaContainer: React.FC<
         </Typography>
       </AccordionSummary>
       <AccordionDetails sx={{ py: 0.5, px: 0 }}>
+
         <Box
           display={"flex"}
           flexDirection={isSmallScreen ? "column-reverse" : "row"}
           gap={isSmallScreen ? 2 : 0}
         >
+
           <Button
             onClick={handleSendToSQS}
             disabled={
@@ -75,14 +81,20 @@ export const AIFeedbackAreaContainer: React.FC<
           >
             AIからフィードバックをもらう
           </Button>
-          <Box
-            display={"flex"}
-            alignItems={"center"}
-            gap={isSmallScreen ? 2 : 0}
-          >
-            <SelectAITypePopupAreaContainer
-              setAIType={setAIType}
-              AIType={AIType}
+
+          <SelectAITypePopupAreaContainer
+            setAIType={setAIType}
+            AIType={AIType}
+          />
+          <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
+            <Box
+              component={IoArrowUndoSharp}
+              sx={{
+                color: theme.palette.grey[600],
+                fontSize: "30px",
+                mr: 1
+              }}
+
             />
             <Box display={"flex"} flexDirection="row" alignItems="center">
               <Box

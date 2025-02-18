@@ -1,5 +1,10 @@
+
 import { Box, Stack, Popper, Fade, useMediaQuery } from "@mui/material";
+
+import type { AIFeedbackType } from "@/src/api/send-to-sqs-api";
+
 import { SelectAIButton } from "./SelectAIButton";
+import { Button } from "@/src/components/button";
 import { theme } from "@/src/utils/theme";
 
 type SelectAITypePopupAreaProps = {
@@ -7,8 +12,8 @@ type SelectAITypePopupAreaProps = {
   anchorEl: HTMLElement | null;
   onClick: (event: React.MouseEvent<HTMLElement>) => void;
   onClose: () => void;
-  onAITypeSelect: (type: 0 | 1 | 2 | 3) => void;
-  AIType: 0 | 1 | 2 | 3 | null;
+  onAITypeSelect: (type: AIFeedbackType) => void;
+  AIType: AIFeedbackType;
 };
 
 export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
@@ -23,38 +28,19 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
 
   return (
     <>
-      <Stack
-        direction="row"
-        alignItems="center"
-        spacing={1}
-        border={`1px solid ${theme.palette.grey[300]}`}
-        borderRadius={8}
-        px={2}
-        py={1}
-        ml={isSmallScreen ? 0 : 3}
-        mr={isSmallScreen ? 0 : 1}
-        tabIndex={0}
+
+      <Button
+        variant="outlined"
+
         onClick={onClick}
         onBlur={onClose}
-        sx={{
-          "&:hover": {
-            cursor: "pointer"
-          }
-        }}
+        sx={{ mx: 2 }}
       >
-        {AIType === null && (
-          <>
-            <Box>👹</Box>
-            <Box>👼</Box>
-            <Box>👻</Box>
-            <Box>👽</Box>
-          </>
-        )}
-        {AIType === 0 && <Box>👹</Box>}
-        {AIType === 1 && <Box>👼</Box>}
-        {AIType === 2 && <Box>👻</Box>}
-        {AIType === 3 && <Box>👽</Box>}
-      </Stack>
+        {AIType === 0 && <Box>👹　鬼コーチ</Box>}
+        {AIType === 1 && <Box>👼　ほげほげ</Box>}
+        {AIType === 2 && <Box>👻　foo</Box>}
+        {AIType === 3 && <Box>👽　ふがふが</Box>}
+      </Button>
       <Popper open={open} anchorEl={anchorEl} transition sx={{ zIndex: 2 }}>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
