@@ -1,5 +1,10 @@
 import { IoArrowUndoSharp } from "react-icons/io5";
-import { AccordionDetails, Box, Typography } from "@mui/material";
+import {
+  AccordionDetails,
+  Box,
+  Typography,
+  useMediaQuery
+} from "@mui/material";
 import type { AIFeedbackType } from "@/src/api/send-to-sqs-api";
 import { AICalling } from "./AICalling";
 import { AIFeedbackArea } from "./AIFeedbackArea";
@@ -38,6 +43,8 @@ export const AIFeedbackAreaContainer: React.FC<
     handleSendToSQS
   } = useAIFeedbackHandler(reflectionCUID, aiFeedback, content, onSendToSQS);
 
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Accordion>
       <AccordionSummary sx={{ mt: 8 }}>
@@ -46,7 +53,11 @@ export const AIFeedbackAreaContainer: React.FC<
         </Typography>
       </AccordionSummary>
       <AccordionDetails sx={{ py: 0.5, px: 0 }}>
-        <Box display={"flex"} flexDirection={"row"}>
+        <Box
+          display={"flex"}
+          flexDirection={isSmallScreen ? "column-reverse" : "row"}
+          gap={isSmallScreen ? 2 : 0}
+        >
           <Button
             onClick={handleSendToSQS}
             disabled={
@@ -65,22 +76,24 @@ export const AIFeedbackAreaContainer: React.FC<
           >
             AIからフィードバックをもらう
           </Button>
-          <SelectAITypePopupAreaContainer
-            setAIType={setAIType}
-            AIType={AIType}
-          />
-          <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
-            <Box
-              component={IoArrowUndoSharp}
-              sx={{
-                color: theme.palette.grey[600],
-                fontSize: "30px",
-                mr: 1
-              }}
+          <Box display={"flex"} flexDirection={"row"}>
+            <SelectAITypePopupAreaContainer
+              setAIType={setAIType}
+              AIType={AIType}
             />
-            <Typography fontSize={15} color={theme.palette.grey[600]}>
-              AIのタイプを選択
-            </Typography>
+            <Box display={"flex"} flexDirection="row" alignItems={"center"}>
+              <Box
+                component={IoArrowUndoSharp}
+                sx={{
+                  color: theme.palette.grey[600],
+                  fontSize: "30px",
+                  mr: 1
+                }}
+              />
+              <Typography fontSize={15} color={theme.palette.grey[600]}>
+                AIのタイプを選択
+              </Typography>
+            </Box>
           </Box>
         </Box>
         <Typography fontSize={12} color={theme.palette.grey[600]} mt={1}>
