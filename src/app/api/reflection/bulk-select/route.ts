@@ -13,7 +13,11 @@ import {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { reflectionCUID, folderUUID, username } = body;
+    const {
+      reflectionCUID: selectedReflectionList,
+      folderUUID,
+      username
+    } = body;
     const userId = await getUserIdByUsername(username);
 
     const session = await getServerSession(authOptions);
@@ -21,7 +25,7 @@ export async function POST(req: Request) {
       return unauthorizedError("認証されていません");
     }
 
-    if (!Array.isArray(reflectionCUID) || !folderUUID || !userId) {
+    if (!Array.isArray(selectedReflectionList) || !folderUUID || !userId) {
       return badRequestError(
         "投稿一括選択のリクエストパラメータに不整合があります"
       );
@@ -31,32 +35,41 @@ export async function POST(req: Request) {
     const selected = await prisma.reflection.findMany({
       where: {
         reflectionCUID: {
-          in: reflectionCUID
+          in: selectedReflectionList
         },
         userId
       }
     });
 
-    if (selected.length !== reflectionCUID.length) {
+    if (selected.length !== selectedReflectionList.length) {
       return forbiddenError("選択した投稿の中に自分の投稿以外が含まれています");
     }
 
-    // MEMO: 一括選択した投稿のフォルダを更新する。この時点ではまだ実行されず、Promiseとして準備される
-    const updatePromises = reflectionCUID.map((cuid) =>
-      prisma.reflection.update({
+    await prisma.$transaction([
+      prisma.reflection.updateMany({
         where: {
-          reflectionCUID: cuid
+          userId,
+          folderUUID,
+          // MEMO: 現在あるフォルダに所属している投稿のうち、
+          //       今回選択されなかった投稿（selectedReflectionListに含まれていないもの）
+          //       のフォルダ設定を解除する（folderUUIDをnullにする）。
+          reflectionCUID: { notIn: selectedReflectionList }
         },
-        data: {
-          folderUUID
-        }
+        data: { folderUUID: null }
+      }),
+      prisma.reflection.updateMany({
+        where: {
+          userId,
+          // MEMO: 今回選択された投稿（selectedReflectionListに含まれるもの）
+          //       に対して、指定されたフォルダに設定する（folderUUIDを更新する）。
+          reflectionCUID: { in: selectedReflectionList }
+        },
+        data: { folderUUID }
       })
-    );
-
-    await prisma.$transaction(updatePromises);
+    ]);
 
     return NextResponse.json(
-      { message: "選択した投稿をフォルダに追加しました" },
+      { message: "選択した投稿をフォルダに更新しました" },
       { status: 200 }
     );
   } catch (error) {

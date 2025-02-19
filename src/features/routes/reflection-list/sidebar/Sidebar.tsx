@@ -1,41 +1,53 @@
 import { useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box, IconButton, List } from "@mui/material";
-import type { Folder } from "@/src/api/folder-api";
+import { useMediaQuery } from "@mui/material";
 import type { ReflectionTagCountList } from "@/src/api/reflection-api";
 import type { TagType } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { CreateFolderField } from "./CreateFolderField";
 import { FolderItem, TagItem } from "./item";
-import { useFolder } from "@/src/hooks/folder/useFolder";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
+import { useFolderStore } from "@/src/utils/store/useFolderStore";
 import { theme } from "@/src/utils/theme";
 
 type SidebarProps = {
-  initialFolders: Folder[];
-  tagCountList: ReflectionTagCountList;
   username: string;
-  onSelectMode: (folderUUID: string) => void;
-  selectedFolderUUID: string;
-  onFolderUpdate: (updatedFolder: Folder) => void;
-  onSelect: (folderUUID: string) => void;
-  setSelectedFolderUUID: (folderUUID: string) => void;
+  tagCountList: ReflectionTagCountList;
+  onSelectMode: (folderUUID: string) => Promise<void>;
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({
-  initialFolders,
-  tagCountList,
   username,
-  onSelectMode,
-  selectedFolderUUID,
-  onFolderUpdate,
-  onSelect,
-  setSelectedFolderUUID
+  tagCountList,
+  onSelectMode
 }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const { folders, refreshFolders } = useFolder({
-    initialFolders,
-    username
-  });
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
+
+  const folders = useFolderStore((state) => state.folders);
+  const selectedInfo = useFolderStore((state) => state.selectedInfo);
+  const setSelectedInfo = useFolderStore((state) => state.setSelectedInfo);
+  const refreshFolders = useFolderStore((state) => state.refreshFolders);
+  const updatedFolders = useFolderStore((state) => state.updateFolder);
+
+  const handleFolderSelect = (folderUUID: string) => {
+    if (selectedInfo === folderUUID) {
+      setSelectedInfo("");
+    } else {
+      setSelectedInfo(folderUUID);
+    }
+    if (isMobile) setSidebarOpen(false);
+  };
+
+  const handleTagSelect = (tagKey: string) => {
+    if (selectedInfo === tagKey) {
+      setSelectedInfo("");
+    } else {
+      setSelectedInfo(tagKey);
+    }
+    if (isMobile) setSidebarOpen(false);
+  };
 
   return (
     <>
@@ -43,28 +55,45 @@ export const Sidebar: React.FC<SidebarProps> = ({
         disableRipple
         onClick={() => setSidebarOpen((prev) => !prev)}
         sx={{
-          position: "fixed",
-          top: 16,
-          left: 16,
-          zIndex: 10
+          position: isMobile ? "absolute" : "fixed",
+          top: isMobile ? 10 : 16,
+          left: isMobile ? 10 : 16,
+          zIndex: 11
         }}
       >
-        <MenuIcon sx={{ color: theme.palette.grey[500] }} />
+        {isSidebarOpen ? (
+          <CloseIcon sx={{ color: theme.palette.grey[500] }} />
+        ) : (
+          <MenuIcon sx={{ color: theme.palette.grey[500] }} />
+        )}
       </IconButton>
+      {isMobile && isSidebarOpen && (
+        <Box
+          position={"fixed"}
+          top={0}
+          left={0}
+          width={"100vw"}
+          height={"100vh"}
+          bgcolor={"rgba(0,0,0,0.2)"}
+          zIndex={10}
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
       <Box
         position={"fixed"}
         top={0}
-        left={isSidebarOpen ? 0 : "-250px"}
+        left={isSidebarOpen ? 0 : isMobile ? "-80vw" : "-250px"}
         width={"240px"}
         height={"100vh"}
         borderRight={`1px solid ${theme.palette.grey[400]}`}
         px={1.2}
+        bgcolor={"white"}
+        zIndex={10}
         sx={{
-          transition: "left 0.3s ease-in-out",
-          backgroundColor: "white"
+          transition: "left 0.3s ease-in-out"
         }}
       >
-        <Box my={10}>
+        <Box my={8}>
           <List>
             {folders.map((folder) => (
               <FolderItem
@@ -74,17 +103,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 count={folder.countByFolder}
                 username={username}
                 onSelectMode={() => onSelectMode(folder.folderUUID)}
-                onSelect={onSelect}
-                isSelected={selectedFolderUUID === folder.folderUUID}
-                onFolderUpdate={onFolderUpdate}
+                onCloseSidebar={() => setSidebarOpen(false)} // TODO: バケツリレーしすぎなのでzustandに移行してもいいかも
+                onSelect={() => handleFolderSelect(folder.folderUUID)}
+                isSelected={selectedInfo === folder.folderUUID}
                 onRefetch={refreshFolders}
-                setSelectedFolderUUID={setSelectedFolderUUID}
+                onFolderUpdate={updatedFolders}
+                setSelectedFolderUUID={setSelectedInfo}
               />
             ))}
-            <CreateFolderField
-              username={username}
-              onRefetchFolder={refreshFolders}
-            />
+            <CreateFolderField username={username} onRefetch={refreshFolders} />
           </List>
           <List>
             {Object.entries(tagMap).map(([key, label]) => (
@@ -92,8 +119,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 tagKey={key as keyof TagType}
                 tagname={label}
                 key={key}
-                isSelected={selectedFolderUUID === key}
-                onSelect={onSelect}
+                isSelected={selectedInfo === key}
+                onSelect={() => handleTagSelect(key)}
                 count={tagCountList[key as keyof ReflectionTagCountList] || 0}
               />
             ))}
