@@ -1,6 +1,7 @@
 import { Box, Popper, Fade } from "@mui/material";
 import type { AIFeedbackType } from "@/src/api/send-to-sqs-api";
 import { SelectAIButton } from "./SelectAIButton";
+import { SelectedAITypeButton } from "./SelectedAITypeButton";
 import { Button } from "@/src/components/button";
 import { theme } from "@/src/utils/theme";
 
@@ -29,10 +30,41 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
         onBlur={onClose}
         sx={{ mx: 2 }}
       >
-        {AIType === 0 && <Box>👹　鬼コーチ</Box>}
-        {AIType === 1 && <Box>👼　ほげほげ</Box>}
-        {AIType === 2 && <Box>👻　foo</Box>}
-        {AIType === 3 && <Box>👽　ふがふが</Box>}
+        {AIType === 0 && (
+          <SelectedAITypeButton
+            icon="/book.svg"
+            alt="ポジティブタイプ"
+            detail="ポジティブタイプ"
+          />
+        )}
+        {AIType === 1 && (
+          <SelectedAITypeButton
+            icon="/share.svg"
+            alt="ストイックタイプ"
+            detail="ストイックタイプ"
+          />
+        )}
+        {AIType === 2 && (
+          <SelectedAITypeButton
+            icon="/link.svg"
+            alt="クリエイティブタイプ"
+            detail="クリエイティブタイプ"
+          />
+        )}
+        {AIType === 3 && (
+          <SelectedAITypeButton
+            icon="/pin.svg"
+            alt="ネクストアクションタイプ"
+            detail="ネクストアクションタイプ"
+          />
+        )}
+        {AIType === 4 && (
+          <SelectedAITypeButton
+            icon="/home.svg"
+            alt="金言タイプ"
+            detail="金言タイプ"
+          />
+        )}
       </Button>
       <Popper open={open} anchorEl={anchorEl} transition sx={{ zIndex: 2 }}>
         {({ TransitionProps }) => (
@@ -42,7 +74,6 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
               borderRadius={2.5}
               bgcolor={"white"}
               zIndex={2}
-              maxHeight={"320px"}
               overflow={"auto"}
               sx={{
                 "&::-webkit-scrollbar": {
@@ -61,26 +92,37 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
               <SelectAIButton
                 onAITypeSelect={onAITypeSelect}
                 AIType={0}
-                emoji="👹"
-                detail="鬼コーチです"
+                icon="/book.svg"
+                detail="ポジティブタイプ"
+                description="ポジティブなフィードバックをもらえますポジティブなフィードバックをもらえます"
               />
               <SelectAIButton
                 onAITypeSelect={onAITypeSelect}
                 AIType={1}
-                emoji="👼"
-                detail="ほげほげ"
+                icon="/share.svg"
+                detail="ストイックタイプ"
+                description="ストイックなフィードバックをもらえます"
               />
               <SelectAIButton
                 onAITypeSelect={onAITypeSelect}
                 AIType={2}
-                emoji="👻"
-                detail="foo"
+                icon="/link.svg"
+                detail="クリエイティブタイプ"
+                description="斬新な視点でのフィードバックをもらえます"
               />
               <SelectAIButton
                 onAITypeSelect={onAITypeSelect}
                 AIType={3}
-                emoji="👽"
-                detail="ふがふが"
+                icon="/pin.svg"
+                detail="ネクストアクションタイプ"
+                description="具体的なネクストアクションが提示されます"
+              />
+              <SelectAIButton
+                onAITypeSelect={onAITypeSelect}
+                AIType={4}
+                icon="/home.svg"
+                detail="金言タイプ"
+                description="あなたに響く金言をもらえます"
               />
             </Box>
           </Fade>
