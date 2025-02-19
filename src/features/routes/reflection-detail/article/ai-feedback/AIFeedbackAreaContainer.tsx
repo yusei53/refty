@@ -71,7 +71,7 @@ export const AIFeedbackAreaContainer: React.FC<
           >
             AIからフィードバックをもらう
           </Button>
-          {isAICallButtonEnabled && (
+          {isAICallButtonEnabled && isCurrentUser && (
             <Box display={"flex"} ml={{ sm: 1 }}>
               <SelectAITypePopupAreaContainer
                 setAIType={setAIType}
