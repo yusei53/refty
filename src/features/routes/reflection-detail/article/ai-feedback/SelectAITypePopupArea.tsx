@@ -24,53 +24,44 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
 }) => {
   return (
     <>
-      <Button
-        variant="outlined"
-        onClick={onClick}
-        onBlur={onClose}
-        sx={{ mx: 2 }}
-      >
+      <Button onClick={onClick} onBlur={onClose} sx={{ mr: 1 }}>
         {AIType === 0 && (
           <SelectedAITypeButton
             icon="/book.svg"
-            alt="ポジティブタイプ"
-            detail="ポジティブタイプ"
+            alt="ポジティブAI"
+            detail="ポジティブAI"
           />
         )}
         {AIType === 1 && (
           <SelectedAITypeButton
             icon="/book.svg"
-            alt="ストイックタイプ"
-            detail="ストイックタイプ"
+            alt="ストイックAI"
+            detail="ストイックAI"
           />
         )}
         {AIType === 2 && (
           <SelectedAITypeButton
             icon="/book.svg"
-            alt="クリエイティブタイプ"
-            detail="クリエイティブタイプ"
+            alt="クリエイティブAI"
+            detail="クリエイティブAI"
           />
         )}
         {AIType === 3 && (
           <SelectedAITypeButton
             icon="/book.svg"
-            alt="ネクストアクションタイプ"
-            detail="ネクストアクションタイプ"
+            alt="ネクストアクションAI"
+            detail="ネクストアクションAI"
           />
         )}
         {AIType === 4 && (
-          <SelectedAITypeButton
-            icon="/book.svg"
-            alt="金言タイプ"
-            detail="金言タイプ"
-          />
+          <SelectedAITypeButton icon="/book.svg" alt="金言AI" detail="金言AI" />
         )}
       </Button>
       <Popper open={open} anchorEl={anchorEl} transition sx={{ zIndex: 2 }}>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
             <Box
-              boxShadow={1}
+              border={"0.5px solid #DCDFE3"}
               borderRadius={2.5}
               bgcolor={"white"}
               zIndex={2}
@@ -93,36 +84,37 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
                 onAITypeSelect={onAITypeSelect}
                 AIType={0}
                 icon="/book.svg"
-                detail="ポジティブタイプ"
-                description="ポジティブなフィードバックをもらえますポジティブなフィードバックをもらえます"
+                detail="ポジティブAI"
+                description="明るく力強いメッセージで、あなたのモチベーションをアップさせます"
               />
               <SelectAIButton
                 onAITypeSelect={onAITypeSelect}
                 AIType={1}
                 icon="/book.svg"
-                detail="ストイックタイプ"
-                description="ストイックなフィードバックをもらえます"
+                detail="ストイックAI"
+                description="現実的かつ厳しい視点で、改善点を明確に示すリアルなフィードバックを行います"
               />
               <SelectAIButton
                 onAITypeSelect={onAITypeSelect}
                 AIType={2}
                 icon="/book.svg"
-                detail="クリエイティブタイプ"
-                description="斬新な視点でのフィードバックをもらえます"
+                detail="クリエイティブAI"
+                description="斬新なアイデアと視点で、あなたの発想を広げるヒントを提案します"
               />
               <SelectAIButton
                 onAITypeSelect={onAITypeSelect}
                 AIType={3}
                 icon="/book.svg"
-                detail="ネクストアクションタイプ"
-                description="具体的なネクストアクションが提示されます"
+                detail="ネクストアクションAI"
+                description="次にすべき実践的な行動プランを、詳細にアドバイスします。
+"
               />
               <SelectAIButton
                 onAITypeSelect={onAITypeSelect}
                 AIType={4}
                 icon="/book.svg"
-                detail="金言タイプ"
-                description="あなたに響く金言をもらえます"
+                detail="金言AI"
+                description="あなたの心に響く、インスピレーショナルな言葉を提示します"
               />
             </Box>
           </Fade>

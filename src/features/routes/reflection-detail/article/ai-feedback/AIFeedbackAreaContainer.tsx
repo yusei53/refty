@@ -76,17 +76,17 @@ export const AIFeedbackAreaContainer: React.FC<
           >
             AIからフィードバックをもらう
           </Button>
-          <Box display={"flex"} flexDirection={"row"}>
+          <Box display={"flex"} ml={{ sm: 1 }}>
             <SelectAITypePopupAreaContainer
               setAIType={setAIType}
               AIType={AIType}
             />
-            <Box display={"flex"} flexDirection="row" alignItems={"center"}>
+            <Box display={"flex"} alignItems={"center"}>
               {!isSmallScreen && (
                 <Box
                   component={IoArrowUndoSharp}
                   sx={{
-                    color: theme.palette.grey[600],
+                    color: theme.palette.grey[500],
                     fontSize: "30px",
                     mr: 1
                   }}

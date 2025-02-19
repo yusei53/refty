@@ -40,15 +40,21 @@ export const SelectAIButton: React.FC<SelectAIButtonProps> = ({
           }
         }}
       >
-        <Box display={"flex"} alignItems={"center"} width="300px">
+        <Box
+          display={"flex"}
+          alignItems={"center"}
+          width={{ xs: "75vw", sm: "340px" }}
+        >
           <Image
             src={icon}
             alt={"マイブックへ行くアイコンボタン"}
             width={35}
             height={35}
           />
-          <Box ml={2} my={0.5}>
-            <Typography fontSize={16}>{detail}</Typography>
+          <Box ml={2} py={0.3}>
+            <Typography letterSpacing={0.8} fontSize={14} fontWeight={550}>
+              {detail}
+            </Typography>
             <Typography fontSize={12} color={theme.palette.grey[600]}>
               {description}
             </Typography>
