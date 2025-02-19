@@ -1,4 +1,5 @@
 import { SendMessageCommand } from "@aws-sdk/client-sqs";
+import type { AIFeedbackType } from "@/src/api/send-to-sqs-api";
 import { sqsClient } from "./aws-sqs.client";
 
 const { NEXT_PUBLIC_SQS_QUEUE_URL } = process.env;
@@ -9,7 +10,7 @@ if (!NEXT_PUBLIC_SQS_QUEUE_URL) {
 export const sendMessageToSQS = async (params: {
   content: string;
   reflectionCUID: string;
-  AIType: 0 | 1 | 2 | 3;
+  AIType: AIFeedbackType;
 }) => {
   const { content, reflectionCUID, AIType } = params;
 
