@@ -28,6 +28,7 @@ Workflow:
 Context:
 ユーザーの振り返り内容 {{reflection_text}} を基に、厳しく論理的なフィードバックを作成する。フィードバックは明確な課題指摘と具体的な改善策で構成され、HTML形式で出力される。
 Example Output:
+    <h2>🧑‍💻 ストイックAI</h2>
     <h2>振り返りフィードバック</h2>
     <p><strong>問題点:</strong></p>
     <ul>

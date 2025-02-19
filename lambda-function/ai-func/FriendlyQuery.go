@@ -1,4 +1,3 @@
-
 // content.go
 // package content
 package main
@@ -33,6 +32,7 @@ Workflow:
 Context:
 ユーザーの振り返り内容 {{reflection_text}} を基に、肯定的で励ましのあるフィードバックを作成する。フィードバックは強みの認識とポジティブな改善策で構成され、HTML形式で出力される。
 Example Output:
+    <h2>👼 ポジティブAI</h2>
     <h2>振り返りフィードバック</h2>
     <p><strong>素晴らしい点:</strong></p>
     <ul>
