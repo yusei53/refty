@@ -45,7 +45,9 @@ const ReflectionsBookPage: React.FC<ReflectionsBookPageProps> = ({
       position={"relative"}
       sx={{ overflowX: { xs: "hidden", md: "visible" } }}
     >
-      {foldername ? <Typography>{foldername}</Typography> : "該当なし"}
+      {foldername && (
+        <Typography sx={{ mb: 3, ml: { md: 13.5 } }}>{foldername}</Typography>
+      )}
       {isVisible && <SwipeIconDisplay isVisible={isVisible} />}
       <Swiper
         effect="cards"
