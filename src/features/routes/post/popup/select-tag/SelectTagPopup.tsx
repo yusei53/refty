@@ -70,8 +70,8 @@ export const SelectTagPopup: React.FC<TagSelectionPopupProps> = ({
           </Box>
         ))}
       </Box>
+      { /* TODO: disablePortal の動作を確認する */ }
       <Popper
-        disablePortal
         open={open}
         anchorEl={anchorEl}
         transition
@@ -94,7 +94,6 @@ export const SelectTagPopup: React.FC<TagSelectionPopupProps> = ({
               bgcolor="#f8fbff"
               border={`1px solid ${theme.palette.grey[400]}`}
               borderRadius={4}
-              minWidth={"200px"}
             >
               <Typography
                 component={"span"}
