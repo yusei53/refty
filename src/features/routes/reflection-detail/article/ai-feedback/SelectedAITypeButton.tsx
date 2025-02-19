@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
+import { theme } from "@/src/utils/theme";
 
 type SelectedAITypeButtonProps = {
   icon: string;
@@ -12,9 +13,15 @@ export const SelectedAITypeButton: React.FC<SelectedAITypeButtonProps> = ({
   alt,
   detail
 }) => {
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <>
-      <Box display={"flex"} alignItems={"center"} gap={1}>
+      <Box
+        display={"flex"}
+        alignItems={"center"}
+        gap={1}
+        fontSize={isSmallScreen ? 12 : 15}
+      >
         <Image src={icon} alt={alt} width={25} height={25} />
         {detail}
       </Box>
