@@ -26,36 +26,18 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
     <>
       <Button onClick={onClick} onBlur={onClose} sx={{ mr: 1 }}>
         {AIType === 0 && (
-          <SelectedAITypeButton
-            icon="/book.svg"
-            alt="ポジティブAI"
-            detail="ポジティブAI"
-          />
+          <SelectedAITypeButton icon="👼" detail="ポジティブAI" />
         )}
         {AIType === 1 && (
-          <SelectedAITypeButton
-            icon="/book.svg"
-            alt="ストイックAI"
-            detail="ストイックAI"
-          />
+          <SelectedAITypeButton icon="🧑‍💻" detail="ストイックAI" />
         )}
         {AIType === 2 && (
-          <SelectedAITypeButton
-            icon="/book.svg"
-            alt="クリエイティブAI"
-            detail="クリエイティブAI"
-          />
+          <SelectedAITypeButton icon="👨‍🎨" detail="クリエイティブAI" />
         )}
         {AIType === 3 && (
-          <SelectedAITypeButton
-            icon="/book.svg"
-            alt="ネクストアクションAI"
-            detail="ネクストアクションAI"
-          />
+          <SelectedAITypeButton icon="👨‍🚀" detail="ネクストアクションAI" />
         )}
-        {AIType === 4 && (
-          <SelectedAITypeButton icon="/book.svg" alt="金言AI" detail="金言AI" />
-        )}
+        {AIType === 4 && <SelectedAITypeButton icon="🧝‍♂️" detail="金言AI" />}
       </Button>
       <Popper open={open} anchorEl={anchorEl} transition sx={{ zIndex: 2 }}>
         {({ TransitionProps }) => (
@@ -83,28 +65,28 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
               <SelectAIButton
                 onAITypeSelect={onAITypeSelect}
                 AIType={0}
-                icon="/book.svg"
+                icon="👼"
                 detail="ポジティブAI"
                 description="明るく力強いメッセージで、あなたのモチベーションをアップさせます"
               />
               <SelectAIButton
                 onAITypeSelect={onAITypeSelect}
                 AIType={1}
-                icon="/book.svg"
+                icon="🧑‍💻"
                 detail="ストイックAI"
                 description="現実的かつ厳しい視点で、改善点を明確に示すリアルなフィードバックを行います"
               />
               <SelectAIButton
                 onAITypeSelect={onAITypeSelect}
                 AIType={2}
-                icon="/book.svg"
+                icon="👨‍🎨"
                 detail="クリエイティブAI"
                 description="斬新なアイデアと視点で、あなたの発想を広げるヒントを提案します"
               />
               <SelectAIButton
                 onAITypeSelect={onAITypeSelect}
                 AIType={3}
-                icon="/book.svg"
+                icon="👨‍🚀"
                 detail="ネクストアクションAI"
                 description="次にすべき実践的な行動プランを、詳細にアドバイスします。
 "
@@ -112,7 +94,7 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
               <SelectAIButton
                 onAITypeSelect={onAITypeSelect}
                 AIType={4}
-                icon="/book.svg"
+                icon="🧝‍♂️"
                 detail="金言AI"
                 description="あなたの心に響く、インスピレーショナルな言葉を提示します"
               />
