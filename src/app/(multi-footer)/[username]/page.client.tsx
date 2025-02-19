@@ -1,9 +1,7 @@
 "use client";
 import { useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import FolderIcon from "@mui/icons-material/Folder";
-import TagIcon from "@mui/icons-material/Tag";
-import { Box, Typography, useMediaQuery } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import type { TagType } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import type { User } from "@prisma/client";
@@ -14,20 +12,22 @@ import {
   type Reflection,
   type ReflectionTagCountList
 } from "@/src/api/reflection-api";
-import { Button, PostNavigationButton } from "@/src/components/button";
+import { PostNavigationButton } from "@/src/components/button";
 import {
   ArrowPagination,
   NumberedPagination
 } from "@/src/components/pagination";
 import { EmptyReflection } from "@/src/features/common/empty-reflection";
-import { SearchBar } from "@/src/features/common/search-bar";
 import ReflectionCardListArea from "@/src/features/routes/reflection-list/card-list/ReflectionCardListArea";
 import { GoodJobModal } from "@/src/features/routes/reflection-list/modal";
 import UserProfileArea from "@/src/features/routes/reflection-list/profile/UserProfileArea";
+import { SelectionHeader } from "@/src/features/routes/reflection-list/selection-header/SelectionHeader";
 import { Sidebar } from "@/src/features/routes/reflection-list/sidebar";
+import { FolderInitializer } from "@/src/features/routes/reflection-list/sidebar/FolderInitializer";
 import { usePagination } from "@/src/hooks/reflection/usePagination";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
-import { useTagHandler } from "@/src/hooks/reflection-tag/useTagHandler";
+import { getReflectionWithFolderInfo } from "@/src/utils/actions/get-reflection-with-folder-info";
+import { useFolderStore } from "@/src/utils/store/useFolderStore";
 import { theme } from "@/src/utils/theme";
 
 type UserReflectionListPageProps = {
@@ -60,29 +60,27 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   folders
 }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isSelectionMode, setIsSelectionMode] = useState(false);
+  const [isSelectMode, setIsSelectMode] = useState(false);
   const [selectedReflections, setSelectedReflections] = useState<string[]>([]);
-  const [selectedFolderUUID, setSelectedFolderUUID] = useState<string>("");
-  const [foldersState, setFoldersState] = useState<Folder[]>(folders);
-
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
-  const isPCScreen = useMediaQuery(theme.breakpoints.up("lg"));
-  const {
-    isOpenTagList,
-    selectedTag,
-    handleToggleTags,
-    handleTagChange,
-    getSelectedTagCount
-  } = useTagHandler();
+
   const { handlePageChange } = usePagination();
 
-  const handleSelectMode = (folderUUID: string) => {
+  const foldersState = useFolderStore((state) => state.folders);
+  const selectedInfo = useFolderStore((state) => state.selectedInfo);
+  const setFolders = useFolderStore((state) => state.setFolders);
+  const setSelectedInfo = useFolderStore((state) => state.setSelectedInfo);
+  const handleSelectMode = async (folderUUID: string) => {
     router.push(pathname);
-    setIsSelectionMode(true);
-    setSelectedFolderUUID(folderUUID);
+    setIsSelectMode(true);
+    setSelectedInfo(folderUUID);
+    const info = await getReflectionWithFolderInfo(username, folderUUID);
+    if (!info) return;
+    const preSelected = info.map((i) => i.reflectionCUID);
+    setSelectedReflections(preSelected);
   };
 
   const handleSelect = (reflectionCUID: string) => {
@@ -96,20 +94,17 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   };
 
   const handleCancelSelectMode = () => {
-    setIsSelectionMode(false);
+    setIsSelectMode(false);
     setSelectedReflections([]);
-    setSelectedFolderUUID("");
+    setSelectedInfo("");
   };
 
   const handleAddReflectionToFolder = async () => {
     setIsLoading(true);
-    if (!selectedFolderUUID) {
-      console.error("フォルダが選択されていません");
-      return;
-    }
+
     await reflectionAPI.bulkUpdateFolderReflection({
       reflectionCUID: selectedReflections,
-      folderUUID: selectedFolderUUID,
+      folderUUID: selectedInfo,
       username
     });
     const updatedFolders = await folderAPI.getFolder(username);
@@ -117,12 +112,17 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
       return router.refresh();
     }
 
-    setFoldersState(updatedFolders);
-    setIsSelectionMode(false);
+    setFolders(updatedFolders);
+    setIsSelectMode(false);
     setSelectedReflections([]);
     setIsLoading(false);
-    router.push(`/${username}?folder=${selectedFolderUUID}`);
+    router.push(`/${username}?folder=${selectedInfo}`);
+    router.refresh();
   };
+  const isFolderSelected = foldersState.some(
+    (f) => f.folderUUID === selectedInfo
+  );
+  const disableAdd = selectedReflections.length === 0 || isLoading;
 
   const isCurrentUser = currentUsername === username;
   const isModalOpen = searchParams.get("status") === "posted";
@@ -130,47 +130,35 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     router.push(`/${username}`);
   };
 
-  let selectedInfo: { name: string; count: number } | null = null;
-  if (selectedFolderUUID !== "") {
-    const folder = foldersState.find(
-      (f) => f.folderUUID === selectedFolderUUID
-    );
-    if (folder) {
-      selectedInfo = {
-        name: folder.name,
-        count: folder.countByFolder || 0
-      };
-    } else if (tagMap[selectedFolderUUID as keyof TagType]) {
-      selectedInfo = {
-        name: tagMap[selectedFolderUUID as keyof TagType],
-        count:
-          tagCountList[selectedFolderUUID as keyof ReflectionTagCountList] || 0
+  const currentFolder = foldersState.find((f) => f.folderUUID === selectedInfo);
+  const selected = (() => {
+    if (currentFolder) {
+      return {
+        name: currentFolder.name,
+        count: currentFolder.countByFolder || 0
       };
     }
-  }
-
-  const handleFolderUpdate = (updatedFolder: Folder) => {
-    setFoldersState((prev) =>
-      prev.map((folder) =>
-        folder.folderUUID === updatedFolder.folderUUID ? updatedFolder : folder
-      )
-    );
-  };
+    if (tagMap[selectedInfo as keyof TagType]) {
+      return {
+        name: tagMap[selectedInfo as keyof TagType],
+        count: tagCountList[selectedInfo as keyof ReflectionTagCountList] || 0
+      };
+    }
+    return null;
+  })();
 
   return (
     <>
       <Box minHeight={"90vh"}>
-        {isPCScreen && isCurrentUser && (
-          <Sidebar
-            initialFolders={foldersState}
-            username={username}
-            onSelectMode={handleSelectMode}
-            tagCountList={tagCountList}
-            selectedFolderUUID={selectedFolderUUID}
-            onSelect={setSelectedFolderUUID}
-            onFolderUpdate={handleFolderUpdate}
-            setSelectedFolderUUID={setSelectedFolderUUID}
-          />
+        {isCurrentUser && (
+          <>
+            <FolderInitializer folders={folders} />
+            <Sidebar
+              username={username}
+              onSelectMode={handleSelectMode}
+              tagCountList={tagCountList}
+            />
+          </>
         )}
         <UserProfileArea
           userImage={userImage}
@@ -180,59 +168,14 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           reflectionCount={reflectionCount}
           isCurrentUser={isCurrentUser}
         />
-        {!isPCScreen && (
-          <SearchBar
-            tags={Object.values(tagMap)}
-            selectedTag={selectedTag}
-            selectedTagCount={getSelectedTagCount(tagCountList, selectedTag)}
-            isOpenTagList={isOpenTagList}
-            onToggleTags={handleToggleTags}
-            onTagChange={handleTagChange}
-          />
-        )}
-        <Box
-          height={32}
-          mx={3}
-          my={1}
-          letterSpacing={0.8}
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"space-between"}
-        >
-          {selectedInfo && (
-            <Box display={"flex"} alignItems={"center"}>
-              {foldersState.some((f) => f.folderUUID === selectedFolderUUID) ? (
-                <FolderIcon
-                  fontSize="small"
-                  sx={{ color: theme.palette.grey[500], mr: "4px" }}
-                />
-              ) : (
-                <TagIcon
-                  fontSize="small"
-                  sx={{ color: theme.palette.grey[500], mr: "4px" }}
-                />
-              )}
-              <Typography component={"span"} fontWeight={550}>
-                {selectedInfo.name}
-              </Typography>
-              <Typography>{`　${selectedInfo.count}件`}</Typography>
-            </Box>
-          )}
-          {isSelectionMode && isPCScreen && (
-            <Box display={"flex"} justifyContent={"right"} gap={1}>
-              <Button sx={button} onClick={handleCancelSelectMode}>
-                キャンセル
-              </Button>
-              <Button
-                sx={{ ...button, color: theme.palette.primary.light }}
-                onClick={handleAddReflectionToFolder}
-                disabled={selectedFolderUUID.length === 0 || isLoading}
-              >
-                追加
-              </Button>
-            </Box>
-          )}
-        </Box>
+        <SelectionHeader
+          selectedInfo={selected}
+          isFolderSelected={isFolderSelected}
+          isSelectMode={isSelectMode}
+          onCancel={handleCancelSelectMode}
+          onAdd={handleAddReflectionToFolder}
+          disableAdd={disableAdd}
+        />
         {reflections.length === 0 ? (
           <EmptyReflection />
         ) : (
@@ -246,7 +189,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
               username={username}
               reflections={reflections}
               isCurrentUser={isCurrentUser}
-              isSelectMode={isSelectionMode}
+              isSelectMode={isSelectMode}
               isSelected={(reflectionCUID) =>
                 selectedReflections.includes(reflectionCUID)
               }
@@ -282,12 +225,3 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
 };
 
 export default UserReflectionListPage;
-
-const button = {
-  fontSize: 13.5,
-  p: "3px 6px",
-  letterSpacing: 0.8,
-  borderRadius: 2,
-  border: "1px solid #DCDFE3",
-  backgroundColor: "white"
-};

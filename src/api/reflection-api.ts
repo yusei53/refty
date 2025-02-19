@@ -22,7 +22,6 @@ export type Reflection = {
   isAwareness: boolean;
   isInputLog: boolean;
   isMonologue: boolean;
-  folderUUID: string | null;
   createdAt: string;
 };
 

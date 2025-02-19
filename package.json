@@ -47,7 +47,8 @@
     "swiper": "^11.2.1",
     "tocbot": "^4.32.3-0",
     "uuid": "^11.0.5",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@playwright/test": "^1.50.1",
