@@ -32,35 +32,35 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
       >
         {AIType === 0 && (
           <SelectedAITypeButton
-            icon="/smile.svg"
+            icon="/book.svg"
             alt="ポジティブタイプ"
             detail="ポジティブタイプ"
           />
         )}
         {AIType === 1 && (
           <SelectedAITypeButton
-            icon="/hourglass.svg"
+            icon="/book.svg"
             alt="ストイックタイプ"
             detail="ストイックタイプ"
           />
         )}
         {AIType === 2 && (
           <SelectedAITypeButton
-            icon="/lightbulb.svg"
+            icon="/book.svg"
             alt="クリエイティブタイプ"
             detail="クリエイティブタイプ"
           />
         )}
         {AIType === 3 && (
           <SelectedAITypeButton
-            icon="/steps.svg"
+            icon="/book.svg"
             alt="ネクストアクションタイプ"
             detail="ネクストアクションタイプ"
           />
         )}
         {AIType === 4 && (
           <SelectedAITypeButton
-            icon="/pen.svg"
+            icon="/book.svg"
             alt="金言タイプ"
             detail="金言タイプ"
           />
@@ -92,35 +92,35 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
               <SelectAIButton
                 onAITypeSelect={onAITypeSelect}
                 AIType={0}
-                icon="/smile.svg"
+                icon="/book.svg"
                 detail="ポジティブタイプ"
                 description="ポジティブなフィードバックをもらえますポジティブなフィードバックをもらえます"
               />
               <SelectAIButton
                 onAITypeSelect={onAITypeSelect}
                 AIType={1}
-                icon="/hourglass.svg"
+                icon="/book.svg"
                 detail="ストイックタイプ"
                 description="ストイックなフィードバックをもらえます"
               />
               <SelectAIButton
                 onAITypeSelect={onAITypeSelect}
                 AIType={2}
-                icon="/lightbulb.svg"
+                icon="/book.svg"
                 detail="クリエイティブタイプ"
                 description="斬新な視点でのフィードバックをもらえます"
               />
               <SelectAIButton
                 onAITypeSelect={onAITypeSelect}
                 AIType={3}
-                icon="/steps.svg"
+                icon="/book.svg"
                 detail="ネクストアクションタイプ"
                 description="具体的なネクストアクションが提示されます"
               />
               <SelectAIButton
                 onAITypeSelect={onAITypeSelect}
                 AIType={4}
-                icon="/pen.svg"
+                icon="/book.svg"
                 detail="金言タイプ"
                 description="あなたに響く金言をもらえます"
               />
