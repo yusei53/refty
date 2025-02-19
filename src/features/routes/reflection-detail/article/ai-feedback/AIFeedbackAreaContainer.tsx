@@ -82,15 +82,20 @@ export const AIFeedbackAreaContainer: React.FC<
               AIType={AIType}
             />
             <Box display={"flex"} flexDirection="row" alignItems={"center"}>
-              <Box
-                component={IoArrowUndoSharp}
-                sx={{
-                  color: theme.palette.grey[600],
-                  fontSize: "30px",
-                  mr: 1
-                }}
-              />
-              <Typography fontSize={15} color={theme.palette.grey[600]}>
+              {!isSmallScreen && (
+                <Box
+                  component={IoArrowUndoSharp}
+                  sx={{
+                    color: theme.palette.grey[600],
+                    fontSize: "30px",
+                    mr: 1
+                  }}
+                />
+              )}
+              <Typography
+                fontSize={isSmallScreen ? 13 : 15}
+                color={theme.palette.grey[600]}
+              >
                 AIのタイプを選択
               </Typography>
             </Box>
