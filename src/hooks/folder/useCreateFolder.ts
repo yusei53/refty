@@ -18,13 +18,13 @@ export type CreateFolderSchemaType = z.infer<typeof createFolderSchema>;
 
 type UseCreateFolderProps = {
   username: string | undefined;
-  onRefetchFolder: () => void;
+  onRefetch: (username: string) => Promise<void>;
   setIsEditing: (isEditing: boolean) => void;
 };
 
 export const useCreateFolder = ({
   username,
-  onRefetchFolder,
+  onRefetch,
   setIsEditing
 }: UseCreateFolderProps) => {
   const router = useRouter();
@@ -49,7 +49,7 @@ export const useCreateFolder = ({
       router.push(`/`);
       router.refresh();
     } else {
-      onRefetchFolder();
+      onRefetch(username);
       reset();
       setIsEditing(false);
     }

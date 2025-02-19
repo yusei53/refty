@@ -10,6 +10,7 @@ type FolderKebabMenuButtonProps = {
   onOpenPopup: (event: React.MouseEvent<HTMLElement>) => void;
   onClosePopup: () => void;
   onSelectMode: () => void;
+  onCloseSidebar: () => void;
   onEditFolderName: () => void;
   onDeleteFolder: () => void;
 };
@@ -20,6 +21,7 @@ export const FolderKebabMenuButton: React.FC<FolderKebabMenuButtonProps> = ({
   onOpenPopup,
   onClosePopup,
   onSelectMode,
+  onCloseSidebar,
   onEditFolderName,
   onDeleteFolder
 }) => {
@@ -52,21 +54,32 @@ export const FolderKebabMenuButton: React.FC<FolderKebabMenuButtonProps> = ({
         />
       </Box>
       <Popper
+        disablePortal
         open={open}
         anchorEl={anchorEl}
         transition
         placement={"bottom-end"}
+        sx={{
+          position: "relative",
+          zIndex: 10
+        }}
       >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
-            <Box boxShadow={1} borderRadius={2.5} bgcolor={"white"}>
+            <Box
+              boxShadow={1}
+              borderRadius={2.5}
+              bgcolor={"white"}
+              minWidth={180}
+            >
               <PopupButton
-                text={"投稿をフォルダに追加"}
+                text={"フォルダ内を編集"}
                 src={"/add-to-folder.svg"}
                 alt={`フォルダに投稿を追加するボタン`}
                 onClick={() => {
                   onClosePopup();
                   onSelectMode();
+                  onCloseSidebar();
                 }}
               />
               <PopupButton

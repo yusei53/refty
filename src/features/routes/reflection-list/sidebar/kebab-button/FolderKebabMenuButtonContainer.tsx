@@ -9,8 +9,9 @@ type FolderKebabButtonPopupContainerProps = {
   username: string;
   setIsEditFieldOpen: (isEditFieldOpen: boolean) => void;
   onSelectMode: () => void;
+  onCloseSidebar: () => void;
   onPopupChange?: (isOpen: boolean) => void;
-  onRefetch: () => Promise<void>;
+  onRefetch: (username: string) => Promise<void>;
   setSelectedFolderUUID: (folderUUID: string) => void;
 };
 
@@ -21,6 +22,7 @@ export const FolderKebabButtonPopupContainer: React.FC<
   username,
   setIsEditFieldOpen,
   onSelectMode,
+  onCloseSidebar,
   onPopupChange,
   onRefetch,
   setSelectedFolderUUID
@@ -52,7 +54,7 @@ export const FolderKebabButtonPopupContainer: React.FC<
       return;
     }
     handleClosePopup();
-    await onRefetch();
+    await onRefetch(username);
     setSelectedFolderUUID("");
     router.push(`/${username}`);
   };
@@ -68,7 +70,6 @@ export const FolderKebabButtonPopupContainer: React.FC<
           left={0}
           width="100vw"
           height="100vh"
-          zIndex={3}
         />
       )}
       <FolderKebabMenuButton
@@ -77,6 +78,7 @@ export const FolderKebabButtonPopupContainer: React.FC<
         onOpenPopup={handleOpenPopup}
         onClosePopup={handleClosePopup}
         onSelectMode={onSelectMode}
+        onCloseSidebar={onCloseSidebar}
         onEditFolderName={handleEditFolderName}
         onDeleteFolder={handleDeleteFolder}
       />

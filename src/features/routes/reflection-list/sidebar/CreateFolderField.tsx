@@ -1,28 +1,38 @@
 import { useState } from "react";
 import { Controller } from "react-hook-form";
 import AddIcon from "@mui/icons-material/Add";
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, TextField, Typography, useMediaQuery } from "@mui/material";
+import { ErrorMessage } from "@/src/components/alert";
+import { Button } from "@/src/components/button";
 import { useCreateFolder } from "@/src/hooks/folder/useCreateFolder";
 import { theme } from "@/src/utils/theme";
 
 type CreateFolderFieldProps = {
   username: string;
-  onRefetchFolder: () => void;
+  onRefetch: (username: string) => Promise<void>;
 };
 
 export const CreateFolderField = ({
   username,
-  onRefetchFolder
+  onRefetch
 }: CreateFolderFieldProps) => {
   const [isEditing, setIsEditing] = useState(false);
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   const createFolderHook = useCreateFolder({
     username,
-    onRefetchFolder,
+    onRefetch,
     setIsEditing
   });
   if (!createFolderHook) return null;
   const { control, errors, onSubmit } = createFolderHook;
+
+  // MEMO: スマホのEnterキー(改行ボタン等)で送信されてしまうのを防ぐ
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
+  };
 
   const handleFolderSubmit = async (e: React.FormEvent) => {
     await onSubmit(e);
@@ -35,7 +45,9 @@ export const CreateFolderField = ({
           <Box
             component="form"
             onSubmit={handleFolderSubmit}
-            sx={{ display: "flex", alignItems: "center", gap: 1 }}
+            display={"flex"}
+            alignItems={"center"}
+            gap={1}
           >
             <Controller
               name="name"
@@ -47,12 +59,12 @@ export const CreateFolderField = ({
                   size="small"
                   placeholder="フォルダ名"
                   error={Boolean(errors?.name)}
-                  helperText={errors?.name?.message}
                   onBlur={() => setIsEditing(false)}
+                  onKeyDown={isMobile ? handleKeyDown : undefined}
                   sx={{
                     width: "100%",
                     fontSize: 14,
-                    mx: 1.5,
+                    mx: { lg: 1.5 },
                     "& .MuiInputBase-root": {
                       fontSize: 14,
                       height: 30
@@ -61,7 +73,22 @@ export const CreateFolderField = ({
                 />
               )}
             />
+            {isMobile && (
+              <Button
+                onClick={handleFolderSubmit}
+                onMouseDown={(e) => e.preventDefault()}
+                sx={button}
+              >
+                作成
+              </Button>
+            )}
           </Box>
+          {errors?.name?.message && (
+            <ErrorMessage
+              message={errors.name.message}
+              sx={{ mx: { lg: 1.5 }, display: "block" }}
+            />
+          )}
         </>
       ) : (
         <Box
@@ -86,4 +113,13 @@ export const CreateFolderField = ({
       )}
     </Box>
   );
+};
+
+const button = {
+  fontSize: 13.5,
+  p: "3px",
+  letterSpacing: 0.8,
+  borderRadius: 2,
+  border: "1px solid #DCDFE3",
+  backgroundColor: "white"
 };
