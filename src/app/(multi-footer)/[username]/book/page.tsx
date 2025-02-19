@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth";
+import { folderAPI } from "@/src/api/folder-api";
 import { reflectionsBookAPI } from "@/src/api/reflections-book-api";
 import authOptions from "@/src/app/api/auth/[...nextauth]/options";
 import { Loading } from "@/src/components/loading";
 import { meta } from "@/src/utils/metadata";
-import { folderAPI } from "@/src/api/folder-api";
 
 const ReflectionsBookPage = dynamic(
   () => import("./page.client").then((mod) => mod.default),
