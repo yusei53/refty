@@ -100,6 +100,7 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
               borderRadius={4}
             >
               {isFoldersEmpty ? (
+                // TODO: ファイル名を変更する
                 <NotFoundFolder />
               ) : (
                 <>
