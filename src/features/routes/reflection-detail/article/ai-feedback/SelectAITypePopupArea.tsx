@@ -39,9 +39,8 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
         )}
         {AIType === 4 && <SelectedAITypeButton icon="🧝‍♂️" detail="金言AI" />}
       </Button>
-
-      {anchorEl && (
-         <Popper open={open} anchorEl={anchorEl} transition sx={{ zIndex: 2 }}>
+      {/* TODO: disablePortalの動作を確認する */}
+      <Popper open={open} anchorEl={anchorEl} transition sx={{ zIndex: 2 }}>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
             <Box
@@ -90,8 +89,7 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
                 AIType={3}
                 icon="👨‍🚀"
                 detail="ネクストアクションAI"
-                description="次にすべき実践的な行動プランを、詳細にアドバイスします。
-"
+                description="次にすべき実践的な行動プランを、詳細にアドバイスします。"
               />
               <SelectAIButton
                 onAITypeSelect={onAITypeSelect}
@@ -104,8 +102,6 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
           </Fade>
         )}
       </Popper>
-      )}
-
     </>
   );
 };
