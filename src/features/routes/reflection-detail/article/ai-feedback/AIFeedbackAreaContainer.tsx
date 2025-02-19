@@ -71,30 +71,32 @@ export const AIFeedbackAreaContainer: React.FC<
           >
             AIからフィードバックをもらう
           </Button>
-          <Box display={"flex"} ml={{ sm: 1 }}>
-            <SelectAITypePopupAreaContainer
-              setAIType={setAIType}
-              AIType={AIType}
-            />
-            <Box display={"flex"} alignItems={"center"}>
-              {!isSmallScreen && (
-                <Box
-                  component={IoArrowUndoSharp}
-                  sx={{
-                    color: theme.palette.grey[500],
-                    fontSize: "30px",
-                    mr: 1
-                  }}
-                />
-              )}
-              <Typography
-                fontSize={isSmallScreen ? 13 : 15}
-                color={theme.palette.grey[600]}
-              >
-                AIのタイプを選択
-              </Typography>
+          {isAICallButtonEnabled && (
+            <Box display={"flex"} ml={{ sm: 1 }}>
+              <SelectAITypePopupAreaContainer
+                setAIType={setAIType}
+                AIType={AIType}
+              />
+              <Box display={"flex"} alignItems={"center"}>
+                {!isSmallScreen && (
+                  <Box
+                    component={IoArrowUndoSharp}
+                    sx={{
+                      color: theme.palette.grey[500],
+                      fontSize: "30px",
+                      mr: 1
+                    }}
+                  />
+                )}
+                <Typography
+                  fontSize={isSmallScreen ? 13 : 15}
+                  color={theme.palette.grey[600]}
+                >
+                  AIのタイプを選択
+                </Typography>
+              </Box>
             </Box>
-          </Box>
+          )}
         </Box>
         <Typography fontSize={12} color={theme.palette.grey[600]} mt={1}>
           文字数が100文字以上、かつまだAIからのフィードバックがない場合のみAIにフィードバックをもらえます
