@@ -101,7 +101,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
             fontSize: 14,
             color: "black",
             noWrap: true,
-            maxWidth: "120px"
+            maxWidth: "100px"
           }}
           secondary={count.toString()}
           secondaryTypographyProps={{
