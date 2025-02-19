@@ -101,7 +101,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
             fontSize: 14,
             color: "black",
             noWrap: true,
-            maxWidth: "120px"
+            maxWidth: "100px"
           }}
           secondary={count.toString()}
           secondaryTypographyProps={{
@@ -124,7 +124,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
           sx={{
             display: "flex",
             alignItems: "center",
-            gap: 1
+            gap: 0.5
           }}
         />
       )}
@@ -172,7 +172,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
         className="hover-icons"
         display={isMobile ? "flex" : isPopupOpen ? "flex" : "none"}
         alignItems={"center"}
-        gap={1}
+        gap={0.5}
         position={"absolute"}
         right={4}
       >
@@ -212,8 +212,8 @@ const link = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  width: "30px",
-  height: "30px",
-  borderRadius: "50%",
+  width: 20,
+  height: 20,
+  borderRadius: 10,
   transition: "background-color 0.3s ease"
 };
