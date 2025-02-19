@@ -66,7 +66,13 @@ export const SelectAITypePopupArea: React.FC<SelectAITypePopupAreaProps> = ({
           />
         )}
       </Button>
-      <Popper open={open} anchorEl={anchorEl} transition sx={{ zIndex: 2 }}>
+      <Popper
+        disablePortal
+        open={open}
+        anchorEl={anchorEl}
+        transition
+        sx={{ zIndex: 2 }}
+      >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
             <Box
