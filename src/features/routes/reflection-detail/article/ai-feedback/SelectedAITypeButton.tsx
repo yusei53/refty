@@ -20,7 +20,7 @@ export const SelectedAITypeButton: React.FC<SelectedAITypeButtonProps> = ({
         display={"flex"}
         alignItems={"center"}
         gap={1}
-        fontSize={isSmallScreen ? 12 : 15}
+        fontSize={isSmallScreen ? 12 : 14}
       >
         <Image src={icon} alt={alt} width={25} height={25} />
         {detail}

@@ -44,8 +44,8 @@ export const SelectAIButton: React.FC<SelectAIButtonProps> = ({
           <Image
             src={icon}
             alt={"マイブックへ行くアイコンボタン"}
-            width={40}
-            height={40}
+            width={35}
+            height={35}
           />
           <Box ml={2} my={0.5}>
             <Typography fontSize={16}>{detail}</Typography>
