@@ -68,3 +68,26 @@ export async function PATCH(
     return internalServerError("PATCH", "フォルダ", error);
   }
 }
+
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { folderUUID: string } }
+) {
+  try {
+    const { folderUUID } = params;
+
+    const folder = await prisma.reflectionFolder.findUnique({
+      where: { folderUUID },
+      select: { name: true }
+    });
+
+    if (!folder) {
+      return notFoundError("フォルダが見つかりません");
+    }
+
+    return NextResponse.json(folder, { status: 200 });
+  } catch (error) {
+    console.error(error);
+    return internalServerError("GET", "フォルダ", error);
+  }
+}
