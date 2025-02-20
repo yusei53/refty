@@ -18,6 +18,7 @@ export type ReflectionBook = {
 
 type ReflectionsBook = {
   reflections: ReflectionBook[];
+  folderName: string | null;
 };
 
 export const reflectionsBookAPI = {

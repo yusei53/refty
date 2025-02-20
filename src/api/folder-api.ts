@@ -67,19 +67,5 @@ export const folderAPI = {
       }
     };
     return await fetchURL<Folder, 401>(path, options);
-  },
-
-  async getFolderByFolderUUID(
-    username: string,
-    folderUUID: string
-  ): Promise<Result<Folder, 404>> {
-    const path = `/api/${username}/folder/${folderUUID}`;
-    const options: FetchURLOptions = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    };
-    return await fetchURL<Folder, 404>(path, options);
   }
 };

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth";
-import { folderAPI } from "@/src/api/folder-api";
 import { reflectionsBookAPI } from "@/src/api/reflections-book-api";
 import authOptions from "@/src/app/api/auth/[...nextauth]/options";
 import { Loading } from "@/src/components/loading";
@@ -34,14 +33,6 @@ const page = async ({
 }) => {
   const session = await getServerSession(authOptions);
   const folderUUID = searchParams.folder || "";
-  const folder = await folderAPI.getFolderByFolderUUID(
-    params.username,
-    folderUUID
-  );
-  if (folder === 404) {
-    return notFound();
-  }
-
   const res = await reflectionsBookAPI.getReflections(
     params.username,
     folderUUID
@@ -56,7 +47,7 @@ const page = async ({
       reflections={res.reflections}
       username={session?.user.username ?? ""}
       userImage={session?.user.image ?? ""}
-      foldername={folder?.name ?? ""}
+      foldername={res.folderName ?? ""}
     />
   );
 };
