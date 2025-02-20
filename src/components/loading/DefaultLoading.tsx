@@ -1,6 +1,6 @@
 import { Box, CircularProgress } from "@mui/material";
 
-export const Loading = () => {
+export const DefaultLoading = () => {
   return (
     <Box
       display={"flex"}
