@@ -67,6 +67,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
     }
     setIsEditFieldOpen(false);
     onFolderUpdate(updatedFolder);
+    onRefetch(username);
   };
 
   const Content = (
