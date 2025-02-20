@@ -60,7 +60,7 @@ export const SelectionHeader: React.FC<SelectionHeaderProps> = ({
 };
 
 const icon = {
-  fontSize: "small",
+  fontSize: 18,
   color: theme.palette.grey[500],
   mr: "4px"
 };
