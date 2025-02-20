@@ -22,9 +22,9 @@ export async function GET(req: NextRequest, { params }: Params) {
 
     const folderUUID = req.nextUrl.searchParams.get("folder") ?? undefined;
 
-    // MEMO: folderUUIDなしの場合、全データを取得
+    // folderUUIDが指定されていれば、そのフォルダに属する反映のみ取得、なければ全反映を取得
     const whereCondition = folderUUID
-      ? { userId: user.id, folderUUID: folderUUID }
+      ? { userId: user.id, folderUUID }
       : { userId: user.id };
 
     const reflections = await prisma.reflection.findMany({
@@ -44,7 +44,22 @@ export async function GET(req: NextRequest, { params }: Params) {
         createdAt: true
       }
     });
-    return NextResponse.json({ reflections }, { status: 200 });
+
+    const folder = folderUUID
+      ? await prisma.reflectionFolder.findFirst({
+          where: { folderUUID, userId: user.id },
+          select: { name: true }
+        })
+      : null;
+    const folderName = folder ? folder.name : "";
+
+    const count = folderUUID
+      ? await prisma.reflection.count({
+          where: { userId: user.id, folderUUID }
+        })
+      : null;
+
+    return NextResponse.json({ reflections, folderName, count });
   } catch (error) {
     return internalServerError("GET", "古いReflection一覧", error);
   }
