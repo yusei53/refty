@@ -115,38 +115,43 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
       <Box
         component={"header"}
         position={"fixed"}
-        top={{ xs: 0, md: 25 }}
+        top={{ xs: 0, md: 24 }}
         right={{ xs: 0, md: 35 }}
         bgcolor={{ xs: "white", md: "transparent" }}
-        width={{ xs: "100%", md: "auto" }}
+        width={{ xs: "100%", md: "96%" }}
         zIndex={1}
       >
         <Box
           display={"flex"}
-          justifyContent={"flex-end"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
           px={{ xs: 1.5, md: 0 }}
           py={{ xs: 1, md: 0 }}
           boxShadow={{ xs: "0px 0.7px 1px rgba(0, 0, 0, 0.1)", md: "none" }}
         >
-          <MarkdownSupportPopupAreaContainer />
-          <ReflectionTemplatePopupAreaContainer
-            onInsertTemplate={handleInsertTemplate}
-            onClearContent={handleClearContent}
-            reflectionTemplateType={REFLECTION_TEMPLATES}
-          />
-          <Controller
-            name="isPublic"
-            control={control}
-            render={({ field }) => (
-              <PublishSettingPopupAreaContainer
-                value={field.value}
-                onChange={field.onChange}
-              />
-            )}
-          />
-          <Button type="submit" disabled={isSubmitting || isSubmitSuccessful}>
-            {isSubmitting || isSubmitSuccessful ? "投稿中..." : "投稿する"}
-          </Button>
+          <Box display={"flex"}>
+            <MarkdownSupportPopupAreaContainer />
+          </Box>
+          <Box display={"flex"}>
+            <ReflectionTemplatePopupAreaContainer
+              onInsertTemplate={handleInsertTemplate}
+              onClearContent={handleClearContent}
+              reflectionTemplateType={REFLECTION_TEMPLATES}
+            />
+            <Controller
+              name="isPublic"
+              control={control}
+              render={({ field }) => (
+                <PublishSettingPopupAreaContainer
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              )}
+            />
+            <Button type="submit" disabled={isSubmitting || isSubmitSuccessful}>
+              {isSubmitting || isSubmitSuccessful ? "投稿中..." : "投稿する"}
+            </Button>
+          </Box>
         </Box>
         {isSmallScreen && (
           <Box
