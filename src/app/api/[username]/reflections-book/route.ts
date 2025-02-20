@@ -45,12 +45,13 @@ export async function GET(req: NextRequest, { params }: Params) {
       }
     });
 
-    const folderName = folderUUID
+    const folder = folderUUID
       ? await prisma.reflectionFolder.findFirst({
           where: { folderUUID, userId: user.id },
           select: { name: true }
         })
       : null;
+    const folderName = folder ? folder.name : "";
 
     return NextResponse.json({ reflections, folderName });
   } catch (error) {
