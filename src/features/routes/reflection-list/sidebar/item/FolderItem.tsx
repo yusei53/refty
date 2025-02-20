@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import FolderIcon from "@mui/icons-material/Folder";
@@ -100,7 +101,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
             fontSize: 14,
             color: "black",
             noWrap: true,
-            maxWidth: "120px"
+            maxWidth: "100px"
           }}
           secondary={count.toString()}
           secondaryTypographyProps={{
@@ -123,7 +124,7 @@ export const FolderItem: React.FC<FolderItemProps> = ({
           sx={{
             display: "flex",
             alignItems: "center",
-            gap: 1
+            gap: 0.5
           }}
         />
       )}
@@ -171,10 +172,27 @@ export const FolderItem: React.FC<FolderItemProps> = ({
         className="hover-icons"
         display={isMobile ? "flex" : isPopupOpen ? "flex" : "none"}
         alignItems={"center"}
-        gap={1}
+        gap={0.5}
         position={"absolute"}
         right={4}
       >
+        <Link
+          href={`${username}/book/?folder=${folderUUID}`}
+          style={link}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = `${theme.palette.grey[100]}`)
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = "transparent")
+          }
+        >
+          <Image
+            src={"/book.svg"}
+            alt={"マイブックへ行くアイコンボタン"}
+            width={20}
+            height={20}
+          />
+        </Link>
         <FolderKebabButtonPopupContainer
           onSelectMode={onSelectMode}
           onCloseSidebar={onCloseSidebar}
@@ -188,4 +206,14 @@ export const FolderItem: React.FC<FolderItemProps> = ({
       </Box>
     </ListItem>
   );
+};
+
+const link = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: 20,
+  height: 20,
+  borderRadius: 10,
+  transition: "background-color 0.3s ease"
 };

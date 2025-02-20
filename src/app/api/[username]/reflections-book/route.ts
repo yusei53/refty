@@ -20,8 +20,15 @@ export async function GET(req: NextRequest, { params }: Params) {
       return notFoundError("ユーザーが見つかりません");
     }
 
+    const folderUUID = req.nextUrl.searchParams.get("folder") ?? undefined;
+
+    // folderUUIDが指定されていれば、そのフォルダに属する反映のみ取得、なければ全反映を取得
+    const whereCondition = folderUUID
+      ? { userId: user.id, folderUUID }
+      : { userId: user.id };
+
     const reflections = await prisma.reflection.findMany({
-      where: { userId: user.id },
+      where: whereCondition,
       orderBy: { createdAt: "asc" },
       take: 20,
       select: {
@@ -37,7 +44,22 @@ export async function GET(req: NextRequest, { params }: Params) {
         createdAt: true
       }
     });
-    return NextResponse.json({ reflections }, { status: 200 });
+
+    const folder = folderUUID
+      ? await prisma.reflectionFolder.findFirst({
+          where: { folderUUID, userId: user.id },
+          select: { name: true }
+        })
+      : null;
+    const folderName = folder ? folder.name : "";
+
+    const count = folderUUID
+      ? await prisma.reflection.count({
+          where: { userId: user.id, folderUUID }
+        })
+      : null;
+
+    return NextResponse.json({ reflections, folderName, count });
   } catch (error) {
     return internalServerError("GET", "古いReflection一覧", error);
   }

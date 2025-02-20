@@ -18,13 +18,18 @@ export type ReflectionBook = {
 
 type ReflectionsBook = {
   reflections: ReflectionBook[];
+  folderName: string;
+  count: string;
 };
 
 export const reflectionsBookAPI = {
   async getReflections(
-    username: string
+    username: string,
+    folderUUID?: string
   ): Promise<Result<ReflectionsBook, 404>> {
-    const path = `/api/${username}/reflections-book`;
+    const query = folderUUID ? `?folder=${folderUUID}` : "";
+    const path = `/api/${username}/reflections-book${query}`;
+
     const options: FetchURLOptions = {
       method: "GET",
       next: { tags: [`reflections-book-${username}`] }

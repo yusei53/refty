@@ -1,3 +1,3 @@
 export { LinearLoading } from "./LinearLoading";
-export { Loading } from "./Loading";
+export { DefaultLoading } from "./DefaultLoading";
 export { AILoading } from "./AILoading";
