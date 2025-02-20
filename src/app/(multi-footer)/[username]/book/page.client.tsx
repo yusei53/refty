@@ -4,6 +4,7 @@ import "swiper/css/effect-cards";
 import "swiper/css/navigation";
 import { EffectCards, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import FolderIcon from "@mui/icons-material/Folder";
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import type { ReflectionBook } from "@/src/api/reflections-book-api";
 import { EmptyReflection } from "@/src/features/common/empty-reflection";
@@ -19,13 +20,15 @@ type ReflectionsBookPageProps = {
   username: string;
   userImage: string;
   foldername: string;
+  count: string;
 };
 
 const ReflectionsBookPage: React.FC<ReflectionsBookPageProps> = ({
   reflections,
   username,
   userImage,
-  foldername
+  foldername,
+  count
 }) => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const isVisible = useSwipeIconVisibility();
@@ -46,7 +49,24 @@ const ReflectionsBookPage: React.FC<ReflectionsBookPageProps> = ({
       sx={{ overflowX: { xs: "hidden", md: "visible" } }}
     >
       {foldername && (
-        <Typography sx={{ mb: 3, ml: { md: 13.5 } }}>{foldername}</Typography>
+        <Typography
+          mb={3}
+          mx={{ xs: 2, md: 10 }}
+          display={"flex"}
+          alignItems={"center"}
+          fontStyle={"italic"}
+          fontWeight={550}
+          fontSize={16}
+        >
+          <FolderIcon
+            fontSize="small"
+            sx={{
+              color: theme.palette.grey[500],
+              mr: 0.5
+            }}
+          />
+          {foldername}　{count}件
+        </Typography>
       )}
       {isVisible && <SwipeIconDisplay isVisible={isVisible} />}
       <Swiper

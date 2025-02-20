@@ -22,7 +22,7 @@ export async function GET(req: NextRequest, { params }: Params) {
 
     const folderUUID = req.nextUrl.searchParams.get("folder") ?? undefined;
 
-    // MEMO: folderUUIDなしの場合、全データを取得
+    // folderUUIDが指定されていれば、そのフォルダに属する反映のみ取得、なければ全反映を取得
     const whereCondition = folderUUID
       ? { userId: user.id, folderUUID }
       : { userId: user.id };
@@ -53,7 +53,13 @@ export async function GET(req: NextRequest, { params }: Params) {
       : null;
     const folderName = folder ? folder.name : "";
 
-    return NextResponse.json({ reflections, folderName });
+    const count = folderUUID
+      ? await prisma.reflection.count({
+          where: { userId: user.id, folderUUID }
+        })
+      : null;
+
+    return NextResponse.json({ reflections, folderName, count });
   } catch (error) {
     return internalServerError("GET", "古いReflection一覧", error);
   }

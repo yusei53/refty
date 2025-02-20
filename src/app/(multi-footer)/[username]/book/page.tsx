@@ -48,6 +48,7 @@ const page = async ({
       username={session?.user.username ?? ""}
       userImage={session?.user.image ?? ""}
       foldername={res.folderName}
+      count={res.count}
     />
   );
 };
