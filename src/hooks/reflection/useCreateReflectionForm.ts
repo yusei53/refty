@@ -82,7 +82,7 @@ export const useCreateReflectionForm = (username: string | undefined) => {
 
       // MEMO: 日本時間で18時〜翌朝4時の判定
       const isEveningOrNight =
-        (currentHourInJapan >= 18 && currentHourInJapan < 24) ||
+        (currentHourInJapan >= 17 && currentHourInJapan < 24) ||
         (currentHourInJapan >= 0 && currentHourInJapan < 4);
 
       if (isEveningOrNight) {
