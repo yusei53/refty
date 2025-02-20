@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth";
+import Loading from "./loading";
 import { reflectionsBookAPI } from "@/src/api/reflections-book-api";
 import authOptions from "@/src/app/api/auth/[...nextauth]/options";
-import { Loading } from "@/src/components/loading";
 import { meta } from "@/src/utils/metadata";
 
 const ReflectionsBookPage = dynamic(
