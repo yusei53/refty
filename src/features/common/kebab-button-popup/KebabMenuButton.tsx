@@ -81,7 +81,7 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
       >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
-            <Box boxShadow={1} borderRadius={2.5} bgcolor={"white"} minWidth={"200px"}>
+            <Box boxShadow={1} borderRadius={2.5} bgcolor={"white"} minWidth={"185px"}>
               {isReflectionSettingHeader ? (
                 <>
                   <PopupButton
