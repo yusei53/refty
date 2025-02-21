@@ -90,6 +90,7 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
           </Box>
         ) : null}
       </Box>
+      { /* TODO: disablePortal の動作を確認する */ }
       <Popper open={open} anchorEl={anchorEl} transition sx={{ zIndex: 2 }}>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>

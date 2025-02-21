@@ -73,6 +73,7 @@ export const SelectTagPopup: React.FC<TagSelectionPopupProps> = ({
           </Box>
         ))}
       </Box>
+      { /* TODO: disablePortal の動作を確認する */ }
       <Popper
         open={open}
         anchorEl={anchorEl}

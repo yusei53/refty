@@ -43,6 +43,7 @@ const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
       >
         目次
       </Button>
+      { /* TODO: disablePortal の動作を確認する */ }
       <Popper
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}

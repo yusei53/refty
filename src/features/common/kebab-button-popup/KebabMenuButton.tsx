@@ -73,6 +73,7 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
         />
       </Box>
       <Popper
+        disablePortal
         open={open}
         anchorEl={anchorEl}
         transition
@@ -80,7 +81,7 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
       >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
-            <Box boxShadow={1} borderRadius={2.5} bgcolor={"white"}>
+            <Box boxShadow={1} borderRadius={2.5} bgcolor={"white"} minWidth={"185px"}>
               {isReflectionSettingHeader ? (
                 <>
                   <PopupButton
