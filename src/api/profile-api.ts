@@ -13,6 +13,10 @@ type Profile = {
   website: string;
 };
 
+type CheckExists = {
+  exists: boolean;
+};
+
 export const profileAPI = {
   async getUserProfile(username: string): Promise<Result<Profile, 404>> {
     const path = `/api/${username}/profile-setting`;
@@ -22,6 +26,17 @@ export const profileAPI = {
     };
     return await fetchURL<Profile, 404>(path, options);
   },
+
+  async checkUsernameExists(
+    username: string
+  ): Promise<Result<CheckExists, 500>> {
+    const path = `/api/username/check-exists?username=${username}`;
+    const options: FetchURLOptions = {
+      method: "GET"
+    };
+    return await fetchURL<{ exists: boolean }, 500>(path, options);
+  },
+
   async updateUsername(username: string): Promise<Result<Username, 401>> {
     const path = `/api/username`;
     const options: FetchURLOptions = {
