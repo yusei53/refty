@@ -21,6 +21,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
   isSmartphonePicture = false
 }) => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isLarge = useMediaQuery(theme.breakpoints.up("xl"));
 
   return (
     <Box
@@ -46,9 +47,10 @@ const EffectSection: React.FC<EffectSectionProps> = ({
             display="flex"
             justifyContent="center"
             alignItems="center"
-            flex={1}
-            height={335}
+            flex={{ xs: 1, xl: undefined }}
+            height={{ xs: 330, xl: 450 }}
           >
+            {/* // TODO: 画像のサイズが統一されていないから中途半端な数値を当てた書き方になっている。揃えたい */}
             <Image
               src={image}
               alt="feature image"
@@ -59,7 +61,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
               style={{
                 borderRadius: 5,
                 boxShadow: "0 5px 5px 0 rgba(47, 47, 47, 0.1)",
-                maxHeight: "90%",
+                maxHeight: isLarge ? "100%" : "90%",
                 width: "95%",
                 height: "auto"
               }}
