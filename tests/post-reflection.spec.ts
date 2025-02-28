@@ -19,6 +19,7 @@ test.describe("投稿系", () => {
     await page.goto("/post");
     await page.goto("/login");
     expect(page.url()).toContain("/login");
+    startServer();
   });
 
   test("投稿ページにアクセスできる", async ({ page }) => {
