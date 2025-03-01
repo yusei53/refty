@@ -40,7 +40,7 @@ export const useCreateReflectionForm = (username: string | undefined) => {
     handleSubmit,
     control,
     setValue,
-    formState: { isSubmitting, isSubmitSuccessful, errors }
+    formState: { isDirty, isSubmitting, isSubmitSuccessful, errors }
   } = useForm<CreateReflectionSchemaType>({
     resolver: zodResolver(createReflectionSchema),
     defaultValues: {
@@ -95,6 +95,7 @@ export const useCreateReflectionForm = (username: string | undefined) => {
 
   return {
     control,
+    isDirty,
     isSubmitting,
     isSubmitSuccessful,
     errors,

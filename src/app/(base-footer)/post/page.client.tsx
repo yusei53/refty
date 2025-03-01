@@ -2,6 +2,7 @@
 import type { Folder } from "@/src/api/folder-api";
 import ReflectionPostForm from "@/src/features/common/post-form/ReflectionPostForm";
 import { useCreateReflectionForm } from "@/src/hooks/reflection/useCreateReflectionForm";
+import { useWarningDialog } from "@/src/hooks/reflection/useWarningDialog";
 
 type ReflectionPostFormPageProps = {
   username: string;
@@ -14,6 +15,7 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
 }) => {
   const {
     control,
+    isDirty,
     isSubmitting,
     isSubmitSuccessful,
     errors,
@@ -24,6 +26,8 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
     handleFolderChange,
     handleTagChange
   } = useCreateReflectionForm(username);
+
+  useWarningDialog(isDirty, isSubmitSuccessful);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
