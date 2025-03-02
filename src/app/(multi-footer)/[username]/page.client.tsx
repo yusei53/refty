@@ -28,7 +28,6 @@ import { usePagination } from "@/src/hooks/reflection/usePagination";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { getReflectionWithFolderInfo } from "@/src/utils/actions/get-reflection-with-folder-info";
 import { useFolderStore } from "@/src/utils/store/useFolderStore";
-import { theme } from "@/src/utils/theme";
 
 type UserReflectionListPageProps = {
   currentUsername: User["username"];
@@ -65,7 +64,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
+  const isPWA = useMediaQuery("(display-mode: standalone)");
 
   const { handlePageChange } = usePagination();
 
@@ -202,12 +201,12 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
             />
           </>
         )}
-        {username && isLargeScreen && (
+        {username && !isPWA && (
           <PostNavigationButton
             sx={{
               position: "fixed",
-              right: { sm: 130 },
-              bottom: { sm: 50 }
+              right: { xs: 50, sm: 130 },
+              bottom: { xs: 120, sm: 50 }
             }}
           />
         )}

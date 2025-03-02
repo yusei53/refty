@@ -14,7 +14,6 @@ import { ReflectionAllHeader } from "../features/routes/reflection-all-list/head
 import { usePagination } from "../hooks/reflection/usePagination";
 import { tagMap } from "../hooks/reflection-tag/useExtractTrueTags";
 import { useTagHandler } from "../hooks/reflection-tag/useTagHandler";
-import { theme } from "../utils/theme";
 
 type RootPageProps = {
   currentUsername: User["username"];
@@ -33,7 +32,8 @@ const RootPage: React.FC<RootPageProps> = ({
   totalPage,
   tagCountList
 }) => {
-  const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
+  const isPWA = useMediaQuery("(display-mode: standalone)");
+
   const {
     isOpenTagList,
     selectedTag,
@@ -70,12 +70,12 @@ const RootPage: React.FC<RootPageProps> = ({
           onChange={handlePageChange}
         />
       </Container>
-      {currentUsername && isLargeScreen && (
+      {currentUsername && !isPWA && (
         <PostNavigationButton
           sx={{
             position: "fixed",
-            right: { sm: 130 },
-            bottom: { sm: 50 }
+            right: { xs: 50, sm: 130 },
+            bottom: { xs: 120, sm: 50 }
           }}
         />
       )}
