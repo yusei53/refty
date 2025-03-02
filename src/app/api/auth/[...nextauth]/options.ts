@@ -9,9 +9,6 @@ import type { JWT } from "next-auth/jwt";
 import prisma from "@/src/lib/prisma";
 
 const jwtTestEnv = {
-  async encode(): Promise<string> {
-    return "dummy";
-  },
   async decode(): Promise<JWT | null> {
     return {
       name: "リフティ",
