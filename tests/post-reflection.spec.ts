@@ -15,6 +15,7 @@ test.describe("投稿系", () => {
     page
   }) => {
     // クッキーを手動で設定
+    //TODO: クッキーの処理をヘルパーにしてどこからでも呼び出せるようにする
     const testSessionCookie = {
       name: "next-auth.session-token",
       value: "dummy",
