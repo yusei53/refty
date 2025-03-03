@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { testSessionCookie } from "@/src/mocks/testCookies";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
@@ -14,18 +15,6 @@ test.describe("投稿系", () => {
   test("テスト環境ではログイン状態で投稿ページにアクセスできる", async ({
     page
   }) => {
-    // クッキーを手動で設定
-    //TODO: クッキーの処理をヘルパーにしてどこからでも呼び出せるようにする
-    const testSessionCookie = {
-      name: "next-auth.session-token",
-      value: "dummy",
-      domain: "localhost",
-      path: "/",
-      httpOnly: true,
-      secure: false,
-      sameSite: "Lax" as const
-    };
-
     await page.context().addCookies([testSessionCookie]);
     await page.goto("/post");
 
