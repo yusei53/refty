@@ -8,7 +8,7 @@ import type { NextAuthOptions } from "next-auth";
 import type { JWT } from "next-auth/jwt";
 import prisma from "@/src/lib/prisma";
 
-const jwtTestEnv = {
+const mockTestUserJwt = {
   async decode(): Promise<JWT | null> {
     return {
       name: "リフティ",
@@ -50,7 +50,9 @@ const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt"
   },
-  ...(process.env.NEXT_PUBLIC_APP_ENV === "test" ? { jwt: jwtTestEnv } : {}),
+  ...(process.env.NEXT_PUBLIC_APP_ENV === "test"
+    ? { jwt: mockTestUserJwt }
+    : {}),
   callbacks: {
     async jwt({ token, user, trigger, session }) {
       if (user) {
