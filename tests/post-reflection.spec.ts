@@ -15,6 +15,7 @@ test.describe("投稿系", () => {
   test("テスト環境ではログイン状態で投稿ページにアクセスできる", async ({
     page
   }) => {
+    // MEMO: クッキーを設定してログイン状態で投稿ページにアクセスできる
     await page.context().addCookies([testSessionCookie]);
     await page.goto("/post");
 
