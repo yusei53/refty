@@ -5,21 +5,8 @@ import GoogleProvider from "next-auth/providers/google";
 import LineProvider from "next-auth/providers/line";
 import TwitterProvider from "next-auth/providers/twitter";
 import type { NextAuthOptions } from "next-auth";
-import type { JWT } from "next-auth/jwt";
 import prisma from "@/src/lib/prisma";
-
-const mockTestUserJwt = {
-  async decode(): Promise<JWT | null> {
-    return {
-      name: "リフティ",
-      email: "reftyapp@gmail.com",
-      image:
-        "https://lh3.googleusercontent.com/a/ACg8ocJs17E4DFv6dE7fpbJMW8R5ERFBAQIm1-cz4N8XHHk4kOirrJw=s96-c",
-      id: "b479ea17-7448-4b6e-9664-0a9588b8ddcc",
-      username: "test"
-    };
-  }
-};
+import { mockTestUserJwt } from "@/src/mocks/userAuthMocks";
 
 const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
