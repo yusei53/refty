@@ -37,7 +37,7 @@ const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt"
   },
-  ...(process.env.NEXT_PUBLIC_APP_ENV === "playwright test" && {
+  ...(process.env.NEXT_PUBLIC_APP_ENV === "playwright" && {
     jwt: mockAuthJwt
   }),
   callbacks: {

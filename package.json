@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "NEXT_PUBLIC_APP_ENV=development next dev",
-    "dev:test": "NEXT_PUBLIC_APP_ENV=playwright test next dev",
+    "dev:test": "NEXT_PUBLIC_APP_ENV=playwright next dev",
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
