@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { testSessionCookie } from "@/src/mocks/testCookies";
+import { mockAuthSessionCookie } from "@/src/mocks/mockAuthSessionCookie";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
@@ -16,7 +16,7 @@ test.describe("投稿系", () => {
     page
   }) => {
     // MEMO: クッキーを設定してログイン状態で投稿ページにアクセスできる
-    await page.context().addCookies([testSessionCookie]);
+    await page.context().addCookies([mockAuthSessionCookie]);
     await page.goto("/post");
 
     expect(await page.url()).toContain("/post");

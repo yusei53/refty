@@ -6,7 +6,7 @@ import LineProvider from "next-auth/providers/line";
 import TwitterProvider from "next-auth/providers/twitter";
 import type { NextAuthOptions } from "next-auth";
 import prisma from "@/src/lib/prisma";
-import { mockTestUserJwt } from "@/src/mocks/userAuthMocks";
+import { mockAuthJwt } from "@/src/mocks/mockAuthJwt";
 
 const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -37,9 +37,7 @@ const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt"
   },
-  ...(process.env.NEXT_PUBLIC_APP_ENV === "test"
-    ? { jwt: mockTestUserJwt }
-    : {}),
+  ...(process.env.NEXT_PUBLIC_APP_ENV === "test" ? { jwt: mockAuthJwt } : {}),
   callbacks: {
     async jwt({ token, user, trigger, session }) {
       if (user) {

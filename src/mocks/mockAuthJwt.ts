@@ -1,6 +1,6 @@
 import type { JWT } from "next-auth/jwt";
 
-export const mockTestUserJwt = {
+export const mockAuthJwt = {
   async decode(): Promise<JWT | null> {
     return {
       name: "リフティ",

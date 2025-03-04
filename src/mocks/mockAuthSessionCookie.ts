@@ -1,4 +1,4 @@
-export const testSessionCookie = {
+export const mockAuthSessionCookie = {
   name: "next-auth.session-token",
   value: "dummy",
   domain: "localhost",
