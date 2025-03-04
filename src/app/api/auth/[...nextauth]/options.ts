@@ -37,7 +37,7 @@ const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt"
   },
-  ...(process.env.NEXT_PUBLIC_APP_ENV === "test" ? { jwt: mockAuthJwt } : {}),
+  ...(process.env.NEXT_PUBLIC_APP_ENV === "test" && { jwt: mockAuthJwt }),
   callbacks: {
     async jwt({ token, user, trigger, session }) {
       if (user) {
