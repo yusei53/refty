@@ -1,4 +1,5 @@
-export const mockAuthSessionCookie = {
+// TODO: 型定義を追加する
+export const authSessionCookie = {
   name: "next-auth.session-token",
   value: "dummy",
   domain: "localhost",
