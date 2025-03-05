@@ -18,7 +18,7 @@ test.describe("未認証ユーザー", () => {
 test.describe("認証済みユーザー", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
-    // ログイン状態を再現するためにモックの認証クッキーを追加
+    // NOTE:ログイン状態を再現するためにモックの認証クッキーを追加
     await page.context().addCookies([mockAuthSessionCookie]);
   });
 
