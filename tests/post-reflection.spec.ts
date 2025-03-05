@@ -11,7 +11,7 @@ test.describe("未認証ユーザー", () => {
     page
   }) => {
     await page.goto("/post");
-    expect(await page.url()).toContain("/login");
+    expect(page.url()).toContain("/login");
   });
 });
 
@@ -24,6 +24,6 @@ test.describe("認証済みユーザー", () => {
 
   test("投稿ページに正常にアクセスできる", async ({ page }) => {
     await page.goto("/post");
-    expect(await page.url()).toContain("/post");
+    expect(page.url()).toContain("/post");
   });
 });
