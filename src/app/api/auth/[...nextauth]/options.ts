@@ -5,8 +5,8 @@ import GoogleProvider from "next-auth/providers/google";
 import LineProvider from "next-auth/providers/line";
 import TwitterProvider from "next-auth/providers/twitter";
 import type { NextAuthOptions } from "next-auth";
+import { authJwt } from "@/e2e/mocks/auth/authJwt";
 import prisma from "@/src/lib/prisma";
-import { mockAuthJwt } from "@/src/mocks/mockAuthJwt";
 
 const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -38,7 +38,7 @@ const authOptions: NextAuthOptions = {
     strategy: "jwt"
   },
   ...(process.env.NEXT_PUBLIC_APP_ENV === "playwright" && {
-    jwt: mockAuthJwt
+    jwt: authJwt
   }),
   callbacks: {
     async jwt({ token, user, trigger, session }) {

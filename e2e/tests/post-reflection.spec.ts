@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { mockAuthSessionCookie } from "@/src/mocks/mockAuthSessionCookie";
+import { authSessionCookie } from "@/e2e/mocks/auth/authSessionCookie";
 
 test.describe("未認証ユーザー", () => {
   test.beforeEach(async ({ page }) => {
@@ -19,7 +19,7 @@ test.describe("認証済みユーザー", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
     // NOTE:ログイン状態を再現するためにモックの認証クッキーを追加
-    await page.context().addCookies([mockAuthSessionCookie]);
+    await page.context().addCookies([authSessionCookie]);
   });
 
   test("投稿ページに正常にアクセスできる", async ({ page }) => {
