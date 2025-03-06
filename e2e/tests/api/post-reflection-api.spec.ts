@@ -1,4 +1,4 @@
-import { expect, request, test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { authSessionCookie } from "@/e2e/mocks/auth/authSessionCookie";
 import { requestReflection } from "@/e2e/mocks/reflection/reflection";
 
@@ -7,12 +7,10 @@ test.describe("未認証ユーザー", () => {
     await page.context().clearCookies();
   });
 
-  test("リクエストが拒否され、401エラーが返される", async () => {
-    const apiContext = await request.newContext();
-    const response = await apiContext.post("/api/reflection", {
+  test("リクエストが拒否され、401エラーが返される", async ({ page }) => {
+    const response = await page.request.post("/api/reflection", {
       data: requestReflection
     });
-
     expect(response.status()).toBe(401);
   });
 });
