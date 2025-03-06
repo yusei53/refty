@@ -30,11 +30,6 @@ export default defineConfig({
     },
 
     {
-      name: "firefox",
-      use: { ...devices["Desktop Firefox"] }
-    },
-
-    {
       name: "webkit",
       use: { ...devices["Desktop Safari"] }
     },
@@ -48,10 +43,6 @@ export default defineConfig({
       use: { ...devices["iPhone 12"] }
     },
 
-    {
-      name: "Microsoft Edge",
-      use: { ...devices["Desktop Edge"], channel: "msedge" }
-    },
     {
       name: "Google Chrome",
       use: { ...devices["Desktop Chrome"], channel: "chrome" }
