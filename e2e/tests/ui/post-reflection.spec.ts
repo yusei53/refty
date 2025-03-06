@@ -3,7 +3,6 @@ import { authSessionCookie } from "@/e2e/mocks/auth/authSessionCookie";
 
 test.describe("未認証ユーザー", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
     await page.context().clearCookies();
   });
 
@@ -17,8 +16,6 @@ test.describe("未認証ユーザー", () => {
 
 test.describe("認証済みユーザー", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
-    // NOTE:ログイン状態を再現するためにモックの認証クッキーを追加
     await page.context().addCookies([authSessionCookie]);
   });
 
