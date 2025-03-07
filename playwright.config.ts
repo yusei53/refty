@@ -5,8 +5,6 @@ import dotenv from "dotenv";
 dotenv.config({ path: path.resolve(__dirname, ".env") });
 
 export default defineConfig({
-  testDir: "./e2e/tests",
-
   fullyParallel: true,
 
   forbidOnly: !!process.env.CI,
@@ -26,34 +24,55 @@ export default defineConfig({
   projects: [
     {
       name: "chromium",
+      testDir: "./e2e/tests/api",
+      use: { ...devices["Desktop Chrome"] }
+    },
+    {
+      name: "chromium",
+      testDir: "./e2e/tests/ui",
       use: { ...devices["Desktop Chrome"] }
     },
 
     {
-      name: "firefox",
-      use: { ...devices["Desktop Firefox"] }
+      name: "webkit",
+      testDir: "./e2e/tests/api",
+      use: { ...devices["Desktop Safari"] }
     },
-
     {
       name: "webkit",
+      testDir: "./e2e/tests/ui",
       use: { ...devices["Desktop Safari"] }
     },
 
     {
       name: "Mobile Chrome",
+      testDir: "./e2e/tests/api",
+      use: { ...devices["Pixel 5"] }
+    },
+    {
+      name: "Mobile Chrome",
+      testDir: "./e2e/tests/ui",
       use: { ...devices["Pixel 5"] }
     },
     {
       name: "Mobile Safari",
+      testDir: "./e2e/tests/api",
+      use: { ...devices["iPhone 12"] }
+    },
+    {
+      name: "Mobile Safari",
+      testDir: "./e2e/tests/ui",
       use: { ...devices["iPhone 12"] }
     },
 
     {
-      name: "Microsoft Edge",
-      use: { ...devices["Desktop Edge"], channel: "msedge" }
+      name: "Google Chrome",
+      testDir: "./e2e/tests/api",
+      use: { ...devices["Desktop Chrome"], channel: "chrome" }
     },
     {
       name: "Google Chrome",
+      testDir: "./e2e/tests/ui",
       use: { ...devices["Desktop Chrome"], channel: "chrome" }
     }
   ],
