@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Box, Fade, Popper } from "@mui/material";
-import { Button } from "../../button";
+import { Button } from "../../../../components/button";
 import { theme } from "@/src/utils/theme";
 
 type HeaderTableOfContentsProps = {
@@ -18,7 +18,7 @@ const scrollToHeading = (heading: { href: string; title: string }) => {
   }
 };
 
-export const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
+const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
   tocArray
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -36,7 +36,6 @@ export const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
         onClick={handleClick}
         onBlur={handleClose}
         sx={{
-          display: { md: "none" },
           border: "none",
           color: theme.palette.grey[600],
           mr: -2
@@ -44,6 +43,7 @@ export const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
       >
         目次
       </Button>
+      { /* TODO: disablePortal の動作を確認する */ }
       <Popper
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
@@ -60,6 +60,10 @@ export const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
               minWidth={200}
               maxWidth={300}
               py={1.2}
+              maxHeight={"50vh"}
+              sx={{
+                overflowY: "auto"
+              }}
             >
               {tocArray.map((heading) => (
                 <Box
@@ -92,3 +96,5 @@ export const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
     </>
   );
 };
+
+export default HeaderTableOfContents;

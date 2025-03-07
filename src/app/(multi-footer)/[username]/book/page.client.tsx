@@ -4,10 +4,11 @@ import "swiper/css/effect-cards";
 import "swiper/css/navigation";
 import { EffectCards, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Box, useMediaQuery } from "@mui/material";
+import FolderIcon from "@mui/icons-material/Folder";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import type { ReflectionBook } from "@/src/api/reflections-book-api";
+import { EmptyReflection } from "@/src/features/common/empty-reflection";
 import { ReflectionArticle } from "@/src/features/routes/reflection-detail/article";
-import { EmptyReflection } from "@/src/features/routes/reflection-list/card-list/empty-reflection";
 import { SwipeIconDisplay } from "@/src/features/routes/reflections-book/SwipeIconDisplay";
 import "@/src/features/routes/reflections-book/my-swiper.css";
 import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
@@ -18,12 +19,16 @@ type ReflectionsBookPageProps = {
   reflections: ReflectionBook[];
   username: string;
   userImage: string;
+  foldername: string;
+  count: string;
 };
 
 const ReflectionsBookPage: React.FC<ReflectionsBookPageProps> = ({
   reflections,
   username,
-  userImage
+  userImage,
+  foldername,
+  count
 }) => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const isVisible = useSwipeIconVisibility();
@@ -43,6 +48,26 @@ const ReflectionsBookPage: React.FC<ReflectionsBookPageProps> = ({
       position={"relative"}
       sx={{ overflowX: { xs: "hidden", md: "visible" } }}
     >
+      {foldername && (
+        <Typography
+          mb={3}
+          mx={{ xs: 2, md: 10 }}
+          display={"flex"}
+          alignItems={"center"}
+          fontStyle={"italic"}
+          fontWeight={550}
+          fontSize={16}
+        >
+          <FolderIcon
+            fontSize="small"
+            sx={{
+              color: theme.palette.grey[500],
+              mr: 0.5
+            }}
+          />
+          {foldername}　{count}件
+        </Typography>
+      )}
       {isVisible && <SwipeIconDisplay isVisible={isVisible} />}
       <Swiper
         effect="cards"

@@ -47,7 +47,7 @@ const ReflectionTemplatePopupArea: React.FC<
       >
         テンプレートを使う
       </Button>
-      <Popper open={open} anchorEl={anchorEl} transition sx={{ zIndex: 2 }}>
+      <Popper disablePortal open={open} anchorEl={anchorEl} transition sx={{ zIndex: 2 }}>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
             <Box
@@ -70,6 +70,7 @@ const ReflectionTemplatePopupArea: React.FC<
                   backgroundColor: theme.palette.grey[600]
                 }
               }}
+              minWidth={"300px"}
             >
               {Object.keys(reflectionTemplateType).map((categoryKey) => (
                 <Fragment key={categoryKey}>

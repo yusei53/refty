@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth";
+import Loading from "./loading";
 import { reflectionsBookAPI } from "@/src/api/reflections-book-api";
 import authOptions from "@/src/app/api/auth/[...nextauth]/options";
-import { Loading } from "@/src/components/loading";
 import { meta } from "@/src/utils/metadata";
 
 const ReflectionsBookPage = dynamic(
@@ -22,10 +22,22 @@ export const generateMetadata = async ({
   return meta.reflectionsBookPage(params.username);
 };
 
-const page = async ({ params }: { params: { username: string } }) => {
+const page = async ({
+  params,
+  searchParams
+}: {
+  params: { username: string };
+  searchParams: {
+    folder?: string;
+  };
+}) => {
   const session = await getServerSession(authOptions);
+  const folderUUID = searchParams.folder || "";
+  const res = await reflectionsBookAPI.getReflections(
+    params.username,
+    folderUUID
+  );
 
-  const res = await reflectionsBookAPI.getReflections(params.username);
   if (res === 404 || !res || params.username !== session?.user.username) {
     return notFound();
   }
@@ -35,6 +47,8 @@ const page = async ({ params }: { params: { username: string } }) => {
       reflections={res.reflections}
       username={session?.user.username ?? ""}
       userImage={session?.user.image ?? ""}
+      foldername={res.folderName}
+      count={res.count}
     />
   );
 };

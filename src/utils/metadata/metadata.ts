@@ -42,6 +42,23 @@ export const meta = {
     }
   },
 
+  importantPage: {
+    ...baseMetadata,
+    title: `振り返りの大切さ | ${REFTY}`,
+    description: `振り返りの大切さを学ぶページ`,
+    openGraph: {
+      ...baseMetadata.openGraph,
+      url: "https://www.refty.jp/important",
+      title: `振り返りの大切さ | ${REFTY}`,
+      description: `振り返りの大切さを学ぶページ`
+    },
+    twitter: {
+      ...baseMetadata.twitter,
+      title: `振り返りの大切さ | ${REFTY}`,
+      description: `振り返りの大切さを学ぶページ`
+    }
+  },
+
   settingUsernamePage: {
     ...baseMetadata,
     title: `ユーザーネーム設定 | ${REFTY}`,

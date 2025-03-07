@@ -21,6 +21,7 @@ export const PopupButton: React.FC<PopupButtonProps> = ({
 }) => {
   return (
     <Button
+      disableRipple
       onClick={onClick}
       href={href}
       sx={{

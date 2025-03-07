@@ -23,7 +23,8 @@ export const createReflectionSchema = z.object({
   isLearning: z.boolean().default(false),
   isAwareness: z.boolean().default(false),
   isInputLog: z.boolean().default(false),
-  isMonologue: z.boolean().default(false)
+  isMonologue: z.boolean().default(false),
+  folderUUID: z.string().optional()
 });
 
 export type CreateReflectionSchemaType = z.infer<typeof createReflectionSchema>;
@@ -31,12 +32,15 @@ export type CreateReflectionSchemaType = z.infer<typeof createReflectionSchema>;
 export const useCreateReflectionForm = (username: string | undefined) => {
   const router = useRouter();
   const [selectedEmoji, setSelectedEmoji] = useState("💭");
+  const [selectedFolderUUID, setSelectedFolderUUID] = useState<string | null>(
+    null
+  );
 
   const {
     handleSubmit,
     control,
     setValue,
-    formState: { isSubmitting, isSubmitSuccessful, errors }
+    formState: { isDirty, isSubmitting, isSubmitSuccessful, errors }
   } = useForm<CreateReflectionSchemaType>({
     resolver: zodResolver(createReflectionSchema),
     defaultValues: {
@@ -57,6 +61,11 @@ export const useCreateReflectionForm = (username: string | undefined) => {
     setValue("charStamp", emoji);
   };
 
+  const handleFolderChange = (folderUUID: string | null) => {
+    setSelectedFolderUUID(folderUUID);
+    setValue("folderUUID", folderUUID ?? undefined);
+  };
+
   const { handleTagChange } = useParseValueToTags({ setValue });
 
   const onSubmit = handleSubmit(
@@ -73,7 +82,7 @@ export const useCreateReflectionForm = (username: string | undefined) => {
 
       // MEMO: 日本時間で18時〜翌朝4時の判定
       const isEveningOrNight =
-        (currentHourInJapan >= 18 && currentHourInJapan < 24) ||
+        (currentHourInJapan >= 17 && currentHourInJapan < 24) ||
         (currentHourInJapan >= 0 && currentHourInJapan < 4);
 
       if (isEveningOrNight) {
@@ -86,12 +95,15 @@ export const useCreateReflectionForm = (username: string | undefined) => {
 
   return {
     control,
+    isDirty,
     isSubmitting,
     isSubmitSuccessful,
     errors,
     onSubmit,
     selectedEmoji,
     handleEmojiChange,
+    selectedFolderUUID,
+    handleFolderChange,
     handleTagChange
   };
 };

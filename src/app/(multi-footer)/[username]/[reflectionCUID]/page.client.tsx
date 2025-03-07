@@ -1,8 +1,9 @@
 "use client";
+import { useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Box } from "@mui/material";
+import type { AIFeedbackType } from "@/src/api/send-to-sqs-api";
 import { sqsAPI } from "@/src/api/send-to-sqs-api";
-import { TableOfContents } from "@/src/components/reflection-detail/table-of-contents";
 import { animation } from "@/src/features/common/animation";
 import { ReflectionArticle } from "@/src/features/routes/reflection-detail/article";
 import { AIFeedbackAreaContainer } from "@/src/features/routes/reflection-detail/article/ai-feedback";
@@ -46,6 +47,8 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
 }) => {
   const { tocArray } = useCreateTableOfContents();
 
+  const [AIType, setAIType] = useState<AIFeedbackType>(0);
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const { parseTagsToValue } = useParseTagsToValue();
@@ -75,7 +78,8 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
   const handleSendToSQS = async () => {
     const response = await sqsAPI.sendToSQS({
       content,
-      reflectionCUID
+      reflectionCUID,
+      AIType: AIType
     });
     if (response === 401 || response === 403 || response === 500) {
       alert("送信に失敗しました。時間をおいて再度お試しください。");
@@ -113,13 +117,14 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
         aiFeedback={aiFeedback}
         content={content}
         onSendToSQS={handleSendToSQS}
+        setAIType={setAIType}
+        AIType={AIType}
       />
       <UserInformationSection
         username={username}
         userImage={userImage}
         reflectionCount={reflectionCount}
       />
-      <TableOfContents />
     </Box>
   );
 };

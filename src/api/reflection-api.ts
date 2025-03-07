@@ -46,7 +46,7 @@ type ReflectionAll = {
   filteredReflectionCount: number;
 };
 
-export type Reflections = {
+type Reflections = {
   userImage: string;
   bio: string;
   goal: string;
@@ -57,7 +57,7 @@ export type Reflections = {
   tagCountList: ReflectionTagCountList;
 };
 
-export type ReflectionDetail = Reflection & {
+type ReflectionDetail = Reflection & {
   content: string;
   aiFeedback: string;
   userId: string;
@@ -65,7 +65,20 @@ export type ReflectionDetail = Reflection & {
     image: string;
     username: string;
   };
+  folderUUID?: string;
   reflectionCount: number;
+};
+
+const getQueryParameters = (
+  page: number,
+  tag?: string,
+  folderUUID?: string
+) => {
+  const params = new URLSearchParams();
+  params.append("page", page.toString());
+  if (tag) params.append("tag", tag);
+  if (folderUUID) params.append("folder", folderUUID);
+  return params;
 };
 
 export const reflectionAPI = {
@@ -86,10 +99,11 @@ export const reflectionAPI = {
     headers: HeadersInit | undefined,
     username: string,
     page: number = 1,
-    tag?: string
+    tag?: string,
+    folderUUID?: string
   ): Promise<Result<Reflections, 404>> {
-    const tagParam = tag && `&tag=${tag}`;
-    const path = `/api/reflection/${username}?page=${page}${tagParam}`;
+    const q = getQueryParameters(page, tag, folderUUID);
+    const path = `/api/reflection/${username}?${q.toString()}`;
     const options: FetchURLOptions = {
       method: "GET",
       next: { tags: [`reflections-${username}`] },
@@ -129,7 +143,8 @@ export const reflectionAPI = {
     isLearning,
     isAwareness,
     isInputLog,
-    isMonologue
+    isMonologue,
+    folderUUID
   }: {
     title: string;
     content: string;
@@ -140,6 +155,7 @@ export const reflectionAPI = {
     isAwareness: boolean;
     isInputLog: boolean;
     isMonologue: boolean;
+    folderUUID?: string;
   }): Promise<Result<void, 401>> {
     const path = `/api/reflection`;
     const options: FetchURLOptions = {
@@ -153,7 +169,8 @@ export const reflectionAPI = {
         isLearning,
         isAwareness,
         isInputLog,
-        isMonologue
+        isMonologue,
+        folderUUID: folderUUID || null
       },
       headers: {
         "Content-Type": "application/json"
@@ -172,7 +189,8 @@ export const reflectionAPI = {
     isLearning,
     isAwareness,
     isInputLog,
-    isMonologue
+    isMonologue,
+    folderUUID
   }: {
     reflectionCUID: string;
     title: string;
@@ -184,6 +202,7 @@ export const reflectionAPI = {
     isAwareness: boolean;
     isInputLog: boolean;
     isMonologue: boolean;
+    folderUUID?: string;
   }): Promise<Result<void, 400 | 401 | 403>> {
     const path = `/api/reflection/detail/${reflectionCUID}`;
     const options: FetchURLOptions = {
@@ -197,7 +216,8 @@ export const reflectionAPI = {
         isLearning,
         isAwareness,
         isInputLog,
-        isMonologue
+        isMonologue,
+        folderUUID: folderUUID || null
       },
       headers: {
         "Content-Type": "application/json"
@@ -246,6 +266,30 @@ export const reflectionAPI = {
       method: "PATCH",
       body: {
         isPublic
+      },
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    return await fetchURL<void, 401>(path, options);
+  },
+
+  async bulkUpdateFolderReflection({
+    reflectionCUID,
+    folderUUID,
+    username
+  }: {
+    reflectionCUID: string[];
+    folderUUID: string;
+    username: string;
+  }): Promise<Result<void, 401>> {
+    const path = `/api/reflection/bulk-select`;
+    const options: FetchURLOptions = {
+      method: "POST",
+      body: {
+        reflectionCUID,
+        folderUUID,
+        username
       },
       headers: {
         "Content-Type": "application/json"

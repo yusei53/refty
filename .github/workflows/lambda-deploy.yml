@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'lambda-function/**'
+      - 'lambda-function/ai-func/**'
     # ↑ mainブランチへのPush/マージでも、lambda-functionディレクトリ以下の変更がある場合のみ実行
 
 jobs:
@@ -37,8 +37,8 @@ jobs:
       # (3) ビルド & ZIP作成
       - name: Build and zip
         run: |
-          cd lambda-function
-          GOOS=linux GOARCH=arm64 go build -tags lambda.norpc -o bootstrap main.go query.go
+          cd lambda-function/ai-func
+          GOOS=linux GOARCH=arm64 go build -tags lambda.norpc -o bootstrap main.go CreativeQuery.go FriendlyQuery.go NextActionQuery.go OgreQuery.go QuotesQuery.go
           zip function.zip bootstrap
 
       # (4) Lambda へデプロイ
@@ -47,4 +47,4 @@ jobs:
           aws lambda update-function-code \
             --region ${{ secrets.AWS_REGION }} \
             --function-name ${{ secrets.LAMBDA_FUNCTION_NAME }} \
-            --zip-file fileb://lambda-function/function.zip
+            --zip-file fileb://lambda-function/ai-func/function.zip

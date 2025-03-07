@@ -13,7 +13,13 @@ type TagSelectionPopupProps = {
   onToggleTag: (tag: string) => void;
 };
 
-const TAGS = ["振り返り", "学び", "気づき", "ひとりごと", "インプットの記録"];
+export const TAGS = [
+  "振り返り",
+  "学び",
+  "気づき",
+  "ひとりごと",
+  "インプットの記録"
+];
 
 export const SelectTagPopup: React.FC<TagSelectionPopupProps> = ({
   open,
@@ -28,17 +34,20 @@ export const SelectTagPopup: React.FC<TagSelectionPopupProps> = ({
         <Button
           onClick={onPopupOpen}
           sx={{
-            mr: 0.5,
+            mx: 0.5,
             bgcolor: theme.palette.primary.main,
             border: "#ededed solid 1px",
             borderRadius: 2,
             height: "30px",
-            p: 0
+            display: "flex",
+            alignItems: "center",
+            p: 1
           }}
         >
           <TagIcon sx={{ color: theme.palette.grey[500], fontSize: 18 }} />
           タグ
         </Button>
+
         {activeTags.map((tag) => (
           <Box key={tag} display={"flex"} mx={0.4} zIndex={3}>
             <Box
@@ -64,6 +73,7 @@ export const SelectTagPopup: React.FC<TagSelectionPopupProps> = ({
           </Box>
         ))}
       </Box>
+      { /* TODO: disablePortal の動作を確認する */ }
       <Popper
         open={open}
         anchorEl={anchorEl}
