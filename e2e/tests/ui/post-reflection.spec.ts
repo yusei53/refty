@@ -77,4 +77,13 @@ test.describe("認証済みユーザー", () => {
       page.locator("text=1文字以上入力してください。")
     ).toBeVisible();
   });
+
+  test("投稿ボタンを押すと、投稿し終わるまでボタンが非活性になっている", async ({
+    page
+  }) => {
+    (await page.waitForSelector("input#title")).fill("テストのtitle");
+    (await page.waitForSelector(".tiptap.ProseMirror")).fill("テストのcontent");
+    await page.locator("button[type='submit']").click();
+    await expect(page.locator("button[type='submit']")).toBeDisabled();
+  });
 });
