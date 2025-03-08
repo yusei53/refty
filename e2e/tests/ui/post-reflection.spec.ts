@@ -45,4 +45,15 @@ test.describe("認証済みユーザー", () => {
       page.locator("text=タイトルは1文字以上で入力してください。")
     ).toBeVisible();
   });
+
+  test("titleが40文字を超えた状態で投稿ボタンを押すと、エラーメッセージが表示される", async ({
+    page
+  }) => {
+    (await page.waitForSelector("input#title")).fill("a".repeat(41));
+    (await page.waitForSelector(".tiptap.ProseMirror")).fill("テストのcontent");
+    await page.locator("button[type='submit']").click();
+    await expect(
+      page.locator("text=タイトルは40文字以内で入力してください。")
+    ).toBeVisible();
+  });
 });
