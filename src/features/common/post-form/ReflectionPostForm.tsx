@@ -51,8 +51,8 @@ type ReflectionPostFormProps = {
   isInputLog?: boolean;
   isMonologue?: boolean;
   folders: Folder[];
-  onNatureMode: () => Promise<void>;
-  isNatureMode: boolean;
+  onNatureMode?: () => Promise<void>;
+  isNatureMode?: boolean;
 };
 
 // MEMO: このコンポーネントは新規作成と更新で共通で使用するためこのディレクトリに配置

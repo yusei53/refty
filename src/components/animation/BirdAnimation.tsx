@@ -1,3 +1,4 @@
+"use client";
 export const BirdAnimation: React.FC = () => {
   return (
     <>
