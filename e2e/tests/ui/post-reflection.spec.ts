@@ -29,7 +29,7 @@ test.describe("認証済みユーザー", () => {
     page
   }) => {
     await page.locator("input#title").fill("テストのtitle");
-    await page.fill(".tiptap.ProseMirror", "テストのcontent");
+    await page.locator(".tiptap.ProseMirror").fill("テストのcontent");
     await page.locator("button[type='submit']").click();
     await page.waitForLoadState("networkidle");
     const jwt = await authJwt.decode();
@@ -39,7 +39,7 @@ test.describe("認証済みユーザー", () => {
   test("titleが未入力の状態で投稿ボタンを押すと、エラーメッセージが表示される", async ({
     page
   }) => {
-    await page.fill(".tiptap.ProseMirror", "テストのcontent");
+    await page.locator(".tiptap.ProseMirror").fill("テストのcontent");
     await page.locator("button[type='submit']").click();
     await expect(
       page.locator("text=タイトルは1文字以上で入力してください。")
@@ -50,7 +50,7 @@ test.describe("認証済みユーザー", () => {
     page
   }) => {
     await page.locator("input#title").fill("a".repeat(41));
-    await page.fill(".tiptap.ProseMirror", "テストのcontent");
+    await page.locator(".tiptap.ProseMirror").fill("テストのcontent");
     await page.locator("button[type='submit']").click();
     await expect(
       page.locator("text=タイトルは40文字以内で入力してください。")
@@ -61,7 +61,7 @@ test.describe("認証済みユーザー", () => {
     page
   }) => {
     await page.locator("input#title").fill(" ");
-    await page.fill(".tiptap.ProseMirror", "テストのcontent");
+    await page.locator(".tiptap.ProseMirror").fill("テストのcontent");
     await page.locator("button[type='submit']").click();
     await expect(
       page.locator("text=タイトルは1文字以上で入力してください。")
@@ -82,7 +82,7 @@ test.describe("認証済みユーザー", () => {
     page
   }) => {
     await page.locator("input#title").fill("テストのtitle");
-    await page.fill(".tiptap.ProseMirror", "テストのcontent");
+    await page.locator(".tiptap.ProseMirror").fill("テストのcontent");
     await page.locator("button[type='submit']").click();
     await expect(page.locator("button[type='submit']")).toBeDisabled();
   });
