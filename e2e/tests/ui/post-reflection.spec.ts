@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { authJwt } from "@/e2e/mocks/auth/authJwt";
 import { authSessionCookie } from "@/e2e/mocks/auth/authSessionCookie";
 
 test.describe("未認証ユーザー", () => {
@@ -31,6 +32,7 @@ test.describe("認証済みユーザー", () => {
     (await page.waitForSelector(".tiptap.ProseMirror")).fill("テストのcontent");
     await page.locator("button[type='submit']").click();
     await page.waitForLoadState("networkidle");
-    expect(page.url()).toContain("/test");
+    const jwt = await authJwt.decode();
+    expect(page.url()).toContain(jwt?.username);
   });
 });
