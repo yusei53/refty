@@ -51,6 +51,8 @@ type ReflectionPostFormProps = {
   isInputLog?: boolean;
   isMonologue?: boolean;
   folders: Folder[];
+  onNatureMode: () => Promise<void>;
+  isNatureMode: boolean;
 };
 
 // MEMO: このコンポーネントは新規作成と更新で共通で使用するためこのディレクトリに配置
@@ -70,7 +72,9 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   isAwareness = false,
   isInputLog = false,
   isMonologue = false,
-  folders
+  folders,
+  onNatureMode,
+  isNatureMode
 }) => {
   const [isComposing, setIsComposing] = useState(false);
   const editorRef = useRef<MarkdownEditorRef>(null);
@@ -115,38 +119,46 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
       <Box
         component={"header"}
         position={"fixed"}
-        top={{ xs: 0, md: 25 }}
+        top={{ xs: 0, md: 24 }}
         right={{ xs: 0, md: 35 }}
         bgcolor={{ xs: "white", md: "transparent" }}
-        width={{ xs: "100%", md: "auto" }}
+        width={{ xs: "100%", md: "96%" }}
         zIndex={1}
       >
         <Box
           display={"flex"}
-          justifyContent={"flex-end"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
           px={{ xs: 1.5, md: 0 }}
           py={{ xs: 1, md: 0 }}
           boxShadow={{ xs: "0px 0.7px 1px rgba(0, 0, 0, 0.1)", md: "none" }}
         >
-          <MarkdownSupportPopupAreaContainer />
-          <ReflectionTemplatePopupAreaContainer
-            onInsertTemplate={handleInsertTemplate}
-            onClearContent={handleClearContent}
-            reflectionTemplateType={REFLECTION_TEMPLATES}
-          />
-          <Controller
-            name="isPublic"
-            control={control}
-            render={({ field }) => (
-              <PublishSettingPopupAreaContainer
-                value={field.value}
-                onChange={field.onChange}
-              />
-            )}
-          />
-          <Button type="submit" disabled={isSubmitting || isSubmitSuccessful}>
-            {isSubmitting || isSubmitSuccessful ? "投稿中..." : "投稿する"}
-          </Button>
+          <Box display={"flex"}>
+            <MarkdownSupportPopupAreaContainer />
+            <Button onClick={onNatureMode}>
+              {isNatureMode ? "自然モードOFF" : "自然モードON"}
+            </Button>
+          </Box>
+          <Box display={"flex"}>
+            <ReflectionTemplatePopupAreaContainer
+              onInsertTemplate={handleInsertTemplate}
+              onClearContent={handleClearContent}
+              reflectionTemplateType={REFLECTION_TEMPLATES}
+            />
+            <Controller
+              name="isPublic"
+              control={control}
+              render={({ field }) => (
+                <PublishSettingPopupAreaContainer
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              )}
+            />
+            <Button type="submit" disabled={isSubmitting || isSubmitSuccessful}>
+              {isSubmitting || isSubmitSuccessful ? "投稿中..." : "投稿する"}
+            </Button>
+          </Box>
         </Box>
         {isSmallScreen && (
           <Box
@@ -190,7 +202,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
             name="title"
             control={control}
             render={({ field }) => (
-              <Box mt={{ xs: 2, md: 5 }}>
+              <Box mt={{ xs: 2, md: 5 }} zIndex={1}>
                 <CustomInput
                   id="title"
                   placeholder="タイトル"
@@ -199,6 +211,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
                   onEnter={(e) => handleEnter(e)}
                   onCompositionStart={handleCompositionStart}
                   onCompositionEnd={handleCompositionEnd}
+                  style={{ backgroundColor: "transparent" }}
                 />
                 {errors.title && (
                   <ErrorMessage message={errors.title.message} />
