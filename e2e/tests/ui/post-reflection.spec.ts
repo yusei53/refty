@@ -25,7 +25,7 @@ test.describe("認証済みユーザー", () => {
     expect(page.url()).toContain("/post");
   });
 
-  test("titleとcontentに文字を入力し投稿した時、自身の投稿一覧ページにリダイレクトされる", async ({
+  test("titleとcontentに文字が入力された状態で投稿ボタンを押すと、自身の投稿一覧ページにリダイレクトされる", async ({
     page
   }) => {
     (await page.waitForSelector("input#title")).fill("テストのtitle");
@@ -36,7 +36,7 @@ test.describe("認証済みユーザー", () => {
     expect(page.url()).toContain(jwt?.username);
   });
 
-  test("titleが未入力の状態で投稿ボタンを押すとエラーメッセージが表示される", async ({
+  test("titleが未入力の状態で投稿ボタンを押すと、エラーメッセージが表示される", async ({
     page
   }) => {
     (await page.waitForSelector(".tiptap.ProseMirror")).fill("テストのcontent");
