@@ -16,7 +16,12 @@ export const sharedMarkdownStyles = (theme: Theme) => ({
     pointerEvents: "none"
   },
   "& .ProseMirror": {
-    outline: "none"
+    outline: "none",
+    // TODO: これをtrueだった時に適用させる
+    "& > *": {
+      marginTop: "0.7em !important",
+      marginBottom: "0.7em !important"
+    }
   },
   "&": {
     "&:first-of-type": {
