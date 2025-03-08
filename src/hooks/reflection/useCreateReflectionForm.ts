@@ -12,11 +12,9 @@ export const createReflectionSchema = z.object({
     .min(1, { message: "タイトルは1文字以上で入力してください。" })
     .max(40, { message: "タイトルは40文字以内で入力してください。" })
     .refine((value) => value.trim().length > 0, {
-      message: "空白のみのタイトルはできません。"
+      message: "タイトルは1文字以上で入力してください。"
     }),
-  content: z
-    .string()
-    .min(1, { message: "本文は1文字以上で入力してください。" }),
+  content: z.string().min(1, { message: "1文字以上入力してください。" }),
   charStamp: z.string(),
   isPublic: z.boolean(),
   isDailyReflection: z.boolean().default(false),
