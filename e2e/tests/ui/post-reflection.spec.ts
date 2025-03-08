@@ -74,7 +74,7 @@ test.describe("認証済みユーザー", () => {
     (await page.waitForSelector("input#title")).fill("テストのtitle");
     await page.locator("button[type='submit']").click();
     await expect(
-      page.locator("text=1文字以上で入力してください。")
+      page.locator("text=1文字以上入力してください。")
     ).toBeVisible();
   });
 });
