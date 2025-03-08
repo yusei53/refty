@@ -7,7 +7,8 @@
     "googleusercontent",
     "opengraph",
     "supabase",
-    "REFTY"
+    "REFTY",
+    "networkidle"
   ],
 
   "editor.tabSize": 2,
