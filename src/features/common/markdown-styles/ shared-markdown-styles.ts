@@ -6,7 +6,7 @@ export const sharedMarkdownStyles = (theme: Theme) => ({
   fontSize: "1.05rem",
   fontWeight: 500,
   [theme.breakpoints.down("sm")]: {
-    fontSize: "1rem"
+    fontSize: "0.95rem"
   },
   ".tiptap p.is-editor-empty:first-of-type::before": {
     color: "#adb5bd",
@@ -29,7 +29,7 @@ export const sharedMarkdownStyles = (theme: Theme) => ({
     /* List styles */
     "ul, ol": {
       padding: "0 0.3rem 0 1rem",
-      margin: "0.4rem 0rem 1.25rem 0.4rem",
+      margin: "0.2rem 0rem 1rem 0.3rem",
       "& li p": {
         marginTop: "0.25em",
         marginBottom: "0.25em"
@@ -61,7 +61,11 @@ export const sharedMarkdownStyles = (theme: Theme) => ({
     },
 
     h2: {
-      fontSize: "1.3rem"
+      fontSize: "1.3rem",
+      paddingBottom: "0.2rem",
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "1.2rem"
+      }
     },
 
     h3: {
