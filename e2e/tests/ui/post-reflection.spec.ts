@@ -67,4 +67,14 @@ test.describe("認証済みユーザー", () => {
       page.locator("text=タイトルは1文字以上で入力してください。")
     ).toBeVisible();
   });
+
+  test("contentが未入力の状態で投稿ボタンを押すと、エラーメッセージが表示される", async ({
+    page
+  }) => {
+    (await page.waitForSelector("input#title")).fill("テストのtitle");
+    await page.locator("button[type='submit']").click();
+    await expect(
+      page.locator("text=1文字以上で入力してください。")
+    ).toBeVisible();
+  });
 });
