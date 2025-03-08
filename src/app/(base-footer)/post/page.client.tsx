@@ -37,13 +37,12 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
     await onSubmit(e);
   };
 
-  // AudioオブジェクトとBGM再生状態を管理する
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [isNatureMode, setIsNatureMode] = useState<boolean>(false); // 自然モードの状態
+  const [isNatureMode, setIsNatureMode] = useState<boolean>(false);
 
   const handlePlayBgm = async () => {
     if (!audioRef.current) {
-      audioRef.current = new Audio("/bgm.mp3");
+      audioRef.current = new Audio("/nature.mp3");
       audioRef.current.loop = true;
     }
     try {
