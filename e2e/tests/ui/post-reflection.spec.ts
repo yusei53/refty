@@ -35,4 +35,14 @@ test.describe("認証済みユーザー", () => {
     const jwt = await authJwt.decode();
     expect(page.url()).toContain(jwt?.username);
   });
+
+  test("titleが未入力の状態で投稿ボタンを押すとエラーメッセージが表示される", async ({
+    page
+  }) => {
+    (await page.waitForSelector(".tiptap.ProseMirror")).fill("テストのcontent");
+    await page.locator("button[type='submit']").click();
+    await expect(
+      page.locator("text=タイトルは1文字以上で入力してください。")
+    ).toBeVisible();
+  });
 });
