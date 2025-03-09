@@ -15,11 +15,11 @@ export const useBGMPlayer = (
   const [currentTrack, setCurrentTrack] = useState<string | null>(null);
 
   const playTrack = async (track: string) => {
-    // 既に同じトラックが再生中なら何もしない
+    // NOTE: 既に同じトラックが再生中なら何もしない
     if (currentTrack === track) {
       return;
     }
-    // 別のトラックが再生中なら停止
+    // NOTE: 別のトラックが再生中なら停止
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
