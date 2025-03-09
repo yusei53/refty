@@ -15,6 +15,7 @@ import {
 } from "../../routes/post/popup/reflection-template";
 import { SelectTagPopupContainer } from "../../routes/post/popup/select-tag/SelectTagContainer";
 import { ErrorMessage } from "@/src/components/alert";
+import { StarAnimation } from "@/src/components/animation";
 import { Button } from "@/src/components/button";
 import { CustomInput } from "@/src/components/input";
 import { useBGMPlayer } from "@/src/hooks/audio/useBGMPlayer";
@@ -127,21 +128,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   return (
     <>
       {overlay && overlay.component}
-      {isNightMode && (
-        <Box
-          position={"fixed"}
-          top={0}
-          left={0}
-          width={"100%"}
-          height={"100%"}
-          bgcolor={"rgba(0, 0, 0, 0.5)"}
-          zIndex={0}
-          sx={{
-            background: "linear-gradient(to bottom, #0A2342, #1C3F59)"
-          }}
-        />
-      )}
-
+      {isNightMode && <StarAnimation />}
       <Box
         component={"form"}
         onSubmit={onSubmit}
@@ -173,21 +160,14 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
           >
             <Box display={"flex"}>
               <MarkdownSupportPopupAreaContainer />
-              <Button
-                onClick={() => {
-                  playTrack("nature");
-                  toggleNightMode();
-                }}
-              >
-                自然BGMを再生
-              </Button>
+              <Button onClick={() => playTrack("nature")}>自然BGMを再生</Button>
               {/* <Button onClick={() => playTrack("ambient")}>
                 アンビエントBGMを再生
               </Button> */}
               {/* <Button onClick={stop}>停止</Button> */}
-              {/* <Button onClick={toggleNightMode}>
+              <Button onClick={toggleNightMode}>
                 {isNightMode ? "ライトモードに切替" : "ナイトモードに切替"}
-              </Button> */}
+              </Button>
             </Box>
             <Box display={"flex"}>
               <ReflectionTemplatePopupAreaContainer
