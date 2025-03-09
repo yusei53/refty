@@ -57,7 +57,6 @@ type ReflectionPostFormProps = {
   isNatureMode?: boolean;
 };
 
-// MEMO: このコンポーネントは新規作成と更新で共通で使用するためこのディレクトリに配置
 const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   control,
   isSubmitting,
@@ -79,6 +78,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   const [isComposing, setIsComposing] = useState(false);
   const editorRef = useRef<MarkdownEditorRef>(null);
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const [isNightMode, setIsNightMode] = useState(false);
 
   const activeTags = useExtractTrueTags({
     isDailyReflection,
@@ -119,20 +119,44 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
     ambient: "/bgm2.mp3"
   };
 
-  const { playTrack, stop, currentTrack } = useBGMPlayer(bgmSources);
+  const { playTrack, currentTrack } = useBGMPlayer(bgmSources);
   const overlay = useBGMOverlay(currentTrack);
+
+  const toggleNightMode = () => setIsNightMode((prev) => !prev);
 
   return (
     <>
       {overlay && overlay.component}
+      {isNightMode && (
+        <Box
+          position={"fixed"}
+          top={0}
+          left={0}
+          width={"100%"}
+          height={"100%"}
+          bgcolor={"rgba(0, 0, 0, 0.5)"}
+          zIndex={0}
+          sx={{
+            background: "linear-gradient(to bottom, #0A2342, #1C3F59)"
+          }}
+        />
+      )}
 
-      <Box component={"form"} onSubmit={onSubmit} minHeight={"80vh"}>
+      <Box
+        component={"form"}
+        onSubmit={onSubmit}
+        minHeight={"80vh"}
+        sx={{
+          color: isNightMode ? "white !important" : "",
+          "& *": { color: isNightMode ? "inherit" : "" }
+        }}
+      >
         <Box
           component={"header"}
           position={"fixed"}
           top={{ xs: 0, md: 24 }}
           right={{ xs: 0, md: 35 }}
-          bgcolor={{ xs: "white", md: "transparent" }}
+          bgcolor={{ xs: isNightMode ? "black" : "white", md: "transparent" }}
           width={{ xs: "100%", md: "96%" }}
           zIndex={1}
         >
@@ -142,15 +166,28 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
             alignItems={"center"}
             px={{ xs: 1.5, md: 0 }}
             py={{ xs: 1, md: 0 }}
-            boxShadow={{ xs: "0px 0.7px 1px rgba(0, 0, 0, 0.1)", md: "none" }}
+            boxShadow={{
+              xs: "0px 0.7px 1px rgba(0, 0, 0, 0.1)",
+              md: "none"
+            }}
           >
             <Box display={"flex"}>
               <MarkdownSupportPopupAreaContainer />
-              <Button onClick={() => playTrack("nature")}>自然BGMを再生</Button>
-              <Button onClick={() => playTrack("ambient")}>
-                アンビエントBGMを再生
+              <Button
+                onClick={() => {
+                  playTrack("nature");
+                  toggleNightMode();
+                }}
+              >
+                自然BGMを再生
               </Button>
-              <Button onClick={stop}>停止</Button>
+              {/* <Button onClick={() => playTrack("ambient")}>
+                アンビエントBGMを再生
+              </Button> */}
+              {/* <Button onClick={stop}>停止</Button> */}
+              {/* <Button onClick={toggleNightMode}>
+                {isNightMode ? "ライトモードに切替" : "ナイトモードに切替"}
+              </Button> */}
             </Box>
             <Box display={"flex"}>
               <ReflectionTemplatePopupAreaContainer
@@ -236,7 +273,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
               )}
             />
             {!isSmallScreen && (
-              <Box display={"flex"} gap={2}>
+              <Box display={"flex"} gap={2} sx={{ color: "black !important" }}>
                 <SelectTagPopupContainer
                   value={activeTags}
                   onTagChange={onTagChange}
