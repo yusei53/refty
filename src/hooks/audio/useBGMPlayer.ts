@@ -4,7 +4,13 @@ type BGMSources = {
   [key: string]: string;
 };
 
-export const useBGMPlayer = (sources: BGMSources) => {
+export const useBGMPlayer = (
+  sources: BGMSources
+): {
+  playTrack: (track: string) => Promise<void>;
+  stop: () => void;
+  currentTrack: string | null;
+} => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [currentTrack, setCurrentTrack] = useState<string | null>(null);
 
