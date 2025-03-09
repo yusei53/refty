@@ -173,26 +173,32 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
           >
             <Box display={"flex"}>
               <MarkdownSupportPopupAreaContainer />
-              <Button onClick={() => playTrack("bird")}>自然BGMを再生</Button>
-              <Button onClick={() => playTrack("rain")}>
-                アンビエントBGMを再生
-              </Button>
-              <Button
-                onClick={() => {
-                  stop();
-                  if (isNightMode) setIsNightMode(false);
-                }}
-              >
-                BGMを停止
-              </Button>
-              <Button
-                onClick={() => {
-                  playTrack("star");
-                  toggleNightMode();
-                }}
-              >
-                {isNightMode ? "ライトモードに切替" : "ナイトモードに切替"}
-              </Button>
+              {!isSmallScreen && (
+                <>
+                  <Button onClick={() => playTrack("bird")}>
+                    自然BGMを再生
+                  </Button>
+                  <Button onClick={() => playTrack("rain")}>
+                    アンビエントBGMを再生
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      stop();
+                      if (isNightMode) setIsNightMode(false);
+                    }}
+                  >
+                    BGMを停止
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      playTrack("star");
+                      toggleNightMode();
+                    }}
+                  >
+                    {isNightMode ? "ライトモードに切替" : "ナイトモードに切替"}
+                  </Button>
+                </>
+              )}
             </Box>
             <Box display={"flex"}>
               <ReflectionTemplatePopupAreaContainer
