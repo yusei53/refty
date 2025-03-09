@@ -20,7 +20,7 @@ export const BirdAnimation: React.FC = () => {
         }
         .bird.-type_2 {
           --start-top: 45vh;
-          animation-delay: 15s;
+          animation-delay: 14s;
         }
         .bird.-type_3 {
           --start-top: 60vh;
@@ -55,9 +55,39 @@ export const BirdAnimation: React.FC = () => {
         .bird:before {
           width: 100%;
           height: 1px;
-          animation: leftWing 6s linear infinite;
+          animation: leftWing 4s linear infinite;
         }
         .bird:after {
+          width: 1px;
+          height: 100%;
+          animation: rightWing 4s linear infinite;
+        }
+        .bird.-type_2:before {
+          width: 100%;
+          height: 1px;
+          animation: leftWing 4s linear infinite;
+        }
+        .bird.-type_2:after {
+          width: 1px;
+          height: 100%;
+          animation: rightWing 4s linear infinite;
+        }
+        .bird.-type_3:before {
+          width: 100%;
+          height: 1px;
+          animation: leftWing 5s linear infinite;
+        }
+        .bird.-type_3:after {
+          width: 1px;
+          height: 100%;
+          animation: rightWing 5s linear infinite;
+        }
+        .bird.-type_4:before {
+          width: 100%;
+          height: 1px;
+          animation: leftWing 6s linear infinite;
+        }
+        .bird.-type_4:after {
           width: 1px;
           height: 100%;
           animation: rightWing 6s linear infinite;
