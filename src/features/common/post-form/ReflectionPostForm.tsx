@@ -54,8 +54,6 @@ type ReflectionPostFormProps = {
   isInputLog?: boolean;
   isMonologue?: boolean;
   folders: Folder[];
-  onNatureMode?: () => Promise<void>;
-  isNatureMode?: boolean;
 };
 
 const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
