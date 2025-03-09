@@ -17,6 +17,8 @@ import { SelectTagPopupContainer } from "../../routes/post/popup/select-tag/Sele
 import { ErrorMessage } from "@/src/components/alert";
 import { Button } from "@/src/components/button";
 import { CustomInput } from "@/src/components/input";
+import { useBGMPlayer } from "@/src/hooks/audio/useBGMPlayer";
+import { useBGMOverlay } from "@/src/hooks/audio/useBGMoverlay";
 import { useExtractTrueTags } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { theme } from "@/src/utils/theme";
 
@@ -72,9 +74,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   isAwareness = false,
   isInputLog = false,
   isMonologue = false,
-  folders,
-  onNatureMode,
-  isNatureMode
+  folders
 }) => {
   const [isComposing, setIsComposing] = useState(false);
   const editorRef = useRef<MarkdownEditorRef>(null);
@@ -114,113 +114,83 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
     }
   };
 
+  const bgmSources = {
+    nature: "/nature.mp3",
+    ambient: "/bgm2.mp3"
+  };
+
+  const { playTrack, stop, currentTrack } = useBGMPlayer(bgmSources);
+  const overlay = useBGMOverlay(currentTrack);
+
   return (
-    <Box component={"form"} onSubmit={onSubmit} minHeight={"80vh"}>
-      <Box
-        component={"header"}
-        position={"fixed"}
-        top={{ xs: 0, md: 24 }}
-        right={{ xs: 0, md: 35 }}
-        bgcolor={{ xs: "white", md: "transparent" }}
-        width={{ xs: "100%", md: "96%" }}
-        zIndex={1}
-      >
+    <>
+      {overlay && overlay.component}
+
+      <Box component={"form"} onSubmit={onSubmit} minHeight={"80vh"}>
         <Box
-          display={"flex"}
-          justifyContent={"space-between"}
-          alignItems={"center"}
-          px={{ xs: 1.5, md: 0 }}
-          py={{ xs: 1, md: 0 }}
-          boxShadow={{ xs: "0px 0.7px 1px rgba(0, 0, 0, 0.1)", md: "none" }}
+          component={"header"}
+          position={"fixed"}
+          top={{ xs: 0, md: 24 }}
+          right={{ xs: 0, md: 35 }}
+          bgcolor={{ xs: "white", md: "transparent" }}
+          width={{ xs: "100%", md: "96%" }}
+          zIndex={1}
         >
-          <Box display={"flex"}>
-            <MarkdownSupportPopupAreaContainer />
-            <Button onClick={onNatureMode}>
-              {isNatureMode ? "自然モードOFF" : "自然モードON"}
-            </Button>
-          </Box>
-          <Box display={"flex"}>
-            <ReflectionTemplatePopupAreaContainer
-              onInsertTemplate={handleInsertTemplate}
-              onClearContent={handleClearContent}
-              reflectionTemplateType={REFLECTION_TEMPLATES}
-            />
-            <Controller
-              name="isPublic"
-              control={control}
-              render={({ field }) => (
-                <PublishSettingPopupAreaContainer
-                  value={field.value}
-                  onChange={field.onChange}
-                />
-              )}
-            />
-            <Button type="submit" disabled={isSubmitting || isSubmitSuccessful}>
-              {isSubmitting || isSubmitSuccessful ? "投稿中..." : "投稿する"}
-            </Button>
-          </Box>
-        </Box>
-        {isSmallScreen && (
           <Box
-            px={1.5}
-            py={0.8}
-            boxShadow={"0px 0.7px 1px rgba(0, 0, 0, 0.1)"}
             display={"flex"}
-            gap={2}
-            whiteSpace={"nowrap"}
-            sx={{
-              overflowX: "auto",
-              "&::-webkit-scrollbar": {
-                display: "none"
-              }
-            }}
+            justifyContent={"space-between"}
+            alignItems={"center"}
+            px={{ xs: 1.5, md: 0 }}
+            py={{ xs: 1, md: 0 }}
+            boxShadow={{ xs: "0px 0.7px 1px rgba(0, 0, 0, 0.1)", md: "none" }}
           >
-            <SelectTagPopupContainer
-              value={activeTags}
-              onTagChange={onTagChange}
-            />
-            <Controller
-              name="folderUUID"
-              control={control}
-              render={({ field }) => (
-                <FolderSettingPopupAreaContainer
-                  selectedFolderUUID={selectedFolderUUID}
-                  setSelectedFolderUUID={(value) => {
-                    onFolderChange(value);
-                    field.onChange(value);
-                  }}
-                  folders={folders}
-                />
-              )}
-            />
-          </Box>
-        )}
-      </Box>
-      <Box my={{ xs: 14, md: 10 }} mx={{ xs: 0.5, md: 12 }}>
-        <Stack gap={3} m={{ md: 2 }}>
-          <Controller
-            name="title"
-            control={control}
-            render={({ field }) => (
-              <Box mt={{ xs: 2, md: 5 }} zIndex={1}>
-                <CustomInput
-                  id="title"
-                  placeholder="タイトル"
-                  value={field.value}
-                  onChange={field.onChange}
-                  onEnter={(e) => handleEnter(e)}
-                  onCompositionStart={handleCompositionStart}
-                  onCompositionEnd={handleCompositionEnd}
-                  style={{ backgroundColor: "transparent" }}
-                />
-                {errors.title && (
-                  <ErrorMessage message={errors.title.message} />
+            <Box display={"flex"}>
+              <MarkdownSupportPopupAreaContainer />
+              <Button onClick={() => playTrack("nature")}>自然BGMを再生</Button>
+              <Button onClick={() => playTrack("ambient")}>
+                アンビエントBGMを再生
+              </Button>
+              <Button onClick={stop}>停止</Button>
+            </Box>
+            <Box display={"flex"}>
+              <ReflectionTemplatePopupAreaContainer
+                onInsertTemplate={handleInsertTemplate}
+                onClearContent={handleClearContent}
+                reflectionTemplateType={REFLECTION_TEMPLATES}
+              />
+              <Controller
+                name="isPublic"
+                control={control}
+                render={({ field }) => (
+                  <PublishSettingPopupAreaContainer
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
                 )}
-              </Box>
-            )}
-          />
-          {!isSmallScreen && (
-            <Box display={"flex"} gap={2}>
+              />
+              <Button
+                type="submit"
+                disabled={isSubmitting || isSubmitSuccessful}
+              >
+                {isSubmitting || isSubmitSuccessful ? "投稿中..." : "投稿する"}
+              </Button>
+            </Box>
+          </Box>
+          {isSmallScreen && (
+            <Box
+              px={1.5}
+              py={0.8}
+              boxShadow={"0px 0.7px 1px rgba(0, 0, 0, 0.1)"}
+              display={"flex"}
+              gap={2}
+              whiteSpace={"nowrap"}
+              sx={{
+                overflowX: "auto",
+                "&::-webkit-scrollbar": {
+                  display: "none"
+                }
+              }}
+            >
               <SelectTagPopupContainer
                 value={activeTags}
                 onTagChange={onTagChange}
@@ -241,41 +211,88 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
               />
             </Box>
           )}
-          <Controller
-            name="content"
-            control={control}
-            render={({ field }) => (
-              <Box>
-                <MarkdownEditor
-                  value={field.value}
-                  ref={editorRef}
-                  onChange={field.onChange}
+        </Box>
+        <Box my={{ xs: 14, md: 10 }} mx={{ xs: 0.5, md: 12 }}>
+          <Stack gap={3} m={{ md: 2 }}>
+            <Controller
+              name="title"
+              control={control}
+              render={({ field }) => (
+                <Box mt={{ xs: 2, md: 5 }} zIndex={1}>
+                  <CustomInput
+                    id="title"
+                    placeholder="タイトル"
+                    value={field.value}
+                    onChange={field.onChange}
+                    onEnter={(e) => handleEnter(e)}
+                    onCompositionStart={handleCompositionStart}
+                    onCompositionEnd={handleCompositionEnd}
+                    style={{ backgroundColor: "transparent" }}
+                  />
+                  {errors.title && (
+                    <ErrorMessage message={errors.title.message} />
+                  )}
+                </Box>
+              )}
+            />
+            {!isSmallScreen && (
+              <Box display={"flex"} gap={2}>
+                <SelectTagPopupContainer
+                  value={activeTags}
+                  onTagChange={onTagChange}
                 />
-                {errors.content && (
-                  <ErrorMessage message={errors.content.message} />
-                )}
+                <Controller
+                  name="folderUUID"
+                  control={control}
+                  render={({ field }) => (
+                    <FolderSettingPopupAreaContainer
+                      selectedFolderUUID={selectedFolderUUID}
+                      setSelectedFolderUUID={(value) => {
+                        onFolderChange(value);
+                        field.onChange(value);
+                      }}
+                      folders={folders}
+                    />
+                  )}
+                />
               </Box>
             )}
-          />
-          <Controller
-            name="charStamp"
-            control={control}
-            render={({ field }) => (
-              <Box>
-                <EmojiPicker
-                  selectedEmoji={selectedEmoji}
-                  setSelectedEmoji={onEmojiChange}
-                  onChange={field.onChange}
-                />
-                {errors.charStamp && (
-                  <ErrorMessage message={errors.charStamp.message} />
-                )}
-              </Box>
-            )}
-          />
-        </Stack>
+            <Controller
+              name="content"
+              control={control}
+              render={({ field }) => (
+                <Box>
+                  <MarkdownEditor
+                    value={field.value}
+                    ref={editorRef}
+                    onChange={field.onChange}
+                  />
+                  {errors.content && (
+                    <ErrorMessage message={errors.content.message} />
+                  )}
+                </Box>
+              )}
+            />
+            <Controller
+              name="charStamp"
+              control={control}
+              render={({ field }) => (
+                <Box>
+                  <EmojiPicker
+                    selectedEmoji={selectedEmoji}
+                    setSelectedEmoji={onEmojiChange}
+                    onChange={field.onChange}
+                  />
+                  {errors.charStamp && (
+                    <ErrorMessage message={errors.charStamp.message} />
+                  )}
+                </Box>
+              )}
+            />
+          </Stack>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 
