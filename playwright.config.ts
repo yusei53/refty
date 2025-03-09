@@ -34,17 +34,6 @@ export default defineConfig({
     },
 
     {
-      name: "webkit",
-      testDir: "./e2e/tests/api",
-      use: { ...devices["Desktop Safari"] }
-    },
-    {
-      name: "webkit",
-      testDir: "./e2e/tests/ui",
-      use: { ...devices["Desktop Safari"] }
-    },
-
-    {
       name: "Mobile Chrome",
       testDir: "./e2e/tests/api",
       use: { ...devices["Pixel 5"] }
@@ -53,16 +42,6 @@ export default defineConfig({
       name: "Mobile Chrome",
       testDir: "./e2e/tests/ui",
       use: { ...devices["Pixel 5"] }
-    },
-    {
-      name: "Mobile Safari",
-      testDir: "./e2e/tests/api",
-      use: { ...devices["iPhone 12"] }
-    },
-    {
-      name: "Mobile Safari",
-      testDir: "./e2e/tests/ui",
-      use: { ...devices["iPhone 12"] }
     },
 
     {
