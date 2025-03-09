@@ -1,163 +1,116 @@
+// FIXME:  use clientはつけたくないのであとで消す作業
 "use client";
-export const BirdAnimation: React.FC = () => {
+import { Box } from "@mui/material";
+import { keyframes } from "@mui/system";
+
+export const BirdAnimation = () => {
   return (
     <>
-      <div className="bird"></div>
-      <div className="bird -type_2"></div>
-      <div className="bird -type_3"></div>
-      <div className="bird -type_4"></div>
-      <style jsx>{`
-        .bird {
-          position: fixed;
-          width: 10px;
-          height: 10px;
-          transform: rotate(45deg);
-          /* 各鳥の開始位置（画面上部の高さ） */
-          --start-top: 25vh;
-          /* アニメーション全体は22秒 */
-          animation: moving 22s linear infinite;
-          animation-delay: 1s;
-        }
-        .bird.-type_2 {
-          --start-top: 45vh;
-          animation-delay: 14s;
-        }
-        .bird.-type_3 {
-          --start-top: 60vh;
-          animation-delay: 18s;
-        }
-        .bird.-type_4 {
-          --start-top: 30vh;
-          animation-delay: 27s;
-        }
-        /* シンプルに左右を線形に移動（一定速度） */
-        @keyframes moving {
-          0% {
-            left: -2vw;
-            top: var(--start-top);
-          }
-          100% {
-            left: 101vw;
-            top: var(--start-top);
-          }
-        }
-        /* 以下、翼のアニメーション（パタパタ） */
-        .bird:before,
-        .bird:after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          right: 0;
-          background-color: black;
-          transform: rotate(-30deg);
-          transform-origin: right bottom;
-        }
-        .bird:before {
-          width: 100%;
-          height: 1px;
-          animation: leftWing 4s linear infinite;
-        }
-        .bird:after {
-          width: 1px;
-          height: 100%;
-          animation: rightWing 4s linear infinite;
-        }
-        .bird.-type_2:before {
-          width: 100%;
-          height: 1px;
-          animation: leftWing 4s linear infinite;
-        }
-        .bird.-type_2:after {
-          width: 1px;
-          height: 100%;
-          animation: rightWing 4s linear infinite;
-        }
-        .bird.-type_3:before {
-          width: 100%;
-          height: 1px;
-          animation: leftWing 5s linear infinite;
-        }
-        .bird.-type_3:after {
-          width: 1px;
-          height: 100%;
-          animation: rightWing 5s linear infinite;
-        }
-        .bird.-type_4:before {
-          width: 100%;
-          height: 1px;
-          animation: leftWing 6s linear infinite;
-        }
-        .bird.-type_4:after {
-          width: 1px;
-          height: 100%;
-          animation: rightWing 6s linear infinite;
-        }
-        @keyframes leftWing {
-          0% {
-            transform: rotate(-30deg);
-          }
-          2% {
-            transform: rotate(-110deg);
-          }
-          4% {
-            transform: rotate(-30deg);
-          }
-          6% {
-            transform: rotate(-110deg);
-          }
-          8% {
-            transform: rotate(-30deg);
-          }
-          10% {
-            transform: rotate(-110deg);
-          }
-          12% {
-            transform: rotate(-30deg);
-          }
-          100% {
-            transform: rotate(-30deg);
-          }
-        }
-        @keyframes rightWing {
-          0% {
-            transform: rotate(30deg);
-          }
-          2% {
-            transform: rotate(110deg);
-          }
-          4% {
-            transform: rotate(30deg);
-          }
-          6% {
-            transform: rotate(110deg);
-          }
-          8% {
-            transform: rotate(30deg);
-          }
-          10% {
-            transform: rotate(110deg);
-          }
-          12% {
-            transform: rotate(30deg);
-          }
-          100% {
-            transform: rotate(30deg);
-          }
-        }
-        /* 各鳥の翼の動きを個別にずらす */
-        .bird.-type_2:before,
-        .bird.-type_2:after {
-          animation-delay: 1s;
-        }
-        .bird.-type_3:before,
-        .bird.-type_3:after {
-          animation-delay: 2s;
-        }
-        .bird.-type_4:before,
-        .bird.-type_4:after {
-          animation-delay: 3s;
-        }
-      `}</style>
+      {birdConfigs.map((config, index) => (
+        <Box
+          key={index}
+          position={"fixed"}
+          width={"10px"}
+          height={"10px"}
+          left={"-1vw"}
+          top={"var(--start-top)"}
+          sx={{
+            transform: "rotate(45deg)",
+            "--start-top": config.startTop,
+            animation: `${moving} 22s linear infinite`,
+            animationDelay: config.mainDelay,
+            "&:before": {
+              content: '""',
+              position: "absolute",
+              bottom: 0,
+              right: 0,
+              backgroundColor: "black",
+              transform: "rotate(-30deg)",
+              transformOrigin: "right bottom",
+              width: "100%",
+              height: "1px",
+              animation: `${leftWing} ${config.wingDuration} linear infinite`,
+              animationDelay: config.wingDelay
+            },
+            "&:after": {
+              content: '""',
+              position: "absolute",
+              bottom: 0,
+              right: 0,
+              backgroundColor: "black",
+              transform: "rotate(-30deg)",
+              transformOrigin: "right bottom",
+              width: "1px",
+              height: "100%",
+              animation: `${rightWing} ${config.wingDuration} linear infinite`,
+              animationDelay: config.wingDelay
+            }
+          }}
+        />
+      ))}
     </>
   );
 };
+
+const birdConfigs = [
+  {
+    startTop: "25vh",
+    mainDelay: " 1s",
+    wingDuration: "4s",
+    wingDelay: "0s"
+  },
+  {
+    startTop: "45vh",
+    mainDelay: "12s",
+    wingDuration: "4s",
+    wingDelay: "1s"
+  },
+  {
+    startTop: "60vh",
+    mainDelay: "16s",
+    wingDuration: "5s",
+    wingDelay: "2s"
+  },
+  {
+    startTop: "30vh",
+    mainDelay: "24s",
+    wingDuration: "6s",
+    wingDelay: "3s"
+  }
+];
+
+// NOTE: 横に移動するアニメーション
+const moving = keyframes`
+  0% {
+    left: -0;
+    top: var(--start-top);
+  }
+  100% {
+    left: 100vw;
+    top: var(--start-top);
+  }
+`;
+
+// NOTE: 左翼のアニメーション
+const leftWing = keyframes`
+  0% { transform: rotate(-30deg); }
+  2% { transform: rotate(-110deg); }
+  4% { transform: rotate(-30deg); }
+  6% { transform: rotate(-110deg); }
+  8% { transform: rotate(-30deg); }
+  10% { transform: rotate(-110deg); }
+  12% { transform: rotate(-30deg); }
+  100% { transform: rotate(-30deg); }
+`;
+
+// NOTE: 右翼のアニメーション
+const rightWing = keyframes`
+  0% { transform: rotate(30deg); }
+  2% { transform: rotate(110deg); }
+  4% { transform: rotate(30deg); }
+  6% { transform: rotate(110deg); }
+  8% { transform: rotate(30deg); }
+  10% { transform: rotate(110deg); }
+  12% { transform: rotate(30deg); }
+  100% { transform: rotate(30deg); }
+`;
