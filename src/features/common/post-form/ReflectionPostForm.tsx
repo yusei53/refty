@@ -15,11 +15,14 @@ import {
 } from "../../routes/post/popup/reflection-template";
 import { SelectTagPopupContainer } from "../../routes/post/popup/select-tag/SelectTagContainer";
 import { ErrorMessage } from "@/src/components/alert";
-import { StarAnimation } from "@/src/components/animation";
+import {
+  BirdAnimation,
+  RainAnimation,
+  StarAnimation
+} from "@/src/components/animation";
 import { Button } from "@/src/components/button";
 import { CustomInput } from "@/src/components/input";
 import { useBGMPlayer } from "@/src/hooks/audio/useBGMPlayer";
-import { useBGMOverlay } from "@/src/hooks/audio/useBGMoverlay";
 import { useExtractTrueTags } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { theme } from "@/src/utils/theme";
 
@@ -114,19 +117,31 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   };
 
   const bgmSources = {
-    nature: "/nature.mp3",
-    ambient: "/bgm2.mp3"
+    bird: "/nature.mp3",
+    rain: "/rain.mp3",
+    star: "/star.mp3"
   };
 
-  const { playTrack, currentTrack } = useBGMPlayer(bgmSources);
-  const overlay = useBGMOverlay(currentTrack);
+  const { playTrack, stop, currentTrack } = useBGMPlayer(bgmSources);
+
+  const animationWithSelectedBGM = () => {
+    switch (currentTrack) {
+      case "bird":
+        return <BirdAnimation />;
+      case "rain":
+        return <RainAnimation />;
+      case "star":
+        return <StarAnimation />;
+      default:
+        return null;
+    }
+  };
 
   const toggleNightMode = () => setIsNightMode((prev) => !prev);
 
   return (
     <>
-      {overlay && overlay.component}
-      {isNightMode && <StarAnimation />}
+      {animationWithSelectedBGM()}
       <Box
         component={"form"}
         onSubmit={onSubmit}
@@ -158,12 +173,24 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
           >
             <Box display={"flex"}>
               <MarkdownSupportPopupAreaContainer />
-              <Button onClick={() => playTrack("nature")}>自然BGMを再生</Button>
-              {/* <Button onClick={() => playTrack("ambient")}>
+              <Button onClick={() => playTrack("bird")}>自然BGMを再生</Button>
+              <Button onClick={() => playTrack("rain")}>
                 アンビエントBGMを再生
-              </Button> */}
-              {/* <Button onClick={stop}>停止</Button> */}
-              <Button onClick={toggleNightMode}>
+              </Button>
+              <Button
+                onClick={() => {
+                  stop();
+                  if (isNightMode) setIsNightMode(false);
+                }}
+              >
+                BGMを停止
+              </Button>
+              <Button
+                onClick={() => {
+                  playTrack("star");
+                  toggleNightMode();
+                }}
+              >
                 {isNightMode ? "ライトモードに切替" : "ナイトモードに切替"}
               </Button>
             </Box>
