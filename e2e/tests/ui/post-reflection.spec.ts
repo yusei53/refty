@@ -25,14 +25,65 @@ test.describe("認証済みユーザー", () => {
     expect(page.url()).toContain("/post");
   });
 
-  test("titleとcontentに文字を入力し投稿した時、自身の投稿一覧ページにリダイレクトされる", async ({
+  test("titleとcontentに文字が入力された状態で投稿ボタンを押すと、自身の投稿一覧ページにリダイレクトされる", async ({
     page
   }) => {
-    (await page.waitForSelector("input#title")).fill("テストのtitle");
-    (await page.waitForSelector(".tiptap.ProseMirror")).fill("テストのcontent");
+    await page.locator("input#title").fill("テストのtitle");
+    await page.locator(".tiptap.ProseMirror").fill("テストのcontent");
     await page.locator("button[type='submit']").click();
     await page.waitForLoadState("networkidle");
     const jwt = await authJwt.decode();
     expect(page.url()).toContain(jwt?.username);
+  });
+
+  test("titleが未入力の状態で投稿ボタンを押すと、エラーメッセージが表示される", async ({
+    page
+  }) => {
+    await page.locator(".tiptap.ProseMirror").fill("テストのcontent");
+    await page.locator("button[type='submit']").click();
+    await expect(
+      page.locator("text=タイトルは1文字以上で入力してください。")
+    ).toBeVisible();
+  });
+
+  test("titleが40文字を超えた状態で投稿ボタンを押すと、エラーメッセージが表示される", async ({
+    page
+  }) => {
+    await page.locator("input#title").fill("a".repeat(41));
+    await page.locator(".tiptap.ProseMirror").fill("テストのcontent");
+    await page.locator("button[type='submit']").click();
+    await expect(
+      page.locator("text=タイトルは40文字以内で入力してください。")
+    ).toBeVisible();
+  });
+
+  test("titleが空白文字のみの状態で投稿ボタンを押すと、エラーメッセージが表示される", async ({
+    page
+  }) => {
+    await page.locator("input#title").fill(" ");
+    await page.locator(".tiptap.ProseMirror").fill("テストのcontent");
+    await page.locator("button[type='submit']").click();
+    await expect(
+      page.locator("text=タイトルは1文字以上で入力してください。")
+    ).toBeVisible();
+  });
+
+  test("contentが未入力の状態で投稿ボタンを押すと、エラーメッセージが表示される", async ({
+    page
+  }) => {
+    await page.locator("input#title").fill("テストのtitle");
+    await page.locator("button[type='submit']").click();
+    await expect(
+      page.locator("text=1文字以上入力してください。")
+    ).toBeVisible();
+  });
+
+  test("投稿ボタンを押すと、投稿し終わるまでボタンが非活性になっている", async ({
+    page
+  }) => {
+    await page.locator("input#title").fill("テストのtitle");
+    await page.locator(".tiptap.ProseMirror").fill("テストのcontent");
+    await page.locator("button[type='submit']").click();
+    await expect(page.locator("button[type='submit']")).toBeDisabled();
   });
 });
