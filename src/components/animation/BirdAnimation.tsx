@@ -55,7 +55,7 @@ export const BirdAnimation = () => {
 const birdConfigs = [
   {
     startTop: "25vh",
-    mainDelay: " 1s",
+    mainDelay: "1s",
     wingDuration: "4s",
     wingDelay: "0s"
   },
