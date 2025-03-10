@@ -47,17 +47,16 @@ export const useBGMPlayer = (
     }
   };
 
-  // MEMO: 現在再生中のBGMの名前を返す
   const getBGMName = () => {
     switch (currentTrack) {
       case "bird":
-        return "自然BGM";
+        return "鳥と自然";
       case "rain":
-        return "アンビエントBGM";
+        return "静かな雨";
       case "star":
-        return "ナイトBGM";
+        return "星空";
       default:
-        return "BGMを選択";
+        return "サウンドを選択";
     }
   };
 

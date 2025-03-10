@@ -54,6 +54,7 @@ export const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
               borderRadius={2}
               bgcolor={"white"}
               minWidth={"200px"}
+              color={"black !important"}
             >
               <BGMOptionButton
                 currentTrack={currentTrack}
@@ -65,8 +66,8 @@ export const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
                   }
                   onClose();
                 }}
-                text="自然BGM"
-                description="ほげほげ"
+                text="鳥と自然"
+                description="鳥が飛び、自然の音が聞こえます"
               />
               <Divider sx={{ borderColor: theme.palette.grey[400] }} />
               <BGMOptionButton
@@ -79,8 +80,8 @@ export const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
                   }
                   onClose();
                 }}
-                text="アンビエントBGM"
-                description="ほげほげ"
+                text="静かな雨"
+                description="雨が降り、霧雨の音が聞こえます"
               />
               <Divider sx={{ borderColor: theme.palette.grey[400] }} />
               <BGMOptionButton
@@ -91,8 +92,8 @@ export const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
                   toggleNightMode();
                   onClose();
                 }}
-                text="ナイトBGM"
-                description="ほげほげ"
+                text="星空"
+                description="夜空と星が見え、静かな波の音が聞こえます"
               />
               <Divider sx={{ borderColor: theme.palette.grey[400] }} />
               <BGMOptionButton
@@ -105,8 +106,8 @@ export const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
                   }
                   onClose();
                 }}
-                text="BGM停止"
-                description="ほげほげ"
+                text="サウンド停止"
+                description="サウンドを停止します"
               />
             </Box>
           </Fade>
