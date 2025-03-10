@@ -33,7 +33,7 @@ export const BGMOptionButton: React.FC<BGMOptionButtonProps> = ({
       <Box display={"flex"} alignItems={"center"}>
         {text}
         {currentTrack == BGMName && (
-          <CheckIcon fontSize="small" sx={{ ml: 1 }} />
+          <CheckIcon fontSize="small" sx={{ ml: 0.5 }} />
         )}
       </Box>
       <Typography fontSize={12} color={theme.palette.grey[600]}>

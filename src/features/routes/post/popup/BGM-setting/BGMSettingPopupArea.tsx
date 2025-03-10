@@ -98,6 +98,20 @@ export const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
               <Divider sx={{ borderColor: theme.palette.grey[400] }} />
               <BGMOptionButton
                 currentTrack={currentTrack}
+                BGMName="piano"
+                onClick={() => {
+                  playTrack("piano");
+                  if (isNightMode) {
+                    toggleNightMode();
+                  }
+                  onClose();
+                }}
+                text="ピアノ"
+                description="心休まるピアノの音色が聞こえます"
+              />
+              <Divider sx={{ borderColor: theme.palette.grey[400] }} />
+              <BGMOptionButton
+                currentTrack={currentTrack}
                 BGMName="stop"
                 onClick={() => {
                   stop();

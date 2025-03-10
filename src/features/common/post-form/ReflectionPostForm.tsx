@@ -120,7 +120,8 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   const bgmSources = {
     bird: "/nature.mp3",
     rain: "/rain.mp3",
-    star: "/star.mp3"
+    star: "/star.mp3",
+    piano: "/piano.mp3"
   };
 
   const { playTrack, stop, currentTrack, getBGMName } =

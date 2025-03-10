@@ -86,6 +86,8 @@ export const useBGMPlayer = (
         return "静かな雨";
       case "star":
         return "星空";
+      case "piano":
+        return "ピアノ";
       default:
         return "サウンドを選択";
     }
