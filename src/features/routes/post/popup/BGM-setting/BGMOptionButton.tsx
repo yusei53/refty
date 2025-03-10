@@ -1,4 +1,3 @@
-import React from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import { Box, Typography } from "@mui/material";
 import { Button } from "@/src/components/button";
