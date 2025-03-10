@@ -37,6 +37,7 @@ def lambda_handler(event, context):
             key_today = f'{today}/{csv_file_name}'
             s3_client.put_object(Bucket=bucket, Key=key_today, Body=buffer.getvalue())
             #Reflectionの場合、文字列カラムを文字数をカウントして保存
+            #TODO USerテーブルについてもユーザーが記入するところがあるので、そこを文字数カウントに修正した方がいい
             if table_name == 'Reflection':
                 buffer.seek(0)
                 csv_reader = csv.reader(buffer)
