@@ -47,6 +47,7 @@ export const useBGMPlayer = (
     }
   };
 
+  // MEMO: 現在再生中のBGMの名前を返す
   const getBGMName = () => {
     switch (currentTrack) {
       case "bird":
