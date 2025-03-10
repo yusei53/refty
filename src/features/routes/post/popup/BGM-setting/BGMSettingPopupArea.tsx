@@ -74,7 +74,6 @@ const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
                   playTrack("bird");
                   onClose();
                 }}
-                icon="/unlock.png"
                 text="自然BGM"
                 description="ほげほげ"
               />
@@ -86,7 +85,6 @@ const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
                   playTrack("rain");
                   onClose();
                 }}
-                icon="/lock.png"
                 text="アンビエントBGM"
                 description="ほげほげ"
               />
@@ -99,7 +97,6 @@ const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
                   toggleNightMode();
                   onClose();
                 }}
-                icon="/lock.png"
                 text="ナイトBGM"
                 description="ほげほげ"
               />
@@ -114,7 +111,6 @@ const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
                   }
                   onClose();
                 }}
-                icon="/lock.png"
                 text="BGM停止"
                 description="ほげほげ"
               />

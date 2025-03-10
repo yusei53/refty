@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import CheckIcon from "@mui/icons-material/Check";
 import { Box, Typography } from "@mui/material";
 import { Button } from "@/src/components/button";
@@ -9,7 +8,6 @@ type SelectedBGMOptionButtonProps = {
   currentTrack: string;
   BGMName: string;
   onClick: () => void;
-  icon: string;
   text: string;
   description: string;
 };
@@ -18,7 +16,6 @@ const SelectedBGMOptionButton: React.FC<SelectedBGMOptionButtonProps> = ({
   currentTrack,
   BGMName,
   onClick,
-  icon,
   text,
   description
 }) => {
@@ -35,13 +32,6 @@ const SelectedBGMOptionButton: React.FC<SelectedBGMOptionButtonProps> = ({
       }}
     >
       <Box display={"flex"} alignItems={"center"}>
-        <Image
-          src={icon}
-          alt={`${text} Icon`}
-          width={18}
-          height={18}
-          style={{ marginRight: 4 }}
-        />
         {text}
         {currentTrack == BGMName && (
           <CheckIcon fontSize="small" sx={{ ml: 1 }} />
