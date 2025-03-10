@@ -1,5 +1,5 @@
 import { Box, Divider, Fade, Popper } from "@mui/material";
-import SelectedBGMOptionButton from "./SelectedBGMOptionButton";
+import { BGMOptionButton } from "./BGMOptionButton";
 import { Button } from "@/src/components/button";
 import { theme } from "@/src/utils/theme";
 
@@ -16,7 +16,7 @@ type BGMSettingPopupAreaProps = {
   getBGMName: () => string;
 };
 
-const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
+export const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
   currentTrack,
   playTrack,
   open,
@@ -55,7 +55,7 @@ const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
               bgcolor={"white"}
               minWidth={"200px"}
             >
-              <SelectedBGMOptionButton
+              <BGMOptionButton
                 currentTrack={currentTrack}
                 BGMName="bird"
                 onClick={() => {
@@ -66,7 +66,7 @@ const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
                 description="ほげほげ"
               />
               <Divider sx={{ borderColor: theme.palette.grey[400] }} />
-              <SelectedBGMOptionButton
+              <BGMOptionButton
                 currentTrack={currentTrack}
                 BGMName="rain"
                 onClick={() => {
@@ -77,7 +77,7 @@ const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
                 description="ほげほげ"
               />
               <Divider sx={{ borderColor: theme.palette.grey[400] }} />
-              <SelectedBGMOptionButton
+              <BGMOptionButton
                 currentTrack={currentTrack}
                 BGMName="star"
                 onClick={() => {
@@ -89,7 +89,7 @@ const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
                 description="ほげほげ"
               />
               <Divider sx={{ borderColor: theme.palette.grey[400] }} />
-              <SelectedBGMOptionButton
+              <BGMOptionButton
                 currentTrack={currentTrack}
                 BGMName="stop"
                 onClick={() => {
@@ -109,5 +109,3 @@ const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
     </>
   );
 };
-
-export default BGMSettingPopupArea;

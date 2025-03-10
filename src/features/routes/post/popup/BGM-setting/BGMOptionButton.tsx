@@ -4,7 +4,7 @@ import { Box, Typography } from "@mui/material";
 import { Button } from "@/src/components/button";
 import { theme } from "@/src/utils/theme";
 
-type SelectedBGMOptionButtonProps = {
+type BGMOptionButtonProps = {
   currentTrack: string;
   BGMName: string;
   onClick: () => void;
@@ -12,7 +12,7 @@ type SelectedBGMOptionButtonProps = {
   description: string;
 };
 
-const SelectedBGMOptionButton: React.FC<SelectedBGMOptionButtonProps> = ({
+export const BGMOptionButton: React.FC<BGMOptionButtonProps> = ({
   currentTrack,
   BGMName,
   onClick,
@@ -43,5 +43,3 @@ const SelectedBGMOptionButton: React.FC<SelectedBGMOptionButtonProps> = ({
     </Button>
   );
 };
-
-export default SelectedBGMOptionButton;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import BGMSettingPopupArea from "./BGMSettingPopupArea";
+import { BGMSettingPopupArea } from "./BGMSettingPopupArea";
 
 type BGMSettingPopupAreaContainerProps = {
   currentTrack: string;
