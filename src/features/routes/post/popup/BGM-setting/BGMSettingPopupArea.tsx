@@ -34,12 +34,7 @@ const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
         onClick={onToggle}
         onBlur={onClose}
         sx={{
-          width: "90px",
-          border: "none",
-          display: "flex",
-          alignItems: "center",
-          whiteSpace: "nowrap",
-          ml: 4
+          border: "none"
         }}
       >
         {getBGMName()}
@@ -50,6 +45,7 @@ const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
         anchorEl={anchorEl}
         transition
         sx={{ zIndex: 2 }}
+        placement="bottom-end"
       >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
