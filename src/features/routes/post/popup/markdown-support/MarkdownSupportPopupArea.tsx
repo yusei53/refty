@@ -57,7 +57,6 @@ const MarkdownSupportPopupArea: React.FC<MarkdownSupportPopupAreaProps> = ({
           type={"button"}
           bgcolor={"transparent"}
           border={"none"}
-          mr={1.2}
           display={"flex"}
           alignItems={"center"}
           onClick={handleButtonClick}

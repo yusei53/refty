@@ -6,6 +6,7 @@ import type { Folder } from "@/src/api/folder-api";
 import type { Control, FieldErrors } from "react-hook-form";
 import EmojiPicker from "../../routes/post/emoji/EmojiPicker";
 import { MarkdownEditor } from "../../routes/post/markdown-editor";
+import { BGMSettingPopupAreaContainer } from "../../routes/post/popup/BGM-setting/BGMSettingPopupAreaContainer";
 import { FolderSettingPopupAreaContainer } from "../../routes/post/popup/folder-setting";
 import { MarkdownSupportPopupAreaContainer } from "../../routes/post/popup/markdown-support";
 import { PublishSettingPopupAreaContainer } from "../../routes/post/popup/publish-setting";
@@ -15,8 +16,14 @@ import {
 } from "../../routes/post/popup/reflection-template";
 import { SelectTagPopupContainer } from "../../routes/post/popup/select-tag/SelectTagContainer";
 import { ErrorMessage } from "@/src/components/alert";
+import {
+  BirdAnimation,
+  RainAnimation,
+  StarAnimation
+} from "@/src/components/animation";
 import { Button } from "@/src/components/button";
 import { CustomInput } from "@/src/components/input";
+import { useBGMPlayer } from "@/src/hooks/audio/useBGMPlayer";
 import { useExtractTrueTags } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { theme } from "@/src/utils/theme";
 
@@ -53,7 +60,6 @@ type ReflectionPostFormProps = {
   folders: Folder[];
 };
 
-// MEMO: このコンポーネントは新規作成と更新で共通で使用するためこのディレクトリに配置
 const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   control,
   isSubmitting,
@@ -75,6 +81,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   const [isComposing, setIsComposing] = useState(false);
   const editorRef = useRef<MarkdownEditorRef>(null);
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const [isNightMode, setIsNightMode] = useState(false);
 
   const activeTags = useExtractTrueTags({
     isDailyReflection,
@@ -110,104 +117,115 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
     }
   };
 
+  const bgmSources = {
+    bird: "/nature.mp3",
+    rain: "/rain.mp3",
+    star: "/star.mp3",
+    piano: "/piano.mp3"
+  };
+
+  const { playTrack, stop, currentTrack, getBGMName } =
+    useBGMPlayer(bgmSources);
+
+  const animationWithSelectedBGM = () => {
+    switch (currentTrack) {
+      case "bird":
+        return <BirdAnimation />;
+      case "rain":
+        return <RainAnimation />;
+      case "star":
+        return <StarAnimation />;
+      default:
+        return null;
+    }
+  };
+
+  const toggleNightMode = () => setIsNightMode((prev) => !prev);
+
   return (
-    <Box component={"form"} onSubmit={onSubmit} minHeight={"80vh"}>
+    <>
+      {animationWithSelectedBGM()}
       <Box
-        component={"header"}
-        position={"fixed"}
-        top={{ xs: 0, md: 25 }}
-        right={{ xs: 0, md: 35 }}
-        bgcolor={{ xs: "white", md: "transparent" }}
-        width={{ xs: "100%", md: "auto" }}
-        zIndex={1}
+        component={"form"}
+        onSubmit={onSubmit}
+        minHeight={"80vh"}
+        sx={{
+          color: isNightMode ? "white !important" : "",
+          "& *": { color: isNightMode ? "inherit" : "" }
+        }}
       >
         <Box
-          display={"flex"}
-          justifyContent={"flex-end"}
-          px={{ xs: 1.5, md: 0 }}
-          py={{ xs: 1, md: 0 }}
-          boxShadow={{ xs: "0px 0.7px 1px rgba(0, 0, 0, 0.1)", md: "none" }}
+          component={"header"}
+          position={"fixed"}
+          top={{ xs: 0, md: 24 }}
+          right={{ xs: 0, md: 35 }}
+          bgcolor={{ xs: isNightMode ? "black" : "white", md: "transparent" }}
+          width={{ xs: "100%", md: "96%" }}
+          zIndex={1}
         >
-          <MarkdownSupportPopupAreaContainer />
-          <ReflectionTemplatePopupAreaContainer
-            onInsertTemplate={handleInsertTemplate}
-            onClearContent={handleClearContent}
-            reflectionTemplateType={REFLECTION_TEMPLATES}
-          />
-          <Controller
-            name="isPublic"
-            control={control}
-            render={({ field }) => (
-              <PublishSettingPopupAreaContainer
-                value={field.value}
-                onChange={field.onChange}
-              />
-            )}
-          />
-          <Button type="submit" disabled={isSubmitting || isSubmitSuccessful}>
-            {isSubmitting || isSubmitSuccessful ? "投稿中..." : "投稿する"}
-          </Button>
-        </Box>
-        {isSmallScreen && (
           <Box
-            px={1.5}
-            py={0.8}
-            boxShadow={"0px 0.7px 1px rgba(0, 0, 0, 0.1)"}
             display={"flex"}
-            gap={2}
-            whiteSpace={"nowrap"}
-            sx={{
-              overflowX: "auto",
-              "&::-webkit-scrollbar": {
-                display: "none"
-              }
+            justifyContent={"space-between"}
+            alignItems={"center"}
+            px={{ xs: 1.5, md: 0 }}
+            py={{ xs: 1, md: 0 }}
+            boxShadow={{
+              xs: "0px 0.7px 1px rgba(0, 0, 0, 0.1)",
+              md: "none"
             }}
           >
-            <SelectTagPopupContainer
-              value={activeTags}
-              onTagChange={onTagChange}
-            />
-            <Controller
-              name="folderUUID"
-              control={control}
-              render={({ field }) => (
-                <FolderSettingPopupAreaContainer
-                  selectedFolderUUID={selectedFolderUUID}
-                  setSelectedFolderUUID={(value) => {
-                    onFolderChange(value);
-                    field.onChange(value);
-                  }}
-                  folders={folders}
+            <Box display={"flex"}>
+              <MarkdownSupportPopupAreaContainer />
+              {!isSmallScreen && (
+                <BGMSettingPopupAreaContainer
+                  currentTrack={currentTrack ?? ""}
+                  playTrack={playTrack}
+                  stop={stop}
+                  isNightMode={isNightMode}
+                  toggleNightMode={toggleNightMode}
+                  getBGMName={getBGMName}
                 />
               )}
-            />
-          </Box>
-        )}
-      </Box>
-      <Box my={{ xs: 14, md: 10 }} mx={{ xs: 0.5, md: 12 }}>
-        <Stack gap={3} m={{ md: 2 }}>
-          <Controller
-            name="title"
-            control={control}
-            render={({ field }) => (
-              <Box mt={{ xs: 2, md: 5 }}>
-                <CustomInput
-                  id="title"
-                  placeholder="タイトル"
-                  value={field.value}
-                  onChange={field.onChange}
-                  onEnter={(e) => handleEnter(e)}
-                  onCompositionStart={handleCompositionStart}
-                  onCompositionEnd={handleCompositionEnd}
-                />
-                {errors.title && (
-                  <ErrorMessage message={errors.title.message} />
+            </Box>
+            <Box display={"flex"}>
+              <ReflectionTemplatePopupAreaContainer
+                onInsertTemplate={handleInsertTemplate}
+                onClearContent={handleClearContent}
+                reflectionTemplateType={REFLECTION_TEMPLATES}
+              />
+              <Controller
+                name="isPublic"
+                control={control}
+                render={({ field }) => (
+                  <PublishSettingPopupAreaContainer
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
                 )}
-              </Box>
-            )}
-          />
-          {!isSmallScreen && (
-            <Box display={"flex"} gap={2}>
+              />
+              <Button
+                type="submit"
+                disabled={isSubmitting || isSubmitSuccessful}
+              >
+                {isSubmitting || isSubmitSuccessful ? "投稿中..." : "投稿する"}
+              </Button>
+            </Box>
+          </Box>
+          {isSmallScreen && (
+            <Box
+              px={1.5}
+              py={0.8}
+              boxShadow={"0px 0.7px 1px rgba(0, 0, 0, 0.1)"}
+              display={"flex"}
+              gap={2}
+              whiteSpace={"nowrap"}
+              sx={{
+                overflowX: "auto",
+                "&::-webkit-scrollbar": {
+                  display: "none"
+                }
+              }}
+            >
               <SelectTagPopupContainer
                 value={activeTags}
                 onTagChange={onTagChange}
@@ -228,41 +246,88 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
               />
             </Box>
           )}
-          <Controller
-            name="content"
-            control={control}
-            render={({ field }) => (
-              <Box>
-                <MarkdownEditor
-                  value={field.value}
-                  ref={editorRef}
-                  onChange={field.onChange}
+        </Box>
+        <Box my={{ xs: 14, md: 10 }} mx={{ xs: 0.5, md: 12 }}>
+          <Stack gap={3} m={{ md: 2 }}>
+            <Controller
+              name="title"
+              control={control}
+              render={({ field }) => (
+                <Box mt={{ xs: 2, md: 5 }} zIndex={1}>
+                  <CustomInput
+                    id="title"
+                    placeholder="タイトル"
+                    value={field.value}
+                    onChange={field.onChange}
+                    onEnter={(e) => handleEnter(e)}
+                    onCompositionStart={handleCompositionStart}
+                    onCompositionEnd={handleCompositionEnd}
+                    style={{ backgroundColor: "transparent" }}
+                  />
+                  {errors.title && (
+                    <ErrorMessage message={errors.title.message} />
+                  )}
+                </Box>
+              )}
+            />
+            {!isSmallScreen && (
+              <Box display={"flex"} gap={2} sx={{ color: "black !important" }}>
+                <SelectTagPopupContainer
+                  value={activeTags}
+                  onTagChange={onTagChange}
                 />
-                {errors.content && (
-                  <ErrorMessage message={errors.content.message} />
-                )}
+                <Controller
+                  name="folderUUID"
+                  control={control}
+                  render={({ field }) => (
+                    <FolderSettingPopupAreaContainer
+                      selectedFolderUUID={selectedFolderUUID}
+                      setSelectedFolderUUID={(value) => {
+                        onFolderChange(value);
+                        field.onChange(value);
+                      }}
+                      folders={folders}
+                    />
+                  )}
+                />
               </Box>
             )}
-          />
-          <Controller
-            name="charStamp"
-            control={control}
-            render={({ field }) => (
-              <Box>
-                <EmojiPicker
-                  selectedEmoji={selectedEmoji}
-                  setSelectedEmoji={onEmojiChange}
-                  onChange={field.onChange}
-                />
-                {errors.charStamp && (
-                  <ErrorMessage message={errors.charStamp.message} />
-                )}
-              </Box>
-            )}
-          />
-        </Stack>
+            <Controller
+              name="content"
+              control={control}
+              render={({ field }) => (
+                <Box>
+                  <MarkdownEditor
+                    value={field.value}
+                    ref={editorRef}
+                    onChange={field.onChange}
+                  />
+                  {errors.content && (
+                    <ErrorMessage message={errors.content.message} />
+                  )}
+                </Box>
+              )}
+            />
+            <Controller
+              name="charStamp"
+              control={control}
+              render={({ field }) => (
+                <Box>
+                  <EmojiPicker
+                    selectedEmoji={selectedEmoji}
+                    setSelectedEmoji={onEmojiChange}
+                    onChange={field.onChange}
+                  />
+                  {errors.charStamp && (
+                    <ErrorMessage message={errors.charStamp.message} />
+                  )}
+                </Box>
+              )}
+            />
+          </Stack>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 
