@@ -60,6 +60,9 @@ export const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
                 BGMName="bird"
                 onClick={() => {
                   playTrack("bird");
+                  if (isNightMode) {
+                    toggleNightMode();
+                  }
                   onClose();
                 }}
                 text="自然BGM"
@@ -71,6 +74,9 @@ export const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
                 BGMName="rain"
                 onClick={() => {
                   playTrack("rain");
+                  if (isNightMode) {
+                    toggleNightMode();
+                  }
                   onClose();
                 }}
                 text="アンビエントBGM"
