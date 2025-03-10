@@ -57,7 +57,7 @@ export const useBGMPlayer = (
       case "star":
         return "ナイトBGM";
       default:
-        return "BGM";
+        return "BGMを選択";
     }
   };
 
