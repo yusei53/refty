@@ -7,11 +7,19 @@ type BGMSettingPopupAreaContainerProps = {
   stop: () => void;
   isNightMode: boolean;
   toggleNightMode: () => void;
+  getBGMName: () => string;
 };
 
 export const BGMSettingPopupAreaContainer: React.FC<
   BGMSettingPopupAreaContainerProps
-> = ({ currentTrack, playTrack, stop, isNightMode, toggleNightMode }) => {
+> = ({
+  currentTrack,
+  playTrack,
+  stop,
+  isNightMode,
+  toggleNightMode,
+  getBGMName
+}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -32,6 +40,7 @@ export const BGMSettingPopupAreaContainer: React.FC<
       stop={stop}
       isNightMode={isNightMode}
       toggleNightMode={toggleNightMode}
+      getBGMName={getBGMName}
     />
   );
 };

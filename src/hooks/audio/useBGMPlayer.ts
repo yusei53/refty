@@ -10,6 +10,7 @@ export const useBGMPlayer = (
   playTrack: (track: string) => Promise<void>;
   stop: () => void;
   currentTrack: string | null;
+  getBGMName: () => string;
 } => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [currentTrack, setCurrentTrack] = useState<string | null>(null);
@@ -46,5 +47,18 @@ export const useBGMPlayer = (
     }
   };
 
-  return { playTrack, stop, currentTrack };
+  const getBGMName = () => {
+    switch (currentTrack) {
+      case "bird":
+        return "自然BGM";
+      case "rain":
+        return "アンビエントBGM";
+      case "star":
+        return "ナイトBGM";
+      default:
+        return "BGM";
+    }
+  };
+
+  return { playTrack, stop, currentTrack, getBGMName };
 };

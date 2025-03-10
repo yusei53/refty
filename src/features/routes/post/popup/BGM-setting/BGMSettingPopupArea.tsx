@@ -14,6 +14,7 @@ type BGMSettingPopupAreaProps = {
   stop: () => void;
   isNightMode: boolean;
   toggleNightMode: () => void;
+  getBGMName: () => string;
 };
 
 const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
@@ -25,7 +26,8 @@ const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
   onClose,
   stop,
   isNightMode,
-  toggleNightMode
+  toggleNightMode,
+  getBGMName
 }) => {
   return (
     <>
@@ -42,26 +44,12 @@ const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
       >
         <Image
           src={currentTrack ? "/unlock.png" : "/lock.png"}
-          alt={
-            currentTrack === "bird"
-              ? "自然BGMアイコン"
-              : currentTrack === "rain"
-                ? "アンビエントBGMアイコン"
-                : currentTrack === "star"
-                  ? "ナイトBGMアイコン"
-                  : "BGMアイコン"
-          }
+          alt={getBGMName()}
           width={18}
           height={18}
           style={{ marginRight: 4 }}
         />
-        {currentTrack === "bird"
-          ? "自然BGM"
-          : currentTrack === "rain"
-            ? "アンビエントBGM"
-            : currentTrack === "star"
-              ? "ナイトBGM"
-              : "BGM"}
+        {getBGMName()}
       </Button>
       <Popper
         disablePortal
@@ -80,6 +68,7 @@ const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
             >
               <SelectedBGMOptionButton
                 currentTrack={currentTrack}
+                BGMName="bird"
                 onClick={() => {
                   playTrack("bird");
                   onClose();
@@ -91,6 +80,7 @@ const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
               <Divider sx={{ borderColor: theme.palette.grey[400] }} />
               <SelectedBGMOptionButton
                 currentTrack={currentTrack}
+                BGMName="rain"
                 onClick={() => {
                   playTrack("rain");
                   onClose();
@@ -102,6 +92,7 @@ const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
               <Divider sx={{ borderColor: theme.palette.grey[400] }} />
               <SelectedBGMOptionButton
                 currentTrack={currentTrack}
+                BGMName="star"
                 onClick={() => {
                   playTrack("star");
                   toggleNightMode();
@@ -114,6 +105,7 @@ const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
               <Divider sx={{ borderColor: theme.palette.grey[400] }} />
               <SelectedBGMOptionButton
                 currentTrack={currentTrack}
+                BGMName="stop"
                 onClick={() => {
                   stop();
                   if (isNightMode) {

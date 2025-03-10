@@ -7,6 +7,7 @@ import { theme } from "@/src/utils/theme";
 
 type SelectedBGMOptionButtonProps = {
   currentTrack: string;
+  BGMName: string;
   onClick: () => void;
   icon: string;
   text: string;
@@ -15,24 +16,12 @@ type SelectedBGMOptionButtonProps = {
 
 const SelectedBGMOptionButton: React.FC<SelectedBGMOptionButtonProps> = ({
   currentTrack,
+  BGMName,
   onClick,
   icon,
   text,
   description
 }) => {
-  const japaneseToEnglish = (text: string) => {
-    switch (text) {
-      case "自然BGM":
-        return "bird";
-      case "アンビエントBGM":
-        return "rain";
-      case "BGM停止":
-        return "stop";
-      default:
-        return text;
-    }
-  };
-
   return (
     <Button
       onClick={onClick}
@@ -54,7 +43,7 @@ const SelectedBGMOptionButton: React.FC<SelectedBGMOptionButtonProps> = ({
           style={{ marginRight: 4 }}
         />
         {text}
-        {currentTrack == japaneseToEnglish(text) && (
+        {currentTrack == BGMName && (
           <CheckIcon fontSize="small" sx={{ ml: 1 }} />
         )}
       </Box>

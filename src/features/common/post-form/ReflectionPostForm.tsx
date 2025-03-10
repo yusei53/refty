@@ -123,7 +123,8 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
     star: "/star.mp3"
   };
 
-  const { playTrack, stop, currentTrack } = useBGMPlayer(bgmSources);
+  const { playTrack, stop, currentTrack, getBGMName } =
+    useBGMPlayer(bgmSources);
 
   const animationWithSelectedBGM = () => {
     switch (currentTrack) {
@@ -182,6 +183,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
                     stop={stop}
                     isNightMode={isNightMode}
                     toggleNightMode={toggleNightMode}
+                    getBGMName={getBGMName}
                   />
                   {/* <Button
                     onClick={() => {
