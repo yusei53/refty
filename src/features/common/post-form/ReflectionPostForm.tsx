@@ -176,24 +176,14 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
             <Box display={"flex"}>
               <MarkdownSupportPopupAreaContainer />
               {!isSmallScreen && (
-                <>
-                  <BGMSettingPopupAreaContainer
-                    currentTrack={currentTrack ?? ""}
-                    playTrack={playTrack}
-                    stop={stop}
-                    isNightMode={isNightMode}
-                    toggleNightMode={toggleNightMode}
-                    getBGMName={getBGMName}
-                  />
-                  {/* <Button
-                    onClick={() => {
-                      playTrack("star");
-                      toggleNightMode();
-                    }}
-                  >
-                    {isNightMode ? "ライトモードに切替" : "ナイトモードに切替"}
-                  </Button> */}
-                </>
+                <BGMSettingPopupAreaContainer
+                  currentTrack={currentTrack ?? ""}
+                  playTrack={playTrack}
+                  stop={stop}
+                  isNightMode={isNightMode}
+                  toggleNightMode={toggleNightMode}
+                  getBGMName={getBGMName}
+                />
               )}
             </Box>
             <Box display={"flex"}>
