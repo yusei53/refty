@@ -6,6 +6,7 @@ import type { Folder } from "@/src/api/folder-api";
 import type { Control, FieldErrors } from "react-hook-form";
 import EmojiPicker from "../../routes/post/emoji/EmojiPicker";
 import { MarkdownEditor } from "../../routes/post/markdown-editor";
+import { BGMSettingPopupAreaContainer } from "../../routes/post/popup/BGM-setting/BGMSettingPopupAreaContainer";
 import { FolderSettingPopupAreaContainer } from "../../routes/post/popup/folder-setting";
 import { MarkdownSupportPopupAreaContainer } from "../../routes/post/popup/markdown-support";
 import { PublishSettingPopupAreaContainer } from "../../routes/post/popup/publish-setting";
@@ -175,28 +176,21 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
               <MarkdownSupportPopupAreaContainer />
               {!isSmallScreen && (
                 <>
-                  <Button onClick={() => playTrack("bird")}>
-                    自然BGMを再生
-                  </Button>
-                  <Button onClick={() => playTrack("rain")}>
-                    アンビエントBGMを再生
-                  </Button>
-                  <Button
-                    onClick={() => {
-                      stop();
-                      if (isNightMode) setIsNightMode(false);
-                    }}
-                  >
-                    BGMを停止
-                  </Button>
-                  <Button
+                  <BGMSettingPopupAreaContainer
+                    currentTrack={currentTrack ?? ""}
+                    playTrack={playTrack}
+                    stop={stop}
+                    isNightMode={isNightMode}
+                    toggleNightMode={toggleNightMode}
+                  />
+                  {/* <Button
                     onClick={() => {
                       playTrack("star");
                       toggleNightMode();
                     }}
                   >
                     {isNightMode ? "ライトモードに切替" : "ナイトモードに切替"}
-                  </Button>
+                  </Button> */}
                 </>
               )}
             </Box>
