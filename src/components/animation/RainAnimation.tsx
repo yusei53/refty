@@ -7,11 +7,11 @@ import { keyframes } from "@mui/system";
 export const RainAnimation = () => {
   const rains = useMemo(
     () =>
-      Array.from({ length: 60 }, () => ({
+      Array.from({ length: 70 }, () => ({
         left: `${Math.random() * 100}%`,
         delay: `${Math.random() * 5}s`,
         duration: 1 + Math.random() * 5,
-        height: 8 + Math.random() * 20
+        height: 9 + Math.random() * 20
       })),
     []
   );
@@ -23,6 +23,7 @@ export const RainAnimation = () => {
           key={index}
           position={"absolute"}
           left={rain.left}
+          top={"-5vh"}
           width={"1px"}
           height={rain.height}
           bgcolor={"rgba(220, 220, 220, 0.6)"}
