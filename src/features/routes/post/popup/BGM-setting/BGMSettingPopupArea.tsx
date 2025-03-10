@@ -39,7 +39,8 @@ const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
           border: "none",
           display: "flex",
           alignItems: "center",
-          whiteSpace: "nowrap"
+          whiteSpace: "nowrap",
+          ml: 4
         }}
       >
         <Image
