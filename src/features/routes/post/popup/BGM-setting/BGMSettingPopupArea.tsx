@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Box, Divider, Fade, Popper } from "@mui/material";
 import SelectedBGMOptionButton from "./SelectedBGMOptionButton";
 import { Button } from "@/src/components/button";
@@ -43,13 +42,6 @@ const BGMSettingPopupArea: React.FC<BGMSettingPopupAreaProps> = ({
           ml: 4
         }}
       >
-        <Image
-          src={currentTrack ? "/unlock.png" : "/lock.png"}
-          alt={getBGMName()}
-          width={18}
-          height={18}
-          style={{ marginRight: 4 }}
-        />
         {getBGMName()}
       </Button>
       <Popper
