@@ -1,16 +1,19 @@
 "use client";
-import { useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Box, keyframes } from "@mui/material";
 
 export const StarAnimation: React.FC = () => {
-  const twinkle = keyframes`
-    0% { opacity: 0.2; }
-    50% { opacity: 1; }
-    100% { opacity: 0.2; }
-  `;
-  const stars = useMemo(() => {
+  const [stars, setStars] = useState<React.ReactNode[]>([]);
+
+  useEffect(() => {
+    const twinkle = keyframes`
+      0% { opacity: 0.2; }
+      50% { opacity: 1; }
+      100% { opacity: 0.2; }
+    `;
+
     const starCount = 80;
-    return Array.from({ length: starCount }).map((_, i) => {
+    const generatedStars = Array.from({ length: starCount }).map((_, i) => {
       const top = Math.random() * 100;
       const left = Math.random() * 100;
       const size = Math.random() * 2 + 1;
@@ -32,7 +35,9 @@ export const StarAnimation: React.FC = () => {
         />
       );
     });
-  }, [twinkle]);
+
+    setStars(generatedStars);
+  }, []);
 
   return (
     <Box
