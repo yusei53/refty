@@ -23,7 +23,6 @@ import {
 } from "@/src/components/animation";
 import { Button } from "@/src/components/button";
 import { CustomInput } from "@/src/components/input";
-import { useBGMPlayer } from "@/src/hooks/audio/useBGMPlayer";
 import { useExtractTrueTags } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { theme } from "@/src/utils/theme";
 
@@ -58,6 +57,12 @@ type ReflectionPostFormProps = {
   isInputLog?: boolean;
   isMonologue?: boolean;
   folders: Folder[];
+  playTrack: (track: string) => void;
+  stop: () => void;
+  currentTrack: string | null;
+  getBGMName: () => string;
+  isNightMode: boolean;
+  setIsNightMode: (isNightMode: boolean) => void;
 };
 
 const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
@@ -76,12 +81,17 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   isAwareness = false,
   isInputLog = false,
   isMonologue = false,
-  folders
+  folders,
+  playTrack,
+  stop,
+  currentTrack,
+  getBGMName,
+  isNightMode,
+  setIsNightMode
 }) => {
   const [isComposing, setIsComposing] = useState(false);
   const editorRef = useRef<MarkdownEditorRef>(null);
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const [isNightMode, setIsNightMode] = useState(false);
 
   const activeTags = useExtractTrueTags({
     isDailyReflection,
@@ -117,16 +127,6 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
     }
   };
 
-  const bgmSources = {
-    bird: "/nature.mp3",
-    rain: "/rain.mp3",
-    star: "/star.mp3",
-    piano: "/piano.mp3"
-  };
-
-  const { playTrack, stop, currentTrack, getBGMName } =
-    useBGMPlayer(bgmSources);
-
   const animationWithSelectedBGM = () => {
     switch (currentTrack) {
       case "bird":
@@ -140,7 +140,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
     }
   };
 
-  const toggleNightMode = () => setIsNightMode((prev) => !prev);
+  const toggleNightMode = () => setIsNightMode(!isNightMode);
 
   return (
     <>

@@ -34,9 +34,9 @@ export const useBGMPlayer = (
       audioRef.current = new Audio(src);
       audioRef.current.loop = true;
 
-      const initialVolume = 0.1;
+      const initialVolume = 0.01;
       const mainVolume = 0.5;
-      const fadeInDuration = 3000;
+      const fadeInDuration = 4000;
       const fadeInInterval = 100;
       const steps = fadeInDuration / fadeInInterval;
       const volumeStep = (mainVolume - initialVolume) / steps;
