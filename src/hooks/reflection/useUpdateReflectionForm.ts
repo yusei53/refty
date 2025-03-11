@@ -20,6 +20,7 @@ export type useUpdateReflectionFormProps = {
   isInputLog: boolean;
   isMonologue: boolean;
   folderUUID?: string;
+  stopBGM: () => void;
 };
 
 export const useUpdateReflectionForm = ({
@@ -34,7 +35,8 @@ export const useUpdateReflectionForm = ({
   isAwareness,
   isInputLog,
   isMonologue,
-  folderUUID
+  folderUUID,
+  stopBGM
 }: useUpdateReflectionFormProps) => {
   const router = useRouter();
   const [selectedEmoji, setSelectedEmoji] = useState(charStamp);
@@ -97,6 +99,7 @@ export const useUpdateReflectionForm = ({
       } else {
         router.push(`/${username}/${reflectionCUID}?updated=true`);
       }
+      stopBGM();
     }
   );
 
