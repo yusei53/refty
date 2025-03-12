@@ -1,14 +1,15 @@
 "use client";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-import { Box, Container, Typography, useMediaQuery } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { LogoutButton } from "../../../features/routes/login";
 import { CustomLink } from "./CustomLink";
+import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 import { theme } from "@/src/utils/theme";
 
 export const DefaultFooter = () => {
   const { data: session } = useSession();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useIsMobile();
 
   return (
     <Box
@@ -42,7 +43,7 @@ export const DefaultFooter = () => {
               >
                 日々の振り返りを手助けする振り返りアプリ
               </Typography>
-              {!isSmallScreen && session && <LogoutButton />}
+              {!isMobile && session && <LogoutButton />}
             </Box>
             <Box display={"flex"} gap={8}>
               <Box display={"flex"} flexDirection={"column"} gap={2}>
@@ -63,7 +64,7 @@ export const DefaultFooter = () => {
                 )}
               </Box>
             </Box>
-            {isSmallScreen && session && (
+            {isMobile && session && (
               <Box mt={8}>
                 <LogoutButton />
               </Box>
