@@ -340,9 +340,7 @@ export const reflectionService = {
       })
     );
 
-    return {
-      hourlyReflections
-    };
+    return hourlyReflections;
   }
 };
 
