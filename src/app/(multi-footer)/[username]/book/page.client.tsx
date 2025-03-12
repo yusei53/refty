@@ -5,7 +5,7 @@ import "swiper/css/navigation";
 import { EffectCards, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import FolderIcon from "@mui/icons-material/Folder";
-import { Box, Typography, useMediaQuery } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import type { ReflectionBook } from "@/src/api/reflections-book-api";
 import { EmptyReflection } from "@/src/features/common/empty-reflection";
 import { ReflectionArticle } from "@/src/features/routes/reflection-detail/article";
@@ -13,6 +13,7 @@ import { SwipeIconDisplay } from "@/src/features/routes/reflections-book/SwipeIc
 import "@/src/features/routes/reflections-book/my-swiper.css";
 import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
 import { useSwipeIconVisibility } from "@/src/hooks/reflections-book/useSwipeIconVisibility";
+import useIsMobile from "@/src/hooks/responsive/useIsMobile";
 import { theme } from "@/src/utils/theme";
 
 type ReflectionsBookPageProps = {
@@ -30,7 +31,7 @@ const ReflectionsBookPage: React.FC<ReflectionsBookPageProps> = ({
   foldername,
   count
 }) => {
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useIsMobile();
   const isVisible = useSwipeIconVisibility();
   const { parseTagsToValue } = useParseTagsToValue();
 
@@ -75,8 +76,8 @@ const ReflectionsBookPage: React.FC<ReflectionsBookPageProps> = ({
         modules={[EffectCards, Navigation]}
         cardsEffect={{
           slideShadows: false,
-          perSlideRotate: isSmallScreen ? 0 : 2,
-          perSlideOffset: isSmallScreen ? 0 : 8
+          perSlideRotate: isMobile ? 0 : 2,
+          perSlideOffset: isMobile ? 0 : 8
         }}
         navigation
       >

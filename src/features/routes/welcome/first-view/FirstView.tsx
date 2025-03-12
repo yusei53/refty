@@ -1,9 +1,9 @@
-import { Box, Typography, useMediaQuery } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Button } from "@/src/components/button";
-import { theme } from "@/src/utils/theme";
+import useIsMobile from "@/src/hooks/responsive/useIsMobile";
 
 const FirstView = () => {
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useIsMobile();
 
   return (
     <Box
@@ -29,7 +29,7 @@ const FirstView = () => {
         lineHeight={1.8}
         fontSize={{ md: 18 }}
       >
-        {isSmallScreen ? (
+        {isMobile ? (
           <>
             リフティは、日々の気づきや感情を記録し、さまざまな人の多くの視点や価値観に触れることで新たな発見や自己成長を促す場所です。
           </>

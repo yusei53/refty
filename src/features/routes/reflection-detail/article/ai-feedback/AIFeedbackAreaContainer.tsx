@@ -1,10 +1,5 @@
 import { IoArrowUndoSharp } from "react-icons/io5";
-import {
-  AccordionDetails,
-  Box,
-  Typography,
-  useMediaQuery
-} from "@mui/material";
+import { AccordionDetails, Box, Typography } from "@mui/material";
 import type { AIFeedbackType } from "@/src/api/send-to-sqs-api";
 import { AICalling } from "./AICalling";
 import { AIFeedbackArea } from "./AIFeedbackArea";
@@ -12,6 +7,7 @@ import { SelectAITypePopupAreaContainer } from "./SelectAITypePopupAreaContainer
 import { Accordion, AccordionSummary } from "@/src/components/accordion";
 import { Button } from "@/src/components/button";
 import { useAIFeedbackHandler } from "@/src/hooks/ai-feedback/useAIFeedbackHandler";
+import useIsMobile from "@/src/hooks/responsive/useIsMobile";
 import { theme } from "@/src/utils/theme";
 
 type AIFeedbackAreaContainerProps = {
@@ -43,7 +39,7 @@ export const AIFeedbackAreaContainer: React.FC<
     handleSendToSQS
   } = useAIFeedbackHandler(reflectionCUID, aiFeedback, content, onSendToSQS);
 
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useIsMobile();
 
   return (
     <Accordion>
@@ -55,8 +51,8 @@ export const AIFeedbackAreaContainer: React.FC<
       <AccordionDetails sx={{ py: 0.5, px: 0 }}>
         <Box
           display={"flex"}
-          flexDirection={isSmallScreen ? "column-reverse" : "row"}
-          gap={isSmallScreen ? 2 : 0}
+          flexDirection={isMobile ? "column-reverse" : "row"}
+          gap={isMobile ? 2 : 0}
         >
           <Button
             onClick={handleSendToSQS}
@@ -78,7 +74,7 @@ export const AIFeedbackAreaContainer: React.FC<
                 AIType={AIType}
               />
               <Box display={"flex"} alignItems={"center"}>
-                {!isSmallScreen && (
+                {!isMobile && (
                   <Box
                     component={IoArrowUndoSharp}
                     sx={{
@@ -89,7 +85,7 @@ export const AIFeedbackAreaContainer: React.FC<
                   />
                 )}
                 <Typography
-                  fontSize={isSmallScreen ? 13 : 15}
+                  fontSize={isMobile ? 13 : 15}
                   color={theme.palette.grey[600]}
                 >
                   AIのタイプを選択

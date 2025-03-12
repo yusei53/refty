@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Box, Typography, useMediaQuery } from "@mui/material";
+import useIsMobile from "@/src/hooks/responsive/useIsMobile";
 import { theme } from "@/src/utils/theme";
 
 type EffectSectionProps = {
@@ -20,7 +21,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
   isShareSection = false,
   isSmartphonePicture = false
 }) => {
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useIsMobile();
   const isLarge = useMediaQuery(theme.breakpoints.up("xl"));
 
   return (
@@ -41,7 +42,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
         gap={5}
         my={{ xs: 6, md: 12 }}
       >
-        {!isSmallScreen && (
+        {!isMobile && (
           <Box
             bgcolor="#f3f4f5"
             display="flex"
@@ -68,7 +69,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
             />
           </Box>
         )}
-        {isSmartphonePicture && !isSmallScreen && (
+        {isSmartphonePicture && !isMobile && (
           <Image
             src="/lp/welcome-4-sp.png"
             alt="sp image"
@@ -96,7 +97,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
           >
             {title}
           </Typography>
-          {isSmallScreen && (
+          {isMobile && (
             <Box
               my={2.5}
               bgcolor="#f3f4f5"
@@ -123,7 +124,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
               />
             </Box>
           )}
-          {isSmartphonePicture && isSmallScreen && (
+          {isSmartphonePicture && isMobile && (
             <Image
               src="/lp/welcome-4-sp.png"
               alt="mp image"
