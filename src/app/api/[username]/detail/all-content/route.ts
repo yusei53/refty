@@ -4,13 +4,10 @@ import { reflectionRepository } from "@/src/infrastructure/repository/reflection
 import prisma from "@/src/lib/prisma";
 import { internalServerError, notFoundError } from "@/src/utils/http-error";
 
-type Params = {
-  params: {
-    username: string;
-  };
-};
-
-export async function GET(req: NextRequest, { params }: Params) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { username: string } }
+) {
   const { username } = params;
 
   try {
