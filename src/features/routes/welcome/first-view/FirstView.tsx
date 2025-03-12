@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { Button } from "@/src/components/button";
-import useIsMobile from "@/src/hooks/responsive/useIsMobile";
+import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 
 const FirstView = () => {
   const isMobile = useIsMobile();

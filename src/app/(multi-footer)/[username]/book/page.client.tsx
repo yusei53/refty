@@ -13,7 +13,7 @@ import { SwipeIconDisplay } from "@/src/features/routes/reflections-book/SwipeIc
 import "@/src/features/routes/reflections-book/my-swiper.css";
 import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
 import { useSwipeIconVisibility } from "@/src/hooks/reflections-book/useSwipeIconVisibility";
-import useIsMobile from "@/src/hooks/responsive/useIsMobile";
+import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 import { theme } from "@/src/utils/theme";
 
 type ReflectionsBookPageProps = {

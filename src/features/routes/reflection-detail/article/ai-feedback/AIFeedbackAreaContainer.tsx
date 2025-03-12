@@ -7,7 +7,7 @@ import { SelectAITypePopupAreaContainer } from "./SelectAITypePopupAreaContainer
 import { Accordion, AccordionSummary } from "@/src/components/accordion";
 import { Button } from "@/src/components/button";
 import { useAIFeedbackHandler } from "@/src/hooks/ai-feedback/useAIFeedbackHandler";
-import useIsMobile from "@/src/hooks/responsive/useIsMobile";
+import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 import { theme } from "@/src/utils/theme";
 
 type AIFeedbackAreaContainerProps = {

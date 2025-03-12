@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import useIsMobile from "@/src/hooks/responsive/useIsMobile";
+import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 
 type SelectedAITypeButtonProps = {
   icon: string;

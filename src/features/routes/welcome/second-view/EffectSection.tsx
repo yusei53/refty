@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Box, Typography, useMediaQuery } from "@mui/material";
-import useIsMobile from "@/src/hooks/responsive/useIsMobile";
+import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 import { theme } from "@/src/utils/theme";
 
 type EffectSectionProps = {

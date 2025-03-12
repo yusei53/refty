@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Box, Typography } from "@mui/material";
-import useIsMobile from "@/src/hooks/responsive/useIsMobile";
+import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 
 export type AppealCardProps = {
   image: string;
