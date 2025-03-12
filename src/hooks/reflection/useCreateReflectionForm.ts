@@ -27,7 +27,10 @@ export const createReflectionSchema = z.object({
 
 export type CreateReflectionSchemaType = z.infer<typeof createReflectionSchema>;
 
-export const useCreateReflectionForm = (username: string | undefined) => {
+export const useCreateReflectionForm = (
+  username: string | undefined,
+  stopBGM: () => void
+) => {
   const router = useRouter();
   const [selectedEmoji, setSelectedEmoji] = useState("💭");
   const [selectedFolderUUID, setSelectedFolderUUID] = useState<string | null>(
@@ -88,6 +91,7 @@ export const useCreateReflectionForm = (username: string | undefined) => {
       } else {
         router.push(`/${username}`);
       }
+      stopBGM();
     }
   );
 

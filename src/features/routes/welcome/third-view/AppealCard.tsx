@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { Box, Typography, useMediaQuery } from "@mui/material";
-import { theme } from "@/src/utils/theme";
+import { Box, Typography } from "@mui/material";
+import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 
 export type AppealCardProps = {
   image: string;
@@ -15,7 +15,7 @@ const AppealCard: React.FC<AppealCardProps> = ({
   description,
   isComingSoon = false
 }) => {
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useIsMobile();
 
   return (
     <Box
@@ -53,7 +53,7 @@ const AppealCard: React.FC<AppealCardProps> = ({
         alt={"feature image"}
         width={90}
         height={90}
-        style={isSmallScreen ? { width: 70, height: 70, marginRight: 10 } : {}}
+        style={isMobile ? { width: 70, height: 70, marginRight: 10 } : {}}
       />
       <Box textAlign={{ xs: "left", sm: "center" }}>
         <Typography

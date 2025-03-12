@@ -1,4 +1,3 @@
-import React from "react";
 import SwipeIcon from "@mui/icons-material/Swipe";
 import { Box } from "@mui/material";
 import { theme } from "@/src/utils/theme";
