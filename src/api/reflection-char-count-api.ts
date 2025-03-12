@@ -12,8 +12,7 @@ export const reflectionCharCountAPI = {
   ): Promise<Result<AllReflectionContent, 404>> {
     const path = `/api/${username}/detail/all-content`;
     const options: FetchURLOptions = {
-      method: "GET",
-      next: { tags: [`reflections-${username}`] }
+      method: "GET"
     };
     return await fetchURL<AllReflectionContent, 404>(path, options);
   }
