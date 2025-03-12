@@ -9,14 +9,14 @@ type PageProps = {
 };
 
 const page = async ({ params }: PageProps) => {
-  const TotalContentWithHTML =
-    await reflectionCharCountAPI.getTotalReflectionContent(params.username);
-  if (TotalContentWithHTML === 404) {
+  const AllContentWithHTML =
+    await reflectionCharCountAPI.getAllReflectionContent(params.username);
+  if (AllContentWithHTML === 404) {
     return notFound();
   }
 
-  const totalPlainContent = removeHtmlTags(TotalContentWithHTML.totalContent);
-  return <>{totalPlainContent.length}</>;
+  const allPlainContent = removeHtmlTags(AllContentWithHTML.allContent);
+  return <>{allPlainContent.length}</>;
 };
 
 export default page;

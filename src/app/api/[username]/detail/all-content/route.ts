@@ -28,11 +28,11 @@ export async function GET(req: NextRequest, { params }: Params) {
     });
 
     // MEMO:文字列をすべて結合
-    const totalContent = reflections
+    const allContent = reflections
       .map((reflection) => reflection.content || "")
       .join("");
-    return NextResponse.json({ totalContent });
+    return NextResponse.json({ allContent });
   } catch (error) {
-    return internalServerError("GET", "投稿内容の結合取得", error);
+    return internalServerError("GET", "投稿内容を取得", error);
   }
 }
