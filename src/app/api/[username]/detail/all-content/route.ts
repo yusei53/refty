@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { reflectionRepository } from "@/src/infrastructure/repository/reflectionRepository";
 import prisma from "@/src/lib/prisma";
 import { internalServerError, notFoundError } from "@/src/utils/http-error";
 
@@ -20,12 +21,9 @@ export async function GET(req: NextRequest, { params }: Params) {
       return notFoundError("ユーザーが見つかりません");
     }
 
-    const reflections = await prisma.reflection.findMany({
-      where: { userId: user.id },
-      select: {
-        content: true
-      }
-    });
+    const reflections = await reflectionRepository.getReflectionContent(
+      user.id
+    );
 
     // MEMO:文字列をすべて結合
     const allContent = reflections
