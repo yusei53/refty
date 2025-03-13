@@ -299,5 +299,17 @@ export const reflectionRepository = {
         content: true
       }
     });
+  },
+
+  async getPublicPrivateCount(userId: string) {
+    return await prisma.reflection.groupBy({
+      by: ["isPublic"],
+      where: {
+        userId
+      },
+      _count: {
+        _all: true
+      }
+    });
   }
 };

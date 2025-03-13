@@ -341,6 +341,20 @@ export const reflectionService = {
     );
 
     return hourlyReflections;
+  },
+
+  async getPublicPrivateCount(userId: string) {
+    const reflections =
+      await reflectionRepository.getPublicPrivateCount(userId);
+
+    // MEMO: 公開と非公開の投稿数を取得
+    const publicCount = reflections.find((r) => r.isPublic)?._count._all ?? 0;
+    const privateCount = reflections.find((r) => !r.isPublic)?._count._all ?? 0;
+
+    return {
+      public: publicCount,
+      private: privateCount
+    };
   }
 };
 
