@@ -13,16 +13,14 @@ export const SelectedAITypeButton: React.FC<SelectedAITypeButtonProps> = ({
 }) => {
   const isMobile = useIsMobile();
   return (
-    <>
-      <Box
-        display={"flex"}
-        alignItems={"center"}
-        gap={1}
-        fontSize={isMobile ? 12 : 14}
-      >
-        <Typography fontSize={20}>{icon}</Typography>
-        {detail}
-      </Box>
-    </>
+    <Box
+      display={"flex"}
+      alignItems={"center"}
+      gap={1}
+      fontSize={isMobile ? 12 : 14}
+    >
+      <Typography fontSize={20}>{icon}</Typography>
+      {detail}
+    </Box>
   );
 };
