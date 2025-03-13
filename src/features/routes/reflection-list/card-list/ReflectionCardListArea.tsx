@@ -21,36 +21,34 @@ const ReflectionCardListArea: React.FC<ReflectionCardListAreaProps> = ({
   onSelect
 }) => {
   return (
-    <>
-      <Grid container sx={{ position: "relative" }}>
-        {reflections.map((reflection, index) => {
-          const selected =
-            typeof isSelected === "function"
-              ? isSelected(reflection.reflectionCUID)
-              : (isSelected ?? false);
+    <Grid container sx={{ position: "relative" }}>
+      {reflections.map((reflection, index) => {
+        const selected =
+          typeof isSelected === "function"
+            ? isSelected(reflection.reflectionCUID)
+            : (isSelected ?? false);
 
-          return (
-            <Grid
-              key={reflection.reflectionCUID}
-              size={{ xs: 12, md: 6 }}
-              display={"flex"}
-              justifyContent={"center"}
-              mb={3.5}
-              sx={animation(index)}
-            >
-              <ReflectionCard
-                username={username}
-                reflection={reflection}
-                isCurrentUser={isCurrentUser}
-                isSelectMode={isSelectMode}
-                isSelected={selected}
-                onSelect={onSelect}
-              />
-            </Grid>
-          );
-        })}
-      </Grid>
-    </>
+        return (
+          <Grid
+            key={reflection.reflectionCUID}
+            size={{ xs: 12, md: 6 }}
+            display={"flex"}
+            justifyContent={"center"}
+            mb={3.5}
+            sx={animation(index)}
+          >
+            <ReflectionCard
+              username={username}
+              reflection={reflection}
+              isCurrentUser={isCurrentUser}
+              isSelectMode={isSelectMode}
+              isSelected={selected}
+              onSelect={onSelect}
+            />
+          </Grid>
+        );
+      })}
+    </Grid>
   );
 };
 
