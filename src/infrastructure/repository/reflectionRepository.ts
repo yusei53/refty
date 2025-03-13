@@ -288,5 +288,16 @@ export const reflectionRepository = {
       where: { reflectionCUID },
       data: { isPublic }
     });
+  },
+
+  async getReflectionContent(userId: string) {
+    return prisma.reflection.findMany({
+      where: {
+        userId
+      },
+      select: {
+        content: true
+      }
+    });
   }
 };
