@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Controller } from "react-hook-form";
-import { Box, Stack, useMediaQuery } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import type { MarkdownEditorRef } from "../../routes/post/markdown-editor";
 import type { Folder } from "@/src/api/folder-api";
 import type { Control, FieldErrors } from "react-hook-form";
@@ -24,7 +24,7 @@ import {
 import { Button } from "@/src/components/button";
 import { CustomInput } from "@/src/components/input";
 import { useExtractTrueTags } from "@/src/hooks/reflection-tag/useExtractTrueTags";
-import { theme } from "@/src/utils/theme";
+import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 
 type FormValues = {
   title: string;
@@ -91,7 +91,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
 }) => {
   const [isComposing, setIsComposing] = useState(false);
   const editorRef = useRef<MarkdownEditorRef>(null);
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useIsMobile();
 
   const activeTags = useExtractTrueTags({
     isDailyReflection,
@@ -176,7 +176,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
           >
             <Box display={"flex"}>
               <MarkdownSupportPopupAreaContainer />
-              {!isSmallScreen && (
+              {!isMobile && (
                 <BGMSettingPopupAreaContainer
                   currentTrack={currentTrack ?? ""}
                   playTrack={playTrack}
@@ -211,7 +211,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
               </Button>
             </Box>
           </Box>
-          {isSmallScreen && (
+          {isMobile && (
             <Box
               px={1.5}
               py={0.8}
@@ -270,7 +270,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
                 </Box>
               )}
             />
-            {!isSmallScreen && (
+            {!isMobile && (
               <Box display={"flex"} gap={2} sx={{ color: "black !important" }}>
                 <SelectTagPopupContainer
                   value={activeTags}
