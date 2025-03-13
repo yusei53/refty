@@ -2,7 +2,6 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { Box, useMediaQuery } from "@mui/material";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
-import type { TagType } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import type { User } from "@prisma/client";
 import { type Folder } from "@/src/api/folder-api";
 import {
@@ -24,8 +23,6 @@ import { Sidebar } from "@/src/features/routes/reflection-list/sidebar";
 import { FolderInitializer } from "@/src/features/routes/reflection-list/sidebar/FolderInitializer";
 import { useFolderSelection } from "@/src/hooks/folder/useFolderSelection";
 import { usePagination } from "@/src/hooks/reflection/usePagination";
-import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
-import { useFolderStore } from "@/src/utils/store/useFolderStore";
 
 type UserReflectionListPageProps = {
   currentUsername: User["username"];
@@ -60,7 +57,6 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   const searchParams = useSearchParams();
   const isPWA = useMediaQuery("(display-mode: standalone)");
   const { handlePageChange } = usePagination();
-
   const {
     isSelectMode,
     selectedReflections,
@@ -69,33 +65,18 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     handleSelectMode,
     handleSelect,
     handleCancelSelectMode,
-    handleAddReflectionToFolder
+    handleAddReflectionToFolder,
+    getSelectedInfo
   } = useFolderSelection(username);
 
   const isCurrentUser = currentUsername === username;
+  // NOTE: 選択されたフォルダかタグの投稿数と名前を取得
+  const selectedInfo = getSelectedInfo(tagCountList);
+
   const isModalOpen = searchParams.get("status") === "posted";
   const handleCloseModal = () => {
     router.push(`/${username}`);
   };
-
-  const foldersState = useFolderStore((state) => state.folders);
-  const selectedInfo = useFolderStore((state) => state.selectedInfo);
-  const currentFolder = foldersState.find((f) => f.folderUUID === selectedInfo);
-  const selected = (() => {
-    if (currentFolder) {
-      return {
-        name: currentFolder.name,
-        count: currentFolder.countByFolder || 0
-      };
-    }
-    if (tagMap[selectedInfo as keyof TagType]) {
-      return {
-        name: tagMap[selectedInfo as keyof TagType],
-        count: tagCountList[selectedInfo as keyof ReflectionTagCountList] || 0
-      };
-    }
-    return null;
-  })();
 
   return (
     <>
@@ -119,7 +100,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           isCurrentUser={isCurrentUser}
         />
         <SelectionHeader
-          selectedInfo={selected}
+          selectedInfo={selectedInfo}
           isFolderSelected={isFolderSelected}
           isSelectMode={isSelectMode}
           onCancel={handleCancelSelectMode}

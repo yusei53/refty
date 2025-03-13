@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import type { ReflectionTagCountList } from "@/src/api/reflection-api";
+import { tagMap, type TagType } from "../reflection-tag/useExtractTrueTags";
 import { folderAPI } from "@/src/api/folder-api";
 import { reflectionAPI } from "@/src/api/reflection-api";
 import { getReflectionWithFolderInfo } from "@/src/utils/actions/get-reflection-with-folder-info";
@@ -22,6 +24,35 @@ export const useFolderSelection = (username: string) => {
     (f) => f.folderUUID === selectedInfo
   );
   const disableAdd = selectedReflections.length === 0 || isLoading;
+
+  const getFolderSelectionInfo = (folderUUID: string) => {
+    const folder = foldersState.find((f) => f.folderUUID === folderUUID);
+    return folder
+      ? { name: folder.name, count: folder.countByFolder || 0 }
+      : null;
+  };
+
+  const getTagSelectionInfo = (
+    tagId: string,
+    tagCountList: ReflectionTagCountList
+  ) => {
+    const tagName = tagMap[tagId as keyof TagType];
+    return tagName
+      ? {
+          name: tagName,
+          count: tagCountList[tagId as keyof ReflectionTagCountList] || 0
+        }
+      : null;
+  };
+
+  // NOTE: 選択されたフォルダかタグの投稿数を取得する。
+  const getSelectedInfo = (tagCountList: ReflectionTagCountList) => {
+    if (!selectedInfo) return null;
+    return (
+      getFolderSelectionInfo(selectedInfo) ||
+      getTagSelectionInfo(selectedInfo, tagCountList)
+    );
+  };
 
   const handleSelectMode = async (folderUUID: string) => {
     router.push(`/${username}`);
@@ -69,7 +100,6 @@ export const useFolderSelection = (username: string) => {
   };
 
   return {
-    isLoading,
     isSelectMode,
     selectedReflections,
     selectedInfo,
@@ -78,6 +108,9 @@ export const useFolderSelection = (username: string) => {
     handleSelectMode,
     handleSelect,
     handleCancelSelectMode,
-    handleAddReflectionToFolder
+    handleAddReflectionToFolder,
+    getFolderSelectionInfo,
+    getTagSelectionInfo,
+    getSelectedInfo
   };
 };
