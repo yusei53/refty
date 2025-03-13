@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { reflectionCharCountAPI } from "@/src/api/reflection-char-count-api";
+import { userReportAPI } from "@/src/api/user-report-api";
 import { removeHtmlTags } from "@/src/utils/remove-html-tags";
 
 type PageProps = {
@@ -10,12 +10,13 @@ type PageProps = {
 
 const page = async ({ params }: PageProps) => {
   // TODO: それぞれのapiを並列処理する
-  const AllContentWithHTML =
-    await reflectionCharCountAPI.getAllReflectionContent(params.username);
+  const AllContentWithHTML = await userReportAPI.getAllReflectionContent(
+    params.username
+  );
   if (AllContentWithHTML === 404) {
     return notFound();
   }
-  const publicPrivateCount = await reflectionCharCountAPI.getPublicPrivateCount(
+  const publicPrivateCount = await userReportAPI.getPublicPrivateCount(
     params.username
   );
   if (publicPrivateCount === 404) {
