@@ -11,12 +11,11 @@ type PublicPrivateCount = {
   private: number;
 };
 
-// TODO: 命名変更する
-export const reflectionCharCountAPI = {
+export const userReportAPI = {
   async getAllReflectionContent(
     username: string
   ): Promise<Result<AllReflectionContent, 404>> {
-    const path = `/api/${username}/detail/all-content`;
+    const path = `/api/${username}/report/all-content`;
     const options: FetchURLOptions = {
       method: "GET"
     };
@@ -26,7 +25,7 @@ export const reflectionCharCountAPI = {
   async getPublicPrivateCount(
     username: string
   ): Promise<Result<PublicPrivateCount, 404>> {
-    const path = `/api/${username}/detail/public-private-reflection`;
+    const path = `/api/${username}/report/public-private-reflection`;
     const options: FetchURLOptions = {
       method: "GET"
     };
