@@ -45,7 +45,7 @@ export const useFolderSelection = (username: string) => {
       : null;
   };
 
-  // NOTE: 選択されたフォルダかタグの投稿数を取得する。
+  // NOTE: 選択されたフォルダかタグの名前と投稿数を取得する
   const getSelectedInfo = (tagCountList: ReflectionTagCountList) => {
     if (!selectedInfo) return null;
     return (
