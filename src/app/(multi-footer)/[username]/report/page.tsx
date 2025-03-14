@@ -9,30 +9,25 @@ type PageProps = {
 };
 
 const page = async ({ params }: PageProps) => {
-  // TODO: それぞれのapiを並列処理する
-  const AllContentWithHTML = await userReportAPI.getAllReflectionContent(
-    params.username
-  );
-  if (AllContentWithHTML === 404) {
-    return notFound();
-  }
-  const publicPrivateCount = await userReportAPI.getPublicPrivateCount(
-    params.username
-  );
-  if (publicPrivateCount === 404) {
+  const [reflectionContent, reflectionCounts] = await Promise.all([
+    userReportAPI.getAllReflectionContent(params.username),
+    userReportAPI.getPublicPrivateCount(params.username)
+  ]);
+
+  if (reflectionContent === 404 || reflectionCounts === 404) {
     return notFound();
   }
 
-  const allPlainContent = removeHtmlTags(AllContentWithHTML.allContent);
+  const allPlainContent = removeHtmlTags(reflectionContent.allContent);
   return (
     <>
       <div>
         <span>公開</span>
-        {publicPrivateCount.public}
+        {reflectionCounts.public}
       </div>
       <div>
         <span>非公開</span>
-        {publicPrivateCount.private}
+        {reflectionCounts.private}
       </div>
       <div>
         <span>文字数</span>
