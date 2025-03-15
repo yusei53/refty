@@ -16,15 +16,14 @@ export async function GET(
   { params }: { params: { username: string } }
 ) {
   const { username } = params;
+  const user = await prisma.user.findUnique({
+    where: { username }
+  });
+  if (!user) {
+    return notFoundError("ユーザーが見つかりません");
+  }
 
   try {
-    const user = await prisma.user.findUnique({
-      where: { username }
-    });
-    if (!user) {
-      return notFoundError("ユーザーが見つかりません");
-    }
-
     const reflectionFolders = await prisma.reflectionFolder.findMany({
       where: { userId: user.id },
       select: {
