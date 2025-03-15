@@ -76,11 +76,10 @@ export async function PATCH(
   }
 }
 
-export async function DELETE({
-  params
-}: {
-  params: { reflectionCUID: string };
-}) {
+export async function DELETE(
+  _: NextRequest,
+  { params }: { params: { reflectionCUID: string } }
+) {
   try {
     const { reflectionCUID } = params;
 
