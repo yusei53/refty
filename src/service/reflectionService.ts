@@ -312,6 +312,49 @@ export const reflectionService = {
       reflectionCUID,
       isPublic
     });
+  },
+
+  async getReflectionsByHourGroup(userId: string) {
+    const reflections =
+      await reflectionRepository.getReflectionsDateByUserId(userId);
+
+    // MEMO: 0-23時の時間帯を初期化
+    const hourlyCount = Array.from({ length: 24 }).reduce<
+      Record<number, number>
+    >(
+      (acc, _, index) => ({ ...acc, [index]: 0 }),
+      {} as Record<number, number>
+    );
+
+    // MEMO: 各投稿の時間帯をカウント
+    reflections.forEach((reflection) => {
+      const hour = reflection.createdAt.getUTCHours();
+      hourlyCount[hour]++;
+    });
+
+    // MEMO: 時間帯ごとの投稿数を配列形式に変換
+    const hourlyReflections = Object.entries(hourlyCount).map(
+      ([hour, count]) => ({
+        hour: parseInt(hour),
+        count
+      })
+    );
+
+    return hourlyReflections;
+  },
+
+  async getPublicPrivateCount(userId: string) {
+    const reflections =
+      await reflectionRepository.getPublicPrivateCount(userId);
+
+    // MEMO: 公開と非公開の投稿数を取得
+    const publicCount = reflections.find((r) => r.isPublic)?._count._all ?? 0;
+    const privateCount = reflections.find((r) => !r.isPublic)?._count._all ?? 0;
+
+    return {
+      public: publicCount,
+      private: privateCount
+    };
   }
 };
 
