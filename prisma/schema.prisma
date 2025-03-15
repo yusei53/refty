@@ -12,9 +12,7 @@ model User {
   id                 String              @id @default(uuid())
   name               String
   email              String?              @unique
-  emailVerified      DateTime?
   image              String?
-  hashedPassword     String?
   createdAt          DateTime             @default(now())
   accounts           Account[]
   reflections        Reflection[]
@@ -23,6 +21,7 @@ model User {
   bio                String?
   goal               String?
   website            String?
+  isReportOpen       Boolean           @default(false)
 }
 
 model Reflection {
