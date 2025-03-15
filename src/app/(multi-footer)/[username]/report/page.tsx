@@ -9,12 +9,17 @@ type PageProps = {
 };
 
 const page = async ({ params }: PageProps) => {
-  const [reflectionContent, reflectionCounts] = await Promise.all([
+  const [reflectionContent, reflectionCounts, userProfile] = await Promise.all([
     userReportAPI.getAllReflectionContent(params.username),
-    userReportAPI.getPublicPrivateCount(params.username)
+    userReportAPI.getPublicPrivateCount(params.username),
+    userReportAPI.getUserProfile(params.username)
   ]);
 
-  if (reflectionContent === 404 || reflectionCounts === 404) {
+  if (
+    reflectionContent === 404 ||
+    reflectionCounts === 404 ||
+    userProfile === 404
+  ) {
     return notFound();
   }
 
@@ -32,6 +37,14 @@ const page = async ({ params }: PageProps) => {
       <div>
         <span>文字数</span>
         {allPlainContent.length}
+      </div>
+      <div>
+        <span>プロフィール</span>
+        <img src={userProfile.image} alt="プロフィール画像" />
+        <p>{userProfile.bio}</p>
+        <a href={userProfile.website} target="_blank" rel="noopener noreferrer">
+          {userProfile.website}
+        </a>
       </div>
     </>
   );
