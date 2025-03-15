@@ -41,10 +41,8 @@ const page = async ({ params }: PageProps) => {
       <div>
         <span>プロフィール</span>
         <img src={userProfile.image} alt="プロフィール画像" />
-        <p>{userProfile.bio}</p>
-        <a href={userProfile.website} target="_blank" rel="noopener noreferrer">
-          {userProfile.website}
-        </a>
+        <p>レポートの公開非公開</p>
+        <p>現在{userProfile.isReportOpen ? "公開" : "非公開"}中</p>
       </div>
     </>
   );

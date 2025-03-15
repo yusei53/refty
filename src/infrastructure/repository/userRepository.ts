@@ -24,8 +24,7 @@ export const userRepository = {
       where: { username },
       select: {
         image: true,
-        bio: true,
-        website: true
+        isReportOpen: true
       }
     });
   },

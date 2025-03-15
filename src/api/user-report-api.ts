@@ -13,8 +13,7 @@ type PublicPrivateCount = {
 
 type UserProfile = {
   image: string;
-  bio: string;
-  website: string;
+  isReportOpen: boolean;
 };
 
 export const userReportAPI = {

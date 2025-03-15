@@ -26,8 +26,7 @@ export async function GET(
 
     return NextResponse.json({
       image: userProfile.image,
-      bio: userProfile.bio,
-      website: userProfile.website
+      isReportOpen: userProfile.isReportOpen
     });
   } catch (error) {
     return internalServerError("GET", "プロフィール情報", error);
