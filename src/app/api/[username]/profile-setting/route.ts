@@ -12,7 +12,7 @@ import {
 } from "@/src/utils/http-error";
 
 export async function GET(
-  req: NextRequest,
+  _: NextRequest,
   { params }: { params: { username: string } }
 ) {
   try {

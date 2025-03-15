@@ -13,7 +13,7 @@ import {
 } from "@/src/utils/http-error";
 
 export async function GET(
-  req: NextRequest,
+  _: NextRequest,
   { params }: { params: { reflectionCUID: string } }
 ) {
   try {
@@ -76,10 +76,11 @@ export async function PATCH(
   }
 }
 
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { reflectionCUID: string } }
-) {
+export async function DELETE({
+  params
+}: {
+  params: { reflectionCUID: string };
+}) {
   try {
     const { reflectionCUID } = params;
 
