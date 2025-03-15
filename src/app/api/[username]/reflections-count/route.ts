@@ -5,7 +5,7 @@ import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username"
 import { internalServerError, notFoundError } from "@/src/utils/http-error";
 
 export async function GET(
-  req: NextRequest,
+  _: NextRequest,
   { params }: { params: { username: string } }
 ) {
   try {
