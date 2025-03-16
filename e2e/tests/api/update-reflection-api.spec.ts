@@ -25,7 +25,7 @@ test.describe("認証済みユーザー", () => {
     await page.context().addCookies([authSessionCookie]);
   });
 
-  test("存在しない投稿のCUIDが指定された場合、404エラーが返される", async ({
+  test("指定された投稿のCUIDが存在しない場合、404エラーが返される", async ({
     page
   }) => {
     const response = await page.request.patch(`/api/reflection/detail/abcdef`, {
@@ -34,7 +34,7 @@ test.describe("認証済みユーザー", () => {
     expect(response.status()).toBe(404);
   });
 
-  test("投稿のCUIDが自身の投稿でない場合、403エラーが返される", async ({
+  test("指定された投稿のCUIDが自身の投稿でない場合、403エラーが返される", async ({
     page
   }) => {
     const response = await page.request.patch(
@@ -45,7 +45,9 @@ test.describe("認証済みユーザー", () => {
     expect(response.status()).toBe(403);
   });
 
-  test("投稿のCUIDが自身の投稿である場合、200が返される", async ({ page }) => {
+  test("指定された投稿のCUIDが自身の投稿である場合、200が返される", async ({
+    page
+  }) => {
     const response = await page.request.patch(
       `/api/reflection/detail/${reflection.reflectionCUID}`,
       { data: requestReflection }
