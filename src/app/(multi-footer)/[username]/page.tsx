@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getServerSession } from "next-auth";
-import authOptions from "../../api/auth/[...nextauth]/options";
 import UserReflectionListPage from "./page.client";
 import { folderAPI } from "@/src/api/folder-api";
 import { reflectionAPI } from "@/src/api/reflection-api";
 import { reflectionsCountAPI } from "@/src/api/reflections-count-api";
 import { getHeaders } from "@/src/utils/get-headers";
+import { getUserSession } from "@/src/utils/get-user-session";
 import { generateMeta } from "@/src/utils/metadata";
 
 export const generateMetadata = async ({
@@ -29,7 +28,7 @@ const page = async ({
     folder?: string;
   };
 }) => {
-  const session = await getServerSession(authOptions);
+  const session = await getUserSession();
   const headers = getHeaders();
   const { username } = params;
   const currentPage = searchParams.page ? parseInt(searchParams.page, 10) : 1;
@@ -74,7 +73,7 @@ const page = async ({
 
   return (
     <UserReflectionListPage
-      currentUsername={session?.user.username || null}
+      currentUsername={session?.username || null}
       userImage={reflectionsWithUser.userImage}
       username={username}
       bio={reflectionsWithUser.bio}

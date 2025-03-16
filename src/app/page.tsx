@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getServerSession } from "next-auth";
 import { reflectionAPI } from "../api/reflection-api";
 import { reflectionsTagCountAPI } from "../api/reflections-tag-count-api";
+import { getUserSession } from "../utils/get-user-session";
 import { meta } from "../utils/metadata";
-import authOptions from "./api/auth/[...nextauth]/options";
 import RootPage from "./page.client";
 
 export const metadata: Metadata = meta.rootPage;
@@ -16,8 +15,7 @@ const page = async ({
 }) => {
   const currentPage = searchParams.page ? parseInt(searchParams.page, 10) : 1;
   const selectedTag = searchParams.tag || undefined;
-
-  const session = await getServerSession(authOptions);
+  const session = await getUserSession();
 
   const [count, reflectionAll] = await Promise.all([
     reflectionsTagCountAPI.getReflectionTagCountList(),
@@ -30,8 +28,8 @@ const page = async ({
 
   return (
     <RootPage
-      currentUsername={session?.user.username || null}
-      image={session?.user.image || ""}
+      currentUsername={session?.username || null}
+      image={session?.image || ""}
       reflections={reflectionAll.reflections}
       currentPage={currentPage}
       totalPage={reflectionAll.totalPage}

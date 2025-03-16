@@ -1,15 +1,13 @@
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import authOptions from "../../auth/[...nextauth]/options";
 import prisma from "@/src/lib/prisma";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
+import { getUserSession } from "@/src/utils/get-user-session";
 import {
   badRequestError,
   forbiddenError,
   internalServerError,
   unauthorizedError
 } from "@/src/utils/http-error";
-
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -20,8 +18,8 @@ export async function POST(req: Request) {
     } = body;
     const userId = await getUserIdByUsername(username);
 
-    const session = await getServerSession(authOptions);
-    if (!session?.user.id) {
+    const session = await getUserSession();
+    if (!session) {
       return unauthorizedError("認証されていません");
     }
 
