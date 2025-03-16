@@ -5,14 +5,15 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url      = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
 }
 
 model User {
   id                 String              @id @default(uuid())
   name               String
   email              String?              @unique
+  emailVerified      DateTime?
   image              String?
+  hashedPassword     String?
   createdAt          DateTime             @default(now())
   accounts           Account[]
   reflections        Reflection[]
