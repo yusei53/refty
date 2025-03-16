@@ -5,11 +5,7 @@ import { meta } from "@/src/utils/metadata";
 export const metadata: Metadata = meta.welcomePage;
 
 const page = () => {
-  return (
-    <>
-      <WelcomePage />
-    </>
-  );
+  return <WelcomePage />;
 };
 
 export default page;

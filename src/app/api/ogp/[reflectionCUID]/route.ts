@@ -4,7 +4,7 @@ import { opengraphRepository } from "@/src/infrastructure/repository/opengraphRe
 import { internalServerError, notFoundError } from "@/src/utils/http-error";
 
 export async function GET(
-  request: NextRequest,
+  _: NextRequest,
   { params }: { params: { reflectionCUID: string } }
 ) {
   try {

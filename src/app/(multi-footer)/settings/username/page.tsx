@@ -17,23 +17,22 @@ const page = async ({ searchParams }: { searchParams: { page?: string } }) => {
     redirect(`/${session.user.username}`);
   }
 
-  const countResult = await reflectionsTagCountAPI.getReflectionTagCountList();
-  const reflectionsResult = await reflectionAPI.getReflectionAll();
+  const [count, reflectionAll] = await Promise.all([
+    reflectionsTagCountAPI.getReflectionTagCountList(),
+    reflectionAPI.getReflectionAll()
+  ]);
 
-  if (countResult === 500 || reflectionsResult === 404) {
+  if (count === 500 || reflectionAll === 404) {
     return notFound();
   }
-
-  // MEMO: 並列データフェッチ
-  const [count, result] = await Promise.all([countResult, reflectionsResult]);
 
   return (
     <SettingUsernameModalPage
       currentUsername={session?.user.username || null}
       image={session?.user.image || ""}
-      reflections={result.reflections}
+      reflections={reflectionAll.reflections}
       currentPage={currentPage}
-      totalPage={result.totalPage}
+      totalPage={reflectionAll.totalPage}
       tagCountList={count.tagCountList}
     />
   );

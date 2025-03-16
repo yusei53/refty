@@ -10,7 +10,7 @@ import {
 } from "@/src/utils/http-error";
 
 export async function DELETE(
-  req: NextRequest,
+  _: NextRequest,
   { params }: { params: { username: string; folderUUID: string } }
 ) {
   try {

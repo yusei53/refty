@@ -37,61 +37,56 @@ const page = async ({
   const selectedFolder = searchParams.folder || undefined;
   const status = searchParams.status;
 
-  const countResult = await reflectionsCountAPI.getReflectionsCount(username);
-  const reflectionsResult = await reflectionAPI.getReflectionsByUsername(
-    headers,
-    username,
-    currentPage,
-    selectedTag,
-    selectedFolder
-  );
-  const folderResult = await folderAPI.getFolder(username);
+  const [reflectionCount, reflectionsWithUser, folders] = await Promise.all([
+    reflectionsCountAPI.getReflectionsCount(username),
+    reflectionAPI.getReflectionsByUsername(
+      headers,
+      username,
+      currentPage,
+      selectedTag,
+      selectedFolder
+    ),
+    folderAPI.getFolder(username)
+  ]);
 
   if (
-    countResult === 404 ||
-    reflectionsResult === 404 ||
-    folderResult === 404
+    reflectionCount === 404 ||
+    reflectionsWithUser === 404 ||
+    folders === 404
   ) {
     return notFound();
   }
 
-  // MEMO: letは本来使いたくないが、頻繁に再代入はされないため一旦はこれ
   let randomReflection = null;
   if (status === "posted") {
     randomReflection = await reflectionAPI.getRandomReflection(
       headers,
       username
     );
-
     if (
       randomReflection === 403 ||
       randomReflection === 404 ||
-      countResult.totalReflections === "1" // MEMO: 1件しかない場合はランダム表示しない, 0件の場合は404判定
+      reflectionCount.totalReflections === "1"
     ) {
       randomReflection = null;
     }
   }
 
-  const [reflectionCount, reflectionsWithUser, reflectionFolder] =
-    await Promise.all([countResult, reflectionsResult, folderResult]);
-
   return (
-    <>
-      <UserReflectionListPage
-        currentUsername={session?.user.username || null}
-        userImage={reflectionsWithUser.userImage}
-        username={username}
-        bio={reflectionsWithUser.bio}
-        website={reflectionsWithUser.website}
-        reflectionCount={reflectionCount}
-        reflections={reflectionsWithUser.reflections}
-        currentPage={currentPage}
-        totalPage={reflectionsWithUser.totalPage}
-        tagCountList={reflectionsWithUser.tagCountList}
-        randomReflection={randomReflection}
-        folders={reflectionFolder}
-      />
-    </>
+    <UserReflectionListPage
+      currentUsername={session?.user.username || null}
+      userImage={reflectionsWithUser.userImage}
+      username={username}
+      bio={reflectionsWithUser.bio}
+      website={reflectionsWithUser.website}
+      reflectionCount={reflectionCount}
+      reflections={reflectionsWithUser.reflections}
+      currentPage={currentPage}
+      totalPage={reflectionsWithUser.totalPage}
+      tagCountList={reflectionsWithUser.tagCountList}
+      randomReflection={randomReflection}
+      folders={folders}
+    />
   );
 };
 
