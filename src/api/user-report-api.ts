@@ -11,6 +11,11 @@ type PublicPrivateCount = {
   private: number;
 };
 
+type UserProfile = {
+  image: string;
+  isReportOpen: boolean;
+};
+
 export const userReportAPI = {
   async getAllReflectionContent(
     username: string
@@ -30,5 +35,13 @@ export const userReportAPI = {
       method: "GET"
     };
     return await fetchURL<PublicPrivateCount, 404>(path, options);
+  },
+
+  async getUserProfile(username: string): Promise<Result<UserProfile, 404>> {
+    const path = `/api/${username}/report/profile`;
+    const options: FetchURLOptions = {
+      method: "GET"
+    };
+    return await fetchURL<UserProfile, 404>(path, options);
   }
 };
