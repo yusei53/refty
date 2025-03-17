@@ -23,6 +23,7 @@ export async function GET(
       return badRequestError("ReflectionCUIDが必要です");
     }
 
+    // TODO: サーバー側で他人の非公開投稿は403を返すようにする
     const res = await reflectionService.getDetail(reflectionCUID);
 
     if (!res) {
@@ -41,10 +42,6 @@ export async function PATCH(
   try {
     const body = await req.json();
     const { reflectionCUID } = params;
-
-    if (!reflectionCUID) {
-      return badRequestError("ReflectionCUIDが必要です");
-    }
     const session = await getUserSession();
     if (!session) {
       return unauthorizedError("認証されていません");

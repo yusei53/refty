@@ -94,7 +94,7 @@ export const useUpdateReflectionForm = ({
 
       if (res === 401) {
         router.push(`/login`);
-      } else if (res === 400 || res === 403) {
+      } else if (res === 403 || res === 404) {
         notFound();
       } else {
         router.push(`/${username}/${reflectionCUID}?updated=true`);
