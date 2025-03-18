@@ -10,7 +10,7 @@ test.describe("未認証ユーザー", () => {
   test("指定したユーザーネームが存在しない場合、404エラーが返される", async ({
     page
   }) => {
-    const response = await page.request.get("/api/username/report/all-content");
+    const response = await page.request.get("/api/abcdef/report/all-content");
     expect(response.status()).toBe(404);
   });
 });
@@ -21,12 +21,10 @@ test.describe("認証済みユーザー", () => {
   });
 
   test("200が返される", async ({ page }) => {
+    // TODO: decodeしなくてもいいmock - userを作成する;
     const decodedJwt = await authJwt.decode();
-    if (!decodedJwt) {
-      throw new Error("decodedJwt is null");
-    }
     const response = await page.request.get(
-      `/api/${decodedJwt.username}/report/all-content`
+      `/api/${decodedJwt?.username}/report/all-content`
     );
     expect(response.status()).toBe(200);
   });
