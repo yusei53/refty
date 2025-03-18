@@ -7,7 +7,7 @@ test.describe("未認証ユーザー", () => {
     await page.context().clearCookies();
   });
 
-  test("ユーザーネームが存在しないとき、404エラーが返される", async ({
+  test("指定したユーザーネームが存在しない場合、404エラーが返される", async ({
     page
   }) => {
     const response = await page.request.get("/api/username/report/all-content");
