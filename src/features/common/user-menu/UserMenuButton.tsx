@@ -24,7 +24,7 @@ export const UserMenuButton: React.FC<UserMenuButtonProps> = ({
         display: "block",
         borderRadius: "none",
         py: 1,
-        px: 1.2,
+        pr: 1.2,
         mx: 1.2,
         "&:hover": {
           backgroundColor: theme.palette.primary.contrastText

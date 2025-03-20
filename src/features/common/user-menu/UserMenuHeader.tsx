@@ -80,6 +80,7 @@ export const UserMenuHeader: React.FC<UserMenuHeaderProps> = ({
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={0}>
             <Box
+              width={190}
               borderRadius={2.5}
               bgcolor={"white"}
               py={1}
