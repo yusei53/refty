@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
-import { userReportAPI } from "@/src/api/user-report-api";
-import { removeHtmlTags } from "@/src/utils/remove-html-tags";
-import { getServerSession } from "next-auth";
-import authOptions from "@/src/app/api/auth/[...nextauth]/options";
+// import { getServerSession } from "next-auth";
 import { UserReportPage } from "./page.client";
+import { userReportAPI } from "@/src/api/user-report-api";
+// import authOptions from "@/src/app/api/auth/[...nextauth]/options";
+import { removeHtmlTags } from "@/src/utils/remove-html-tags";
 
 type PageProps = {
   params: {
@@ -12,7 +12,7 @@ type PageProps = {
 };
 
 const page = async ({ params }: PageProps) => {
-  const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
   const [reflectionContent, reflectionCounts, userProfile] = await Promise.all([
     userReportAPI.getAllReflectionContent(params.username),
     userReportAPI.getPublicPrivateCount(params.username),

@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 
 type UserReportPageProps = {
@@ -40,7 +41,12 @@ export const UserReportPage = ({
       </div>
       <div>
         <span>プロフィール</span>
-        <img src={userProfile.image} alt="プロフィール画像" />
+        <Image
+          width={50}
+          height={50}
+          src={userProfile.image}
+          alt={`${username}の画像`}
+        />
         <p>レポートの公開非公開</p>
         <p>現在{userProfile.isReportOpen ? "公開" : "非公開"}中</p>
       </div>
