@@ -1,6 +1,5 @@
-import { Box, Typography, useMediaQuery } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { IOSSwitch } from "@/src/components/switch";
-import { theme } from "@/src/utils/theme";
 
 type ToggleJapaneseLabelProps = {
   onToggleLabel: () => void;
@@ -9,16 +8,8 @@ type ToggleJapaneseLabelProps = {
 const ToggleJapaneseLabel: React.FC<ToggleJapaneseLabelProps> = ({
   onToggleLabel
 }) => {
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
-
   return (
-    <Box
-      display={"flex"}
-      alignItems={"center"}
-      mx={{ xs: 1, md: 0.5 }}
-      // MEMO: md以下時にmb適用
-      mb={isSmallScreen ? 1 : undefined}
-    >
+    <Box display={"flex"} alignItems={"center"} mx={{ xs: 1, md: 0.5 }}>
       <Typography fontSize={11} mr={0.8}>
         日本語表示
       </Typography>

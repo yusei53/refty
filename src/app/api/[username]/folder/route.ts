@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import { v4 as uuidv4 } from "uuid";
 import authOptions from "../../auth/[...nextauth]/options";
 import prisma from "@/src/lib/prisma";
+import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
 import {
   internalServerError,
   notFoundError,
@@ -12,21 +13,19 @@ import {
 } from "@/src/utils/http-error";
 
 export async function GET(
-  req: NextRequest,
+  _: NextRequest,
   { params }: { params: { username: string } }
 ) {
   const { username } = params;
+  const userId = await getUserIdByUsername(username);
+
+  if (!userId) {
+    return notFoundError("ユーザーが見つかりません");
+  }
 
   try {
-    const user = await prisma.user.findUnique({
-      where: { username }
-    });
-    if (!user) {
-      return notFoundError("ユーザーが見つかりません");
-    }
-
     const reflectionFolders = await prisma.reflectionFolder.findMany({
-      where: { userId: user.id },
+      where: { userId },
       select: {
         folderUUID: true,
         name: true,

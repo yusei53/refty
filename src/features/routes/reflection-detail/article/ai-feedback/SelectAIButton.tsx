@@ -59,7 +59,6 @@ export const SelectAIButton: React.FC<SelectAIButtonProps> = ({
           </Box>
         </Box>
       </Button>
-
       <Divider sx={{ borderColor: theme.palette.grey[400] }} />
     </>
   );

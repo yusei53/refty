@@ -11,14 +11,11 @@ import {
   notFoundError
 } from "@/src/utils/http-error";
 
-type Params = {
-  params: {
-    username: string;
-  };
-};
-
 const customPrisma = prisma.$extends(prismaRandom());
-export async function GET(req: NextRequest, { params }: Params) {
+export async function GET(
+  _: NextRequest,
+  { params }: { params: { username: string } }
+) {
   try {
     const username = params.username;
 

@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import prisma from "@/src/lib/prisma";
+import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
 import { internalServerError, notFoundError } from "@/src/utils/http-error";
 
 type Params = {
@@ -11,21 +12,16 @@ type Params = {
 
 export async function GET(req: NextRequest, { params }: Params) {
   const { username } = params;
+  const userId = await getUserIdByUsername(username);
+  if (!userId) {
+    return notFoundError("ユーザーが見つかりません");
+  }
 
   try {
-    const user = await prisma.user.findUnique({
-      where: { username }
-    });
-    if (!user) {
-      return notFoundError("ユーザーが見つかりません");
-    }
-
     const folderUUID = req.nextUrl.searchParams.get("folder") ?? undefined;
 
     // folderUUIDが指定されていれば、そのフォルダに属する反映のみ取得、なければ全反映を取得
-    const whereCondition = folderUUID
-      ? { userId: user.id, folderUUID }
-      : { userId: user.id };
+    const whereCondition = folderUUID ? { userId, folderUUID } : { userId };
 
     const reflections = await prisma.reflection.findMany({
       where: whereCondition,
@@ -47,7 +43,7 @@ export async function GET(req: NextRequest, { params }: Params) {
 
     const folder = folderUUID
       ? await prisma.reflectionFolder.findFirst({
-          where: { folderUUID, userId: user.id },
+          where: { folderUUID, userId },
           select: { name: true }
         })
       : null;
@@ -55,7 +51,7 @@ export async function GET(req: NextRequest, { params }: Params) {
 
     const count = folderUUID
       ? await prisma.reflection.count({
-          where: { userId: user.id, folderUUID }
+          where: { userId, folderUUID }
         })
       : null;
 
