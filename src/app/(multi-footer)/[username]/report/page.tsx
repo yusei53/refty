@@ -1,6 +1,9 @@
 import { notFound } from "next/navigation";
 import { userReportAPI } from "@/src/api/user-report-api";
 import { removeHtmlTags } from "@/src/utils/remove-html-tags";
+import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
+import { getServerSession } from "next-auth";
+import authOptions from "@/src/app/api/auth/[...nextauth]/options";
 
 type PageProps = {
   params: {
@@ -9,6 +12,7 @@ type PageProps = {
 };
 
 const page = async ({ params }: PageProps) => {
+  const session = await getServerSession(authOptions);
   const [reflectionContent, reflectionCounts, userProfile] = await Promise.all([
     userReportAPI.getAllReflectionContent(params.username),
     userReportAPI.getPublicPrivateCount(params.username),
@@ -23,9 +27,18 @@ const page = async ({ params }: PageProps) => {
     return notFound();
   }
 
+  // TODO: レポートが非公開かつ、閲覧者が本人でない場合は404を返す404ページを返す。開発中は表示しておくため、リリース時にはコメントアウトを解除する
+  // NOTE: 1時的に公開非公開試したい人はコメントアウトを解除してください
+  // if (!userProfile.isReportOpen && session?.user.username !== params.username) {
+  //   return notFound();
+  // }
   const allPlainContent = removeHtmlTags(reflectionContent.allContent);
   return (
     <>
+      <UserMenuHeaderContainer
+        userImage={userProfile.image}
+        username={params.username}
+      />
       <div>
         <span>公開</span>
         {reflectionCounts.public}

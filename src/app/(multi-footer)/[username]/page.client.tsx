@@ -15,6 +15,7 @@ import {
   NumberedPagination
 } from "@/src/components/pagination";
 import { EmptyReflection } from "@/src/features/common/empty-reflection";
+import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 import ReflectionCardListArea from "@/src/features/routes/reflection-list/card-list/ReflectionCardListArea";
 import { GoodJobModal } from "@/src/features/routes/reflection-list/modal";
 import UserProfileArea from "@/src/features/routes/reflection-list/profile/UserProfileArea";
@@ -26,6 +27,7 @@ import { usePagination } from "@/src/hooks/reflection/usePagination";
 
 type UserReflectionListPageProps = {
   currentUsername: User["username"];
+  currentUserImage: string | undefined;
   userImage: string;
   username: string;
   bio: string;
@@ -41,6 +43,7 @@ type UserReflectionListPageProps = {
 
 const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   currentUsername,
+  currentUserImage,
   userImage,
   username,
   bio,
@@ -91,6 +94,10 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
             />
           </>
         )}
+        <UserMenuHeaderContainer
+          userImage={currentUserImage || ""}
+          username={currentUsername}
+        />
         <UserProfileArea
           userImage={userImage}
           username={username}

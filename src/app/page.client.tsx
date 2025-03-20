@@ -9,6 +9,7 @@ import { PostNavigationButton } from "../components/button";
 import { Footer } from "../components/footer";
 import { ArrowPagination, NumberedPagination } from "../components/pagination";
 import { SearchBar } from "../features/common/search-bar";
+import { UserMenuHeaderContainer } from "../features/common/user-menu";
 import ReflectionAllCardListArea from "../features/routes/reflection-all-list/card-list/ReflectionAllCardListArea";
 import { ReflectionAllHeader } from "../features/routes/reflection-all-list/header";
 import { usePagination } from "../hooks/reflection/usePagination";
@@ -45,8 +46,9 @@ const RootPage: React.FC<RootPageProps> = ({
 
   return (
     <>
-      <Container maxWidth="md" sx={{ mt: { xs: 8, sm: 6 }, mb: 6 }}>
-        <ReflectionAllHeader currentUsername={currentUsername} image={image} />
+      <Container maxWidth="md" sx={{ mt: { xs: 8, sm: 11 }, mb: 6 }}>
+        <UserMenuHeaderContainer userImage={image} username={currentUsername} />
+        <ReflectionAllHeader />
         <SearchBar
           tags={Object.values(tagMap)}
           selectedTag={selectedTag}
