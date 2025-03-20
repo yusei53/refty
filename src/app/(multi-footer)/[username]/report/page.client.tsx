@@ -3,37 +3,32 @@ import Image from "next/image";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 
 type UserReportPageProps = {
-  userProfile: {
-    image: string;
-    isReportOpen: boolean;
-  };
-  reflectionCounts: {
-    public: number;
-    private: number;
-  };
-  contentLength: number;
+  image: string;
   username: string;
+  isReportOpen: boolean;
+  publicCount: number;
+  privateCount: number;
+  contentLength: number;
 };
 
-export const UserReportPage = ({
-  userProfile,
-  reflectionCounts,
+export const UserReportPage: React.FC<UserReportPageProps> = ({
+  image,
+  isReportOpen,
+  publicCount,
+  privateCount,
   contentLength,
   username
-}: UserReportPageProps) => {
+}) => {
   return (
     <>
-      <UserMenuHeaderContainer
-        userImage={userProfile.image}
-        username={username}
-      />
+      <UserMenuHeaderContainer userImage={image} username={username} />
       <div>
         <span>公開</span>
-        {reflectionCounts.public}
+        {publicCount}
       </div>
       <div>
         <span>非公開</span>
-        {reflectionCounts.private}
+        {privateCount}
       </div>
       <div>
         <span>文字数</span>
@@ -41,14 +36,9 @@ export const UserReportPage = ({
       </div>
       <div>
         <span>プロフィール</span>
-        <Image
-          width={50}
-          height={50}
-          src={userProfile.image}
-          alt={`${username}の画像`}
-        />
+        <Image width={50} height={50} src={image} alt={`${username}の画像`} />
         <p>レポートの公開非公開</p>
-        <p>現在{userProfile.isReportOpen ? "公開" : "非公開"}中</p>
+        <p>現在{isReportOpen ? "公開" : "非公開"}中</p>
       </div>
     </>
   );

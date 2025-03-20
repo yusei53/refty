@@ -35,10 +35,12 @@ const page = async ({ params }: PageProps) => {
   const allPlainContent = removeHtmlTags(reflectionContent.allContent);
   return (
     <UserReportPage
-      userProfile={userProfile}
-      reflectionCounts={reflectionCounts}
-      contentLength={allPlainContent.length}
+      image={userProfile.image}
       username={params.username}
+      isReportOpen={userProfile.isReportOpen}
+      publicCount={reflectionCounts.public}
+      privateCount={reflectionCounts.private}
+      contentLength={allPlainContent.length}
     />
   );
 };
