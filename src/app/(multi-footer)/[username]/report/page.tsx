@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import { userReportAPI } from "@/src/api/user-report-api";
 import { removeHtmlTags } from "@/src/utils/remove-html-tags";
-import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 import { getServerSession } from "next-auth";
 import authOptions from "@/src/app/api/auth/[...nextauth]/options";
+import { UserReportPage } from "./page.client";
 
 type PageProps = {
   params: {
@@ -34,30 +34,12 @@ const page = async ({ params }: PageProps) => {
   // }
   const allPlainContent = removeHtmlTags(reflectionContent.allContent);
   return (
-    <>
-      <UserMenuHeaderContainer
-        userImage={userProfile.image}
-        username={params.username}
-      />
-      <div>
-        <span>公開</span>
-        {reflectionCounts.public}
-      </div>
-      <div>
-        <span>非公開</span>
-        {reflectionCounts.private}
-      </div>
-      <div>
-        <span>文字数</span>
-        {allPlainContent.length}
-      </div>
-      <div>
-        <span>プロフィール</span>
-        <img src={userProfile.image} alt="プロフィール画像" />
-        <p>レポートの公開非公開</p>
-        <p>現在{userProfile.isReportOpen ? "公開" : "非公開"}中</p>
-      </div>
-    </>
+    <UserReportPage
+      userProfile={userProfile}
+      reflectionCounts={reflectionCounts}
+      contentLength={allPlainContent.length}
+      username={params.username}
+    />
   );
 };
 
