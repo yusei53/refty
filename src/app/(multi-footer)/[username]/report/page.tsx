@@ -28,7 +28,7 @@ const page = async ({ params }: PageProps) => {
   }
 
   // TODO: レポートが非公開かつ、閲覧者が本人でない場合は404を返す404ページを返す。開発中は表示しておくため、リリース時にはコメントアウトを解除する
-  // NOTE: 1時的に公開非公開試したい人はコメントアウトを解除してください
+  // NOTE: 一時的に公開非公開試したい人はコメントアウトを解除してください
   // if (!userProfile.isReportOpen && session?.user.username !== params.username) {
   //   return notFound();
   // }
