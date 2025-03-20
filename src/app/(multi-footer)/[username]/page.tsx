@@ -75,6 +75,7 @@ const page = async ({
   return (
     <UserReflectionListPage
       currentUsername={session?.user.username || null}
+      currentUserImage={session?.user.image || undefined}
       userImage={reflectionsWithUser.userImage}
       username={username}
       bio={reflectionsWithUser.bio}
