@@ -23,7 +23,10 @@ export async function PATCH(
       data: { isReportOpen }
     });
 
-    return NextResponse.json(updatedIsReportOpen, { status: 200 });
+    return NextResponse.json(
+      { isReportOpen: updatedIsReportOpen.isReportOpen },
+      { status: 200 }
+    );
   } catch (error) {
     return internalServerError("PATCH", "レポートの公開設定", error);
   }
