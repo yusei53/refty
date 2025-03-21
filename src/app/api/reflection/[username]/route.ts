@@ -20,11 +20,7 @@ export async function GET(
     return notFoundError("ユーザーが見つかりません");
   }
   const session = await getUserSession();
-  if (!session) {
-    return notFoundError("ユーザーが見つかりません");
-  }
-
-  const isCurrentUser = session.username === username;
+  const isCurrentUser = session?.username === username;
 
   try {
     const page = parseInt(req.nextUrl.searchParams.get("page") || "1", 10);
