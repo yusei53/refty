@@ -27,7 +27,7 @@ import { usePagination } from "@/src/hooks/reflection/usePagination";
 
 type UserReflectionListPageProps = {
   currentUsername: User["username"];
-  currentUserImage: string | undefined;
+  currentUserImage: string;
   userImage: string;
   username: string;
   bio: string;
