@@ -1,9 +1,10 @@
 import { revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import authOptions from "../../../auth/[...nextauth]/options";
 import { reflectionRepository } from "@/src/infrastructure/repository/reflectionRepository";
 import { reflectionService } from "@/src/service/reflectionService";
-import { getUserSession } from "@/src/utils/get-user-session";
 import {
   badRequestError,
   forbiddenError,
@@ -42,7 +43,8 @@ export async function PATCH(
   try {
     const body = await req.json();
     const { reflectionCUID } = params;
-    const session = await getUserSession();
+
+    const session = await getServerSession(authOptions);
     if (!session) {
       return unauthorizedError("認証されていません");
     }
@@ -53,7 +55,7 @@ export async function PATCH(
       return notFoundError("振り返りが見つかりません");
     }
 
-    if (reflection.userId !== session.id) {
+    if (reflection.userId !== session.user.id) {
       return forbiddenError("振り返りの編集権限がありません");
     }
 
@@ -62,7 +64,7 @@ export async function PATCH(
       ...body
     });
 
-    revalidateTag(`reflections-${session.username}`);
+    revalidateTag(`reflections-${session.user.username}`);
     revalidateTag("reflections-all");
 
     return NextResponse.json(updatedReflection, { status: 200 });
@@ -78,10 +80,15 @@ export async function DELETE(
   try {
     const { reflectionCUID } = params;
 
-    const session = await getUserSession();
+    const session = await getServerSession(authOptions);
     if (!session) {
       return unauthorizedError("認証されていません");
     }
+
+    if (!session.user.id) {
+      return unauthorizedError("認証されていません");
+    }
+
     const reflection = await reflectionService.delete(reflectionCUID);
 
     if (!reflection) {

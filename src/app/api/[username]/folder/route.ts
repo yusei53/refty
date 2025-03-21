@@ -1,10 +1,11 @@
 import { revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
 import { v4 as uuidv4 } from "uuid";
+import authOptions from "../../auth/[...nextauth]/options";
 import prisma from "@/src/lib/prisma";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
-import { getUserSession } from "@/src/utils/get-user-session";
 import {
   internalServerError,
   notFoundError,
@@ -49,9 +50,9 @@ export async function GET(
 export async function POST(req: NextRequest) {
   try {
     const { name } = await req.json();
-    const session = await getUserSession();
+    const session = await getServerSession(authOptions);
 
-    if (!session) {
+    if (!session?.user.username) {
       return unauthorizedError("認証されていません");
     }
 
@@ -61,10 +62,10 @@ export async function POST(req: NextRequest) {
       data: {
         folderUUID,
         name,
-        userId: session.id
+        userId: session.user.id
       }
     });
-    revalidateTag(`${session.username}-folder`);
+    revalidateTag(`${session.user.username}-folder`);
 
     return NextResponse.json(folder, { status: 201 });
   } catch (error) {

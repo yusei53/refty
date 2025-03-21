@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getServerSession } from "next-auth";
 import UpdateProfileSettingsPage from "./page.client";
 import { profileAPI } from "@/src/api/profile-api";
-import { getUserSession } from "@/src/utils/get-user-session";
+import authOptions from "@/src/app/api/auth/[...nextauth]/options";
 import { meta } from "@/src/utils/metadata";
 
 export const metadata: Metadata = meta.settingProfilePage;
 
 const page = async () => {
-  const session = await getUserSession();
-  if (!session?.username) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user.username) {
     return notFound();
   }
-  const profile = await profileAPI.getUserProfile(session.username);
+  const profile = await profileAPI.getUserProfile(session.user.username);
   if (profile === 404) {
     return notFound();
   }
@@ -20,7 +21,7 @@ const page = async () => {
   return (
     <UpdateProfileSettingsPage
       image={profile.image}
-      username={session.username}
+      username={session.user.username}
       bio={profile.bio}
       goal={profile.goal}
       website={profile.website}

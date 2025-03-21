@@ -1,9 +1,10 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
 import prismaRandom from "prisma-extension-random";
+import authOptions from "../../auth/[...nextauth]/options";
 import prisma from "@/src/lib/prisma";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
-import { getUserSession } from "@/src/utils/get-user-session";
 import {
   forbiddenError,
   internalServerError,
@@ -15,24 +16,26 @@ export async function GET(
   _: NextRequest,
   { params }: { params: { username: string } }
 ) {
-  const username = params.username;
-
-  if (!username) {
-    return notFoundError("ユーザーネームが見つかりません");
-  }
-
-  const userId = await getUserIdByUsername(username);
-  if (!userId) {
-    return notFoundError("ユーザーが見つかりません");
-  }
-
-  const session = await getUserSession();
-
-  const isCurrentUser = session?.username === username;
-  if (!isCurrentUser) {
-    return forbiddenError("権限がありません");
-  }
   try {
+    const username = params.username;
+
+    if (!username) {
+      return notFoundError("ユーザーネームが見つかりません");
+    }
+
+    const userId = await getUserIdByUsername(username);
+    const session = await getServerSession(authOptions);
+
+    const isCurrentUser = session?.user.username === username;
+
+    if (!isCurrentUser) {
+      return forbiddenError("権限がありません");
+    }
+
+    if (!userId) {
+      return notFoundError("ユーザーが見つかりません");
+    }
+
     const randomReflection = await customPrisma.reflection.findRandom({
       where: { userId },
       select: {
