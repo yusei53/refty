@@ -1,8 +1,9 @@
 import { revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import authOptions from "../auth/[...nextauth]/options";
 import { reflectionService } from "@/src/service/reflectionService";
-import { getUserSession } from "@/src/utils/get-user-session";
 import {
   internalServerError,
   notFoundError,
@@ -35,7 +36,7 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const session = await getUserSession();
+    const session = await getServerSession(authOptions);
     if (!session) {
       return unauthorizedError("認証されていません");
     }
@@ -45,10 +46,10 @@ export async function POST(req: NextRequest) {
     }
     const reflection = await reflectionService.create({
       ...body,
-      userId: session.id
+      userId: session.user.id
     });
 
-    revalidateTag(`reflections-${session.username}`);
+    revalidateTag(`reflections-${session.user.username}`);
     revalidateTag("reflections-all");
 
     return NextResponse.json(reflection, { status: 201 });

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
+import { getServerSession } from "next-auth";
 import Loading from "./loading";
 import { reflectionAPI } from "@/src/api/reflection-api";
+import authOptions from "@/src/app/api/auth/[...nextauth]/options";
 import { addIdsToHeadings } from "@/src/utils/add-ids-to-headings";
-import { getUserSession } from "@/src/utils/get-user-session";
 import { generateMeta } from "@/src/utils/metadata";
 
 const ReflectionDetailPage = dynamic(
@@ -30,19 +31,19 @@ type PageProps = {
 };
 
 const page = async ({ params }: PageProps) => {
-  const session = await getUserSession();
+  const session = await getServerSession(authOptions);
   const { reflectionCUID } = params;
 
   const reflection =
     await reflectionAPI.getDetailReflectionByCUID(reflectionCUID);
   if (
     reflection === 404 ||
-    (reflection.userId !== session?.id && !reflection.isPublic)
+    (reflection.userId !== session?.user.id && !reflection.isPublic)
   ) {
     return notFound();
   }
 
-  const isCurrentUser = session?.username === reflection.user.username;
+  const isCurrentUser = session?.user.username === reflection.user.username;
 
   //MEMO: contentの見出しにidを追加
   const contentWithIds = addIdsToHeadings(reflection.content);

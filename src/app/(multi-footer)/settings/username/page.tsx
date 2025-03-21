@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
 import SettingUsernameModalPage from "./page.client";
 import { reflectionAPI } from "@/src/api/reflection-api";
 import { reflectionsTagCountAPI } from "@/src/api/reflections-tag-count-api";
-import { getUserSession } from "@/src/utils/get-user-session";
+import authOptions from "@/src/app/api/auth/[...nextauth]/options";
 import { meta } from "@/src/utils/metadata";
 
 export const metadata: Metadata = meta.settingUsernamePage;
 
 const page = async ({ searchParams }: { searchParams: { page?: string } }) => {
-  const session = await getUserSession();
+  const session = await getServerSession(authOptions);
   const currentPage = searchParams.page ? parseInt(searchParams.page, 10) : 1;
-  // NOTE: usernameが設定されている場合、/${currentUser.username}にリダイレクト
-  if (session?.username) {
-    redirect(`/${session.username}`);
+  //usernameが設定されている場合、/${currentUser.username}にリダイレクト
+  if (session?.user.username) {
+    redirect(`/${session.user.username}`);
   }
 
   const [count, reflectionAll] = await Promise.all([
@@ -27,8 +28,8 @@ const page = async ({ searchParams }: { searchParams: { page?: string } }) => {
 
   return (
     <SettingUsernameModalPage
-      currentUsername={session?.username || null}
-      image={session?.image || ""}
+      currentUsername={session?.user.username || null}
+      image={session?.user.image || ""}
       reflections={reflectionAll.reflections}
       currentPage={currentPage}
       totalPage={reflectionAll.totalPage}
