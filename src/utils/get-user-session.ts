@@ -5,8 +5,5 @@ import authOptions from "@/src/app/api/auth/[...nextauth]/options";
 
 export const getUserSession = async (): Promise<Session["user"] | null> => {
   const session = await getServerSession(authOptions);
-  if (!session?.user.id || !session.user.username) {
-    return null;
-  }
-  return session.user;
+  return session?.user ?? null;
 };
