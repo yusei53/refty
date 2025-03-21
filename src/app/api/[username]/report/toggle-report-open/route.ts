@@ -25,6 +25,6 @@ export async function PATCH(
 
     return NextResponse.json(updatedIsReportOpen, { status: 200 });
   } catch (error) {
-    return internalServerError("PATCH", "レポートの公開設定の更新", error);
+    return internalServerError("PATCH", "レポートの公開設定", error);
   }
 }
