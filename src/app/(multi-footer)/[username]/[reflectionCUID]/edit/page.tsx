@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
 import ReflectionUpdateFormPage from "./page.client";
 import { folderAPI } from "@/src/api/folder-api";
 import { reflectionAPI } from "@/src/api/reflection-api";
-import authOptions from "@/src/app/api/auth/[...nextauth]/options";
+import { getUserSession } from "@/src/utils/get-user-session";
 import { generateMeta } from "@/src/utils/metadata";
 
 export const generateMetadata = async ({
@@ -24,19 +23,19 @@ type PageProps = {
 
 const page = async ({ params }: PageProps) => {
   const { reflectionCUID } = params;
-  const session = await getServerSession(authOptions);
+  const session = await getUserSession();
 
   const reflection =
     await reflectionAPI.getDetailReflectionByCUID(reflectionCUID);
-  if (reflection === 404 || reflection.userId !== session?.user.id) {
+  if (reflection === 404 || reflection.userId !== session?.id) {
     return notFound();
   }
 
-  if (session?.user.username !== params.username) {
+  if (!session || session.username !== params.username) {
     redirect("/login");
   }
 
-  const folders = await folderAPI.getFolder(session.user.username);
+  const folders = await folderAPI.getFolder(session.username);
 
   if (folders === 404) {
     return notFound();
@@ -44,7 +43,7 @@ const page = async ({ params }: PageProps) => {
 
   return (
     <ReflectionUpdateFormPage
-      username={session.user.username}
+      username={session.username}
       reflectionCUID={reflectionCUID}
       title={reflection.title}
       content={reflection.content}

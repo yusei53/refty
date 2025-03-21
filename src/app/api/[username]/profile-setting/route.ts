@@ -1,10 +1,9 @@
 import { revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import authOptions from "../../auth/[...nextauth]/options";
 import { userService } from "@/src/service/userService";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
+import { getUserSession } from "@/src/utils/get-user-session";
 import {
   internalServerError,
   notFoundError,
@@ -36,18 +35,17 @@ export async function PATCH(req: NextRequest) {
   try {
     const body = await req.json();
 
-    const session = await getServerSession(authOptions);
-
-    if (!session?.user.id) {
+    const session = await getUserSession();
+    if (!session) {
       return unauthorizedError("認証されていません");
     }
 
     const res = userService.updateProfile({
-      userId: session.user.id,
+      userId: session.id,
       ...body
     });
 
-    revalidateTag(`profile-${session.user.username}`);
+    revalidateTag(`profile-${session.username}`);
     return NextResponse.json(res, { status: 201 });
   } catch (error) {
     console.error(error);
