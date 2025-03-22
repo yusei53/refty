@@ -19,6 +19,7 @@ const ToReportPageLink: React.FC<ToReportPageLinkProps> = ({ username }) => {
           textDecoration: "none",
           borderBottom: "0.5px solid #535353",
           paddingBottom: 1,
+          // TODO: CalenderAreaの余白関係のリファクタと一緒にmarginの大きい値を削除する
           marginTop: -14,
           fontSize: theme.typography.fontSize,
           letterSpacing: 0.8
