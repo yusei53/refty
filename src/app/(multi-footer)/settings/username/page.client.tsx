@@ -3,13 +3,12 @@ import type {
   ReflectionTagCountList,
   ReflectionWithUser
 } from "@/src/api/reflection-api";
-import type { User } from "@prisma/client";
 import RootPage from "@/src/app/page.client";
 import SettingUsernameModalContainer from "@/src/features/routes/setting-username/SettingUsernameModalContainer";
 
 type SettingUsernameModalPageProps = {
-  currentUsername: User["username"];
-  image: string;
+  username: string | null;
+  image: string | null;
   reflections: ReflectionWithUser[];
   currentPage: number;
   totalPage: number;
@@ -17,7 +16,7 @@ type SettingUsernameModalPageProps = {
 };
 
 const SettingUsernameModalPage: React.FC<SettingUsernameModalPageProps> = ({
-  currentUsername,
+  username,
   image,
   reflections,
   currentPage,
@@ -29,7 +28,7 @@ const SettingUsernameModalPage: React.FC<SettingUsernameModalPageProps> = ({
       <SettingUsernameModalContainer open />
       {/* // NOTE: RootPageはただのモーダルの背景として置いている */}
       <RootPage
-        currentUsername={currentUsername}
+        username={username}
         image={image}
         reflections={reflections}
         currentPage={currentPage}

@@ -3,6 +3,8 @@ import Image from "next/image";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 
 type UserReportPageProps = {
+  currentUsername: string | null;
+  currentImage: string | null;
   image: string;
   username: string;
   isReportOpen: boolean;
@@ -12,6 +14,8 @@ type UserReportPageProps = {
 };
 
 export const UserReportPage: React.FC<UserReportPageProps> = ({
+  currentUsername,
+  currentImage,
   image,
   isReportOpen,
   publicCount,
@@ -21,7 +25,10 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
 }) => {
   return (
     <>
-      <UserMenuHeaderContainer userImage={image} username={username} />
+      <UserMenuHeaderContainer
+        userImage={currentImage}
+        username={currentUsername}
+      />
       <div>
         <span>公開</span>
         {publicCount}

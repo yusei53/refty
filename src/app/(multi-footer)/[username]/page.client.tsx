@@ -2,7 +2,6 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { Box, useMediaQuery } from "@mui/material";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
-import type { User } from "@prisma/client";
 import { type Folder } from "@/src/api/folder-api";
 import {
   type RandomReflection,
@@ -26,8 +25,8 @@ import { useFolderSelection } from "@/src/hooks/folder/useFolderSelection";
 import { usePagination } from "@/src/hooks/reflection/usePagination";
 
 type UserReflectionListPageProps = {
-  currentUsername: User["username"];
-  currentUserImage: string;
+  currentUsername: string | null;
+  currentUserImage: string | null;
   userImage: string;
   username: string;
   bio: string;
@@ -95,7 +94,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           </>
         )}
         <UserMenuHeaderContainer
-          userImage={currentUserImage || ""}
+          userImage={currentUserImage}
           username={currentUsername}
         />
         <UserProfileArea

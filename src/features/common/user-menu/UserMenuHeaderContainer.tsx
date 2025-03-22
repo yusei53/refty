@@ -1,10 +1,10 @@
 import { useState } from "react";
-import type { User } from "@prisma/client";
+import { LoginButtonHeader } from "./LoginButtonHeader";
 import { UserMenuHeader } from "./UserMenuHeader";
 
 type UserMenuHeaderContainerProps = {
-  username: User["username"];
-  userImage: string;
+  username: string | null;
+  userImage: string | null;
 };
 
 export const UserMenuHeaderContainer: React.FC<
@@ -19,6 +19,10 @@ export const UserMenuHeaderContainer: React.FC<
   const handleClosePopup = () => {
     setAnchorEl(null);
   };
+
+  if (!username || !userImage) {
+    return <LoginButtonHeader />;
+  }
 
   return (
     <UserMenuHeader
