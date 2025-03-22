@@ -23,6 +23,7 @@ import { Sidebar } from "@/src/features/routes/reflection-list/sidebar";
 import { FolderInitializer } from "@/src/features/routes/reflection-list/sidebar/FolderInitializer";
 import { useFolderSelection } from "@/src/hooks/folder/useFolderSelection";
 import { usePagination } from "@/src/hooks/reflection/usePagination";
+import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 
 type UserReflectionListPageProps = {
   currentUsername: string | null;
@@ -58,6 +59,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   const router = useRouter();
   const searchParams = useSearchParams();
   const isPWA = useMediaQuery("(display-mode: standalone)");
+  const isMobile = useIsMobile();
   const { handlePageChange } = usePagination();
   const {
     isSelectMode,
@@ -93,10 +95,12 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
             />
           </>
         )}
-        <UserMenuHeaderContainer
-          userImage={currentUserImage}
-          username={currentUsername}
-        />
+        {!isMobile && (
+          <UserMenuHeaderContainer
+            userImage={currentUserImage}
+            username={currentUsername}
+          />
+        )}
         <UserProfileArea
           userImage={userImage}
           username={username}
