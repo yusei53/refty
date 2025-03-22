@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import { UserInformationHeader } from "./header";
+import ToReportPageLink from "./to-report-link/ToReportPageLink";
 import { LinearLoading } from "@/src/components/loading";
 
 const CalendarAreaFetcher = dynamic(
@@ -38,6 +39,7 @@ const UserProfileArea: React.FC<UserProfileAreaProps> = ({
         isCurrentUser={isCurrentUser}
       />
       <CalendarAreaFetcher reflectionCount={reflectionCount} />
+      <ToReportPageLink username={username} />
     </>
   );
 };

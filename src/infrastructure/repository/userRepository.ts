@@ -17,6 +17,18 @@ export const userRepository = {
     });
   },
 
+  async getUserProfileForReport(params: { username: string }) {
+    const { username } = params;
+
+    return prisma.user.findUnique({
+      where: { username },
+      select: {
+        image: true,
+        isReportOpen: true
+      }
+    });
+  },
+
   async updateUserProfile(params: {
     userId: string;
     username: string;
