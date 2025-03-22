@@ -1,17 +1,18 @@
 import React from "react";
 import Link from "next/link";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { theme } from "@/src/utils/theme";
 
 type ToReportPageLinkProps = {
   username: string;
 };
 const ToReportPageLink: React.FC<ToReportPageLinkProps> = ({ username }) => {
   return (
-    <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+    <Box display={"flex"} justifyContent={"flex-end"}>
       <Link
         href={`${username}/report`}
         style={{
-          color: "#535353",
+          color: theme.palette.grey[600],
           display: "inline-flex",
           alignItems: "center",
           marginRight: 28,
@@ -23,7 +24,9 @@ const ToReportPageLink: React.FC<ToReportPageLinkProps> = ({ username }) => {
         }}
       >
         {username}のレポートを見る
-        <span style={{ paddingBottom: 4 }}>→</span>
+        <Typography component={"span"} style={{ paddingBottom: 4 }}>
+          →
+        </Typography>
       </Link>
     </Box>
   );
