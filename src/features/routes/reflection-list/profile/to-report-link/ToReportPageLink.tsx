@@ -24,7 +24,11 @@ const ToReportPageLink: React.FC<ToReportPageLinkProps> = ({ username }) => {
         }}
       >
         {username}のレポートを見る
-        <Typography component={"span"} style={{ paddingBottom: 4 }}>
+        <Typography
+          component={"span"}
+          style={{ paddingBottom: 4 }}
+          lineHeight={1.1}
+        >
           →
         </Typography>
       </Link>
