@@ -1,9 +1,19 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 // import { getServerSession } from "next-auth";
 import { UserReportPage } from "./page.client";
 import { userReportAPI } from "@/src/api/user-report-api";
 // import authOptions from "@/src/app/api/auth/[...nextauth]/options";
+import { meta } from "@/src/utils/metadata";
 import { removeHtmlTags } from "@/src/utils/remove-html-tags";
+
+export const generateMetadata = async ({
+  params
+}: {
+  params: { username: string };
+}): Promise<Metadata> => {
+  return meta.reportPage(params.username);
+};
 
 type PageProps = {
   params: {
