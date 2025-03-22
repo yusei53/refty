@@ -14,7 +14,7 @@ import { ReflectionAllHeader } from "../features/routes/reflection-all-list/head
 import { usePagination } from "../hooks/reflection/usePagination";
 import { tagMap } from "../hooks/reflection-tag/useExtractTrueTags";
 import { useTagHandler } from "../hooks/reflection-tag/useTagHandler";
-
+import { useIsMobile } from "../hooks/responsive/useIsMobile";
 type RootPageProps = {
   username: string | null;
   image: string | null;
@@ -32,6 +32,7 @@ const RootPage: React.FC<RootPageProps> = ({
   totalPage,
   tagCountList
 }) => {
+  const isMobile = useIsMobile();
   const isPWA = useMediaQuery("(display-mode: standalone)");
 
   const {
@@ -46,7 +47,9 @@ const RootPage: React.FC<RootPageProps> = ({
   return (
     <>
       <Container maxWidth="md" sx={{ mt: { xs: 8, sm: 11 }, mb: 6 }}>
-        <UserMenuHeaderContainer userImage={image} username={username} />
+        {!isMobile && (
+          <UserMenuHeaderContainer userImage={image} username={username} />
+        )}
         <ReflectionAllHeader />
         <SearchBar
           tags={Object.values(tagMap)}

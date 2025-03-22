@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
+import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 
 type UserReportPageProps = {
   currentUsername: string | null;
@@ -23,12 +24,15 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
   contentLength,
   username
 }) => {
+  const isMobile = useIsMobile();
   return (
     <>
-      <UserMenuHeaderContainer
-        userImage={currentImage}
-        username={currentUsername}
-      />
+      {!isMobile && (
+        <UserMenuHeaderContainer
+          userImage={currentImage}
+          username={currentUsername}
+        />
+      )}
       <div>
         <span>公開</span>
         {publicCount}
