@@ -17,7 +17,7 @@ const ToReportPageLink: React.FC<ToReportPageLinkProps> = ({ username }) => {
           alignItems: "center",
           marginRight: 28,
           textDecoration: "none",
-          borderBottom: "0.5px solid #535353",
+          borderBottom: `0.5px solid ${theme.palette.grey[600]}`,
           paddingBottom: 1,
           // TODO: CalenderAreaの余白関係のリファクタと一緒にmarginの大きい値を削除する
           marginTop: -14,
@@ -26,11 +26,7 @@ const ToReportPageLink: React.FC<ToReportPageLinkProps> = ({ username }) => {
         }}
       >
         {username}のレポートを見る
-        <Typography
-          component={"span"}
-          style={{ paddingBottom: 4 }}
-          lineHeight={1.1}
-        >
+        <Typography component={"span"} pb={0.5} lineHeight={1.1}>
           →
         </Typography>
       </Link>
