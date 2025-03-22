@@ -19,7 +19,9 @@ const ToReportPageLink: React.FC<ToReportPageLinkProps> = ({ username }) => {
           textDecoration: "none",
           borderBottom: "0.5px solid #535353",
           paddingBottom: 1,
-          marginTop: -14
+          marginTop: -14,
+          fontSize: theme.typography.fontSize,
+          letterSpacing: 0.8
         }}
       >
         {username}のレポートを見る
