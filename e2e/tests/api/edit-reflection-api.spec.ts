@@ -11,7 +11,7 @@ test.describe("未認証ユーザー", () => {
   });
   test("401エラーが返される", async ({ page }) => {
     const response = await page.request.patch(
-      `/api/reflection/detail/${reflection.reflectionCUID}`,
+      `/api/reflection/detail/${reflection.reflectionCUID}/edit`,
       {
         data: requestReflection
       }
@@ -28,9 +28,12 @@ test.describe("認証済みユーザー", () => {
   test("指定された投稿のCUIDが存在しない場合、404エラーが返される", async ({
     page
   }) => {
-    const response = await page.request.patch(`/api/reflection/detail/abcdef`, {
-      data: requestReflection
-    });
+    const response = await page.request.patch(
+      `/api/reflection/detail/abcdef/edit`,
+      {
+        data: requestReflection
+      }
+    );
     expect(response.status()).toBe(404);
   });
 
@@ -39,7 +42,7 @@ test.describe("認証済みユーザー", () => {
   }) => {
     const response = await page.request.patch(
       // TODO: yusei53の投稿を指定しているので、リフティ公式のサブ垢を作ってCUIDを置き換えたい
-      `/api/reflection/detail/cm8ad31x00003ni588xehdmpg`,
+      `/api/reflection/detail/cm8ad31x00003ni588xehdmpg/edit`,
       { data: requestReflection }
     );
     expect(response.status()).toBe(403);
@@ -49,7 +52,7 @@ test.describe("認証済みユーザー", () => {
     page
   }) => {
     const response = await page.request.patch(
-      `/api/reflection/detail/${reflection.reflectionCUID}`,
+      `/api/reflection/detail/${reflection.reflectionCUID}/edit`,
       { data: requestReflection }
     );
     expect(response.status()).toBe(200);
