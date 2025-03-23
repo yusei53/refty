@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import type { ReflectionTagCountList } from "@/src/api/reflection-api";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 
 type UserReportPageProps = {
@@ -9,6 +10,7 @@ type UserReportPageProps = {
   publicCount: number;
   privateCount: number;
   contentLength: number;
+  tagCountList: ReflectionTagCountList;
 };
 
 export const UserReportPage: React.FC<UserReportPageProps> = ({
@@ -17,7 +19,8 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
   publicCount,
   privateCount,
   contentLength,
-  username
+  username,
+  tagCountList
 }) => {
   return (
     <>
@@ -40,6 +43,14 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
         <p>レポートの公開非公開</p>
         <p>現在{isReportOpen ? "公開" : "非公開"}中</p>
       </div>
+      <p>タグカウント</p>
+      <p>
+        {Object.entries(tagCountList).map(([tagName, count]) => (
+          <p key={tagName}>
+            {tagName}: {count}件
+          </p>
+        ))}
+      </p>
     </>
   );
 };
