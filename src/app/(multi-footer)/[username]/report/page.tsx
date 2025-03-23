@@ -13,19 +13,24 @@ type PageProps = {
 
 const page = async ({ params }: PageProps) => {
   // const session = await getServerSession(authOptions);
-  const [reflectionContent, reflectionCounts, userProfile] = await Promise.all([
-    userReportAPI.getAllReflectionContent(params.username),
-    userReportAPI.getPublicPrivateCount(params.username),
-    userReportAPI.getUserProfile(params.username)
-  ]);
+  const [reflectionContent, reflectionCounts, userProfile, hourlyPostCount] =
+    await Promise.all([
+      userReportAPI.getAllReflectionContent(params.username),
+      userReportAPI.getPublicPrivateCount(params.username),
+      userReportAPI.getUserProfile(params.username),
+      userReportAPI.getHourlyPostCount(params.username)
+    ]);
 
   if (
     reflectionContent === 404 ||
     reflectionCounts === 404 ||
-    userProfile === 404
+    userProfile === 404 ||
+    hourlyPostCount === 404
   ) {
     return notFound();
   }
+
+  console.log(hourlyPostCount.reflectionsDateGroup);
 
   // TODO: レポートが非公開かつ、閲覧者が本人でない場合は404を返す404ページを返す。開発中は表示しておくため、リリース時にはコメントアウトを解除する
   // NOTE: 一時的に公開非公開試したい人はコメントアウトを解除してください
@@ -41,6 +46,7 @@ const page = async ({ params }: PageProps) => {
       publicCount={reflectionCounts.public}
       privateCount={reflectionCounts.private}
       contentLength={allPlainContent.length}
+      hourlyPostCount={hourlyPostCount.reflectionsDateGroup}
     />
   );
 };

@@ -9,6 +9,7 @@ type UserReportPageProps = {
   publicCount: number;
   privateCount: number;
   contentLength: number;
+  hourlyPostCount: { hour: number; count: number }[];
 };
 
 export const UserReportPage: React.FC<UserReportPageProps> = ({
@@ -17,7 +18,8 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
   publicCount,
   privateCount,
   contentLength,
-  username
+  username,
+  hourlyPostCount
 }) => {
   return (
     <>
@@ -39,6 +41,14 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
         <Image width={50} height={50} src={image} alt={`${username}の画像`} />
         <p>レポートの公開非公開</p>
         <p>現在{isReportOpen ? "公開" : "非公開"}中</p>
+      </div>
+      <div>
+        <span>投稿数</span>
+        {hourlyPostCount.map((count) => (
+          <div key={count.hour}>
+            {count.hour}時: {count.count}
+          </div>
+        ))}
       </div>
     </>
   );
