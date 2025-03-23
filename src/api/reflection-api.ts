@@ -122,6 +122,18 @@ export const reflectionAPI = {
     return await fetchURL<ReflectionDetail, 404>(path, options);
   },
 
+  async getEditReflectionByCUID(
+    headers: HeadersInit | undefined,
+    reflectionCUID: string
+  ): Promise<Result<ReflectionDetail, 401 | 403 | 404>> {
+    const path = `/api/reflection/detail/${reflectionCUID}/edit`;
+    const options: FetchURLOptions = {
+      method: "GET",
+      headers
+    };
+    return await fetchURL<ReflectionDetail, 401 | 403 | 404>(path, options);
+  },
+
   async getRandomReflection(
     headers: HeadersInit | undefined,
     username: string
@@ -204,7 +216,7 @@ export const reflectionAPI = {
     isMonologue: boolean;
     folderUUID?: string;
   }): Promise<Result<void, 401 | 403 | 404>> {
-    const path = `/api/reflection/detail/${reflectionCUID}`;
+    const path = `/api/reflection/detail/${reflectionCUID}/edit`;
     const options: FetchURLOptions = {
       method: "PATCH",
       body: {
