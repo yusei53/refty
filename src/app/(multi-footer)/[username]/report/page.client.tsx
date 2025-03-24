@@ -55,7 +55,12 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
         <p>現在{isReportOpen ? "公開" : "非公開"}中</p>
       </div>
       <BarChart
-        series={[{ data: hourlyPostCount.map((postCount) => postCount.count) }]}
+        series={[
+          {
+            data: hourlyPostCount.map((postCount) => postCount.count),
+            label: "投稿数(件)"
+          }
+        ]}
         colors={["#5FD37D"]}
         height={isMobile ? 200 : 350}
         width={isMobile ? 350 : 800}
@@ -63,7 +68,13 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
           {
             data: hourlyPostCount.map((postCount) => postCount.hour),
             scaleType: "band",
-            label: "時間(時)"
+            label: "時間(時)",
+            // ラベルは数字のみ、ホバーしたときは○時の形で表示
+            valueFormatter: (value, context) => {
+              return context.location === "tick"
+                ? value.toString()
+                : `${hourlyPostCount.find((postCount) => postCount.hour === value)?.hour}時`;
+            }
           }
         ]}
         yAxis={[
@@ -73,6 +84,11 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
             label: "投稿数(件)"
           }
         ]}
+        slotProps={{
+          legend: {
+            hidden: true
+          }
+        }}
         margin={{
           top: 40,
           bottom: 50,
