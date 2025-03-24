@@ -203,7 +203,7 @@ export const reflectionAPI = {
     isInputLog: boolean;
     isMonologue: boolean;
     folderUUID?: string;
-  }): Promise<Result<void, 400 | 401 | 403>> {
+  }): Promise<Result<void, 401 | 403 | 404>> {
     const path = `/api/reflection/detail/${reflectionCUID}`;
     const options: FetchURLOptions = {
       method: "PATCH",
@@ -223,7 +223,7 @@ export const reflectionAPI = {
         "Content-Type": "application/json"
       }
     };
-    return await fetchURL<void, 400 | 401 | 403>(path, options);
+    return await fetchURL<void, 401 | 403 | 404>(path, options);
   },
 
   async deleteReflection(reflectionCUID: string): Promise<Result<void, 401>> {

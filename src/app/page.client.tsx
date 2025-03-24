@@ -4,7 +4,6 @@ import type {
   ReflectionTagCountList,
   ReflectionWithUser
 } from "../api/reflection-api";
-import type { User } from "@prisma/client";
 import { PostNavigationButton } from "../components/button";
 import { Footer } from "../components/footer";
 import { ArrowPagination, NumberedPagination } from "../components/pagination";
@@ -15,10 +14,10 @@ import { ReflectionAllHeader } from "../features/routes/reflection-all-list/head
 import { usePagination } from "../hooks/reflection/usePagination";
 import { tagMap } from "../hooks/reflection-tag/useExtractTrueTags";
 import { useTagHandler } from "../hooks/reflection-tag/useTagHandler";
-
+import { useIsMobile } from "../hooks/responsive/useIsMobile";
 type RootPageProps = {
-  currentUsername: User["username"];
-  image: string;
+  username: string | null;
+  image: string | null;
   reflections: ReflectionWithUser[];
   currentPage: number;
   totalPage: number;
@@ -26,13 +25,14 @@ type RootPageProps = {
 };
 
 const RootPage: React.FC<RootPageProps> = ({
-  currentUsername,
+  username,
   image,
   reflections,
   currentPage,
   totalPage,
   tagCountList
 }) => {
+  const isMobile = useIsMobile();
   const isPWA = useMediaQuery("(display-mode: standalone)");
 
   const {
@@ -47,7 +47,9 @@ const RootPage: React.FC<RootPageProps> = ({
   return (
     <>
       <Container maxWidth="md" sx={{ mt: { xs: 8, sm: 11 }, mb: 6 }}>
-        <UserMenuHeaderContainer userImage={image} username={currentUsername} />
+        {!isMobile && (
+          <UserMenuHeaderContainer userImage={image} username={username} />
+        )}
         <ReflectionAllHeader />
         <SearchBar
           tags={Object.values(tagMap)}
@@ -63,7 +65,7 @@ const RootPage: React.FC<RootPageProps> = ({
           onChange={handlePageChange}
         />
         <ReflectionAllCardListArea
-          currentUsername={currentUsername}
+          currentUsername={username}
           reflections={reflections}
         />
         <NumberedPagination
@@ -72,7 +74,7 @@ const RootPage: React.FC<RootPageProps> = ({
           onChange={handlePageChange}
         />
       </Container>
-      {currentUsername && !isPWA && (
+      {username && !isPWA && (
         <PostNavigationButton
           sx={{
             position: "fixed",

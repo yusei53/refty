@@ -1,9 +1,8 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import authOptions from "../../auth/[...nextauth]/options";
 import { reflectionService } from "@/src/service/reflectionService";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
+import { getUserSession } from "@/src/utils/get-user-session";
 import { internalServerError, notFoundError } from "@/src/utils/http-error";
 
 export async function GET(
@@ -17,13 +16,11 @@ export async function GET(
   }
 
   const userId = await getUserIdByUsername(username);
-  const session = await getServerSession(authOptions);
-
   if (!userId) {
     return notFoundError("ユーザーが見つかりません");
   }
-
-  const isCurrentUser = session?.user.username === username;
+  const session = await getUserSession();
+  const isCurrentUser = session?.username === username;
 
   try {
     const page = parseInt(req.nextUrl.searchParams.get("page") || "1", 10);

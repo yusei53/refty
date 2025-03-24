@@ -144,5 +144,24 @@ export const meta = {
         description: `${username}さんだけの振り返りブックページ`
       }
     };
+  },
+
+  reportPage(username: string) {
+    return {
+      ...baseMetadata,
+      title: `${username}さんのレポート | ${REFTY}`,
+      description: `${username}さんのレポートページ`,
+      openGraph: {
+        type: "website",
+        url: `https://www.refty.jp/${username}/report`,
+        title: `${username}さんのレポート | ${REFTY}`,
+        description: `${username}さんのレポートページ`,
+        siteName: REFTY
+      },
+      twitter: {
+        title: `${username}さんのレポート | ${REFTY}`,
+        description: `${username}さんのレポートページ`
+      }
+    };
   }
 };
