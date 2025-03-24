@@ -41,7 +41,8 @@ export const BarChartArea: React.FC<BarChartAreaProps> = ({
                 ? "translate(120px, 10px)"
                 : "translate(300px, 10px)",
               fontSize: isMobile ? 12 : 13
-            }
+            },
+            disableTicks: true
           }
         ]}
         yAxis={[
@@ -55,7 +56,8 @@ export const BarChartArea: React.FC<BarChartAreaProps> = ({
                 ? "translate(20px, -70px)"
                 : "translate(-30px, -120px)",
               fontSize: isMobile ? 12 : 13
-            }
+            },
+            disableTicks: true
           }
         ]}
         slotProps={{
