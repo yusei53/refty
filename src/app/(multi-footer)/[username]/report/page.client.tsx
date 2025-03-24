@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
+import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 
 type UserReportPageProps = {
   image: string;
@@ -22,6 +23,8 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
   username,
   hourlyPostCount
 }) => {
+  const isMobile = useIsMobile();
+
   return (
     <>
       <UserMenuHeaderContainer userImage={image} username={username} />
@@ -46,15 +49,20 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
       <BarChart
         series={[{ data: hourlyPostCount.map((postCount) => postCount.count) }]}
         colors={["#5FD37D"]}
-        height={350}
-        width={800}
+        height={isMobile ? 200 : 350}
+        width={isMobile ? 350 : 800}
         xAxis={[
           {
             data: hourlyPostCount.map((postCount) => postCount.hour),
             scaleType: "band"
           }
         ]}
-        margin={{ top: 40, bottom: 30, left: 40, right: 40 }}
+        margin={{
+          top: 40,
+          bottom: 30,
+          left: isMobile ? 0 : 40,
+          right: isMobile ? 0 : 40
+        }}
       />
     </>
   );
