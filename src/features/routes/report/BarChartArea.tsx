@@ -39,9 +39,9 @@ export const BarChartArea: React.FC<BarChartAreaProps> = ({
             },
             labelStyle: {
               transform: isMobile
-                ? "translate(120px, 10px)"
+                ? "translate(151px, 1px)"
                 : "translate(300px, 10px)",
-              fontSize: isMobile ? 12 : 13,
+              fontSize: isMobile ? 10 : 13,
               fill: theme.palette.grey[600]
             },
             disableTicks: true,
@@ -58,9 +58,9 @@ export const BarChartArea: React.FC<BarChartAreaProps> = ({
             position: "left",
             labelStyle: {
               transform: isMobile
-                ? "translate(20px, -70px)"
+                ? "translate(37px, -72px)"
                 : "translate(-30px, -120px)",
-              fontSize: isMobile ? 12 : 13,
+              fontSize: isMobile ? 10 : 13,
               fill: theme.palette.grey[600]
             },
             disableTicks: true,
@@ -80,7 +80,7 @@ export const BarChartArea: React.FC<BarChartAreaProps> = ({
         margin={{
           top: 40,
           bottom: 50,
-          left: isMobile ? 40 : 100,
+          left: isMobile ? 13 : 100,
           right: isMobile ? 0 : 40
         }}
       />
