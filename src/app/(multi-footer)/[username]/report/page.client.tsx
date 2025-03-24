@@ -1,8 +1,10 @@
 "use client";
 import Image from "next/image";
+import { Divider } from "@mui/material";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 import { BarChartArea } from "@/src/features/routes/report/BarChartArea";
 import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
+import { theme } from "@/src/utils/theme";
 
 type UserReportPageProps = {
   currentUsername: string | null;
@@ -54,7 +56,21 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
         <p>レポートの公開非公開</p>
         <p>現在{isReportOpen ? "公開" : "非公開"}中</p>
       </div>
+      <Divider
+        sx={{
+          borderColor: theme.palette.grey[400],
+          marginTop: 6,
+          marginBottom: 4
+        }}
+      />
       <BarChartArea hourlyPostCount={hourlyPostCount} />
+      <Divider
+        sx={{
+          borderColor: theme.palette.grey[400],
+          marginTop: 6,
+          marginBottom: 4
+        }}
+      />
     </>
   );
 };
