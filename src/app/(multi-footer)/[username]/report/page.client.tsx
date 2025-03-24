@@ -62,12 +62,20 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
         xAxis={[
           {
             data: hourlyPostCount.map((postCount) => postCount.hour),
-            scaleType: "band"
+            scaleType: "band",
+            label: "時間(時)"
+          }
+        ]}
+        yAxis={[
+          {
+            scaleType: "linear",
+            min: 0,
+            label: "投稿数(件)"
           }
         ]}
         margin={{
           top: 40,
-          bottom: 30,
+          bottom: 50,
           left: isMobile ? 0 : 40,
           right: isMobile ? 0 : 40
         }}
