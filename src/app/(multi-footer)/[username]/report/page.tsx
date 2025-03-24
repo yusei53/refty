@@ -1,10 +1,8 @@
 import { notFound } from "next/navigation";
-// import { getServerSession } from "next-auth";
 import { UserReportPage } from "./page.client";
 import { userReportAPI } from "@/src/api/user-report-api";
-// import authOptions from "@/src/app/api/auth/[...nextauth]/options";
+import { getUserSession } from "@/src/utils/get-user-session";
 import { removeHtmlTags } from "@/src/utils/remove-html-tags";
-
 type PageProps = {
   params: {
     username: string;
@@ -12,7 +10,7 @@ type PageProps = {
 };
 
 const page = async ({ params }: PageProps) => {
-  // const session = await getServerSession(authOptions);
+  const session = await getUserSession();
   const [reflectionContent, reflectionCounts, userProfile] = await Promise.all([
     userReportAPI.getAllReflectionContent(params.username),
     userReportAPI.getPublicPrivateCount(params.username),
@@ -35,6 +33,8 @@ const page = async ({ params }: PageProps) => {
   const allPlainContent = removeHtmlTags(reflectionContent.allContent);
   return (
     <UserReportPage
+      currentUsername={session?.username || null}
+      currentImage={session?.image || null}
       image={userProfile.image}
       username={params.username}
       isReportOpen={userProfile.isReportOpen}
