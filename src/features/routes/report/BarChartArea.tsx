@@ -35,6 +35,12 @@ export const BarChartArea: React.FC<BarChartAreaProps> = ({
               return context.location === "tick"
                 ? value.toString()
                 : `${hourlyPostCount.find((postCount) => postCount.hour === value)?.hour}時`;
+            },
+            labelStyle: {
+              transform: isMobile
+                ? "translate(120px, 10px)"
+                : "translate(300px, 10px)",
+              fontSize: isMobile ? 12 : 13
             }
           }
         ]}
@@ -42,7 +48,14 @@ export const BarChartArea: React.FC<BarChartAreaProps> = ({
           {
             scaleType: "linear",
             min: 0,
-            label: "投稿数(件)"
+            label: "投稿数(件)",
+            position: "left",
+            labelStyle: {
+              transform: isMobile
+                ? "translate(20px, -70px)"
+                : "translate(-30px, -120px)",
+              fontSize: isMobile ? 12 : 13
+            }
           }
         ]}
         slotProps={{
@@ -53,7 +66,7 @@ export const BarChartArea: React.FC<BarChartAreaProps> = ({
         margin={{
           top: 40,
           bottom: 50,
-          left: isMobile ? 0 : 40,
+          left: isMobile ? 40 : 100,
           right: isMobile ? 0 : 40
         }}
       />
