@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
+import { theme } from "@/src/utils/theme";
 
 type BarChartAreaProps = {
   hourlyPostCount: { hour: number; count: number }[];
@@ -40,9 +41,13 @@ export const BarChartArea: React.FC<BarChartAreaProps> = ({
               transform: isMobile
                 ? "translate(120px, 10px)"
                 : "translate(300px, 10px)",
-              fontSize: isMobile ? 12 : 13
+              fontSize: isMobile ? 12 : 13,
+              fill: theme.palette.grey[600]
             },
-            disableTicks: true
+            disableTicks: true,
+            tickLabelStyle: {
+              fill: theme.palette.grey[600]
+            }
           }
         ]}
         yAxis={[
@@ -55,9 +60,13 @@ export const BarChartArea: React.FC<BarChartAreaProps> = ({
               transform: isMobile
                 ? "translate(20px, -70px)"
                 : "translate(-30px, -120px)",
-              fontSize: isMobile ? 12 : 13
+              fontSize: isMobile ? 12 : 13,
+              fill: theme.palette.grey[600]
             },
-            disableTicks: true
+            disableTicks: true,
+            tickLabelStyle: {
+              fill: theme.palette.grey[600]
+            }
           }
         ]}
         grid={{
