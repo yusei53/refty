@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import { BarChart } from "@mui/x-charts/BarChart";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 
 type UserReportPageProps = {
@@ -42,14 +43,19 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
         <p>レポートの公開非公開</p>
         <p>現在{isReportOpen ? "公開" : "非公開"}中</p>
       </div>
-      <div>
-        <span>投稿数</span>
-        {hourlyPostCount.map((count) => (
-          <div key={count.hour}>
-            {count.hour}時: {count.count}
-          </div>
-        ))}
-      </div>
+      <BarChart
+        series={[{ data: hourlyPostCount.map((postCount) => postCount.count) }]}
+        colors={["#5FD37D"]}
+        height={350}
+        width={800}
+        xAxis={[
+          {
+            data: hourlyPostCount.map((postCount) => postCount.hour),
+            scaleType: "band"
+          }
+        ]}
+        margin={{ top: 40, bottom: 30, left: 40, right: 40 }}
+      />
     </>
   );
 };
