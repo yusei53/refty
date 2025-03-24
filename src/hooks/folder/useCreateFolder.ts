@@ -46,7 +46,7 @@ export const useCreateFolder = ({
     const res = await folderAPI.createFolder(username, formData.name);
 
     if (res === 401) {
-      router.push(`/`);
+      router.push("/");
       router.refresh();
     } else {
       onRefetch(username);
