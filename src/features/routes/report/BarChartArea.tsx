@@ -40,7 +40,7 @@ export const BarChartArea: React.FC<BarChartAreaProps> = ({
             labelStyle: {
               transform: isMobile
                 ? "translate(151px, 1px)"
-                : "translate(300px, 10px)",
+                : "translate(310px, 5px)",
               fontSize: isMobile ? 10 : 13,
               fill: theme.palette.grey[600]
             },
@@ -59,7 +59,7 @@ export const BarChartArea: React.FC<BarChartAreaProps> = ({
             labelStyle: {
               transform: isMobile
                 ? "translate(37px, -72px)"
-                : "translate(-30px, -120px)",
+                : "translate(-26px, -140px)",
               fontSize: isMobile ? 10 : 13,
               fill: theme.palette.grey[600]
             },
