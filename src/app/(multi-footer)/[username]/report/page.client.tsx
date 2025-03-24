@@ -5,6 +5,8 @@ import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 
 type UserReportPageProps = {
+  currentUsername: string | null;
+  currentImage: string | null;
   image: string;
   username: string;
   isReportOpen: boolean;
@@ -15,6 +17,8 @@ type UserReportPageProps = {
 };
 
 export const UserReportPage: React.FC<UserReportPageProps> = ({
+  currentUsername,
+  currentImage,
   image,
   isReportOpen,
   publicCount,
@@ -24,10 +28,14 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
   hourlyPostCount
 }) => {
   const isMobile = useIsMobile();
-
   return (
     <>
-      <UserMenuHeaderContainer userImage={image} username={username} />
+      {!isMobile && (
+        <UserMenuHeaderContainer
+          userImage={currentImage}
+          username={currentUsername}
+        />
+      )}
       <div>
         <span>公開</span>
         {publicCount}

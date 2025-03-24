@@ -1,18 +1,10 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
-import Loading from "./loading";
+import ReflectionDetailPage from "./page.client";
 import { reflectionAPI } from "@/src/api/reflection-api";
 import { addIdsToHeadings } from "@/src/utils/add-ids-to-headings";
 import { getUserSession } from "@/src/utils/get-user-session";
 import { generateMeta } from "@/src/utils/metadata";
-
-const ReflectionDetailPage = dynamic(
-  () => import("./page.client").then((mod) => mod.default),
-  {
-    loading: () => <Loading />
-  }
-);
 
 export const generateMetadata = async ({
   params
