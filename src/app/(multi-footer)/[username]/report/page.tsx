@@ -20,8 +20,7 @@ type PageProps = {
 };
 
 const page = async ({ params }: PageProps) => {
-
-  const session = await getServerSession(authOptions);
+  const session = await getUserSession();
   const [reflectionContent, reflectionCounts, userProfile, hourlyPostCount] =
     await Promise.all([
       userReportAPI.getAllReflectionContent(params.username),
@@ -29,7 +28,6 @@ const page = async ({ params }: PageProps) => {
       userReportAPI.getUserProfile(params.username),
       userReportAPI.getHourlyPostCount(params.username)
     ]);
-
 
   if (
     reflectionContent === 404 ||
