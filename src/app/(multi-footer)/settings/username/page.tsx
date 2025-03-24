@@ -27,8 +27,8 @@ const page = async ({ searchParams }: { searchParams: { page?: string } }) => {
 
   return (
     <SettingUsernameModalPage
-      currentUsername={session?.username || null}
-      image={session?.image || ""}
+      username={session?.username || null}
+      image={session?.image || null}
       reflections={reflectionAll.reflections}
       currentPage={currentPage}
       totalPage={reflectionAll.totalPage}
