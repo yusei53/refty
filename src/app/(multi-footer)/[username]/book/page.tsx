@@ -1,17 +1,9 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
-import Loading from "./loading";
+import ReflectionsBookPage from "./page.client";
 import { reflectionsBookAPI } from "@/src/api/reflections-book-api";
 import { getUserSession } from "@/src/utils/get-user-session";
 import { meta } from "@/src/utils/metadata";
-
-const ReflectionsBookPage = dynamic(
-  () => import("./page.client").then((mod) => mod.default),
-  {
-    loading: () => <Loading />
-  }
-);
 
 export const generateMetadata = async ({
   params
