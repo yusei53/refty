@@ -60,6 +60,9 @@ export const BarChartArea: React.FC<BarChartAreaProps> = ({
             disableTicks: true
           }
         ]}
+        grid={{
+          horizontal: true
+        }}
         slotProps={{
           legend: {
             hidden: true
