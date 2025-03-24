@@ -30,8 +30,6 @@ const page = async ({ params }: PageProps) => {
     return notFound();
   }
 
-  console.log(hourlyPostCount.reflectionsDateGroup);
-
   // TODO: レポートが非公開かつ、閲覧者が本人でない場合は404を返す404ページを返す。開発中は表示しておくため、リリース時にはコメントアウトを解除する
   // NOTE: 一時的に公開非公開試したい人はコメントアウトを解除してください
   // if (!userProfile.isReportOpen && session?.user.username !== params.username) {
