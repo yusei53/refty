@@ -1,9 +1,8 @@
 "use client";
-import Image from "next/image";
 import { Divider } from "@mui/material";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
-import { ReportHeader } from "@/src/features/routes/report/header/ReportHeader";
 import { BarChartArea } from "@/src/features/routes/report/BarChartArea";
+import { ReportHeader } from "@/src/features/routes/report/header/ReportHeader";
 import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 import { theme } from "@/src/utils/theme";
 
