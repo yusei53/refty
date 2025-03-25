@@ -1,7 +1,11 @@
 "use client";
+import Image from "next/image";
+import { Divider } from "@mui/material";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 import { ReportHeader } from "@/src/features/routes/report/header/ReportHeader";
+import { BarChartArea } from "@/src/features/routes/report/BarChartArea";
 import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
+import { theme } from "@/src/utils/theme";
 
 type UserReportPageProps = {
   currentUsername: string | null;
@@ -12,6 +16,7 @@ type UserReportPageProps = {
   publicCount: number;
   privateCount: number;
   contentLength: number;
+  hourlyPostCount: { hour: number; count: number }[];
 };
 
 export const UserReportPage: React.FC<UserReportPageProps> = ({
@@ -22,7 +27,9 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
   isReportOpen,
   publicCount,
   privateCount,
-  contentLength
+  contentLength,
+  username,
+  hourlyPostCount
 }) => {
   const isMobile = useIsMobile();
 
@@ -40,18 +47,21 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
         isReportOpen={isReportOpen}
         isCurrentUser={currentUsername === username}
       />
-      <div>
-        <span>公開</span>
-        {publicCount}
-      </div>
-      <div>
-        <span>非公開</span>
-        {privateCount}
-      </div>
-      <div>
-        <span>文字数</span>
-        {contentLength}
-      </div>
+      <Divider
+        sx={{
+          borderColor: theme.palette.grey[400],
+          marginTop: 6,
+          marginBottom: 4
+        }}
+      />
+      <BarChartArea hourlyPostCount={hourlyPostCount} />
+      <Divider
+        sx={{
+          borderColor: theme.palette.grey[400],
+          marginTop: 6,
+          marginBottom: 4
+        }}
+      />
     </>
   );
 };
