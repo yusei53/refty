@@ -87,7 +87,7 @@ const TagPieChartArea: React.FC<TagPieChartAreaProps> = ({ tagCountList }) => {
             ]}
             sx={{
               [`& .${pieArcLabelClasses.root}`]: {
-                fill: "#ffffff",
+                fill: "white",
                 fontSize: 11
               }
             }}
