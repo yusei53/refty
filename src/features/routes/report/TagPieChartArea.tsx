@@ -1,0 +1,111 @@
+import { ReflectionTagCountList } from "@/src/api/reflection-api";
+import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
+import { Box, Typography } from "@mui/material";
+import { pieArcLabelClasses, PieChart } from "@mui/x-charts";
+import Image from "next/image";
+
+type TagPieChartAreaProps = {
+  tagCountList: ReflectionTagCountList;
+};
+
+const TagPieChartArea: React.FC<TagPieChartAreaProps> = ({ tagCountList }) => {
+  const isMobile = useIsMobile();
+
+  const pieData = [
+    {
+      value: tagCountList.isDailyReflection,
+      label: "振り返り",
+      color: "#397D05"
+    },
+    {
+      value: tagCountList.isLearning,
+      label: "学び",
+      color: "#4A9C0A"
+    },
+    {
+      value: tagCountList.isAwareness,
+      label: "気づき",
+      color: "#59C757"
+    },
+    {
+      value: tagCountList.isMonologue,
+      label: "ひとりごと",
+      color: "#6BDE6F"
+    },
+    {
+      value: tagCountList.isInputLog,
+      label: "インプットの記録",
+      color: "#98EF85"
+    }
+  ];
+
+  //MEMO: 投稿数が0のタグを省く
+  const filteredPieData = pieData.filter((item) => item.value !== 0);
+
+  // MEMO: タグが付けられている投稿がひとつもないかどうかを判定するbool値
+  const hasNoTagPost = filteredPieData.length === 0;
+
+  return (
+    <>
+      <Typography>タグ別の投稿割合</Typography>
+      {hasNoTagPost ? (
+        <Box
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          flexDirection={"column"}
+          my={10}
+          pb={5}
+        >
+          <Image
+            src={"/not-found/no-post.png"}
+            alt={"投稿"}
+            width={200}
+            height={200}
+          />
+          <Typography>タグが付けられている投稿がありません</Typography>
+        </Box>
+      ) : (
+        <Box display={"flex"} justifyContent={"center"}>
+          <PieChart
+            height={isMobile ? 200 : 300}
+            width={600}
+            series={[
+              {
+                innerRadius: 60,
+                outerRadius: 110,
+                data: filteredPieData,
+                arcLabel: (item) => {
+                  const total = filteredPieData.reduce(
+                    (sum, i) => sum + i.value,
+                    0
+                  );
+                  const percent = ((item.value / total) * 100).toFixed(1);
+                  return `${percent}%`;
+                }
+              }
+            ]}
+            sx={{
+              [`& .${pieArcLabelClasses.root}`]: {
+                fill: "#ffffff",
+                fontSize: 11
+              }
+            }}
+            legend={{
+              direction: "column",
+              position: {
+                vertical: "middle",
+                horizontal: "right"
+              },
+              padding: 0,
+              itemMarkWidth: 12,
+              itemMarkHeight: 12
+            }}
+          />
+        </Box>
+      )}
+    </>
+  );
+};
+
+export default TagPieChartArea;
