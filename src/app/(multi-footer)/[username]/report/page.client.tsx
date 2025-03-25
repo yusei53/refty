@@ -2,8 +2,8 @@
 import { Divider } from "@mui/material";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
-import { CalendarAreaFetcher } from "@/src/features/routes/reflection-list/profile/calendar";
 import { BarChartArea } from "@/src/features/routes/report/BarChartArea";
+import { ReflectionsCountArea } from "@/src/features/routes/report/ReflectionsCountArea";
 import { ReportHeader } from "@/src/features/routes/report/header/ReportHeader";
 import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 import { theme } from "@/src/utils/theme";
@@ -61,7 +61,7 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
         <span>文字数</span>
         {contentLength}
       </div>
-      <CalendarAreaFetcher reflectionCount={reflectionCount} />
+      <ReflectionsCountArea reflectionCount={reflectionCount} />
       <Divider
         sx={{
           borderColor: theme.palette.grey[400],
