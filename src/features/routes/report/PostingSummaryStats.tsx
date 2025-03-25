@@ -24,10 +24,23 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
       mt={4}
     >
       <Box flex={1} mr={2}>
-        <Typography component={"h2"} fontSize={"1rem"} mb={1}>
+        <Typography
+          component={"h2"}
+          fontSize={{ xs: "0.875rem", sm: "1rem" }}
+          mb={1}
+          color={theme.palette.grey[600]}
+        >
           投稿数
         </Typography>
-        <Box sx={{ display: "flex", alignItems: "flex-end", mb: 2, ml: 8 }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "flex-end",
+            mt: { xs: 2, sm: 0 },
+            mb: 2,
+            ml: { xs: 2, sm: 8 }
+          }}
+        >
           <Typography
             variant={"h3"}
             component={"div"}
@@ -35,6 +48,9 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
             fontWeight={"normal"}
             lineHeight={1}
             color={theme.palette.grey[600]}
+            sx={{
+              fontSize: { xs: "2rem", sm: "3rem" }
+            }}
           >
             {totalPosts}
           </Typography>
@@ -42,29 +58,49 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
             display={"flex"}
             flexDirection={"column"}
             gap={1}
-            ml={5}
+            ml={{ xs: 3, sm: 5 }}
             mt={0.5}
           >
-            <Box display={"flex"} flexDirection={"row"} gap={1}>
-              <Typography variant={"body2"} mt={0.5}>
+            <Box
+              display={"flex"}
+              flexDirection={"row"}
+              gap={1}
+              mb={{ xs: -0.5, sm: 0 }}
+            >
+              <Typography
+                variant={"body2"}
+                mt={0.5}
+                fontSize={{ xs: "0.75rem", sm: "0.875rem" }}
+              >
                 公開
               </Typography>
               <Typography
                 variant={"body1"}
                 color={theme.palette.grey[600]}
                 fontWeight={"bold"}
+                fontSize={{ xs: "0.875rem", sm: "1rem" }}
               >
                 {publicCount}
               </Typography>
             </Box>
-            <Box display={"flex"} flexDirection={"row"} gap={1}>
-              <Typography variant={"body2"} mt={0.5}>
+            <Box
+              display={"flex"}
+              flexDirection={"row"}
+              gap={1}
+              mt={{ xs: -0.5, sm: 0 }}
+            >
+              <Typography
+                variant={"body2"}
+                mt={0.5}
+                fontSize={{ xs: "0.75rem", sm: "0.875rem" }}
+              >
                 非公開
               </Typography>
               <Typography
                 variant={"body1"}
                 color={theme.palette.grey[600]}
                 fontWeight={"bold"}
+                fontSize={{ xs: "0.875rem", sm: "1rem" }}
               >
                 {privateCount}
               </Typography>
@@ -72,22 +108,24 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
           </Box>
         </Box>
       </Box>
-      <Box flex={1} pl={2}>
+      <Box flex={1} ml={2}>
         <Typography
           component={"h2"}
-          fontSize={"1rem"}
+          fontSize={{ xs: "0.875rem", sm: "1rem" }}
           mb={1}
           color={theme.palette.grey[600]}
         >
           合計文字数
         </Typography>
-        <Box display={"flex"} alignItems={"flex-end"} ml={8}>
+        <Box display={"flex"} alignItems={"flex-end"} ml={{ xs: 2, sm: 8 }}>
           <Typography
             variant={"h3"}
             component={"div"}
             fontWeight={"normal"}
             color={theme.palette.grey[600]}
             lineHeight={1}
+            fontSize={{ xs: "2rem", sm: "3rem" }}
+            mt={{ xs: 2, sm: 0.5 }}
           >
             {contentLength.toLocaleString()}
           </Typography>
@@ -95,7 +133,8 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
             variant={"body2"}
             color={theme.palette.grey[600]}
             ml={1}
-            mb={1}
+            mb={{ xs: 0.5, sm: 1 }}
+            fontSize={{ xs: "0.75rem", sm: "0.875rem" }}
           >
             文字
           </Typography>
