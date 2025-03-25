@@ -1,3 +1,4 @@
+import type { ReflectionTagCountList } from "./reflection-api";
 import type { FetchURLOptions } from "../utils/fetchURL";
 import type { Result } from "../utils/types/result";
 import { fetchURL } from "../utils/fetchURL";
@@ -76,5 +77,15 @@ export const userReportAPI = {
       method: "GET"
     };
     return await fetchURL<HourlyPostCount, 404>(path, options);
+  },
+
+  async getTagCount(
+    username: string
+  ): Promise<Result<ReflectionTagCountList, 404>> {
+    const path = `/api/${username}/report/tag-count`;
+    const options: FetchURLOptions = {
+      method: "GET"
+    };
+    return await fetchURL<ReflectionTagCountList, 404>(path, options);
   }
 };

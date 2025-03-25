@@ -21,19 +21,26 @@ type PageProps = {
 
 const page = async ({ params }: PageProps) => {
   const session = await getUserSession();
-  const [reflectionContent, reflectionCounts, userProfile, hourlyPostCount] =
-    await Promise.all([
-      userReportAPI.getAllReflectionContent(params.username),
-      userReportAPI.getPublicPrivateCount(params.username),
-      userReportAPI.getUserProfile(params.username),
-      userReportAPI.getHourlyPostCount(params.username)
-    ]);
+  const [
+    reflectionContent,
+    reflectionCounts,
+    userProfile,
+    hourlyPostCount,
+    tagCountList
+  ] = await Promise.all([
+    userReportAPI.getAllReflectionContent(params.username),
+    userReportAPI.getPublicPrivateCount(params.username),
+    userReportAPI.getUserProfile(params.username),
+    userReportAPI.getHourlyPostCount(params.username),
+    userReportAPI.getTagCount(params.username)
+  ]);
 
   if (
     reflectionContent === 404 ||
     reflectionCounts === 404 ||
     userProfile === 404 ||
-    hourlyPostCount === 404
+    hourlyPostCount === 404 ||
+    tagCountList === 404
   ) {
     return notFound();
   }
@@ -43,18 +50,20 @@ const page = async ({ params }: PageProps) => {
   // if (!userProfile.isReportOpen && session?.user.username !== params.username) {
   //   return notFound();
   // }
+
   const allPlainContent = removeHtmlTags(reflectionContent.allContent);
   return (
     <UserReportPage
       currentUsername={session?.username || null}
       currentImage={session?.image || null}
       username={params.username}
+      userImage={userProfile.image}
       isReportOpen={userProfile.isReportOpen}
       publicCount={reflectionCounts.public}
       privateCount={reflectionCounts.private}
       contentLength={allPlainContent.length}
-      userImage={userProfile.image}
       hourlyPostCount={hourlyPostCount.reflectionsDateGroup}
+      tagCountList={tagCountList}
     />
   );
 };
