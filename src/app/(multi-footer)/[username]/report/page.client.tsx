@@ -28,7 +28,6 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
   publicCount,
   privateCount,
   contentLength,
-  username,
   hourlyPostCount
 }) => {
   const isMobile = useIsMobile();
