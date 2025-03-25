@@ -45,12 +45,12 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
           <Typography
             variant={"h3"}
             component={"div"}
-            mb={-0.25}
+            mb={{ xs: 0.5, sm: -0.25 }}
             fontWeight={"normal"}
             lineHeight={1}
             color={theme.palette.grey[600]}
             sx={{
-              fontSize: { xs: "2rem", sm: "3rem" }
+              fontSize: { xs: "1.75rem", sm: "3rem" }
             }}
           >
             {totalPosts}
@@ -59,14 +59,20 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
             display={"flex"}
             flexDirection={"column"}
             gap={1}
-            ml={{ xs: 3, sm: 4 }}
+            ml={{ xs: 2, sm: 4 }}
             mt={0.5}
           >
-            <Box display={"flex"} flexDirection={"row"} gap={1} mb={-0.5}>
+            <Box
+              display={"flex"}
+              flexDirection={"row"}
+              gap={1}
+              mb={{ xs: -0.75, sm: -0.5 }}
+            >
               <Typography
                 variant={"body2"}
                 mt={0.5}
-                fontSize={{ xs: "0.75rem", sm: "0.875rem" }}
+                fontSize={{ xs: "0.6rem", sm: "0.875rem" }}
+                whiteSpace="nowrap"
               >
                 公開
               </Typography>
@@ -79,11 +85,17 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
                 {publicCount}
               </Typography>
             </Box>
-            <Box display={"flex"} flexDirection={"row"} gap={1} mt={-0.5}>
+            <Box
+              display={"flex"}
+              flexDirection={"row"}
+              gap={1}
+              mt={{ xs: -0.75, sm: -0.5 }}
+            >
               <Typography
                 variant={"body2"}
                 mt={0.5}
-                fontSize={{ xs: "0.75rem", sm: "0.875rem" }}
+                fontSize={{ xs: "0.6rem", sm: "0.875rem" }}
+                whiteSpace="nowrap"
               >
                 非公開
               </Typography>
@@ -103,7 +115,7 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
           />
         </Box>
       </Box>
-      <Box flex={1} ml={2}>
+      <Box flex={1} ml={{ xs: 0, sm: 2 }}>
         <Typography
           component={"h2"}
           fontSize={{ xs: "0.875rem", sm: "1rem" }}
@@ -119,7 +131,7 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
             fontWeight={"normal"}
             color={theme.palette.grey[600]}
             lineHeight={1}
-            fontSize={{ xs: "2rem", sm: "3rem" }}
+            fontSize={{ xs: "1.75rem", sm: "3rem" }}
             mt={{ xs: 2, sm: 0.5 }}
           >
             {contentLength.toLocaleString()}
@@ -130,6 +142,7 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
             ml={1}
             mb={{ xs: 0.5, sm: 1 }}
             fontSize={{ xs: "0.75rem", sm: "0.875rem" }}
+            whiteSpace="nowrap"
           >
             文字
           </Typography>

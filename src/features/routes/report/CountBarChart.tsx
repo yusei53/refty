@@ -1,19 +1,6 @@
 import React from "react";
 import { BarChart } from "@mui/x-charts";
-
-const chartSetting = {
-  width: 200,
-  height: 60,
-  leftAxis: null,
-  bottomAxis: null,
-  slotProps: {
-    legend: {
-      hidden: true
-    }
-  },
-  grid: { vertical: false, horizontal: false },
-  margin: { left: 10, right: 10, top: 17, bottom: 4 }
-};
+import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 
 type CountBarChartProps = {
   publicCount: number;
@@ -24,6 +11,8 @@ export const CountBarChart: React.FC<CountBarChartProps> = ({
   publicCount,
   privateCount
 }) => {
+  const isMobile = useIsMobile();
+
   return (
     <BarChart
       dataset={[
@@ -59,7 +48,17 @@ export const CountBarChart: React.FC<CountBarChartProps> = ({
         }
       ]}
       layout="horizontal"
-      {...chartSetting}
+      width={isMobile ? 100 : 200}
+      height={isMobile ? 50 : 60}
+      leftAxis={null}
+      bottomAxis={null}
+      slotProps={{
+        legend: {
+          hidden: true
+        }
+      }}
+      grid={{ vertical: false, horizontal: false }}
+      margin={{ left: 10, right: 10, top: 17, bottom: 4 }}
       sx={{
         "& .MuiChartsAxis-line": { display: "none" },
         "& .MuiChartsAxis-tick": { display: "none" },
