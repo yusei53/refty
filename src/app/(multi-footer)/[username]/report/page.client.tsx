@@ -4,6 +4,7 @@ import { Divider } from "@mui/material";
 import type { ReflectionTagCountList } from "@/src/api/reflection-api";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 import { BarChartArea } from "@/src/features/routes/report/BarChartArea";
+import TagPieChartArea from "@/src/features/routes/report/TagPieChartArea";
 import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 import { theme } from "@/src/utils/theme";
 
@@ -73,14 +74,7 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
             marginBottom: 4
           }}
         />
-        <p>タグカウント</p>
-        <div>
-          {Object.entries(tagCountList).map(([tagName, count]) => (
-            <div key={tagName}>
-              {tagName}: {count}件
-            </div>
-          ))}
-        </div>
+        <TagPieChartArea tagCountList={tagCountList} />
       </div>
     </>
   );
