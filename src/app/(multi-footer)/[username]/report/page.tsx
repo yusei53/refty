@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { UserReportPage } from "./page.client";
+import { reflectionsCountAPI } from "@/src/api/reflections-count-api";
 import { userReportAPI } from "@/src/api/user-report-api";
 import { getUserSession } from "@/src/utils/get-user-session";
 import { meta } from "@/src/utils/metadata";
@@ -21,19 +22,26 @@ type PageProps = {
 
 const page = async ({ params }: PageProps) => {
   const session = await getUserSession();
-  const [reflectionContent, reflectionCounts, userProfile, hourlyPostCount] =
-    await Promise.all([
-      userReportAPI.getAllReflectionContent(params.username),
-      userReportAPI.getPublicPrivateCount(params.username),
-      userReportAPI.getUserProfile(params.username),
-      userReportAPI.getHourlyPostCount(params.username)
-    ]);
+  const [
+    reflectionContent,
+    reflectionCounts,
+    userProfile,
+    hourlyPostCount,
+    reflectionCount
+  ] = await Promise.all([
+    userReportAPI.getAllReflectionContent(params.username),
+    userReportAPI.getPublicPrivateCount(params.username),
+    userReportAPI.getUserProfile(params.username),
+    userReportAPI.getHourlyPostCount(params.username),
+    reflectionsCountAPI.getReflectionsCount(params.username)
+  ]);
 
   if (
     reflectionContent === 404 ||
     reflectionCounts === 404 ||
     userProfile === 404 ||
-    hourlyPostCount === 404
+    hourlyPostCount === 404 ||
+    reflectionCount === 404
   ) {
     return notFound();
   }
@@ -55,6 +63,7 @@ const page = async ({ params }: PageProps) => {
       contentLength={allPlainContent.length}
       userImage={userProfile.image}
       hourlyPostCount={hourlyPostCount.reflectionsDateGroup}
+      reflectionCount={reflectionCount}
     />
   );
 };

@@ -1,6 +1,8 @@
 "use client";
 import { Divider } from "@mui/material";
+import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
+import { CalendarAreaFetcher } from "@/src/features/routes/reflection-list/profile/calendar";
 import { BarChartArea } from "@/src/features/routes/report/BarChartArea";
 import { ReportHeader } from "@/src/features/routes/report/header/ReportHeader";
 import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
@@ -16,6 +18,7 @@ type UserReportPageProps = {
   privateCount: number;
   contentLength: number;
   hourlyPostCount: { hour: number; count: number }[];
+  reflectionCount: ReflectionsCount;
 };
 
 export const UserReportPage: React.FC<UserReportPageProps> = ({
@@ -27,7 +30,8 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
   publicCount,
   privateCount,
   contentLength,
-  hourlyPostCount
+  hourlyPostCount,
+  reflectionCount
 }) => {
   const isMobile = useIsMobile();
 
@@ -57,6 +61,7 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
         <span>文字数</span>
         {contentLength}
       </div>
+      <CalendarAreaFetcher reflectionCount={reflectionCount} />
       <Divider
         sx={{
           borderColor: theme.palette.grey[400],
