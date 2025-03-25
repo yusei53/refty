@@ -42,7 +42,6 @@ const TagPieChartArea: React.FC<TagPieChartAreaProps> = ({ tagCountList }) => {
   //MEMO: 投稿数が0のタグを省く
   const filteredPieData = pieData.filter((item) => item.value !== 0);
 
-  // MEMO: タグが付けられている投稿がひとつもないかどうかを判定するbool値
   const hasNoTagPost = filteredPieData.length === 0;
 
   return (
