@@ -45,7 +45,7 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
           <Typography
             variant={"h3"}
             component={"div"}
-            mb={0.5}
+            mb={-0.25}
             fontWeight={"normal"}
             lineHeight={1}
             color={theme.palette.grey[600]}
@@ -59,15 +59,10 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
             display={"flex"}
             flexDirection={"column"}
             gap={1}
-            ml={{ xs: 3, sm: 5 }}
+            ml={{ xs: 3, sm: 4 }}
             mt={0.5}
           >
-            <Box
-              display={"flex"}
-              flexDirection={"row"}
-              gap={1}
-              mb={{ xs: -0.5, sm: 0 }}
-            >
+            <Box display={"flex"} flexDirection={"row"} gap={1} mb={-0.5}>
               <Typography
                 variant={"body2"}
                 mt={0.5}
@@ -84,12 +79,7 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
                 {publicCount}
               </Typography>
             </Box>
-            <Box
-              display={"flex"}
-              flexDirection={"row"}
-              gap={1}
-              mt={{ xs: -0.5, sm: 0 }}
-            >
+            <Box display={"flex"} flexDirection={"row"} gap={1} mt={-0.5}>
               <Typography
                 variant={"body2"}
                 mt={0.5}

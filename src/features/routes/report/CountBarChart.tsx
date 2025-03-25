@@ -3,7 +3,7 @@ import { BarChart } from "@mui/x-charts";
 
 const chartSetting = {
   width: 200,
-  height: 50,
+  height: 60,
   leftAxis: null,
   bottomAxis: null,
   slotProps: {
@@ -12,7 +12,7 @@ const chartSetting = {
     }
   },
   grid: { vertical: false, horizontal: false },
-  margin: { left: 10, right: 10, top: 10, bottom: 10 }
+  margin: { left: 10, right: 10, top: 17, bottom: 4 }
 };
 
 type CountBarChartProps = {
