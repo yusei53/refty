@@ -16,6 +16,10 @@ type UserProfile = {
   isReportOpen: boolean;
 };
 
+type IsReportOpen = {
+  isReportOpen: boolean;
+};
+
 type HourlyPostCount = {
   reflectionsDateGroup: { hour: number; count: number }[];
 };
@@ -49,6 +53,21 @@ export const userReportAPI = {
     return await fetchURL<UserProfile, 404>(path, options);
   },
 
+  async updateIsReportOpen(
+    username: string,
+    isReportOpen: boolean
+  ): Promise<Result<IsReportOpen, 404>> {
+    const path = `/api/${username}/report/toggle-report-open`;
+    const options: FetchURLOptions = {
+      method: "PATCH",
+      body: { isReportOpen },
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+    return await fetchURL<IsReportOpen, 404>(path, options);
+  },
+  
   async getHourlyPostCount(
     username: string
   ): Promise<Result<HourlyPostCount, 404>> {
