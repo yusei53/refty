@@ -31,7 +31,6 @@ const ReportPublicPopup: React.FC<ReportPublicPopupProps> = ({
         height={30}
         display={"flex"}
         alignItems={"center"}
-        justifyContent={"center"}
         onClick={onOpenPopup}
         onBlur={onClosePopup}
         mt={2}
@@ -83,7 +82,7 @@ const ReportPublicPopup: React.FC<ReportPublicPopupProps> = ({
                 />
               ) : (
                 <PopupButton
-                  text={"公開する"}
+                  text={"公開にする"}
                   src={"/unlock.png"}
                   alt={"公開ボタン"}
                   onClick={onPublicToggle}
