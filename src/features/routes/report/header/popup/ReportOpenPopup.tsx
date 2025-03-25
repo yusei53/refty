@@ -3,22 +3,22 @@ import { Box, Fade, Popper } from "@mui/material";
 import { PopupButton } from "@/src/features/common/kebab-button-popup/PopupButton";
 import { theme } from "@/src/utils/theme";
 
-type ReportPublicPopupProps = {
+type ReportOpenPopupProps = {
   anchorEl: HTMLElement | null;
   open: boolean;
   isReportOpen: boolean;
   onOpenPopup: (event: React.MouseEvent<HTMLElement>) => void;
   onClosePopup: () => void;
-  onPublicToggle: () => void;
+  onIsReportOpenToggle: () => void;
 };
 
-const ReportPublicPopup: React.FC<ReportPublicPopupProps> = ({
+const ReportOpenPopup: React.FC<ReportOpenPopupProps> = ({
   anchorEl,
   open,
   isReportOpen,
   onOpenPopup,
   onClosePopup,
-  onPublicToggle
+  onIsReportOpenToggle
 }) => {
   return (
     <>
@@ -78,14 +78,14 @@ const ReportPublicPopup: React.FC<ReportPublicPopupProps> = ({
                   text={"非公開にする"}
                   src={"/lock.png"}
                   alt={"非公開ボタン"}
-                  onClick={onPublicToggle}
+                  onClick={onIsReportOpenToggle}
                 />
               ) : (
                 <PopupButton
                   text={"公開にする"}
                   src={"/unlock.png"}
                   alt={"公開ボタン"}
-                  onClick={onPublicToggle}
+                  onClick={onIsReportOpenToggle}
                 />
               )}
             </Box>
@@ -96,4 +96,4 @@ const ReportPublicPopup: React.FC<ReportPublicPopupProps> = ({
   );
 };
 
-export default ReportPublicPopup;
+export default ReportOpenPopup;

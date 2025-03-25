@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import ReportPublicPopup from "./ReportPublicPopup";
+import ReportOpenPopup from "./ReportOpenPopup";
 import { useUpdateIsReportOpen } from "@/src/hooks/report/useUpdateIsReportOpen";
 
-type ReportPublicPopupContainerProps = {
+type ReportOpenPopupContainerProps = {
   username: string;
   isReportOpen: boolean;
   isCurrentUser: boolean;
 };
 
-const ReportPublicPopupContainer: React.FC<ReportPublicPopupContainerProps> = ({
+const ReportOpenPopupContainer: React.FC<ReportOpenPopupContainerProps> = ({
   username,
   isReportOpen
 }) => {
@@ -27,21 +27,21 @@ const ReportPublicPopupContainer: React.FC<ReportPublicPopupContainerProps> = ({
     isReportOpen
   });
 
-  const handlePublicToggle = () => {
+  const handleIsReportOpenToggle = () => {
     handleUpdateIsReportOpen();
     handleClosePopup();
   };
 
   return (
-    <ReportPublicPopup
+    <ReportOpenPopup
       anchorEl={anchorEl}
       open={Boolean(anchorEl)}
       isReportOpen={isReportOpen}
       onOpenPopup={handleOpenPopup}
       onClosePopup={handleClosePopup}
-      onPublicToggle={handlePublicToggle}
+      onIsReportOpenToggle={handleIsReportOpenToggle}
     />
   );
 };
 
-export default ReportPublicPopupContainer;
+export default ReportOpenPopupContainer;

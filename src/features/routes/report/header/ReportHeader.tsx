@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Box, Typography } from "@mui/material";
-import ReportPublicPopupContainer from "./popup/ReportPublicPopupContainer";
+import ReportOpenPopupContainer from "./popup/ReportOpenPopupContainer";
 import { theme } from "@/src/utils/theme";
 
 type ReportHeaderProps = {
@@ -39,7 +39,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
       </Box>
       <Box>
         {isCurrentUser && (
-          <ReportPublicPopupContainer
+          <ReportOpenPopupContainer
             username={username}
             isReportOpen={isReportOpen}
             isCurrentUser={isCurrentUser}
