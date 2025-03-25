@@ -74,13 +74,13 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
           }}
         />
         <p>タグカウント</p>
-        <p>
+        <div>
           {Object.entries(tagCountList).map(([tagName, count]) => (
-            <p key={tagName}>
+            <div key={tagName}>
               {tagName}: {count}件
-            </p>
+            </div>
           ))}
-        </p>
+        </div>
       </div>
     </>
   );
