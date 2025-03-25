@@ -1,18 +1,18 @@
 "use client";
-import Image from "next/image";
 import { Divider } from "@mui/material";
 import type { ReflectionTagCountList } from "@/src/api/reflection-api";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 import { BarChartArea } from "@/src/features/routes/report/BarChartArea";
 import TagPieChartArea from "@/src/features/routes/report/TagPieChartArea";
+import { ReportHeader } from "@/src/features/routes/report/header/ReportHeader";
 import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 import { theme } from "@/src/utils/theme";
 
 type UserReportPageProps = {
   currentUsername: string | null;
   currentImage: string | null;
-  image: string;
   username: string;
+  userImage: string;
   isReportOpen: boolean;
   publicCount: number;
   privateCount: number;
@@ -24,16 +24,17 @@ type UserReportPageProps = {
 export const UserReportPage: React.FC<UserReportPageProps> = ({
   currentUsername,
   currentImage,
-  image,
+  username,
+  userImage,
   isReportOpen,
   publicCount,
   privateCount,
   contentLength,
-  username,
   hourlyPostCount,
   tagCountList
 }) => {
   const isMobile = useIsMobile();
+
   return (
     <>
       {!isMobile && (
@@ -42,6 +43,12 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
           username={currentUsername}
         />
       )}
+      <ReportHeader
+        userImage={userImage}
+        username={username}
+        isReportOpen={isReportOpen}
+        isCurrentUser={currentUsername === username}
+      />
       <div>
         <span>公開</span>
         {publicCount}
@@ -54,28 +61,22 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
         <span>文字数</span>
         {contentLength}
       </div>
-      <div>
-        <span>プロフィール</span>
-        <Image width={50} height={50} src={image} alt={`${username}の画像`} />
-        <p>レポートの公開非公開</p>
-        <p>現在{isReportOpen ? "公開" : "非公開"}中</p>
-        <Divider
-          sx={{
-            borderColor: theme.palette.grey[400],
-            marginTop: 6,
-            marginBottom: 4
-          }}
-        />
-        <BarChartArea hourlyPostCount={hourlyPostCount} />
-        <Divider
-          sx={{
-            borderColor: theme.palette.grey[400],
-            marginTop: 6,
-            marginBottom: 4
-          }}
-        />
-        <TagPieChartArea tagCountList={tagCountList} />
-      </div>
+      <Divider
+        sx={{
+          borderColor: theme.palette.grey[400],
+          marginTop: 6,
+          marginBottom: 4
+        }}
+      />
+      <BarChartArea hourlyPostCount={hourlyPostCount} />
+      <Divider
+        sx={{
+          borderColor: theme.palette.grey[400],
+          marginTop: 6,
+          marginBottom: 4
+        }}
+      />
+      <TagPieChartArea tagCountList={tagCountList} />
     </>
   );
 };

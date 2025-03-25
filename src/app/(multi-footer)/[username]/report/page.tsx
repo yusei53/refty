@@ -56,14 +56,14 @@ const page = async ({ params }: PageProps) => {
     <UserReportPage
       currentUsername={session?.username || null}
       currentImage={session?.image || null}
-      image={userProfile.image}
       username={params.username}
+      userImage={userProfile.image}
       isReportOpen={userProfile.isReportOpen}
       publicCount={reflectionCounts.public}
       privateCount={reflectionCounts.private}
       contentLength={allPlainContent.length}
-      tagCountList={tagCountList}
       hourlyPostCount={hourlyPostCount.reflectionsDateGroup}
+      tagCountList={tagCountList}
     />
   );
 };
