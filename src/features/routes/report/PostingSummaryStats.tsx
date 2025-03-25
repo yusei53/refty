@@ -1,6 +1,8 @@
 import React from "react";
+import Image from "next/image";
 import { Box, Typography } from "@mui/material";
 import { CountBarChart } from "./CountBarChart";
+import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 import { theme } from "@/src/utils/theme";
 
 type PostingSummaryStatsProps = {
@@ -15,6 +17,8 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
   contentLength
 }) => {
   const totalPosts = publicCount + privateCount;
+
+  const isMobile = useIsMobile();
 
   return (
     <Box
@@ -37,15 +41,16 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
           sx={{
             display: "flex",
             alignItems: "flex-end",
-            mt: { xs: 2, sm: 0 },
+            mt: -2,
             mb: 2,
-            ml: { xs: 2, sm: 8 }
+            ml: { xs: 1, sm: 8 }
           }}
         >
           <Typography
             variant={"h3"}
             component={"div"}
             mb={{ xs: 0.5, sm: -0.25 }}
+            mr={{ xs: -5, sm: -2 }}
             fontWeight={"normal"}
             lineHeight={1}
             color={theme.palette.grey[600]}
@@ -55,11 +60,21 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
           >
             {totalPosts}
           </Typography>
+          <Box mb={{ xs: -4.5, sm: -4 }}>
+            <Image
+              src={
+                isMobile ? "/curly-brackets-light.png" : "/curly-brackets.png"
+              }
+              alt={"curly-brackets"}
+              width={100}
+              height={100}
+            />
+          </Box>
           <Box
             display={"flex"}
             flexDirection={"column"}
             gap={1}
-            ml={{ xs: 2, sm: 4 }}
+            ml={{ xs: -5, sm: -3 }}
             mt={0.5}
           >
             <Box
@@ -115,7 +130,7 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
           />
         </Box>
       </Box>
-      <Box flex={1} ml={{ xs: 0, sm: 2 }}>
+      <Box flex={1} ml={{ xs: -2, sm: 2 }}>
         <Typography
           component={"h2"}
           fontSize={{ xs: "0.875rem", sm: "1rem" }}
@@ -124,7 +139,7 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
         >
           合計文字数
         </Typography>
-        <Box display={"flex"} alignItems={"flex-end"} ml={{ xs: 2, sm: 8 }}>
+        <Box display={"flex"} alignItems={"flex-end"} ml={{ xs: 1, sm: 8 }}>
           <Typography
             variant={"h3"}
             component={"div"}
