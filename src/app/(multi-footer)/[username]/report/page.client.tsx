@@ -46,6 +46,18 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
         isReportOpen={isReportOpen}
         isCurrentUser={currentUsername === username}
       />
+      <div>
+        <span>公開</span>
+        {publicCount}
+      </div>
+      <div>
+        <span>非公開</span>
+        {privateCount}
+      </div>
+      <div>
+        <span>文字数</span>
+        {contentLength}
+      </div>
       <Divider
         sx={{
           borderColor: theme.palette.grey[400],
