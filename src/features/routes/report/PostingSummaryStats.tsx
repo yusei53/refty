@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
+import { CountBarChart } from "./CountBarChart";
 import { theme } from "@/src/utils/theme";
 
 type PostingSummaryStatsProps = {
@@ -106,6 +107,10 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
               </Typography>
             </Box>
           </Box>
+          <CountBarChart
+            publicCount={publicCount}
+            privateCount={privateCount}
+          />
         </Box>
       </Box>
       <Box flex={1} ml={2}>
