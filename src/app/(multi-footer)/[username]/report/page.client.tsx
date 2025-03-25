@@ -2,6 +2,7 @@
 import { Divider } from "@mui/material";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 import { BarChartArea } from "@/src/features/routes/report/BarChartArea";
+import { PostingSummaryStats } from "@/src/features/routes/report/PostingSummaryStats";
 import { ReportHeader } from "@/src/features/routes/report/header/ReportHeader";
 import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 import { theme } from "@/src/utils/theme";
@@ -45,18 +46,11 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
         isReportOpen={isReportOpen}
         isCurrentUser={currentUsername === username}
       />
-      <div>
-        <span>公開</span>
-        {publicCount}
-      </div>
-      <div>
-        <span>非公開</span>
-        {privateCount}
-      </div>
-      <div>
-        <span>文字数</span>
-        {contentLength}
-      </div>
+      <PostingSummaryStats
+        publicCount={publicCount}
+        privateCount={privateCount}
+        contentLength={contentLength}
+      />
       <Divider
         sx={{
           borderColor: theme.palette.grey[400],
