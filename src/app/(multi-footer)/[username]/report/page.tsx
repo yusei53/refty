@@ -28,19 +28,22 @@ const page = async ({ params }: PageProps) => {
     reflectionContent,
     reflectionCounts,
     userProfile,
-    reflectionsWithUser
+    reflectionsWithUser,
+    hourlyPostCount
   ] = await Promise.all([
     userReportAPI.getAllReflectionContent(params.username),
     userReportAPI.getPublicPrivateCount(params.username),
     userReportAPI.getUserProfile(params.username),
-    reflectionAPI.getReflectionsByUsername(headers, params.username)
+    reflectionAPI.getReflectionsByUsername(headers, params.username),
+    userReportAPI.getHourlyPostCount(params.username)
   ]);
 
   if (
     reflectionContent === 404 ||
     reflectionCounts === 404 ||
     userProfile === 404 ||
-    reflectionsWithUser === 404
+    reflectionsWithUser === 404 ||
+    hourlyPostCount === 404
   ) {
     return notFound();
   }
@@ -61,6 +64,7 @@ const page = async ({ params }: PageProps) => {
       privateCount={reflectionCounts.private}
       contentLength={allPlainContent.length}
       tagCountList={reflectionsWithUser.tagCountList}
+      hourlyPostCount={hourlyPostCount.reflectionsDateGroup}
     />
   );
 };

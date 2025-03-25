@@ -16,6 +16,10 @@ type UserProfile = {
   isReportOpen: boolean;
 };
 
+type HourlyPostCount = {
+  reflectionsDateGroup: { hour: number; count: number }[];
+};
+
 export const userReportAPI = {
   async getAllReflectionContent(
     username: string
@@ -43,5 +47,15 @@ export const userReportAPI = {
       method: "GET"
     };
     return await fetchURL<UserProfile, 404>(path, options);
+  },
+
+  async getHourlyPostCount(
+    username: string
+  ): Promise<Result<HourlyPostCount, 404>> {
+    const path = `/api/${username}/report/reflection-time`;
+    const options: FetchURLOptions = {
+      method: "GET"
+    };
+    return await fetchURL<HourlyPostCount, 404>(path, options);
   }
 };
