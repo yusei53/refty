@@ -11,26 +11,27 @@ type TagPieChartAreaProps = {
 const TagPieChartArea: React.FC<TagPieChartAreaProps> = ({ tagCountList }) => {
   const isMobile = useIsMobile();
 
+  // TODO: 色をthemeに追加する
   const pieData = [
     {
       value: tagCountList.isDailyReflection,
       label: "振り返り",
-      color: "#397D05"
+      color: "#216e39"
     },
     {
       value: tagCountList.isLearning,
       label: "学び",
-      color: "#4A9C0A"
+      color: "#30a14e"
     },
     {
       value: tagCountList.isAwareness,
       label: "気づき",
-      color: "#59C757"
+      color: "#40c463"
     },
     {
       value: tagCountList.isMonologue,
       label: "ひとりごと",
-      color: "#6BDE6F"
+      color: "#9be9a8"
     },
     {
       value: tagCountList.isInputLog,
