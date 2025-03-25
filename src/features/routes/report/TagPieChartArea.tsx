@@ -1,8 +1,8 @@
-import { ReflectionTagCountList } from "@/src/api/reflection-api";
-import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
+import Image from "next/image";
 import { Box, Typography } from "@mui/material";
 import { pieArcLabelClasses, PieChart } from "@mui/x-charts";
-import Image from "next/image";
+import type { ReflectionTagCountList } from "@/src/api/reflection-api";
+import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 
 type TagPieChartAreaProps = {
   tagCountList: ReflectionTagCountList;

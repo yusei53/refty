@@ -4,9 +4,9 @@ import { Divider } from "@mui/material";
 import type { ReflectionTagCountList } from "@/src/api/reflection-api";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 import { BarChartArea } from "@/src/features/routes/report/BarChartArea";
+import TagPieChartArea from "@/src/features/routes/report/TagPieChartArea";
 import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 import { theme } from "@/src/utils/theme";
-import TagPieChartArea from "@/src/features/routes/report/TagPieChartArea";
 
 type UserReportPageProps = {
   currentUsername: string | null;
