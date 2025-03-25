@@ -62,6 +62,7 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
         {contentLength}
       </div>
       <ReflectionsCountArea reflectionCount={reflectionCount} />
+      {/* TODO: sxのところを切り出し */}
       <Divider
         sx={{
           borderColor: theme.palette.grey[400],
