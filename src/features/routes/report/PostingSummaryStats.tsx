@@ -26,7 +26,7 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
       gap={3}
     >
       <Box width={{ xs: "100%", sm: "auto" }}>
-        <Typography mb={-1}>投稿数</Typography>
+        <Typography mb={-3}>投稿数</Typography>
         <Box
           display={"flex"}
           alignItems={"center"}
@@ -71,7 +71,7 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
         </Box>
       </Box>
       <Box width={{ xs: "100%", sm: "auto" }}>
-        <Typography mb={-1}>合計文字数</Typography>
+        <Typography mb={-3}>合計文字数</Typography>
         <Box
           display={"flex"}
           alignItems={"center"}

@@ -1,6 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
-import { Divider } from "@mui/material";
+import { Box, Divider as MUIDivider, SxProps } from "@mui/material";
 import type { ReflectionTagCountList } from "@/src/api/reflection-api";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import { LinearLoading } from "@/src/components/loading";
@@ -66,28 +66,30 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
         isCurrentUser={currentUsername === username}
       />
       <CalendarAreaFetcher reflectionCount={reflectionCount} />
-      <PostingSummaryStats
-        publicCount={publicCount}
-        privateCount={privateCount}
-        contentLength={contentLength}
-      />
-      {/* TODO: sxのところを切り出し */}
-      <Divider
-        sx={{
-          borderColor: theme.palette.grey[400],
-          marginTop: 6,
-          marginBottom: 4
-        }}
-      />
-      <BarChartArea hourlyPostCount={hourlyPostCount} />
-      <Divider
-        sx={{
-          borderColor: theme.palette.grey[400],
-          marginTop: 6,
-          marginBottom: 4
-        }}
-      />
-      <TagPieChartArea tagCountList={tagCountList} />
+      <Box mx={{ sm: 3 }}>
+        <Divider sx={{ mt: 6, mb: 4 }} />
+        <PostingSummaryStats
+          publicCount={publicCount}
+          privateCount={privateCount}
+          contentLength={contentLength}
+        />
+        <Divider sx={{ mt: 2 }} />
+        <BarChartArea hourlyPostCount={hourlyPostCount} />
+        <Divider />
+        <TagPieChartArea tagCountList={tagCountList} />
+      </Box>
     </>
+  );
+};
+
+const Divider = ({ sx }: { sx?: SxProps }) => {
+  return (
+    <MUIDivider
+      sx={{
+        borderColor: theme.palette.grey[400],
+        my: 3,
+        ...sx
+      }}
+    />
   );
 };
