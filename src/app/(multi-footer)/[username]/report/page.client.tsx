@@ -1,6 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
-import { Box, Divider as MUIDivider, SxProps } from "@mui/material";
+import type { SxProps } from "@mui/material";
+import { Box, Divider as MUIDivider } from "@mui/material";
 import type { ReflectionTagCountList } from "@/src/api/reflection-api";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import { LinearLoading } from "@/src/components/loading";
