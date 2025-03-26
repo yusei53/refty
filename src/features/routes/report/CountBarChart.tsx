@@ -44,12 +44,13 @@ export const CountBarChart: React.FC<CountBarChartProps> = ({
       series={[
         {
           dataKey: "seoul",
-          label: "件数"
+          label: "件数",
+          color: "#5FD37D"
         }
       ]}
       layout="horizontal"
       width={isMobile ? 100 : 200}
-      height={isMobile ? 50 : 60}
+      height={isMobile ? 50 : 65}
       leftAxis={null}
       bottomAxis={null}
       slotProps={{
@@ -57,14 +58,7 @@ export const CountBarChart: React.FC<CountBarChartProps> = ({
           hidden: true
         }
       }}
-      grid={{ vertical: false, horizontal: false }}
-      margin={{ left: 10, right: 10, top: 17, bottom: 4 }}
-      sx={{
-        "& .MuiChartsAxis-line": { display: "none" },
-        "& .MuiChartsAxis-tick": { display: "none" },
-        "& .MuiChartsAxis-tickLabel": { display: "none" },
-        "& .MuiBarElement-root": { maxWidth: "10px", width: "10px" }
-      }}
+      margin={{ left: 10, right: 10, top: 10, bottom: 10 }}
     />
   );
 };
