@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Box, Typography } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 import { CountBarChart } from "./CountBarChart";
 import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 import { theme } from "@/src/utils/theme";
@@ -33,18 +33,13 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
           justifyContent={"center"}
           ml={{ sm: 5 }}
         >
-          <Typography
-            color={theme.palette.grey[600]}
-            fontSize={{ xs: 36, sm: 50 }}
-          >
-            {totalPosts}
-          </Typography>
+          <Typography sx={mainNumber}>{totalPosts}</Typography>
           <Image
             src={"/curly-brackets.png"}
             alt={"curly-brackets"}
             width={120}
             height={120}
-            style={{ marginLeft: isMobile ? -30 : -30 }}
+            style={{ marginLeft: -30 }}
           />
           <Box
             display={"flex"}
@@ -58,18 +53,10 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
                 <Typography whiteSpace={"nowrap"}>非公開</Typography>
               </Box>
               <Box>
-                <Typography
-                  color={theme.palette.grey[600]}
-                  fontSize={18}
-                  mb={-0.4}
-                >
+                <Typography mb={-0.4} sx={subNumber}>
                   {publicCount}
                 </Typography>
-                <Typography
-                  color={theme.palette.grey[600]}
-                  fontSize={18}
-                  mt={-0.4}
-                >
+                <Typography mt={-0.4} sx={subNumber}>
                   {privateCount}
                 </Typography>
               </Box>
@@ -92,12 +79,8 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
           ml={{ xs: -4, sm: 8 }}
           position={"relative"}
         >
-          {/* // 画像の高さと合わせるための固定値のheightをセットする */}
-          <Box height={120} />
-          <Typography
-            color={theme.palette.grey[600]}
-            fontSize={{ xs: 36, sm: 50 }}
-          >
+          <TransParentBox />
+          <Typography sx={mainNumber}>
             {contentLength.toLocaleString()}
           </Typography>
           <Typography
@@ -114,3 +97,18 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
     </Box>
   );
 };
+
+const mainNumber = {
+  fontSize: { xs: 36, sm: 50 },
+  color: theme.palette.grey[600]
+};
+
+const subNumber = {
+  fontSize: 18,
+  color: theme.palette.grey[600]
+};
+
+// MEMO: curly-bracketsと同じBoxを用意するため
+const TransParentBox = styled(Box)({
+  height: 120
+});
