@@ -79,7 +79,7 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
           ml={{ xs: -4, sm: 8 }}
           position={"relative"}
         >
-          <TransParentBox />
+          <TransparentBox />
           <Typography sx={mainNumber}>
             {contentLength.toLocaleString()}
           </Typography>
@@ -109,6 +109,6 @@ const subNumber = {
 };
 
 // MEMO: curly-bracketsと同じBoxを用意するため
-const TransParentBox = styled(Box)({
+const TransparentBox = styled(Box)({
   height: 120
 });
