@@ -1,14 +1,25 @@
 "use client";
+import dynamic from "next/dynamic";
 import { Divider } from "@mui/material";
 import type { ReflectionTagCountList } from "@/src/api/reflection-api";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
+import { LinearLoading } from "@/src/components/loading";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 import { BarChartArea } from "@/src/features/routes/report/BarChartArea";
-import { ReflectionsCountArea } from "@/src/features/routes/report/ReflectionsCountArea";
 import TagPieChartArea from "@/src/features/routes/report/TagPieChartArea";
 import { ReportHeader } from "@/src/features/routes/report/header/ReportHeader";
 import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 import { theme } from "@/src/utils/theme";
+const CalendarAreaFetcher = dynamic(
+  () =>
+    import(
+      "@/src/features/routes/reflection-list/profile/calendar/CalendarAreaFetcher"
+    ).then((mod) => mod.CalendarAreaFetcher),
+  {
+    loading: () => <LinearLoading />,
+    ssr: false
+  }
+);
 
 type UserReportPageProps = {
   currentUsername: string | null;
@@ -65,7 +76,7 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
         <span>文字数</span>
         {contentLength}
       </div>
-      <ReflectionsCountArea reflectionCount={reflectionCount} />
+      <CalendarAreaFetcher reflectionCount={reflectionCount} />
       {/* TODO: sxのところを切り出し */}
       <Divider
         sx={{
