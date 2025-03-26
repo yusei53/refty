@@ -6,6 +6,7 @@ import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import { LinearLoading } from "@/src/components/loading";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 import { BarChartArea } from "@/src/features/routes/report/BarChartArea";
+import { PostingSummaryStats } from "@/src/features/routes/report/PostingSummaryStats";
 import TagPieChartArea from "@/src/features/routes/report/TagPieChartArea";
 import { ReportHeader } from "@/src/features/routes/report/header/ReportHeader";
 import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
@@ -64,19 +65,12 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
         isReportOpen={isReportOpen}
         isCurrentUser={currentUsername === username}
       />
-      <div>
-        <span>公開</span>
-        {publicCount}
-      </div>
-      <div>
-        <span>非公開</span>
-        {privateCount}
-      </div>
-      <div>
-        <span>文字数</span>
-        {contentLength}
-      </div>
       <CalendarAreaFetcher reflectionCount={reflectionCount} />
+      <PostingSummaryStats
+        publicCount={publicCount}
+        privateCount={privateCount}
+        contentLength={contentLength}
+      />
       {/* TODO: sxのところを切り出し */}
       <Divider
         sx={{
