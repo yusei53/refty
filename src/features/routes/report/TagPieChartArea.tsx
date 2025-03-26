@@ -66,10 +66,13 @@ const TagPieChartArea: React.FC<TagPieChartAreaProps> = ({ tagCountList }) => {
           <Typography>タグが付けられている投稿がありません</Typography>
         </Box>
       ) : (
-        <Box display={"flex"} justifyContent={"center"}>
+        <Box display={"flex"} justifyContent={"center"} ml={{ xs: -8, sm: 0 }}>
           <PieChart
             height={isMobile ? 200 : 300}
             width={600}
+            margin={{
+              right: isMobile ? 50 : 100
+            }}
             series={[
               {
                 innerRadius: 60,
@@ -97,9 +100,9 @@ const TagPieChartArea: React.FC<TagPieChartAreaProps> = ({ tagCountList }) => {
                 vertical: "middle",
                 horizontal: "right"
               },
-              padding: 0,
               itemMarkWidth: 12,
-              itemMarkHeight: 12
+              itemMarkHeight: 12,
+              itemGap: 15
             }}
           />
         </Box>
