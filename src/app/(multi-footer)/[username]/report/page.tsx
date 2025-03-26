@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { UserReportPage } from "./page.client";
-import { reflectionsCountAPI } from "@/src/api/reflections-count-api";
 import { userReportAPI } from "@/src/api/user-report-api";
 import { getHeaders } from "@/src/utils/get-headers";
 import { meta } from "@/src/utils/metadata";
@@ -38,19 +37,9 @@ const page = async ({ params }: PageProps) => {
     userReportAPI.getAllReflectionContent(params.username),
     userReportAPI.getPublicPrivateCount(params.username),
     userReportAPI.getHourlyPostCount(params.username),
-    reflectionsCountAPI.getReflectionsCount(params.username),
+    userReportAPI.getReflectionsCount(params.username),
     userReportAPI.getTagCount(params.username)
   ]);
-
-  if (
-    reflectionContent === 404 ||
-    reflectionCounts === 404 ||
-    hourlyPostCount === 404 ||
-    reflectionCount === 404 ||
-    tagCountList === 404
-  ) {
-    return notFound();
-  }
 
   const allPlainContent = removeHtmlTags(reflectionContent.allContent);
   return (
