@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { UserReportPage } from "./page.client";
-import { reflectionsCountAPI } from "@/src/api/reflections-count-api";
 import { userReportAPI } from "@/src/api/user-report-api";
-import { getUserSession } from "@/src/utils/get-user-session";
+import { getHeaders } from "@/src/utils/get-headers";
 import { meta } from "@/src/utils/metadata";
 import { removeHtmlTags } from "@/src/utils/remove-html-tags";
 
@@ -21,48 +20,35 @@ type PageProps = {
 };
 
 const page = async ({ params }: PageProps) => {
-  const session = await getUserSession();
+  const headers = getHeaders();
+
+  const status = await userReportAPI.getReportStatus(params.username, headers);
+  if (status === 403 || status === 404) {
+    return notFound();
+  }
+
   const [
     reflectionContent,
     reflectionCounts,
-    userProfile,
     hourlyPostCount,
     reflectionCount,
     tagCountList
   ] = await Promise.all([
     userReportAPI.getAllReflectionContent(params.username),
     userReportAPI.getPublicPrivateCount(params.username),
-    userReportAPI.getUserProfile(params.username),
     userReportAPI.getHourlyPostCount(params.username),
-    reflectionsCountAPI.getReflectionsCount(params.username),
+    userReportAPI.getReflectionsCount(params.username),
     userReportAPI.getTagCount(params.username)
   ]);
-
-  if (
-    reflectionContent === 404 ||
-    reflectionCounts === 404 ||
-    userProfile === 404 ||
-    hourlyPostCount === 404 ||
-    reflectionCount === 404 ||
-    tagCountList === 404
-  ) {
-    return notFound();
-  }
-
-  // TODO: レポートが非公開かつ、閲覧者が本人でない場合は404を返す404ページを返す。開発中は表示しておくため、リリース時にはコメントアウトを解除する
-  // NOTE: 一時的に公開非公開試したい人はコメントアウトを解除してください
-  // if (!userProfile.isReportOpen && session?.user.username !== params.username) {
-  //   return notFound();
-  // }
 
   const allPlainContent = removeHtmlTags(reflectionContent.allContent);
   return (
     <UserReportPage
-      currentUsername={session?.username || null}
-      currentImage={session?.image || null}
+      currentUsername={status.session.username || null}
+      currentImage={status.session.image || null}
       username={params.username}
-      userImage={userProfile.image}
-      isReportOpen={userProfile.isReportOpen}
+      userImage={status.userImage}
+      isReportOpen={status.isReportOpen}
       publicCount={reflectionCounts.public}
       privateCount={reflectionCounts.private}
       contentLength={allPlainContent.length}

@@ -10,10 +10,8 @@ export async function GET(
 ) {
   const username = params.username;
   const userId = await getUserIdByUsername(username);
+  if (!userId) return notFoundError("ユーザーが見つかりません");
 
-  if (!userId) {
-    return notFoundError("ユーザーが見つかりません");
-  }
   try {
     const isDailyReflectionCount =
       await reflectionRepository.countSelectedTagReflectionsByUserId(
