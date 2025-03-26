@@ -1,6 +1,7 @@
 import type { ReflectionTagCountList } from "./reflection-api";
 import type { FetchURLOptions } from "../utils/fetchURL";
 import type { Result } from "../utils/types/result";
+import type { Session } from "next-auth";
 import { fetchURL } from "../utils/fetchURL";
 
 type AllReflectionContent = {
@@ -21,11 +22,29 @@ type IsReportOpen = {
   isReportOpen: boolean;
 };
 
+type ReportStatus = {
+  isReportOpen: boolean;
+  userImage: string;
+  session: Session["user"];
+};
+
 type HourlyPostCount = {
   reflectionsDateGroup: { hour: number; count: number }[];
 };
 
 export const userReportAPI = {
+  async getReportStatus(
+    username: string,
+    headers: HeadersInit | undefined
+  ): Promise<Result<ReportStatus, 403 | 404>> {
+    const path = `/api/${username}/report/status`;
+    const options: FetchURLOptions = {
+      method: "GET",
+      headers
+    };
+    return await fetchURL<ReportStatus, 403 | 404>(path, options);
+  },
+
   async getAllReflectionContent(
     username: string
   ): Promise<Result<AllReflectionContent, 404>> {
@@ -68,7 +87,7 @@ export const userReportAPI = {
     };
     return await fetchURL<IsReportOpen, 404>(path, options);
   },
-  
+
   async getHourlyPostCount(
     username: string
   ): Promise<Result<HourlyPostCount, 404>> {
