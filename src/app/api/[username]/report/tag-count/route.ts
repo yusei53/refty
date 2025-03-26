@@ -2,7 +2,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { reflectionRepository } from "@/src/infrastructure/repository/reflectionRepository";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
-import { internalServerError } from "@/src/utils/http-error";
+import { internalServerError, notFoundError } from "@/src/utils/http-error";
 
 export async function GET(
   _: NextRequest,
@@ -10,11 +10,12 @@ export async function GET(
 ) {
   const username = params.username;
   const userId = await getUserIdByUsername(username);
+  if (!userId) return notFoundError("ユーザーが見つかりません");
 
   try {
     const isDailyReflectionCount =
       await reflectionRepository.countSelectedTagReflectionsByUserId(
-        userId!,
+        userId,
         undefined,
         {
           isDailyReflection: true
@@ -23,28 +24,28 @@ export async function GET(
 
     const isLearningCount =
       await reflectionRepository.countSelectedTagReflectionsByUserId(
-        userId!,
+        userId,
         undefined,
         { isLearning: true }
       );
 
     const isAwarenessCount =
       await reflectionRepository.countSelectedTagReflectionsByUserId(
-        userId!,
+        userId,
         undefined,
         { isAwareness: true }
       );
 
     const isMonologueCount =
       await reflectionRepository.countSelectedTagReflectionsByUserId(
-        userId!,
+        userId,
         undefined,
         { isMonologue: true }
       );
 
     const isInputLogCount =
       await reflectionRepository.countSelectedTagReflectionsByUserId(
-        userId!,
+        userId,
         undefined,
         {
           isInputLog: true
