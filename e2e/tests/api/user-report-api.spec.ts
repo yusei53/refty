@@ -34,10 +34,10 @@ test.describe("未認証ユーザー", () => {
     );
     expect(responseAllContent.status()).toBe(200);
 
-    const responsePublicPrivate = await page.request.get(
+    const responsePublicPrivateCount = await page.request.get(
       `/api/yusei53/report/public-private-reflection`
     );
-    expect(responsePublicPrivate.status()).toBe(200);
+    expect(responsePublicPrivateCount.status()).toBe(200);
 
     const responseReflectionTime = await page.request.get(
       `/api/yusei53/report/reflection-time`
@@ -90,10 +90,10 @@ test.describe("認証済みユーザー", () => {
     );
     expect(responseAllContent.status()).toBe(200);
 
-    const responsePublicPrivate = await page.request.get(
+    const responsePublicPrivateCount = await page.request.get(
       `/api/${refty.username}/report/public-private-reflection`
     );
-    expect(responsePublicPrivate.status()).toBe(200);
+    expect(responsePublicPrivateCount.status()).toBe(200);
 
     const responseReflectionTime = await page.request.get(
       `/api/${refty.username}/report/reflection-time`
@@ -120,10 +120,10 @@ test.describe("認証済みユーザー", () => {
     );
     expect(responseAllContent.status()).toBe(200);
 
-    const responsePublicPrivate = await page.request.get(
+    const responsePublicPrivateCount = await page.request.get(
       `/api/yusei53/report/public-private-reflection`
     );
-    expect(responsePublicPrivate.status()).toBe(200);
+    expect(responsePublicPrivateCount.status()).toBe(200);
 
     const responseReflectionTime = await page.request.get(
       `/api/yusei53/report/reflection-time`
