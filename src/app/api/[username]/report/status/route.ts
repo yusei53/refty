@@ -35,6 +35,6 @@ export async function GET(
       session
     });
   } catch (error) {
-    return internalServerError("GET", "ユーザーの振り返り時間帯一覧", error);
+    return internalServerError("GET", "ユーザーのレポートステータス取得", error);
   }
 }
