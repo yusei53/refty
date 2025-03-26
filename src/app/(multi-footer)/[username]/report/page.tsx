@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { UserReportPage } from "./page.client";
+import { reflectionsCountAPI } from "@/src/api/reflections-count-api";
 import { userReportAPI } from "@/src/api/user-report-api";
 import { getUserSession } from "@/src/utils/get-user-session";
 import { meta } from "@/src/utils/metadata";
@@ -26,12 +27,14 @@ const page = async ({ params }: PageProps) => {
     reflectionCounts,
     userProfile,
     hourlyPostCount,
+    reflectionCount,
     tagCountList
   ] = await Promise.all([
     userReportAPI.getAllReflectionContent(params.username),
     userReportAPI.getPublicPrivateCount(params.username),
     userReportAPI.getUserProfile(params.username),
     userReportAPI.getHourlyPostCount(params.username),
+    reflectionsCountAPI.getReflectionsCount(params.username),
     userReportAPI.getTagCount(params.username)
   ]);
 
@@ -40,6 +43,7 @@ const page = async ({ params }: PageProps) => {
     reflectionCounts === 404 ||
     userProfile === 404 ||
     hourlyPostCount === 404 ||
+    reflectionCount === 404 ||
     tagCountList === 404
   ) {
     return notFound();
@@ -63,6 +67,7 @@ const page = async ({ params }: PageProps) => {
       privateCount={reflectionCounts.private}
       contentLength={allPlainContent.length}
       hourlyPostCount={hourlyPostCount.reflectionsDateGroup}
+      reflectionCount={reflectionCount}
       tagCountList={tagCountList}
     />
   );

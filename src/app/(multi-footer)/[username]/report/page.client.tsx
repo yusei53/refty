@@ -1,12 +1,25 @@
 "use client";
+import dynamic from "next/dynamic";
 import { Divider } from "@mui/material";
 import type { ReflectionTagCountList } from "@/src/api/reflection-api";
+import type { ReflectionsCount } from "@/src/api/reflections-count-api";
+import { LinearLoading } from "@/src/components/loading";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 import { BarChartArea } from "@/src/features/routes/report/BarChartArea";
 import TagPieChartArea from "@/src/features/routes/report/TagPieChartArea";
 import { ReportHeader } from "@/src/features/routes/report/header/ReportHeader";
 import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 import { theme } from "@/src/utils/theme";
+const CalendarAreaFetcher = dynamic(
+  () =>
+    import(
+      "@/src/features/routes/reflection-list/profile/calendar/CalendarAreaFetcher"
+    ).then((mod) => mod.CalendarAreaFetcher),
+  {
+    loading: () => <LinearLoading />,
+    ssr: false
+  }
+);
 
 type UserReportPageProps = {
   currentUsername: string | null;
@@ -18,6 +31,7 @@ type UserReportPageProps = {
   privateCount: number;
   contentLength: number;
   hourlyPostCount: { hour: number; count: number }[];
+  reflectionCount: ReflectionsCount;
   tagCountList: ReflectionTagCountList;
 };
 
@@ -31,6 +45,7 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
   privateCount,
   contentLength,
   hourlyPostCount,
+  reflectionCount,
   tagCountList
 }) => {
   const isMobile = useIsMobile();
@@ -61,6 +76,8 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
         <span>文字数</span>
         {contentLength}
       </div>
+      <CalendarAreaFetcher reflectionCount={reflectionCount} />
+      {/* TODO: sxのところを切り出し */}
       <Divider
         sx={{
           borderColor: theme.palette.grey[400],
