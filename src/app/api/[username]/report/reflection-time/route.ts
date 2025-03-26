@@ -9,24 +9,11 @@ export async function GET(
   { params }: { params: { username: string } }
 ) {
   const username = params.username;
-
-  if (!username) {
-    return notFoundError("ユーザーネームが見つかりません");
-  }
-
   const userId = await getUserIdByUsername(username);
-
-  if (!userId) {
-    return notFoundError("ユーザーが見つかりません");
-  }
-
+  if (!userId) return notFoundError("ユーザーが見つかりません");
   try {
     const reflectionsDateGroup =
       await reflectionService.getReflectionsByHourGroup(userId);
-
-    if (!reflectionsDateGroup) {
-      return notFoundError("ユーザーの振り返りが見つかりません");
-    }
 
     return NextResponse.json({
       reflectionsDateGroup
