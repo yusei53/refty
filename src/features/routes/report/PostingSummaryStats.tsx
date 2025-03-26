@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 import { Box, Typography } from "@mui/material";
 import { CountBarChart } from "./CountBarChart";
@@ -16,109 +15,53 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
   privateCount,
   contentLength
 }) => {
+  const isMobile = useIsMobile();
   const totalPosts = publicCount + privateCount;
 
-  const isMobile = useIsMobile();
-
   return (
-    <Box
-      display={"flex"}
-      justifyContent={"space-between"}
-      width={"100%"}
-      mb={2}
-      mt={4}
-    >
-      <Box flex={1} mr={2}>
-        <Typography
-          component={"h2"}
-          fontSize={{ xs: "0.875rem", sm: "1rem" }}
-          mb={1}
-          color={theme.palette.grey[600]}
-        >
-          投稿数
-        </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "flex-end",
-            mt: -2,
-            mb: 2,
-            ml: { xs: 1, sm: 8 }
-          }}
-        >
+    <Box display={"flex"} alignItems={"center"} gap={2}>
+      <Box>
+        <Typography>投稿数</Typography>
+        <Box display={"flex"} alignItems={"center"} ml={{ xs: 1, sm: 6 }}>
           <Typography
-            variant={"h3"}
-            component={"div"}
-            mb={{ xs: 0.5, sm: -0.25 }}
-            mr={{ xs: -5, sm: -2 }}
-            fontWeight={"normal"}
-            lineHeight={1}
             color={theme.palette.grey[600]}
-            sx={{
-              fontSize: { xs: "1.75rem", sm: "3rem" }
-            }}
+            fontSize={{ xs: 30, sm: 60 }}
           >
             {totalPosts}
           </Typography>
-          <Box mb={{ xs: -4.5, sm: -4 }}>
-            <Image
-              src={
-                isMobile ? "/curly-brackets-light.png" : "/curly-brackets.png"
-              }
-              alt={"curly-brackets"}
-              width={100}
-              height={100}
-            />
-          </Box>
+          <Image
+            src={isMobile ? "/curly-brackets-light.png" : "/curly-brackets.png"}
+            alt={"curly-brackets"}
+            width={110}
+            height={110}
+            style={{ marginLeft: -25 }}
+          />
           <Box
             display={"flex"}
             flexDirection={"column"}
-            gap={1}
-            ml={{ xs: -5, sm: -3 }}
-            mt={0.5}
+            ml={-4}
+            height={"100%"}
           >
-            <Box
-              display={"flex"}
-              flexDirection={"row"}
-              gap={1}
-              mb={{ xs: -0.75, sm: -0.5 }}
-            >
-              <Typography
-                variant={"body2"}
-                mt={0.5}
-                fontSize={{ xs: "0.6rem", sm: "0.875rem" }}
-                whiteSpace="nowrap"
-              >
+            <Box display={"flex"} alignItems={"center"} gap={1} mb={-0.1}>
+              <Typography fontSize={{ xs: 10, sm: 14 }} whiteSpace={"nowrap"}>
                 公開
               </Typography>
               <Typography
-                variant={"body1"}
                 color={theme.palette.grey[600]}
-                fontWeight={"bold"}
-                fontSize={{ xs: "0.875rem", sm: "1rem" }}
+                fontWeight={550}
+                fontSize={{ xs: 0.875, sm: 18 }}
               >
                 {publicCount}
               </Typography>
             </Box>
-            <Box
-              display={"flex"}
-              flexDirection={"row"}
-              gap={1}
-              mt={{ xs: -0.75, sm: -0.5 }}
-            >
-              <Typography
-                variant={"body2"}
-                mt={0.5}
-                fontSize={{ xs: "0.6rem", sm: "0.875rem" }}
-                whiteSpace="nowrap"
-              >
+            <Box display={"flex"} alignItems={"center"} gap={1} mt={-0.1}>
+              <Typography fontSize={{ xs: 10, sm: 14 }} whiteSpace={"nowrap"}>
                 非公開
               </Typography>
               <Typography
-                variant={"body1"}
                 color={theme.palette.grey[600]}
                 fontWeight={"bold"}
-                fontSize={{ xs: "0.875rem", sm: "1rem" }}
+                fontSize={{ xs: 0.875, sm: 18 }}
               >
                 {privateCount}
               </Typography>
@@ -130,34 +73,23 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
           />
         </Box>
       </Box>
-      <Box flex={1} ml={{ xs: -2, sm: 2 }}>
-        <Typography
-          component={"h2"}
-          fontSize={{ xs: "0.875rem", sm: "1rem" }}
-          mb={1}
-          color={theme.palette.grey[600]}
-        >
-          合計文字数
-        </Typography>
-        <Box display={"flex"} alignItems={"flex-end"} ml={{ xs: 1, sm: 8 }}>
+      <Box>
+        <Typography>合計文字数</Typography>
+        <Box display={"flex"} ml={{ xs: 1, sm: 8 }} position={"relative"}>
+          {/* // 画像の高さと合わせるための固定値のheightをセットする */}
+          <Box height={100} />
           <Typography
-            variant={"h3"}
-            component={"div"}
-            fontWeight={"normal"}
             color={theme.palette.grey[600]}
-            lineHeight={1}
-            fontSize={{ xs: "1.75rem", sm: "3rem" }}
-            mt={{ xs: 2, sm: 0.5 }}
+            fontSize={{ xs: 30, sm: 60 }}
           >
             {contentLength.toLocaleString()}
           </Typography>
           <Typography
-            variant={"body2"}
             color={theme.palette.grey[600]}
-            ml={1}
-            mb={{ xs: 0.5, sm: 1 }}
-            fontSize={{ xs: "0.75rem", sm: "0.875rem" }}
-            whiteSpace="nowrap"
+            whiteSpace={"nowrap"}
+            position={"absolute"}
+            right={-40}
+            bottom={25}
           >
             文字
           </Typography>
