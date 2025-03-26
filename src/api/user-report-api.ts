@@ -1,8 +1,10 @@
 import type { ReflectionTagCountList } from "./reflection-api";
+import type { ReflectionsCount } from "./reflections-count-api";
 import type { FetchURLOptions } from "../utils/fetchURL";
 import type { Result } from "../utils/types/result";
 import type { Session } from "next-auth";
 import { fetchURL } from "../utils/fetchURL";
+import { fetchURLDirect } from "../utils/fetchURLDirect";
 
 type AllReflectionContent = {
   allContent: string;
@@ -45,32 +47,54 @@ export const userReportAPI = {
     return await fetchURL<ReportStatus, 403 | 404>(path, options);
   },
 
+  async getReflectionsCount(username: string): Promise<ReflectionsCount> {
+    const path = `/api/${username}/reflections-count`;
+    const options: FetchURLOptions = {
+      method: "GET"
+    };
+    return await fetchURLDirect<ReflectionsCount>(path, options);
+  },
+
   async getAllReflectionContent(
     username: string
-  ): Promise<Result<AllReflectionContent, 404>> {
+  ): Promise<AllReflectionContent> {
     const path = `/api/${username}/report/all-content`;
     const options: FetchURLOptions = {
       method: "GET"
     };
-    return await fetchURL<AllReflectionContent, 404>(path, options);
+    return await fetchURLDirect<AllReflectionContent>(path, options);
   },
 
-  async getPublicPrivateCount(
-    username: string
-  ): Promise<Result<PublicPrivateCount, 404>> {
+  async getPublicPrivateCount(username: string): Promise<PublicPrivateCount> {
     const path = `/api/${username}/report/public-private-reflection`;
     const options: FetchURLOptions = {
       method: "GET"
     };
-    return await fetchURL<PublicPrivateCount, 404>(path, options);
+    return await fetchURLDirect<PublicPrivateCount>(path, options);
   },
 
-  async getUserProfile(username: string): Promise<Result<UserProfile, 404>> {
+  async getUserProfile(username: string): Promise<UserProfile> {
     const path = `/api/${username}/report/profile`;
     const options: FetchURLOptions = {
       method: "GET"
     };
-    return await fetchURL<UserProfile, 404>(path, options);
+    return await fetchURLDirect<UserProfile>(path, options);
+  },
+
+  async getHourlyPostCount(username: string): Promise<HourlyPostCount> {
+    const path = `/api/${username}/report/reflection-time`;
+    const options: FetchURLOptions = {
+      method: "GET"
+    };
+    return await fetchURLDirect<HourlyPostCount>(path, options);
+  },
+
+  async getTagCount(username: string): Promise<ReflectionTagCountList> {
+    const path = `/api/${username}/report/tag-count`;
+    const options: FetchURLOptions = {
+      method: "GET"
+    };
+    return await fetchURLDirect<ReflectionTagCountList>(path, options);
   },
 
   async updateIsReportOpen(
@@ -86,25 +110,5 @@ export const userReportAPI = {
       }
     };
     return await fetchURL<IsReportOpen, 404>(path, options);
-  },
-
-  async getHourlyPostCount(
-    username: string
-  ): Promise<Result<HourlyPostCount, 404>> {
-    const path = `/api/${username}/report/reflection-time`;
-    const options: FetchURLOptions = {
-      method: "GET"
-    };
-    return await fetchURL<HourlyPostCount, 404>(path, options);
-  },
-
-  async getTagCount(
-    username: string
-  ): Promise<Result<ReflectionTagCountList, 404>> {
-    const path = `/api/${username}/report/tag-count`;
-    const options: FetchURLOptions = {
-      method: "GET"
-    };
-    return await fetchURL<ReflectionTagCountList, 404>(path, options);
   }
 };
