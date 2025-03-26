@@ -10,30 +10,49 @@ test.describe("未認証ユーザー", () => {
   test("指定したユーザーネームが存在しない場合、404エラーが返される", async ({
     page
   }) => {
-    const responseAllContent = await page.request.get(
-      "/api/abcdef/report/all-content"
+    const response = await page.request.get(
+      `/api/not-exist-username/report/status`
     );
-    expect(responseAllContent.status()).toBe(404);
+    expect(response.status()).toBe(404);
+  });
+
+  test("非公開のレポートにアクセスした場合、403エラーが返される", async ({
+    page
+  }) => {
+    const response = await page.request.get(
+      `/api/${refty.username}/report/status`
+    );
+    expect(response.status()).toBe(403);
+  });
+
+  test("公開のレポートにアクセスした場合、200が返される", async ({ page }) => {
+    const response = await page.request.get(`/api/yusei53/report/status`);
+    expect(response.status()).toBe(200);
+
+    const responseAllContent = await page.request.get(
+      `/api/yusei53/report/all-content`
+    );
+    expect(responseAllContent.status()).toBe(200);
 
     const responsePublicPrivate = await page.request.get(
-      "/api/abcdef/report/public-private-reflection"
+      `/api/yusei53/report/public-private-reflection`
     );
-    expect(responsePublicPrivate.status()).toBe(404);
-
-    const responseProfile = await page.request.get(
-      "/api/abcdef/report/profile"
-    );
-    expect(responseProfile.status()).toBe(404);
+    expect(responsePublicPrivate.status()).toBe(200);
 
     const responseReflectionTime = await page.request.get(
-      "/api/abcdef/report/reflection-time"
+      `/api/yusei53/report/reflection-time`
     );
-    expect(responseReflectionTime.status()).toBe(404);
+    expect(responseReflectionTime.status()).toBe(200);
+
+    const responseReflectionCount = await page.request.get(
+      `/api/yusei53/reflections-count`
+    );
+    expect(responseReflectionCount.status()).toBe(200);
 
     const responseTagCount = await page.request.get(
-      "/api/abcdef/report/tag-count"
+      `/api/yusei53/report/tag-count`
     );
-    expect(responseTagCount.status()).toBe(404);
+    expect(responseTagCount.status()).toBe(200);
   });
 });
 
@@ -42,7 +61,30 @@ test.describe("認証済みユーザー", () => {
     await page.context().addCookies([authSessionCookie]);
   });
 
-  test("200が返される", async ({ page }) => {
+  test("指定したユーザーネームが存在しない場合、404エラーが返される", async ({
+    page
+  }) => {
+    const response = await page.request.get(
+      `/api/not-exist-username/report/status`
+    );
+    expect(response.status()).toBe(404);
+  });
+
+  test("非公開のレポートにアクセスした場合、403エラーが返される", async ({
+    page
+  }) => {
+    const response = await page.request.get(`/api/yoshidanoline/report/status`);
+    expect(response.status()).toBe(403);
+  });
+
+  test("非公開かつ自身のレポートにアクセスした場合、200が返される", async ({
+    page
+  }) => {
+    const response = await page.request.get(
+      `/api/${refty.username}/report/status`
+    );
+    expect(response.status()).toBe(200);
+
     const responseAllContent = await page.request.get(
       `/api/${refty.username}/report/all-content`
     );
@@ -53,18 +95,48 @@ test.describe("認証済みユーザー", () => {
     );
     expect(responsePublicPrivate.status()).toBe(200);
 
-    const responseProfile = await page.request.get(
-      `/api/${refty.username}/report/profile`
-    );
-    expect(responseProfile.status()).toBe(200);
-
     const responseReflectionTime = await page.request.get(
       `/api/${refty.username}/report/reflection-time`
     );
     expect(responseReflectionTime.status()).toBe(200);
 
+    const responseReflectionCount = await page.request.get(
+      `/api/yusei53/reflections-count`
+    );
+    expect(responseReflectionCount.status()).toBe(200);
+
     const responseTagCount = await page.request.get(
       `/api/${refty.username}/report/tag-count`
+    );
+    expect(responseTagCount.status()).toBe(200);
+  });
+
+  test("公開のレポートにアクセスした場合、200が返される", async ({ page }) => {
+    const response = await page.request.get(`/api/yusei53/report/status`);
+    expect(response.status()).toBe(200);
+
+    const responseAllContent = await page.request.get(
+      `/api/yusei53/report/all-content`
+    );
+    expect(responseAllContent.status()).toBe(200);
+
+    const responsePublicPrivate = await page.request.get(
+      `/api/yusei53/report/public-private-reflection`
+    );
+    expect(responsePublicPrivate.status()).toBe(200);
+
+    const responseReflectionTime = await page.request.get(
+      `/api/yusei53/report/reflection-time`
+    );
+    expect(responseReflectionTime.status()).toBe(200);
+
+    const responseReflectionCount = await page.request.get(
+      `/api/yusei53/reflections-count`
+    );
+    expect(responseReflectionCount.status()).toBe(200);
+
+    const responseTagCount = await page.request.get(
+      `/api/yusei53/report/tag-count`
     );
     expect(responseTagCount.status()).toBe(200);
   });
