@@ -60,34 +60,20 @@ export const KebabButtonPopupContainer: React.FC<
   };
 
   return (
-    <>
-      {Boolean(anchorEl) && (
-        // MEMO: なぜかこのPopperは外側をクリックしてもスマホで閉じないため、透明なBoxを設置
-        <Box
-          onClick={handleClosePopup}
-          position="fixed"
-          top={0}
-          left={0}
-          width="100vw"
-          height="100vh"
-          zIndex={3}
-        />
-      )}
-      <KebabMenuButton
-        reflectionCUID={reflectionCUID}
-        username={username}
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        isPublic={isPublic}
-        isPinned={isPinned}
-        isCurrentUser={isCurrentUser}
-        onOpenPopup={handleOpenPopup}
-        onClosePopup={handleClosePopup}
-        onCopyLink={handleCopyLink}
-        onPublicToggle={handlePublicToggle}
-        onPinToggle={handlePinToggle}
-        isReflectionSettingHeader={isReflectionSettingHeader}
-      />
-    </>
+    <KebabMenuButton
+      reflectionCUID={reflectionCUID}
+      username={username}
+      anchorEl={anchorEl}
+      open={Boolean(anchorEl)}
+      isPublic={isPublic}
+      isPinned={isPinned}
+      isCurrentUser={isCurrentUser}
+      onOpenPopup={handleOpenPopup}
+      onClosePopup={handleClosePopup}
+      onCopyLink={handleCopyLink}
+      onPublicToggle={handlePublicToggle}
+      onPinToggle={handlePinToggle}
+      isReflectionSettingHeader={isReflectionSettingHeader}
+    />
   );
 };
