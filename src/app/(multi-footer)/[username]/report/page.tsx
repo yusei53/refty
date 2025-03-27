@@ -44,8 +44,8 @@ const page = async ({ params }: PageProps) => {
   const allPlainContent = removeHtmlTags(reflectionContent.allContent);
   return (
     <UserReportPage
-      currentUsername={status.session.username || null}
-      currentImage={status.session.image || null}
+      currentUsername={status.session?.username || null}
+      currentImage={status.session?.image || null}
       username={params.username}
       userImage={status.userImage}
       isReportOpen={status.isReportOpen}
