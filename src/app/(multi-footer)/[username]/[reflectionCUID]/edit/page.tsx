@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import ReflectionUpdateFormPage from "./page.client";
 import { folderAPI } from "@/src/api/folder-api";
 import { reflectionAPI } from "@/src/api/reflection-api";
+import { getHeaders } from "@/src/utils/get-headers";
 import { getUserSession } from "@/src/utils/get-user-session";
 import { generateMeta } from "@/src/utils/metadata";
 
@@ -23,16 +24,17 @@ type PageProps = {
 
 const page = async ({ params }: PageProps) => {
   const { reflectionCUID } = params;
+  const headers = getHeaders();
   const session = await getUserSession();
-
-  const reflection =
-    await reflectionAPI.getDetailReflectionByCUID(reflectionCUID);
-  if (reflection === 404 || reflection.userId !== session?.id) {
-    return notFound();
-  }
-
-  if (!session || session.username !== params.username) {
+  const reflection = await reflectionAPI.getEditReflectionByCUID(
+    headers,
+    reflectionCUID
+  );
+  if (reflection === 401 || !session?.username) {
     redirect("/login");
+  }
+  if (reflection === 403 || reflection === 404) {
+    return notFound();
   }
 
   const folders = await folderAPI.getFolder(session.username);
