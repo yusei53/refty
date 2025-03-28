@@ -1,1 +1,0 @@
-export { ToOtherPageButton } from "./ToOtherPageButton";

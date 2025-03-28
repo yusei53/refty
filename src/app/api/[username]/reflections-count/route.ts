@@ -4,6 +4,7 @@ import { reflectionService } from "@/src/service/reflectionService";
 import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
 import { internalServerError, notFoundError } from "@/src/utils/http-error";
 
+// MEMO: マイページとレポートページで使用しているので変更時は注意
 export async function GET(
   _: NextRequest,
   { params }: { params: { username: string } }

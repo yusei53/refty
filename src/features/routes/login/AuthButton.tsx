@@ -1,11 +1,5 @@
-import type {
-  ButtonProps,
-  SxProps} from "@mui/material";
-import {
-  Box,
-  Button as MuiButton,
-  Typography
-} from "@mui/material";
+import type { ButtonProps, SxProps } from "@mui/material";
+import { Box, Button as MuiButton, Typography } from "@mui/material";
 import type { IconType } from "react-icons";
 
 type AuthButtonProps = {

@@ -31,7 +31,7 @@ export const UserInformationHeader: React.FC<UserInformationHeaderProps> = ({
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("sm"));
 
   return (
-    <Box component={"header"} mx={{ xs: 4, sm: 3 }} mt={{ sm: 8 }}>
+    <Box component={"header"} mx={{ xs: 4, sm: 3 }} mt={{ sm: 10 }}>
       <Box
         display={"flex"}
         alignItems={"center"}
