@@ -2,7 +2,6 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { Box, useMediaQuery } from "@mui/material";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
-import type { User } from "@prisma/client";
 import { type Folder } from "@/src/api/folder-api";
 import {
   type RandomReflection,
@@ -15,6 +14,7 @@ import {
   NumberedPagination
 } from "@/src/components/pagination";
 import { EmptyReflection } from "@/src/features/common/empty-reflection";
+import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 import ReflectionCardListArea from "@/src/features/routes/reflection-list/card-list/ReflectionCardListArea";
 import { GoodJobModal } from "@/src/features/routes/reflection-list/modal";
 import UserProfileArea from "@/src/features/routes/reflection-list/profile/UserProfileArea";
@@ -23,9 +23,11 @@ import { Sidebar } from "@/src/features/routes/reflection-list/sidebar";
 import { FolderInitializer } from "@/src/features/routes/reflection-list/sidebar/FolderInitializer";
 import { useFolderSelection } from "@/src/hooks/folder/useFolderSelection";
 import { usePagination } from "@/src/hooks/reflection/usePagination";
+import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
 
 type UserReflectionListPageProps = {
-  currentUsername: User["username"];
+  currentUsername: string | null;
+  currentUserImage: string | null;
   userImage: string;
   username: string;
   bio: string;
@@ -41,6 +43,7 @@ type UserReflectionListPageProps = {
 
 const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   currentUsername,
+  currentUserImage,
   userImage,
   username,
   bio,
@@ -56,6 +59,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   const router = useRouter();
   const searchParams = useSearchParams();
   const isPWA = useMediaQuery("(display-mode: standalone)");
+  const isMobile = useIsMobile();
   const { handlePageChange } = usePagination();
   const {
     isSelectMode,
@@ -90,6 +94,12 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
               tagCountList={tagCountList}
             />
           </>
+        )}
+        {!isMobile && (
+          <UserMenuHeaderContainer
+            userImage={currentUserImage}
+            username={currentUsername}
+          />
         )}
         <UserProfileArea
           userImage={userImage}
