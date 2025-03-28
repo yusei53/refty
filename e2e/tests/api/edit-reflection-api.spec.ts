@@ -2,7 +2,8 @@ import { expect, test } from "@playwright/test";
 import { authSessionCookie } from "@/e2e/mocks/auth/authSessionCookie";
 import {
   reflection,
-  requestReflection
+  requestReflection,
+  yusei53Reflection
 } from "@/e2e/mocks/reflection/reflection";
 
 test.describe("未認証ユーザー", () => {
@@ -40,8 +41,7 @@ test.describe("認証済みユーザー", () => {
     page
   }) => {
     const response = await page.request.get(
-      // TODO: yusei53の投稿を指定しているので、リフティ公式のサブ垢を作ってCUIDを置き換えたい
-      `/api/reflection/detail/cm8ad31x00003ni588xehdmpg/edit`
+      `/api/reflection/detail/${yusei53Reflection.reflectionCUID}/edit`
     );
     expect(response.status()).toBe(403);
   });
@@ -68,8 +68,7 @@ test.describe("認証済みユーザー", () => {
     page
   }) => {
     const response = await page.request.patch(
-      // TODO: yusei53の投稿を指定しているので、リフティ公式のサブ垢を作ってCUIDを置き換えたい
-      `/api/reflection/detail/cm8ad31x00003ni588xehdmpg/edit`,
+      `/api/reflection/detail/${yusei53Reflection.reflectionCUID}/edit`,
       { data: requestReflection }
     );
     expect(response.status()).toBe(403);
