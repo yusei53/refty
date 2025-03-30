@@ -1,4 +1,4 @@
-import Grid from "@mui/material/Grid2";
+import { Grid } from "@mui/material";
 import type { Reflection } from "@/src/api/reflection-api";
 import { ReflectionCard } from "./ReflectionCard";
 import { animation } from "@/src/features/common/animation";

@@ -1,4 +1,4 @@
-import Grid from "@mui/material/Grid2";
+import { Grid } from "@mui/material";
 import type { ReflectionWithUser } from "@/src/api/reflection-api";
 import type { User } from "@prisma/client";
 import ReflectionCardWithUser from "./ReflectionCardWithUser";
