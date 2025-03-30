@@ -18,7 +18,6 @@ def lambda_handler(event, context):
 
     table_names = ['Reflection', 'Account', 'User', 'ReflectionFolder']
     csv_file_names = ['Reflection.csv', 'Account.csv', 'User.csv', 'ReflectionFolder.csv']
-
     today = datetime.datetime.utcnow().strftime('%Y-%m-%d')
 
     bucket = 'refty-backup-data'
@@ -34,7 +33,6 @@ def lambda_handler(event, context):
 
             key_today = f'{today}/{csv_file_name}'
             s3_client.put_object(Bucket=bucket, Key=key_today, Body=buffer.getvalue())
-
             if table_name == 'Reflection':
                 buffer.seek(0)
                 csv_reader = csv.reader(buffer)
@@ -48,17 +46,14 @@ def lambda_handler(event, context):
                     content_index = headers.index('content')
                 except ValueError:
                     pass
-                
                 try:
                     title_index = headers.index('title')
                 except ValueError:
                     pass
-
                 try:
                     ai_feedback_index = headers.index('aiFeedback')
                 except ValueError:
                     pass
-                
                 new_buffer = io.StringIO()
                 csv_writer = csv.writer(new_buffer)
                 csv_writer.writerow(headers)
@@ -74,13 +69,11 @@ def lambda_handler(event, context):
 
                     if ai_feedback_index is not None and row[ai_feedback_index]:
                         new_row[ai_feedback_index] = str(len(row[ai_feedback_index]))
-                    
                     csv_writer.writerow(new_row)
                 
                 new_buffer.seek(0)
                 latest_key = f'latest/{csv_file_name}'
                 s3_client.put_object(Bucket=bucket, Key=latest_key, Body=new_buffer.getvalue())
-
             elif table_name == 'User':
                 buffer.seek(0)
                 csv_reader = csv.reader(buffer)
