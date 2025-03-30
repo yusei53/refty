@@ -112,7 +112,7 @@ export const UserMenuHeader: React.FC<UserMenuHeaderProps> = ({
                 title={"プロフィール設定"}
                 src={"/setting.svg"}
                 alt={`プロフィール設定`}
-                href={`/${username}/profile-setting`}
+                href={`/settings/profile`}
               />
             </Box>
           </Fade>
