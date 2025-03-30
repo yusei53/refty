@@ -7,10 +7,8 @@ import csv
 
 
 def lambda_handler(event, context):
-    # S3クライアントの作成（Lambda 実行ロールで許可済みと仮定）
     s3_client = boto3.client('s3')
 
-    # DB接続
     db_url = os.getenv('DATABASE_URL')
     if not db_url:
         return {'statusCode': 500, 'body': 'DATABASE_URL環境変数が設定されていません。'}
@@ -18,33 +16,26 @@ def lambda_handler(event, context):
     conn = psycopg2.connect(db_url)
     cur = conn.cursor()
 
-    # テーブルとCSV名の指定
     table_names = ['Reflection', 'Account', 'User', 'ReflectionFolder']
     csv_file_names = ['Reflection.csv', 'Account.csv', 'User.csv', 'ReflectionFolder.csv']
 
-    # 今日の日付を取得
     today = datetime.datetime.utcnow().strftime('%Y-%m-%d')
 
-    # バケット名
     bucket = 'refty-backup-data'
 
     results = []
 
     for table_name, csv_file_name in zip(table_names, csv_file_names):
         try:
-            # CSVデータをメモリ内に書き込む
             buffer = io.StringIO()
             sql = f'COPY "{table_name}" TO STDOUT WITH CSV HEADER'
             cur.copy_expert(sql, buffer)
             buffer.seek(0)
 
-            # S3に今日の日付ディレクトリへ保存（元のままの内容）
             key_today = f'{today}/{csv_file_name}'
             s3_client.put_object(Bucket=bucket, Key=key_today, Body=buffer.getvalue())
 
-            # latestディレクトリ用のデータ処理
             if table_name == 'Reflection':
-                # Reflectionテーブルの処理（既存のコード）
                 buffer.seek(0)
                 csv_reader = csv.reader(buffer)
                 headers = next(csv_reader)
@@ -145,7 +136,7 @@ def lambda_handler(event, context):
                 s3_client.put_object(Bucket=bucket, Key=latest_key, Body=new_buffer.getvalue())
 
             else:
-                # 他のテーブルは通常通り保存
+                #以下はその他のテーブル処理
                 buffer.seek(0)
                 latest_key = f'latest/{csv_file_name}'
                 s3_client.put_object(Bucket=bucket, Key=latest_key, Body=buffer.getvalue())
