@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Box } from "@mui/material";
 import { KebabMenuButton } from "./KebabMenuButton";
 import { useUpdatePinnedReflection } from "@/src/hooks/reflection/useUpdatePinnedReflection";
 import { useUpdatePublicReflection } from "@/src/hooks/reflection/useUpdatePublicReflection";
@@ -24,13 +23,16 @@ export const KebabButtonPopupContainer: React.FC<
   isReflectionSettingHeader = false
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleOpenPopup = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
+    setIsPopupOpen((prev) => !prev);
   };
 
   const handleClosePopup = () => {
     setAnchorEl(null);
+    setIsPopupOpen(false);
   };
 
   const handleCopyLink = () => {
@@ -60,34 +62,20 @@ export const KebabButtonPopupContainer: React.FC<
   };
 
   return (
-    <>
-      {Boolean(anchorEl) && (
-        // MEMO: なぜかこのPopperは外側をクリックしてもスマホで閉じないため、透明なBoxを設置
-        <Box
-          onClick={handleClosePopup}
-          position="fixed"
-          top={0}
-          left={0}
-          width="100vw"
-          height="100vh"
-          zIndex={3}
-        />
-      )}
-      <KebabMenuButton
-        reflectionCUID={reflectionCUID}
-        username={username}
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        isPublic={isPublic}
-        isPinned={isPinned}
-        isCurrentUser={isCurrentUser}
-        onOpenPopup={handleOpenPopup}
-        onClosePopup={handleClosePopup}
-        onCopyLink={handleCopyLink}
-        onPublicToggle={handlePublicToggle}
-        onPinToggle={handlePinToggle}
-        isReflectionSettingHeader={isReflectionSettingHeader}
-      />
-    </>
+    <KebabMenuButton
+      reflectionCUID={reflectionCUID}
+      username={username}
+      anchorEl={anchorEl}
+      open={isPopupOpen}
+      isPublic={isPublic}
+      isPinned={isPinned}
+      isCurrentUser={isCurrentUser}
+      onOpenPopup={handleOpenPopup}
+      onClosePopup={handleClosePopup}
+      onCopyLink={handleCopyLink}
+      onPublicToggle={handlePublicToggle}
+      onPinToggle={handlePinToggle}
+      isReflectionSettingHeader={isReflectionSettingHeader}
+    />
   );
 };
