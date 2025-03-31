@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Box } from "@mui/material";
 import ReportOpenPopup from "./ReportOpenPopup";
 import { useUpdateIsReportOpen } from "@/src/hooks/report/useUpdateIsReportOpen";
 
@@ -13,13 +14,16 @@ const ReportOpenPopupContainer: React.FC<ReportOpenPopupContainerProps> = ({
   isReportOpen
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleOpenPopup = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
+    setIsPopupOpen((prev) => !prev);
   };
 
   const handleClosePopup = () => {
     setAnchorEl(null);
+    setIsPopupOpen(false);
   };
 
   const { handleUpdateIsReportOpen } = useUpdateIsReportOpen({
@@ -33,14 +37,26 @@ const ReportOpenPopupContainer: React.FC<ReportOpenPopupContainerProps> = ({
   };
 
   return (
-    <ReportOpenPopup
-      anchorEl={anchorEl}
-      open={Boolean(anchorEl)}
-      isReportOpen={isReportOpen}
-      onOpenPopup={handleOpenPopup}
-      onClosePopup={handleClosePopup}
-      onIsReportOpenToggle={handleIsReportOpenToggle}
-    />
+    <>
+      {isPopupOpen && (
+        <Box
+          position={"fixed"}
+          top={0}
+          left={0}
+          width={"100vw"}
+          height={"100vh"}
+          zIndex={1}
+          onClick={handleClosePopup}
+        />
+      )}
+      <ReportOpenPopup
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        isReportOpen={isReportOpen}
+        onOpenPopup={handleOpenPopup}
+        onIsReportOpenToggle={handleIsReportOpenToggle}
+      />
+    </>
   );
 };
 

@@ -8,7 +8,6 @@ type ReportOpenPopupProps = {
   open: boolean;
   isReportOpen: boolean;
   onOpenPopup: (event: React.MouseEvent<HTMLElement>) => void;
-  onClosePopup: () => void;
   onIsReportOpenToggle: () => void;
 };
 
@@ -17,7 +16,6 @@ const ReportOpenPopup: React.FC<ReportOpenPopupProps> = ({
   open,
   isReportOpen,
   onOpenPopup,
-  onClosePopup,
   onIsReportOpenToggle
 }) => {
   return (
@@ -32,7 +30,6 @@ const ReportOpenPopup: React.FC<ReportOpenPopupProps> = ({
         display={"flex"}
         alignItems={"center"}
         onClick={onOpenPopup}
-        onBlur={onClosePopup}
         mt={2}
         px={1}
         sx={{
@@ -69,6 +66,7 @@ const ReportOpenPopup: React.FC<ReportOpenPopupProps> = ({
         anchorEl={anchorEl}
         transition
         placement={"bottom-start"}
+        sx={{ zIndex: 2 }}
       >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
