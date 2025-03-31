@@ -74,7 +74,7 @@ export const KebabButtonPopupContainer: React.FC<
           left={0}
           width={"100vw"}
           height={"100vh"}
-          zIndex={3}
+          zIndex={1}
           sx={{
             cursor: "default"
           }}
@@ -84,7 +84,7 @@ export const KebabButtonPopupContainer: React.FC<
         reflectionCUID={reflectionCUID}
         username={username}
         anchorEl={anchorEl}
-        open={isPopupOpen}
+        open={Boolean(anchorEl)}
         isPublic={isPublic}
         isPinned={isPinned}
         isCurrentUser={isCurrentUser}

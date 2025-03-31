@@ -77,6 +77,7 @@ export const KebabMenuButton: React.FC<KebabMenuButtonProps> = ({
         anchorEl={anchorEl}
         transition
         placement={"bottom-end"}
+        sx={{ zIndex: 2 }}
       >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
