@@ -7,10 +7,8 @@ import csv
 
 
 def lambda_handler(event, context):
-    
     s3_client = boto3.client('s3')
 
-    
     db_url = os.getenv('DATABASE_URL')
     if not db_url:
         return {'statusCode': 500, 'body': 'DATABASE_URL環境変数が設定されていません。'}
@@ -20,7 +18,6 @@ def lambda_handler(event, context):
 
     table_names = ['Reflection', 'Account', 'User', 'ReflectionFolder']
     csv_file_names = ['Reflection.csv', 'Account.csv', 'User.csv', 'ReflectionFolder.csv']
-    
     today = datetime.datetime.utcnow().strftime('%Y-%m-%d')
 
     bucket = 'refty-backup-data'
@@ -36,8 +33,6 @@ def lambda_handler(event, context):
 
             key_today = f'{today}/{csv_file_name}'
             s3_client.put_object(Bucket=bucket, Key=key_today, Body=buffer.getvalue())
-            #Reflectionの場合、文字列カラムを文字数をカウントして保存
-            #TODO USerテーブルについてもユーザーが記入するところがあるので、そこを文字数カウントに修正した方がいい
             if table_name == 'Reflection':
                 buffer.seek(0)
                 csv_reader = csv.reader(buffer)
@@ -58,33 +53,83 @@ def lambda_handler(event, context):
                 try:
                     ai_feedback_index = headers.index('aiFeedback')
                 except ValueError:
-                    
                     pass
-                
-                
                 new_buffer = io.StringIO()
                 csv_writer = csv.writer(new_buffer)
-                csv_writer.writerow(headers)  
-                
+                csv_writer.writerow(headers)
                 
                 for row in csv_reader:
                     new_row = row.copy()
-                    # 文字数をカウントして保存
+                    
                     if content_index is not None and row[content_index]:
                         new_row[content_index] = str(len(row[content_index]))
                     
                     if title_index is not None and row[title_index]:
                         new_row[title_index] = str(len(row[title_index]))
-                    
+
                     if ai_feedback_index is not None and row[ai_feedback_index]:
                         new_row[ai_feedback_index] = str(len(row[ai_feedback_index]))
+                    csv_writer.writerow(new_row)
+                
+                new_buffer.seek(0)
+                latest_key = f'latest/{csv_file_name}'
+                s3_client.put_object(Bucket=bucket, Key=latest_key, Body=new_buffer.getvalue())
+            elif table_name == 'User':
+                buffer.seek(0)
+                csv_reader = csv.reader(buffer)
+                headers = next(csv_reader)
+                
+                username_index = None
+                bio_index = None
+                goal_index = None
+                website_index = None
+                
+                try:
+                    username_index = headers.index('username')
+                except ValueError:
+                    pass
+
+                try:
+                    bio_index = headers.index('bio')
+                except ValueError:
+                    pass
+                
+                try:
+                    goal_index = headers.index('goal')
+                except ValueError:
+                    pass
+
+                try:
+                    website_index = headers.index('website')
+                except ValueError:
+                    pass
+                
+                new_buffer = io.StringIO()
+                csv_writer = csv.writer(new_buffer)
+                csv_writer.writerow(headers)
+                
+                for row in csv_reader:
+                    new_row = row.copy()
+                    if username_index is not None and row[username_index]:
+                        new_row[username_index] = str(len(row[username_index]))
+
+                    if bio_index is not None and row[bio_index]:
+                        new_row[bio_index] = str(len(row[bio_index]))
+                    
+                    if goal_index is not None and row[goal_index]:
+                        new_row[goal_index] = str(len(row[goal_index]))
+
+                    if website_index is not None and row[website_index]:
+                        new_row[website_index] = str(len(row[website_index]))
                     
                     csv_writer.writerow(new_row)
                 
                 new_buffer.seek(0)
                 latest_key = f'latest/{csv_file_name}'
                 s3_client.put_object(Bucket=bucket, Key=latest_key, Body=new_buffer.getvalue())
-            else:               
+
+            else:
+                #以下はその他のテーブル処理
                 buffer.seek(0)
                 latest_key = f'latest/{csv_file_name}'
                 s3_client.put_object(Bucket=bucket, Key=latest_key, Body=buffer.getvalue())
@@ -94,6 +139,7 @@ def lambda_handler(event, context):
         except Exception as e:
             results.append(f"{table_name} のアップロードエラー：{str(e)}")
 
+    # 接続を閉じる
     cur.close()
     conn.close()
 
