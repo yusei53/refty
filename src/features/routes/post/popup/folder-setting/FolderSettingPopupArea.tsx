@@ -5,6 +5,7 @@ import type { Folder } from "@/src/api/folder-api";
 import { NotFoundFolder } from "./NotFolder";
 import { Button } from "@/src/components/button";
 import { theme } from "@/src/utils/theme";
+import { label } from "@/src/components/button/TagButton";
 
 type FolderSettingPopupAreaProps = {
   selectedFolderUUID: string | null;
@@ -14,15 +15,6 @@ type FolderSettingPopupAreaProps = {
   anchorEl: HTMLElement | null;
   onClose: () => void;
   onPopupOpen: (event: React.MouseEvent<HTMLElement>) => void;
-};
-
-export const label = {
-  fontSize: 13.8,
-  p: "4px 7px",
-  letterSpacing: 0.8,
-  borderRadius: 2,
-  border: "1px solid #DCDFE3",
-  backgroundColor: "white"
 };
 
 export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
@@ -90,7 +82,7 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
           </Box>
         ) : null}
       </Box>
-      { /* TODO: disablePortal の動作を確認する */ }
+      {/* TODO: disablePortal の動作を確認する */}
       <Popper open={open} anchorEl={anchorEl} transition sx={{ zIndex: 2 }}>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
@@ -131,13 +123,14 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
                         }}
                         sx={{
                           ...label,
+                          textTransform: "none",
                           bgcolor:
                             selectedFolderUUID === folder.folderUUID
                               ? theme.palette.primary.main
                               : "white"
                         }}
                       >
-                        <Typography fontSize={12}>{folder.name}</Typography>
+                        {folder.name}
                       </Button>
                     ))}
                   </Box>
