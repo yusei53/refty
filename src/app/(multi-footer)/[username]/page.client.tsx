@@ -143,15 +143,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
             />
           </>
         )}
-        {username && !isPWA && (
-          <PostNavigationButton
-            sx={{
-              position: "fixed",
-              right: { xs: 50, sm: 130 },
-              bottom: { xs: 120, sm: 50 }
-            }}
-          />
-        )}
+        {username && !isPWA && <PostNavigationButton />}
       </Box>
       {isModalOpen && (
         <GoodJobModal

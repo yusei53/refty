@@ -74,15 +74,7 @@ const RootPage: React.FC<RootPageProps> = ({
           onChange={handlePageChange}
         />
       </Container>
-      {username && !isPWA && (
-        <PostNavigationButton
-          sx={{
-            position: "fixed",
-            right: { xs: 50, sm: 130 },
-            bottom: { xs: 120, sm: 50 }
-          }}
-        />
-      )}
+      {username && !isPWA && <PostNavigationButton />}
       <Footer />
     </>
   );
