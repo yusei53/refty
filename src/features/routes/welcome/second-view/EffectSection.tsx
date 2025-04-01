@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Box, Typography, useMediaQuery } from "@mui/material";
-import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
+import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 import { theme } from "@/src/utils/theme";
 
 type EffectSectionProps = {
@@ -21,7 +21,7 @@ const EffectSection: React.FC<EffectSectionProps> = ({
   isShareSection = false,
   isSmartphonePicture = false
 }) => {
-  const isMobile = useIsMobile();
+  const { isMobile } = useResponsive();
   const isLarge = useMediaQuery(theme.breakpoints.up("xl"));
 
   return (

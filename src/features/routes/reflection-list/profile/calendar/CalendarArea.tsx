@@ -7,7 +7,7 @@ import Calendar from "./Calendar";
 import "./calendar.css";
 import ToggleJapaneseLabel from "./ToggleJapaneseLabel";
 import { useToggleJapaneseLabels } from "@/src/hooks/calendar/useToggleJapaneseLabels";
-import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
+import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 import { theme } from "@/src/utils/theme";
 
 type CalendarAreaProps = {
@@ -31,7 +31,7 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
   tooltipDataAttrs,
   totalReflections
 }) => {
-  const isMobile = useIsMobile();
+  const { isMobile } = useResponsive();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // MEMO: 画面幅が小さい場合、カレンダーのスクロールを右端に移動する。useEffectでエラー回避

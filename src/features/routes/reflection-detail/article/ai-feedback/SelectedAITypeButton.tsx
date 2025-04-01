@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
+import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 
 type SelectedAITypeButtonProps = {
   icon: string;
@@ -11,7 +11,7 @@ export const SelectedAITypeButton: React.FC<SelectedAITypeButtonProps> = ({
 
   detail
 }) => {
-  const isMobile = useIsMobile();
+  const { isMobile } = useResponsive();
   return (
     <Box
       display={"flex"}

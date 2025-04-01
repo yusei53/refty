@@ -1,6 +1,6 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Box, useMediaQuery } from "@mui/material";
+import { Box } from "@mui/material";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
 import { type Folder } from "@/src/api/folder-api";
 import {
@@ -23,7 +23,7 @@ import { Sidebar } from "@/src/features/routes/reflection-list/sidebar";
 import { FolderInitializer } from "@/src/features/routes/reflection-list/sidebar/FolderInitializer";
 import { useFolderSelection } from "@/src/hooks/folder/useFolderSelection";
 import { usePagination } from "@/src/hooks/reflection/usePagination";
-import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
+import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 
 type UserReflectionListPageProps = {
   currentUsername: string | null;
@@ -58,8 +58,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const isPWA = useMediaQuery("(display-mode: standalone)");
-  const isMobile = useIsMobile();
+  const { isMobile, isPWA } = useResponsive();
   const { handlePageChange } = usePagination();
   const {
     isSelectMode,

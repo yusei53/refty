@@ -10,8 +10,9 @@ import { BarChartArea } from "@/src/features/routes/report/BarChartArea";
 import { PostingSummaryStats } from "@/src/features/routes/report/PostingSummaryStats";
 import TagPieChartArea from "@/src/features/routes/report/TagPieChartArea";
 import { ReportHeader } from "@/src/features/routes/report/header/ReportHeader";
-import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
+import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 import { theme } from "@/src/utils/theme";
+
 const CalendarAreaFetcher = dynamic(
   () =>
     import(
@@ -50,7 +51,7 @@ export const UserReportPage: React.FC<UserReportPageProps> = ({
   reflectionCount,
   tagCountList
 }) => {
-  const isMobile = useIsMobile();
+  const { isMobile } = useResponsive();
 
   return (
     <>

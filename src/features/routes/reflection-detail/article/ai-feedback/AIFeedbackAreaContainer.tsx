@@ -7,7 +7,7 @@ import { SelectAITypePopupAreaContainer } from "./SelectAITypePopupAreaContainer
 import { Accordion, AccordionSummary } from "@/src/components/accordion";
 import { Button } from "@/src/components/button";
 import { useAIFeedbackHandler } from "@/src/hooks/ai-feedback/useAIFeedbackHandler";
-import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
+import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 import { theme } from "@/src/utils/theme";
 
 type AIFeedbackAreaContainerProps = {
@@ -39,7 +39,7 @@ export const AIFeedbackAreaContainer: React.FC<
     handleSendToSQS
   } = useAIFeedbackHandler(reflectionCUID, aiFeedback, content, onSendToSQS);
 
-  const isMobile = useIsMobile();
+  const { isMobile } = useResponsive();
 
   return (
     <Accordion>
