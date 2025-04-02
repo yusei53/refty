@@ -6,12 +6,15 @@ on:
     paths:
       - "src/**"
       - "e2e/**"
+      - "package.json"
+      - "package-lock.json"
   pull_request:
     branches: [main, master]
     paths:
       - "src/**"
       - "e2e/**"
-
+      - "package.json"
+      - "package-lock.json"
 jobs:
   test:
     timeout-minutes: 60
