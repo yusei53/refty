@@ -6,12 +6,26 @@ on:
     paths:
       - "src/**"
       - "e2e/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/playwright.yml"
+      - "playwright.config.ts"
+      - "tsconfig.json"
+      - "next.config.mjs"
+      - "prisma/**"
+
   pull_request:
     branches: [main, master]
     paths:
       - "src/**"
       - "e2e/**"
-
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/playwright.yml"
+      - "playwright.config.ts"
+      - "tsconfig.json"
+      - "next.config.mjs"
+      - "prisma/**"
 jobs:
   test:
     timeout-minutes: 60
