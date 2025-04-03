@@ -19,7 +19,6 @@ export const MobileFooter = () => {
       pb={3.5}
       position={"sticky"}
       bottom={0}
-      zIndex={1}
     >
       <MobileFooterButton
         href={"/"}

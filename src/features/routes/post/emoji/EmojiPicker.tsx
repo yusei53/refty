@@ -63,7 +63,13 @@ const EmojiPicker: React.FC<EmojiPickerProps> = ({
         </Typography>
       </Box>
       {showPicker && (
-        <Box position={"absolute"} top={"100%"} ref={pickerRef} tabIndex={-1}>
+        <Box
+          position={"absolute"}
+          top={"100%"}
+          ref={pickerRef}
+          tabIndex={-1}
+          zIndex={2}
+        >
           <Picker
             data={data}
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
