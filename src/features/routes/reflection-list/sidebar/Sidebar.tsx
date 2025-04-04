@@ -1,13 +1,12 @@
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Box, IconButton, List } from "@mui/material";
+import { Box, IconButton, List, useMediaQuery } from "@mui/material";
 import type { ReflectionTagCountList } from "@/src/api/reflection-api";
 import type { TagType } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { CreateFolderField } from "./CreateFolderField";
 import { FolderItem, TagItem } from "./item";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
-import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 import { useFolderStore } from "@/src/utils/store/useFolderStore";
 import { theme } from "@/src/utils/theme";
 
@@ -23,7 +22,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onSelectMode
 }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const { isMobile } = useResponsive();
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   const folders = useFolderStore((state) => state.folders);
   const selectedInfo = useFolderStore((state) => state.selectedInfo);
