@@ -14,7 +14,7 @@ export const MobileFooter = () => {
       width={"100vw"}
       display={"flex"}
       justifyContent={"center"}
-      gap={5.5}
+      gap={session ? 5.5 : 8}
       pt={1}
       pb={3.5}
       position={"sticky"}
