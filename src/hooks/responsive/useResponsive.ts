@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useMediaQuery } from "@mui/material";
 import { theme } from "@/src/utils/theme";
 
-interface ResponsiveState {
+type ResponsiveState = {
   isMobile: boolean;
   isPWA: boolean;
 }
