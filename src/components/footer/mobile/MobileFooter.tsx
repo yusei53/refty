@@ -14,7 +14,7 @@ export const MobileFooter = () => {
       width={"100vw"}
       display={"flex"}
       justifyContent={"center"}
-      gap={8}
+      gap={5.5}
       pt={1}
       pb={3.5}
       position={"sticky"}
@@ -36,6 +36,11 @@ export const MobileFooter = () => {
             href={`/post`}
             imagePass={"post.svg"}
             alt={"投稿ページへ行くボタン"}
+          />
+          <MobileFooterButton
+            href={`/${session?.user.username}/report`}
+            imagePass={"report.svg"}
+            alt={"マイレポートへ行くボタン"}
           />
           <MobileFooterButton
             href={`/${session?.user.username}`}
