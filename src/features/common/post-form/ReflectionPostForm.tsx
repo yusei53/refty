@@ -24,7 +24,7 @@ import {
 import { Button } from "@/src/components/button";
 import { CustomInput } from "@/src/components/input";
 import { useExtractTrueTags } from "@/src/hooks/reflection-tag/useExtractTrueTags";
-import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
+import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 
 type FormValues = {
   title: string;
@@ -91,7 +91,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
 }) => {
   const [isComposing, setIsComposing] = useState(false);
   const editorRef = useRef<MarkdownEditorRef>(null);
-  const isMobile = useIsMobile();
+  const { isMobile } = useResponsive();
 
   const activeTags = useExtractTrueTags({
     isDailyReflection,

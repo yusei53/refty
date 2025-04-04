@@ -1,8 +1,7 @@
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Box, IconButton, List } from "@mui/material";
-import { useMediaQuery } from "@mui/material";
+import { Box, IconButton, List, useMediaQuery } from "@mui/material";
 import type { ReflectionTagCountList } from "@/src/api/reflection-api";
 import type { TagType } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { CreateFolderField } from "./CreateFolderField";

@@ -2,14 +2,14 @@ import Image from "next/image";
 import { Box, Typography } from "@mui/material";
 import { pieArcLabelClasses, PieChart } from "@mui/x-charts";
 import type { ReflectionTagCountList } from "@/src/api/reflection-api";
-import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
+import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 
 type TagPieChartAreaProps = {
   tagCountList: ReflectionTagCountList;
 };
 
 const TagPieChartArea: React.FC<TagPieChartAreaProps> = ({ tagCountList }) => {
-  const isMobile = useIsMobile();
+  const { isMobile } = useResponsive();
 
   // TODO: 色をthemeに追加する
   const pieData = [

@@ -1,10 +1,10 @@
 "use client";
-import { useMediaQuery } from "@mui/material";
 import { DefaultFooter } from "./default";
 import { MobileFooter } from "./mobile";
+import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 
 export const Footer = () => {
-  const isPWA = useMediaQuery("(display-mode: standalone)");
+  const { isPWA } = useResponsive();
 
   return isPWA ? <MobileFooter /> : <DefaultFooter />;
 };

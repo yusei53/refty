@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { BarChart } from "@mui/x-charts/BarChart";
-import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
+import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 import { theme } from "@/src/utils/theme";
 
 type BarChartAreaProps = {
@@ -10,7 +10,7 @@ type BarChartAreaProps = {
 export const BarChartArea: React.FC<BarChartAreaProps> = ({
   hourlyPostCount
 }) => {
-  const isMobile = useIsMobile();
+  const { isMobile } = useResponsive();
 
   return (
     // TODO: リファクタ

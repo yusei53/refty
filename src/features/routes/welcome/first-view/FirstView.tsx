@@ -1,9 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import { Button } from "@/src/components/button";
-import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
+import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 
 const FirstView = () => {
-  const isMobile = useIsMobile();
+  const { isMobile } = useResponsive();
 
   return (
     <Box

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Box, styled, Typography } from "@mui/material";
 import { CountBarChart } from "./CountBarChart";
-import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
+import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 import { theme } from "@/src/utils/theme";
 
 type PostingSummaryStatsProps = {
@@ -15,7 +15,7 @@ export const PostingSummaryStats: React.FC<PostingSummaryStatsProps> = ({
   privateCount,
   contentLength
 }) => {
-  const isMobile = useIsMobile();
+  const { isMobile } = useResponsive();
   const totalPosts = publicCount + privateCount;
 
   return (

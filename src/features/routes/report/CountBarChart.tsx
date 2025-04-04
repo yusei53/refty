@@ -1,6 +1,6 @@
 import React from "react";
 import { BarChart } from "@mui/x-charts";
-import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
+import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 
 type CountBarChartProps = {
   publicCount: number;
@@ -11,7 +11,7 @@ export const CountBarChart: React.FC<CountBarChartProps> = ({
   publicCount,
   privateCount
 }) => {
-  const isMobile = useIsMobile();
+  const { isMobile } = useResponsive();
 
   return (
     <BarChart

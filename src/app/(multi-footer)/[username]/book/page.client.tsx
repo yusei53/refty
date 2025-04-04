@@ -13,7 +13,7 @@ import { SwipeIconDisplay } from "@/src/features/routes/reflections-book/SwipeIc
 import "@/src/features/routes/reflections-book/my-swiper.css";
 import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
 import { useSwipeIconVisibility } from "@/src/hooks/reflections-book/useSwipeIconVisibility";
-import { useIsMobile } from "@/src/hooks/responsive/useIsMobile";
+import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 import { theme } from "@/src/utils/theme";
 
 type ReflectionsBookPageProps = {
@@ -31,7 +31,7 @@ const ReflectionsBookPage: React.FC<ReflectionsBookPageProps> = ({
   foldername,
   count
 }) => {
-  const isMobile = useIsMobile();
+  const { isMobile } = useResponsive();
   const isVisible = useSwipeIconVisibility();
   const { parseTagsToValue } = useParseTagsToValue();
 

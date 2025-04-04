@@ -1,5 +1,5 @@
 "use client";
-import { Container, useMediaQuery } from "@mui/material";
+import { Container } from "@mui/material";
 import type {
   ReflectionTagCountList,
   ReflectionWithUser
@@ -14,7 +14,7 @@ import { ReflectionAllHeader } from "../features/routes/reflection-all-list/head
 import { usePagination } from "../hooks/reflection/usePagination";
 import { tagMap } from "../hooks/reflection-tag/useExtractTrueTags";
 import { useTagHandler } from "../hooks/reflection-tag/useTagHandler";
-import { useIsMobile } from "../hooks/responsive/useIsMobile";
+import { useResponsive } from "../hooks/responsive/useResponsive";
 type RootPageProps = {
   username: string | null;
   image: string | null;
@@ -32,8 +32,7 @@ const RootPage: React.FC<RootPageProps> = ({
   totalPage,
   tagCountList
 }) => {
-  const isMobile = useIsMobile();
-  const isPWA = useMediaQuery("(display-mode: standalone)");
+  const { isMobile, isPWA } = useResponsive();
 
   const {
     isOpenTagList,
