@@ -36,7 +36,7 @@ export const SelectTagPopup: React.FC<TagSelectionPopupProps> = ({
           sx={{
             mx: 0.5,
             bgcolor: theme.palette.primary.main,
-            border: "#ededed solid 1px",
+            border: `1px solid ${theme.palette.grey[400]}`,
             borderRadius: 2,
             height: "30px",
             display: "flex",
@@ -73,7 +73,7 @@ export const SelectTagPopup: React.FC<TagSelectionPopupProps> = ({
           </Box>
         ))}
       </Box>
-      { /* TODO: disablePortal の動作を確認する */ }
+      {/* TODO: disablePortal の動作を確認する */}
       <Popper
         open={open}
         anchorEl={anchorEl}

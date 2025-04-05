@@ -33,7 +33,7 @@ const EmojiPicker: React.FC<EmojiPickerProps> = ({
   return (
     <Box
       position={"relative"}
-      border={"#ededed solid 1px"}
+      border={`1px solid ${theme.palette.grey[400]}`}
       borderRadius={"8px"}
       width={"fit-content"}
       display={"inline-flex"}
