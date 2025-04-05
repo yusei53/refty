@@ -149,6 +149,8 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
         component={"form"}
         onSubmit={onSubmit}
         minHeight={"80vh"}
+        position={"relative"}
+        zIndex={1}
         sx={{
           color: isNightMode ? "white !important" : "",
           "& *": { color: isNightMode ? "inherit" : "" }
