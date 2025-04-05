@@ -45,7 +45,10 @@ export const AIFeedbackAreaContainer: React.FC<
     <Accordion>
       <AccordionSummary sx={{ mt: 8 }}>
         <Typography fontSize={17} fontWeight={550} letterSpacing={0.8}>
-          AIからフィードバックをもらう
+          {/* NOTE: フィードバックがすでにある場合、「見る」、まだフィードバックがないかつ自分の投稿の場合は「受け取る」 */}
+          {aiFeedback
+            ? "AIからのフィードバックを見る"
+            : "AIからフィードバックを受け取る"}
         </Typography>
       </AccordionSummary>
       <AccordionDetails sx={{ py: 0.5, px: 0 }}>
@@ -58,14 +61,14 @@ export const AIFeedbackAreaContainer: React.FC<
             onClick={handleSendToSQS}
             disabled={!isAICallButtonEnabled || isLoading || !isCurrentUser}
             sx={{
-              borderRadius: 2,
+              borderRadius: 3,
               bgcolor: theme.palette.primary.contrastText,
               "&:hover": {
                 bgcolor: theme.palette.primary.main
               }
             }}
           >
-            AIからフィードバックをもらう
+            AIからフィードバックを受け取る
           </Button>
           {isAICallButtonEnabled && isCurrentUser && (
             <Box display={"flex"} ml={{ sm: 1 }}>
@@ -76,12 +79,10 @@ export const AIFeedbackAreaContainer: React.FC<
               <Box display={"flex"} alignItems={"center"}>
                 {!isMobile && (
                   <Box
+                    color={theme.palette.grey[500]}
+                    fontSize={"30px"}
+                    mr={1}
                     component={IoArrowUndoSharp}
-                    sx={{
-                      color: theme.palette.grey[500],
-                      fontSize: "30px",
-                      mr: 1
-                    }}
                   />
                 )}
                 <Typography
