@@ -26,7 +26,7 @@ export const AccordionSummary = styled((props: AccordionSummaryProps) => (
     {...props}
   />
 ))({
-  width: "300px",
+  width: "295px",
   padding: 0,
   "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
     transform: "rotate(90deg)"
