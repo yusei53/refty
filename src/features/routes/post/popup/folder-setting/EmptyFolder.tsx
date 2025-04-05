@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { theme } from "@/src/utils/theme";
 
-export const NotFoundFolder: React.FC = () => {
+export const EmptyFolder = () => {
   return (
     <Typography
       component={"span"}

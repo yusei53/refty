@@ -2,7 +2,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import FolderIcon from "@mui/icons-material/Folder";
 import { Box, Fade, Popper, Typography } from "@mui/material";
 import type { Folder } from "@/src/api/folder-api";
-import { NotFoundFolder } from "./NotFolder";
+import { EmptyFolder } from "./EmptyFolder";
 import { Button } from "@/src/components/button";
 import { label } from "@/src/components/button/TagButton";
 import { theme } from "@/src/utils/theme";
@@ -54,7 +54,7 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
           フォルダ
         </Button>
         {selectedFolderUUID ? (
-          <Box display={"flex"} mx={0.4} zIndex={3}>
+          <Box display={"flex"} mx={0.4}>
             <Box
               display={"flex"}
               alignItems={"center"}
@@ -95,8 +95,7 @@ export const FolderSettingPopupArea: React.FC<FolderSettingPopupAreaProps> = ({
               borderRadius={4}
             >
               {isFoldersEmpty ? (
-                // TODO: ファイル名を変更する
-                <NotFoundFolder />
+                <EmptyFolder />
               ) : (
                 <>
                   <Typography

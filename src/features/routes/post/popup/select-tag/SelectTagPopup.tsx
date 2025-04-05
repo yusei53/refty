@@ -49,7 +49,7 @@ export const SelectTagPopup: React.FC<TagSelectionPopupProps> = ({
         </Button>
 
         {activeTags.map((tag) => (
-          <Box key={tag} display={"flex"} mx={0.4} zIndex={3}>
+          <Box key={tag} display={"flex"} mx={0.4}>
             <Box
               display={"flex"}
               alignItems={"center"}
