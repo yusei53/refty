@@ -111,15 +111,17 @@ const ReflectionDetailPage: React.FC<ReflectionDetailPageProps> = ({
         content={content}
         activeTags={activeTags}
       />
-      <AIFeedbackAreaContainer
-        isCurrentUser={isCurrentUser}
-        reflectionCUID={reflectionCUID}
-        aiFeedback={aiFeedback}
-        content={content}
-        onSendToSQS={handleSendToSQS}
-        setAIType={setAIType}
-        AIType={AIType}
-      />
+      {(isCurrentUser || aiFeedback) && (
+        <AIFeedbackAreaContainer
+          isCurrentUser={isCurrentUser}
+          reflectionCUID={reflectionCUID}
+          aiFeedback={aiFeedback}
+          content={content}
+          onSendToSQS={handleSendToSQS}
+          setAIType={setAIType}
+          AIType={AIType}
+        />
+      )}
       <UserInformationSection
         username={username}
         userImage={userImage}

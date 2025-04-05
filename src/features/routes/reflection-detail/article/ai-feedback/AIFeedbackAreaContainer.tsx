@@ -76,12 +76,10 @@ export const AIFeedbackAreaContainer: React.FC<
               <Box display={"flex"} alignItems={"center"}>
                 {!isMobile && (
                   <Box
+                    color={theme.palette.grey[500]}
+                    fontSize={"30px"}
+                    mr={1}
                     component={IoArrowUndoSharp}
-                    sx={{
-                      color: theme.palette.grey[500],
-                      fontSize: "30px",
-                      mr: 1
-                    }}
                   />
                 )}
                 <Typography
