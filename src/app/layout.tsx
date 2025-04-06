@@ -32,6 +32,10 @@ export default async function RootLayout({
         />
         <meta name="apple-mobile-web-app-title" content="リフティ" />
         <link rel="manifest" href="/site.webmanifest" />
+        <meta
+          name="viewport"
+          content="width=device-width,initial-scale=1.0,maximum-scale=1.0"
+        />
       </head>
       <body style={{ margin: 0 }}>
         <NextAuthProvider session={session}>
