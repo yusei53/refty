@@ -10,11 +10,6 @@ export async function GET(
   { params }: { params: { username: string } }
 ) {
   const username = params.username;
-
-  if (!username) {
-    return notFoundError("ユーザーネームが見つかりません");
-  }
-
   const userId = await getUserIdByUsername(username);
   if (!userId) {
     return notFoundError("ユーザーが見つかりません");
@@ -27,29 +22,21 @@ export async function GET(
     const tag = req.nextUrl.searchParams.get("tag") ?? undefined;
     const folder = req.nextUrl.searchParams.get("folder") ?? undefined;
 
-    const {
-      userWithReflections,
-      totalPage,
-      filteredReflectionCount,
-      tagCountList
-    } = await reflectionService.getByUsername(
-      userId,
-      isCurrentUser,
-      page,
-      tag,
-      folder
-    );
+    const { reflections, totalPage, filteredReflectionCount, tagCountList } =
+      await reflectionService.getByUsername(
+        userId,
+        isCurrentUser,
+        page,
+        tag,
+        folder
+      );
 
-    if (!userWithReflections) {
+    if (!reflections) {
       return notFoundError("ユーザーの振り返り一覧が見つかりません");
     }
 
     return NextResponse.json({
-      reflections: userWithReflections.reflections,
-      userImage: userWithReflections.image,
-      bio: userWithReflections.bio,
-      goal: userWithReflections.goal,
-      website: userWithReflections.website,
+      reflections,
       totalPage,
       filteredReflectionCount,
       tagCountList

@@ -47,10 +47,6 @@ type ReflectionAll = {
 };
 
 type Reflections = {
-  userImage: string;
-  bio: string;
-  goal: string;
-  website: string;
   reflections: Reflection[];
   totalPage: number;
   filteredReflectionCount: number;

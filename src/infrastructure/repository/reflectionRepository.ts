@@ -51,7 +51,7 @@ export const reflectionRepository = {
     });
   },
 
-  async getUserWithReflections(params: {
+  async getUserReflections(params: {
     userId: string;
     isCurrentUser: boolean;
     tagFilter?: Record<string, boolean>;
@@ -61,34 +61,23 @@ export const reflectionRepository = {
   }) {
     const { userId, isCurrentUser, tagFilter, folderFilter, offset, limit } =
       params;
-    return prisma.user.findUnique({
+    return prisma.reflection.findMany({
       where: {
-        id: userId
+        userId,
+        isPublic: isCurrentUser ? undefined : true,
+        ...tagFilter,
+        folderUUID: folderFilter
       },
+      orderBy: [{ isPinned: "desc" }, { createdAt: "desc" }],
+      take: limit,
+      skip: offset,
       select: {
-        image: true,
-        bio: true,
-        goal: isCurrentUser && true,
-        website: true,
-        reflections: {
-          where: {
-            userId,
-            isPublic: isCurrentUser ? undefined : true,
-            ...tagFilter,
-            folderUUID: folderFilter
-          },
-          orderBy: [{ isPinned: "desc" }, { createdAt: "desc" }],
-          take: limit,
-          skip: offset,
-          select: {
-            title: true,
-            reflectionCUID: true,
-            charStamp: true,
-            createdAt: true,
-            isPublic: true,
-            isPinned: true
-          }
-        }
+        title: true,
+        reflectionCUID: true,
+        charStamp: true,
+        createdAt: true,
+        isPublic: true,
+        isPinned: true
       }
     });
   },
