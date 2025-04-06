@@ -16,7 +16,8 @@ export const sharedMarkdownStyles = (theme: Theme) => ({
     pointerEvents: "none"
   },
   "& .ProseMirror": {
-    outline: "none"
+    outline: "none",
+    fontSize: "16px"
   },
   "&": {
     "&:first-of-type": {
