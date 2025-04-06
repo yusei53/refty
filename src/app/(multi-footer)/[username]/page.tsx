@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import UserReflectionListPage from "./page.client";
 import { folderAPI } from "@/src/api/folder-api";
+import { profileAPI } from "@/src/api/profile-api";
 import { reflectionAPI } from "@/src/api/reflection-api";
 import { reflectionsCountAPI } from "@/src/api/reflections-count-api";
 import { getHeaders } from "@/src/utils/get-headers";
@@ -36,19 +37,22 @@ const page = async ({
   const selectedFolder = searchParams.folder || undefined;
   const status = searchParams.status;
 
-  const [reflectionCount, reflectionsWithUser, folders] = await Promise.all([
-    reflectionsCountAPI.getReflectionsCount(username),
-    reflectionAPI.getReflectionsByUsername(
-      headers,
-      username,
-      currentPage,
-      selectedTag,
-      selectedFolder
-    ),
-    folderAPI.getFolder(username)
-  ]);
+  const [profile, reflectionCount, reflectionsWithUser, folders] =
+    await Promise.all([
+      profileAPI.getUserProfileForMyPage(username),
+      reflectionsCountAPI.getReflectionsCount(username),
+      reflectionAPI.getReflectionsByUsername(
+        headers,
+        username,
+        currentPage,
+        selectedTag,
+        selectedFolder
+      ),
+      folderAPI.getFolder(username)
+    ]);
 
   if (
+    profile === 404 ||
     reflectionCount === 404 ||
     reflectionsWithUser === 404 ||
     folders === 404
@@ -75,10 +79,10 @@ const page = async ({
     <UserReflectionListPage
       currentUsername={session?.username || null}
       currentUserImage={session?.image || null}
-      userImage={reflectionsWithUser.userImage}
       username={username}
-      bio={reflectionsWithUser.bio}
-      website={reflectionsWithUser.website}
+      userImage={profile.image}
+      bio={profile.bio}
+      website={profile.website}
       reflectionCount={reflectionCount}
       reflections={reflectionsWithUser.reflections}
       currentPage={currentPage}
