@@ -13,6 +13,8 @@ type Profile = {
   website: string;
 };
 
+type ProfileForMyPage = Omit<Profile, "goal">;
+
 type CheckExists = {
   exists: boolean;
 };
@@ -25,6 +27,17 @@ export const profileAPI = {
       next: { tags: [`profile-${username}`] }
     };
     return await fetchURL<Profile, 404>(path, options);
+  },
+
+  async getUserProfileForMyPage(
+    username: string
+  ): Promise<Result<ProfileForMyPage, 404>> {
+    const path = `/api/${username}/profile`;
+    const options: FetchURLOptions = {
+      method: "GET",
+      next: { tags: [`profile-${username}`] }
+    };
+    return await fetchURL<ProfileForMyPage, 404>(path, options);
   },
 
   async checkUsernameExists(

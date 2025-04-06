@@ -86,15 +86,14 @@ export const reflectionService = {
 
     const totalPage = Math.ceil(filteredReflectionCount / COUNT_PER_PAGE);
 
-    const userWithReflections =
-      await reflectionRepository.getUserWithReflections({
-        userId,
-        isCurrentUser,
-        tagFilter,
-        folderFilter,
-        offset,
-        limit: COUNT_PER_PAGE
-      });
+    const reflections = await reflectionRepository.getUserReflections({
+      userId,
+      isCurrentUser,
+      tagFilter,
+      folderFilter,
+      offset,
+      limit: COUNT_PER_PAGE
+    });
 
     // MEMO: タグ別の投稿数を全て取得しておく
     const isPublic = isCurrentUser ? undefined : true;
@@ -146,7 +145,7 @@ export const reflectionService = {
     };
 
     return {
-      userWithReflections,
+      reflections,
       totalPage,
       filteredReflectionCount,
       tagCountList
