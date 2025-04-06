@@ -17,6 +17,19 @@ export const userRepository = {
     });
   },
 
+  async getUserProfileForMyPage(params: { userId: string }) {
+    const { userId } = params;
+    return prisma.user.findUnique({
+      where: {
+        id: userId
+      },
+      select: {
+        image: true,
+        bio: true,
+        website: true
+      }
+    });
+  },
   async getUserProfileForReport(params: { username: string }) {
     const { username } = params;
 
