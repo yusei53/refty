@@ -37,8 +37,8 @@ const page = async ({
   const selectedFolder = searchParams.folder || undefined;
   const status = searchParams.status;
 
-  const [profile, reflectionCount, reflectionsWithUser, folders] =
-    await Promise.all([
+  const [profile, reflectionCount, reflectionInfo, folders] = await Promise.all(
+    [
       profileAPI.getUserProfileForMyPage(username),
       reflectionsCountAPI.getReflectionsCount(username),
       reflectionAPI.getReflectionsByUsername(
@@ -49,12 +49,13 @@ const page = async ({
         selectedFolder
       ),
       folderAPI.getFolder(username)
-    ]);
+    ]
+  );
 
   if (
     profile === 404 ||
     reflectionCount === 404 ||
-    reflectionsWithUser === 404 ||
+    reflectionInfo === 404 ||
     folders === 404
   ) {
     return notFound();
@@ -84,10 +85,10 @@ const page = async ({
       bio={profile.bio}
       website={profile.website}
       reflectionCount={reflectionCount}
-      reflections={reflectionsWithUser.reflections}
+      reflections={reflectionInfo.reflections}
       currentPage={currentPage}
-      totalPage={reflectionsWithUser.totalPage}
-      tagCountList={reflectionsWithUser.tagCountList}
+      totalPage={reflectionInfo.totalPage}
+      tagCountList={reflectionInfo.tagCountList}
       randomReflection={randomReflection}
       folders={folders}
     />
