@@ -56,11 +56,19 @@ export const reflectionRepository = {
     isCurrentUser: boolean;
     tagFilter?: Record<string, boolean>;
     folderFilter?: string;
-    offset: number;
-    limit: number;
+    offset?: number;
+    limit?: number;
+    includeContent: boolean;
   }) {
-    const { userId, isCurrentUser, tagFilter, folderFilter, offset, limit } =
-      params;
+    const {
+      userId,
+      isCurrentUser,
+      tagFilter,
+      folderFilter,
+      offset,
+      limit,
+      includeContent
+    } = params;
     return prisma.reflection.findMany({
       where: {
         userId,
@@ -68,16 +76,19 @@ export const reflectionRepository = {
         ...tagFilter,
         folderUUID: folderFilter
       },
-      orderBy: [{ isPinned: "desc" }, { createdAt: "desc" }],
-      take: limit,
-      skip: offset,
+      orderBy: includeContent
+        ? [{ createdAt: "desc" }]
+        : [{ isPinned: "desc" }, { createdAt: "desc" }],
+      ...(offset !== undefined &&
+        limit !== undefined && { take: limit, skip: offset }),
       select: {
         title: true,
         reflectionCUID: true,
         charStamp: true,
         createdAt: true,
         isPublic: true,
-        isPinned: true
+        isPinned: true,
+        content: includeContent
       }
     });
   },
