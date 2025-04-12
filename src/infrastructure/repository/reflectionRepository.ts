@@ -58,7 +58,7 @@ export const reflectionRepository = {
     folderFilter?: string;
     offset?: number;
     limit?: number;
-    includeContent: boolean;
+    isDetailMode: boolean;
   }) {
     const {
       userId,
@@ -67,7 +67,7 @@ export const reflectionRepository = {
       folderFilter,
       offset,
       limit,
-      includeContent
+      isDetailMode
     } = params;
     return prisma.reflection.findMany({
       where: {
@@ -76,7 +76,7 @@ export const reflectionRepository = {
         ...tagFilter,
         folderUUID: folderFilter
       },
-      orderBy: includeContent
+      orderBy: isDetailMode
         ? [{ createdAt: "desc" }]
         : [{ isPinned: "desc" }, { createdAt: "desc" }],
       ...(offset !== undefined &&
@@ -88,7 +88,7 @@ export const reflectionRepository = {
         createdAt: true,
         isPublic: true,
         isPinned: true,
-        content: includeContent
+        content: isDetailMode
       }
     });
   },

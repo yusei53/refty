@@ -71,14 +71,14 @@ export const reflectionService = {
     page: number,
     tag?: string,
     folderUUID?: string,
-    includeContent: boolean = false
+    isDetailMode: boolean = false
   ) {
     const tagFilter = tag ? { [tag]: true } : undefined;
     const folderFilter = folderUUID ?? undefined;
 
-    // NOTE: includeContent時は全件取得するため、offset/limitは使用しない
-    const offset = includeContent ? undefined : (page - 1) * COUNT_PER_PAGE;
-    const limit = includeContent ? undefined : COUNT_PER_PAGE;
+    // NOTE: isDetailMode時は全件取得するため、offset/limitは使用しない
+    const offset = isDetailMode ? undefined : (page - 1) * COUNT_PER_PAGE;
+    const limit = isDetailMode ? undefined : COUNT_PER_PAGE;
 
     const filteredReflectionCount =
       await reflectionRepository.countFilteredReflections({
@@ -88,8 +88,8 @@ export const reflectionService = {
         folderFilter
       });
 
-    // includeContent時は全件表示するため、totalPageは1とする
-    const totalPage = includeContent
+    // isDetailMode時は全件表示するため、totalPageは1とする
+    const totalPage = isDetailMode
       ? 1
       : Math.ceil(filteredReflectionCount / COUNT_PER_PAGE);
 
@@ -100,7 +100,7 @@ export const reflectionService = {
       folderFilter,
       offset,
       limit,
-      includeContent
+      isDetailMode
     });
 
     // MEMO: タグ別の投稿数を全て取得しておく
