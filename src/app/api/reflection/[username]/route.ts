@@ -21,6 +21,7 @@ export async function GET(
     const page = parseInt(req.nextUrl.searchParams.get("page") || "1", 10);
     const tag = req.nextUrl.searchParams.get("tag") ?? undefined;
     const folder = req.nextUrl.searchParams.get("folder") ?? undefined;
+    // TODO: includeContentをパラメータを渡された時のものは、Next15に移行したらAPIを別で作成する
     const includeContent =
       req.nextUrl.searchParams.get("viewMode") === "content";
 
