@@ -6,9 +6,9 @@ import { notFoundError, internalServerError } from "@/src/utils/http-error";
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { username: string } }
+  { params }: { params: Promise<{ username: string }> }
 ) {
-  const username = params.username;
+  const { username } = await params;
   const userId = await getUserIdByUsername(username);
 
   if (!userId) {

@@ -13,9 +13,9 @@ import {
 
 export async function GET(
   _: NextRequest,
-  { params }: { params: { username: string } }
+  { params }: { params: Promise<{ username: string }> }
 ) {
-  const { username } = params;
+  const { username } = await params;
   const userId = await getUserIdByUsername(username);
 
   if (!userId) {

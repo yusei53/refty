@@ -11,10 +11,11 @@ export const metadata: Metadata = meta.rootPage;
 const page = async ({
   searchParams
 }: {
-  searchParams: { page?: string; tag?: string };
+  searchParams: Promise<{ page?: string; tag?: string }>;
 }) => {
-  const currentPage = searchParams.page ? parseInt(searchParams.page, 10) : 1;
-  const selectedTag = searchParams.tag || undefined;
+  const { page: pageParameter, tag: tagParameter } = await searchParams;
+  const currentPage = pageParameter ? parseInt(pageParameter, 10) : 1;
+  const selectedTag = tagParameter || undefined;
   const session = await getUserSession();
 
   const [count, reflectionAll] = await Promise.all([

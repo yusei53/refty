@@ -12,30 +12,37 @@ import { generateMeta } from "@/src/utils/metadata";
 export const generateMetadata = async ({
   params
 }: {
-  params: { username: string };
+  params: Promise<{ username: string }>;
 }): Promise<Metadata> => {
-  return await generateMeta.userReflectionListPage(params.username);
+  const { username } = await params;
+  return await generateMeta.userReflectionListPage(username);
 };
 
 const page = async ({
   params,
   searchParams
 }: {
-  params: { username: string };
-  searchParams: {
+  params: Promise<{ username: string }>;
+  searchParams: Promise<{
     page?: string;
     tag?: string;
     status?: string;
     folder?: string;
-  };
+  }>;
 }) => {
+  const { username } = await params;
+  const {
+    page: pageParameter,
+    tag: tagParameter,
+    status: statusParameter,
+    folder: folderParameter
+  } = await searchParams;
   const session = await getUserSession();
-  const headers = getHeaders();
-  const { username } = params;
-  const currentPage = searchParams.page ? parseInt(searchParams.page, 10) : 1;
-  const selectedTag = searchParams.tag || undefined;
-  const selectedFolder = searchParams.folder || undefined;
-  const status = searchParams.status;
+  const headers = await getHeaders();
+  const currentPage = pageParameter ? parseInt(pageParameter, 10) : 1;
+  const selectedTag = tagParameter || undefined;
+  const selectedFolder = folderParameter || undefined;
+  const status = statusParameter || undefined;
 
   const [profile, reflectionCount, reflectionInfo, folders] = await Promise.all(
     [

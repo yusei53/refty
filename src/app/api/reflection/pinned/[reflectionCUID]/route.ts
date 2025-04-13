@@ -5,10 +5,10 @@ import { internalServerError } from "@/src/utils/http-error";
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { reflectionCUID: string } }
+  { params }: { params: Promise<{ reflectionCUID: string }> }
 ) {
+  const { reflectionCUID } = await params;
   try {
-    const { reflectionCUID } = params;
     const { isPinned } = await req.json();
 
     const res = await reflectionService.updatePinned(reflectionCUID, isPinned);

@@ -9,20 +9,17 @@ import { removeHtmlTags } from "@/src/utils/remove-html-tags";
 export const generateMetadata = async ({
   params
 }: {
-  params: { username: string };
+  params: Promise<{ username: string }>;
 }): Promise<Metadata> => {
-  return meta.reportPage(params.username);
-};
-type PageProps = {
-  params: {
-    username: string;
-  };
+  const { username } = await params;
+  return meta.reportPage(username);
 };
 
-const page = async ({ params }: PageProps) => {
-  const headers = getHeaders();
+const page = async ({ params }: { params: Promise<{ username: string }> }) => {
+  const { username } = await params;
+  const headers = await getHeaders();
 
-  const status = await userReportAPI.getReportStatus(params.username, headers);
+  const status = await userReportAPI.getReportStatus(username, headers);
   if (status === 403 || status === 404) {
     return notFound();
   }
@@ -34,11 +31,11 @@ const page = async ({ params }: PageProps) => {
     reflectionCount,
     tagCountList
   ] = await Promise.all([
-    userReportAPI.getAllReflectionContent(params.username),
-    userReportAPI.getPublicPrivateCount(params.username),
-    userReportAPI.getHourlyPostCount(params.username),
-    userReportAPI.getReflectionsCount(params.username),
-    userReportAPI.getTagCount(params.username)
+    userReportAPI.getAllReflectionContent(username),
+    userReportAPI.getPublicPrivateCount(username),
+    userReportAPI.getHourlyPostCount(username),
+    userReportAPI.getReflectionsCount(username),
+    userReportAPI.getTagCount(username)
   ]);
 
   const allPlainContent = removeHtmlTags(reflectionContent.allContent);
@@ -46,7 +43,7 @@ const page = async ({ params }: PageProps) => {
     <UserReportPage
       currentUsername={status.session?.username || null}
       currentImage={status.session?.image || null}
-      username={params.username}
+      username={username}
       userImage={status.userImage}
       isReportOpen={status.isReportOpen}
       publicCount={reflectionCounts.public}

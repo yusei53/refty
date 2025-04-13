@@ -6,9 +6,9 @@ import { internalServerError, notFoundError } from "@/src/utils/http-error";
 
 export async function GET(
   _: NextRequest,
-  { params }: { params: { username: string } }
+  { params }: { params: Promise<{ username: string }> }
 ) {
-  const username = params.username;
+  const { username } = await params;
   const userId = await getUserIdByUsername(username);
   if (!userId) return notFoundError("ユーザーが見つかりません");
   try {

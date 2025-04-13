@@ -5,10 +5,10 @@ import { internalServerError } from "@/src/utils/http-error";
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { reflectionCUID: string } }
+  { params }: { params: Promise<{ reflectionCUID: string }> }
 ) {
   try {
-    const { reflectionCUID } = params;
+    const { reflectionCUID } = await params;
     const { isPublic } = await req.json();
 
     const res = await reflectionService.updatePublic(reflectionCUID, isPublic);
