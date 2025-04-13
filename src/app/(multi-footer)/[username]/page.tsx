@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import type { ViewMode } from "@/src/hooks/tabs/useViewMode";
 import UserReflectionListPage from "./page.client";
 import { folderAPI } from "@/src/api/folder-api";
 import { profileAPI } from "@/src/api/profile-api";
@@ -27,6 +28,7 @@ const page = async ({
     tag?: string;
     status?: string;
     folder?: string;
+    viewMode: ViewMode;
   };
 }) => {
   const session = await getUserSession();
@@ -36,6 +38,7 @@ const page = async ({
   const selectedTag = searchParams.tag || undefined;
   const selectedFolder = searchParams.folder || undefined;
   const status = searchParams.status;
+  const viewMode = searchParams.viewMode === "detail" ? "detail" : "card";
 
   const [profile, reflectionCount, reflectionInfo, folders] = await Promise.all(
     [
@@ -46,7 +49,8 @@ const page = async ({
         username,
         currentPage,
         selectedTag,
-        selectedFolder
+        selectedFolder,
+        viewMode === "detail"
       ),
       folderAPI.getFolder(username)
     ]
@@ -91,6 +95,7 @@ const page = async ({
       tagCountList={reflectionInfo.tagCountList}
       randomReflection={randomReflection}
       folders={folders}
+      viewMode={viewMode}
     />
   );
 };
