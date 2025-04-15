@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { reflectionService } from "@/src/service/reflectionService";
+import { reflectionRepository } from "@/src/infrastructure/repository/reflectionRepository";
 import { internalServerError } from "@/src/utils/http-error";
 
 export async function PATCH(
@@ -11,7 +11,10 @@ export async function PATCH(
     const { reflectionCUID } = params;
     const { isPinned } = await req.json();
 
-    const res = await reflectionService.updatePinned(reflectionCUID, isPinned);
+    const res = await reflectionRepository.updatePinnedStatus({
+      reflectionCUID,
+      isPinned
+    });
 
     return NextResponse.json(
       { message: "Reflection pinned successfully", data: res },

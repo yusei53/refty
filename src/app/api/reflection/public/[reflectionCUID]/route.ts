@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { reflectionService } from "@/src/service/reflectionService";
+import { reflectionRepository } from "@/src/infrastructure/repository/reflectionRepository";
 import { internalServerError } from "@/src/utils/http-error";
 
 export async function PATCH(
@@ -11,7 +11,10 @@ export async function PATCH(
     const { reflectionCUID } = params;
     const { isPublic } = await req.json();
 
-    const res = await reflectionService.updatePublic(reflectionCUID, isPublic);
+    const res = await reflectionRepository.updatePublicStatus({
+      reflectionCUID,
+      isPublic
+    });
 
     return NextResponse.json(
       { message: "Reflection public successfully", data: res },
