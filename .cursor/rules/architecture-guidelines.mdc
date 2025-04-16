@@ -1,0 +1,190 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+ # プロジェクトアーキテクチャガイドライン
+
+## ディレクトリ構造と役割
+
+### `src/api`
+- APIを叩く関数をしまう場所
+- 外部APIとの通信を担当
+- APIクライアントの実装
+- 例: `hogehoge-api.ts`
+- 実装例:
+```
+export const reflectionAPI = {
+  async getDetailReflectionByCUID(
+    reflectionCUID: string
+  ): Promise<Result<ReflectionDetail, 404>> {
+    const path = `/api/reflection/detail/${reflectionCUID}`;
+    const options: FetchURLOptions = {
+      method: "GET"
+    };
+    return await fetchURL<ReflectionDetail, 404>(path, options);
+    }
+```
+
+### `src/app`
+- Next.jsのApp Router関連のファイル
+- ルーティングになる部分を置き、app routerでAPIを作成するのでこの中のapiディレクトリはapiを作成
+- 特殊なフォルダ:
+  - スマホにおいて投稿ページにはモバイル用のFooterを適用せず、それ以外はモバイルFooterにしている。
+    - `(default-footer)`: デフォルトフッター用レイアウト
+    - `(multi-footer)`: 投稿ページ用レイアウト
+  - 基本新しいルーティングを作る際はこの構造にする。page.tsxをサーバーコンポーネントにしたく、page.tsxはpage.client.tsxに依存する形。
+    - `page.clienttsx`例:
+      ```
+      "use client"
+      import {useState} from "react"
+
+      export const HogePage() => {
+      const [hoge, setHoge] = useState()
+      return (
+        <div>{hoge}</div>
+      )
+      }
+      ```
+    - `page.tsx`例:
+      ```
+      const page = () => {
+      return <HogePage />
+      }
+
+      export default page
+      ```
+
+### `src/components`
+- 再利用可能なUIコンポーネント
+- コンポーネントは機能ごとにディレクトリ分け
+- 汎用的(使い回すことが可能)なtsxを置く場所です。ロジックが含まれるようなものはここには置きません。
+- 例:
+  - `button`: ボタンコンポーネント
+  - `alert`: アラートコンポーネント
+  - `loading`: ローディングコンポーネント
+
+### `src/features`
+- 機能単位の実装
+- `common`: 共通機能
+  - componentsには置けない、汎用的でロジックが含まれたコンポーネントや、複数のコンポーネントで呼ばれる関数やcss等を置く場所です。
+  - 例：
+    - 投稿作成ページ→/postでも/editでも使われる共通コンポーネント
+    - ケバブボタン→ポップアップでロジックあり、カードに必須で付いていたり、詳細ページでも呼ばれている共通コンポーネント
+- `routes`: ルーティング関連
+  - ルーティングごとに分け、そこで使われるコンポーネントたちをしまう
+  ```
+    ├── features
+    │   └── routes
+    │       ├── login             // ログインページで使われるコンポーネント
+    │       ├── post              // 投稿ページで使われるコンポーネント
+    │       ├── reflection-list   // 振り返り一覧ページで使われるコンポーネント
+    │       └── reflection-detail // 振り返り詳細ページで使われるコンポーネント
+  ```
+
+### `src/hooks`
+- reactHooksやreactが提供しているライブラリ(react-hook-form)等を使う際に、複雑になってしまうロジックたちをまとめて関数としてしまうカスタムフックを作成する場所
+- 例:
+  - `reflection/useCreateReflectionForm.ts`
+
+### `src/infrastructure`
+- インフラストラクチャ層
+- 外部DBにアクセスするロジックを書く場所
+- このディレクトリの意図は、Route handerが複雑になるのを防ぐため。
+- prismaを通じてsupabaseにアクセスするものはrepository、AI機能はsqsにまずリクエストを送るのでaws-sqsと定義してる。
+- `repository`: データアクセス層
+  - 実装例：
+  ```
+  export const userRepository = {
+  async getUserProfile(params: { userId: string }) {
+    const { userId } = params;
+
+    return prisma.user.findUnique({
+      where: {
+        id: userId
+      },
+      select: {
+        image: true,
+        bio: true,
+        goal: true,
+        website: true
+      }
+    });
+  },
+ }
+ ```
+- `aws-sqs`: AWS SQS関連の実装
+
+### `src/lib`
+- アプリ全体で使い回すような“ライブラリ的な機能”を定義している場所
+- 例:
+  - `prisma.ts`: Prismaクライアント
+  - `supabase.ts`: Supabaseクライアント
+
+### `src/providers`
+- 本サービスはAuth.jsを通じて認証をしているため、Auth.jsのProviderを定義する必要があり、それを置いている
+- コンテキストプロバイダー
+- アプリケーション全体の状態管理
+
+### `src/service`
+- nfrastructureに依存している。データ通信の関数をinfrastructureから呼び、それ以外にロジックやユースケースとなる記述をする。route handlerはここに書いたものを呼ぶだけにしている。
+- ビジネスロジック
+- ドメインサービス
+- 例: `reflectionService.ts`
+- 実装例：
+```
+cont COUNT_PER_PAGE = 
+
+export const reflectionService = {
+  async getAll(page: number, tag?: string) {
+    const offset = (page - 1) * COUNT_PER_PAGE;
+    const tagFilter = tag ? { [tag]: true } : undefined;
+
+    const filteredCount =
+      await reflectionRepository.countPublicReflections(tagFilter);
+    const totalPage = Math.ceil(filteredCount / COUNT_PER_PAGE);
+
+    const reflections = await reflectionRepository.getPublicReflectionAll({
+      offset,
+      limit: COUNT_PER_PAGE,
+      tagFilter
+    });
+
+    return {
+      reflections,
+      totalPage
+    };
+  },
+ }
+ ```
+
+### `src/utils`
+- 上記のディレクトリどこにも該当しないものを置く場所。
+- ユーティリティ関数
+- ヘルパー関数
+- 例:
+  - `date-helper`: 日付操作関連
+  - `fetchURL`: URL操作関連
+  - 特にこれ以降変更がなさそうだが、中身が複雑で、よくいじるcomponents等のフォルダに置きたくないtsファイル。
+  - カスタムfetchの定義
+  - 型定義の一部
+  - metadataを集約したもの
+  - themeのカスタム
+
+## アーキテクチャの原則
+
+1. **関心の分離**
+   - 各ディレクトリは明確な責務を持つ
+   - 依存関係は上位から下位への一方向
+
+2. **再利用性**
+   - 共通コンポーネントは`components`に配置
+   - 共通ロジックは`utils`に配置
+
+3. **テスト容易性**
+   - 各層は独立してテスト可能
+   - 依存性注入を活用
+
+4. **保守性**
+   - 機能ごとにディレクトリを分離
+   - 命名規則の統一 
