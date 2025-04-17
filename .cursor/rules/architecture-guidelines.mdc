@@ -133,7 +133,7 @@ export const reflectionAPI = {
 - 例: `reflectionService.ts`
 - 実装例：
 ```
-cont COUNT_PER_PAGE = 12
+const COUNT_PER_PAGE = 12
 
 export const reflectionService = {
   async getAll(page: number, tag?: string) {
