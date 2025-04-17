@@ -1,0 +1,87 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+ # プロジェクト開発ガイドライン
+
+## コーディング規約
+
+- TypeScriptの型定義を厳密に使用する
+- 命名規則は以下を参照
+```
+|用途 | 命名規則 | 例 | |----------------------|----------------|------------------------| | 変数・関数・定数 | camelCase | userName, fetchData | | Reactコンポーネント | PascalCase | UserProfile | | ファイル名（tsx等） | PascalCase | UserProfile.tsx | | ディレクトリ名 | kebab-case | user-profile/ | | APIエンドポイント | kebab-case | /api/user-profile/ | | CSSクラス名 | kebab-case | main-container | | 型・interface・enum | PascalCase | UserProfile, UserRole | | グローバル定数 | UPPER_SNAKE_CASE | API_BASE_URL |
+```
+- 開発する上でコメントが必要だと思ったところ、今後やるべきところには`MEMO` `NOTE` `TODO` 等のコメントを残す。
+  - 例:
+  ```
+  // MEMO: 日本時間で18時〜翌朝4時の判定
+      const isEveningOrNight =
+        (currentHourInJapan >= 18 && currentHourInJapan < 24) ||
+        (currentHourInJapan >= 0 && currentHourInJapan < 4);
+
+      if (isEveningOrNight) {
+        router.push(`/${username}?status=posted`);
+      } else {
+        router.push(`/${username}`);
+      }
+  ```
+
+## ディレクトリ構造
+
+- `.cursor/rules/architecture-guidelines.mdc`を参照
+
+## スタイリング
+
+- MUIのコンポーネントを使用
+- sx内には、MUIのpropsやコンポーネントの属性で指定できるものは書かず、sxでしか指定できないCSSのみを記述する。
+  - 良い例：
+  ```
+  <Typography
+  color={"black"}
+  overflow={"hidden"}
+  textOverflow={"ellipsis"}
+  display={"-webkit-box"}
+  pr={10}
+  letterSpacing={0.9}
+  lineHeight={1.4}
+  sx={{
+    // MEMO: 2行で切り捨てるためのcss
+    WebkitBoxOrient: "vertical",
+    WebkitLineClamp: 2
+  }}
+  >
+  ```
+  - 悪い例
+  ```
+  <Typography
+  sx={{
+    color: "black",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    // MEMO: 2行で切り捨てるためのcss
+    WebkitBoxOrient: "vertical",
+    WebkitLineClamp: 2
+  }}
+  >
+  ```
+- MUIのコンポーネント以外もの（`Link`など）はインラインスタイルでCSSを当てる。
+- grey.400, 500, 600を用途別に使い分け
+
+## テスト
+
+- Playwrightを使用
+
+## コミットメッセージ
+
+- プレフィックスを使用: feat, fix, update, refactor, rename, remove, add
+
+## パフォーマンス
+
+- データフェッチはRSCコンポーネントで行う。
+
+## セキュリティ
+
+- 環境変数は`.env`ファイルで管理
+- 機密情報はハードコードしない
+- 入力値のバリデーションを実施 
