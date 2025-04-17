@@ -11,9 +11,9 @@ import {
 
 export async function GET(
   _: NextRequest,
-  { params }: { params: { reflectionCUID: string } }
+  { params }: { params: Promise<{ reflectionCUID: string }> }
 ) {
-  const { reflectionCUID } = params;
+  const { reflectionCUID } = await params;
   try {
     const res = await reflectionService.getDetail(reflectionCUID);
     if (!res) {
@@ -27,8 +27,9 @@ export async function GET(
 
 export async function DELETE(
   _: NextRequest,
-  { params }: { params: { reflectionCUID: string } }
+  props: { params: Promise<{ reflectionCUID: string }> }
 ) {
+  const params = await props.params;
   const { reflectionCUID } = params;
   try {
     const session = await getUserSession();

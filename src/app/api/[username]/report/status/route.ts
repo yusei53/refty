@@ -11,9 +11,9 @@ import {
 
 export async function GET(
   _: NextRequest,
-  { params }: { params: { username: string } }
+  { params }: { params: Promise<{ username: string }> }
 ) {
-  const username = params.username;
+  const { username } = await params;
   const userId = await getUserIdByUsername(username);
   if (!userId) {
     return notFoundError("ユーザーが見つかりません");
@@ -25,7 +25,7 @@ export async function GET(
       select: { image: true, isReportOpen: true }
     });
 
-    if (user?.isReportOpen === false && session?.username !== params.username) {
+    if (user?.isReportOpen === false && session?.username !== username) {
       return forbiddenError("閲覧権限がありません");
     }
 
@@ -35,6 +35,10 @@ export async function GET(
       session
     });
   } catch (error) {
-    return internalServerError("GET", "ユーザーのレポートステータス取得", error);
+    return internalServerError(
+      "GET",
+      "ユーザーのレポートステータス取得",
+      error
+    );
   }
 }

@@ -10,10 +10,10 @@ import {
 
 export async function DELETE(
   _: NextRequest,
-  { params }: { params: { username: string; folderUUID: string } }
+  { params }: { params: Promise<{ username: string; folderUUID: string }> }
 ) {
+  const { folderUUID } = await params;
   try {
-    const { folderUUID } = params;
     const session = await getUserSession();
 
     if (!session) {
@@ -39,10 +39,10 @@ export async function DELETE(
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { username: string; folderUUID: string } }
+  { params }: { params: Promise<{ username: string; folderUUID: string }> }
 ) {
+  const { folderUUID } = await params;
   try {
-    const { folderUUID } = params;
     const { name } = await req.json();
     const session = await getUserSession();
 

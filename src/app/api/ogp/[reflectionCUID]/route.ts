@@ -5,11 +5,10 @@ import { internalServerError, notFoundError } from "@/src/utils/http-error";
 
 export async function GET(
   _: NextRequest,
-  { params }: { params: { reflectionCUID: string } }
+  { params }: { params: Promise<{ reflectionCUID: string }> }
 ) {
+  const { reflectionCUID } = await params;
   try {
-    const { reflectionCUID } = params;
-
     const reflection = await opengraphRepository.getReflection(reflectionCUID);
     if (!reflection) {
       return notFoundError("振り返りが見つかりません");

@@ -8,9 +8,14 @@ import { meta } from "@/src/utils/metadata";
 
 export const metadata: Metadata = meta.settingUsernamePage;
 
-const page = async ({ searchParams }: { searchParams: { page?: string } }) => {
+const page = async ({
+  searchParams
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) => {
+  const { page: pageParameter } = await searchParams;
   const session = await getUserSession();
-  const currentPage = searchParams.page ? parseInt(searchParams.page, 10) : 1;
+  const currentPage = pageParameter ? parseInt(pageParameter, 10) : 1;
   // NOTE: usernameが設定されている場合、/${currentUser.username}にリダイレクト
   if (session?.username) {
     redirect(`/${session.username}`);

@@ -12,11 +12,11 @@ import {
 } from "@/src/utils/http-error";
 
 export async function GET(
-  req: NextRequest,
-  { params }: { params: { reflectionCUID: string } }
+  _: NextRequest,
+  { params }: { params: Promise<{ reflectionCUID: string }> }
 ) {
   try {
-    const { reflectionCUID } = params;
+    const { reflectionCUID } = await params;
     const session = await getUserSession();
     if (!session) {
       return unauthorizedError("認証されていません");
@@ -39,8 +39,9 @@ export async function GET(
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { reflectionCUID: string } }
+  props: { params: Promise<{ reflectionCUID: string }> }
 ) {
+  const params = await props.params;
   try {
     const body = await req.json();
     const { reflectionCUID } = params;

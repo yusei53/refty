@@ -5,10 +5,10 @@ import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username"
 import { internalServerError, notFoundError } from "@/src/utils/http-error";
 
 export async function GET(
-  req: NextRequest,
-  { params }: { params: { username: string } }
+  _: NextRequest,
+  { params }: { params: Promise<{ username: string }> }
 ) {
-  const username = params.username;
+  const { username } = await params;
   const userId = await getUserIdByUsername(username);
   if (!userId) return notFoundError("ユーザーが見つかりません");
 

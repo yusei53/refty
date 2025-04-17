@@ -8,28 +8,28 @@ import { meta } from "@/src/utils/metadata";
 export const generateMetadata = async ({
   params
 }: {
-  params: { username: string };
+  params: Promise<{ username: string }>;
 }): Promise<Metadata> => {
-  return meta.reflectionsBookPage(params.username);
+  const { username } = await params;
+  return meta.reflectionsBookPage(username);
 };
 
 const page = async ({
   params,
   searchParams
 }: {
-  params: { username: string };
-  searchParams: {
+  params: Promise<{ username: string }>;
+  searchParams: Promise<{
     folder?: string;
-  };
+  }>;
 }) => {
+  const { username } = await params;
+  const { folder: folderParameter } = await searchParams;
   const session = await getUserSession();
-  const folderUUID = searchParams.folder || "";
-  const res = await reflectionsBookAPI.getReflections(
-    params.username,
-    folderUUID
-  );
+  const folderUUID = folderParameter || "";
+  const res = await reflectionsBookAPI.getReflections(username, folderUUID);
 
-  if (res === 404 || !res || !session || params.username !== session.username) {
+  if (res === 404 || !res || !session || username !== session.username) {
     return notFound();
   }
 

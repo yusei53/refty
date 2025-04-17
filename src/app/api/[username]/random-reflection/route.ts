@@ -13,9 +13,9 @@ import {
 const customPrisma = prisma.$extends(prismaRandom());
 export async function GET(
   _: NextRequest,
-  { params }: { params: { username: string } }
+  { params }: { params: Promise<{ username: string }> }
 ) {
-  const username = params.username;
+  const { username } = await params;
 
   if (!username) {
     return notFoundError("ユーザーネームが見つかりません");
