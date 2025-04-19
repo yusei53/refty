@@ -1,7 +1,9 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Box } from "@mui/material";
+import type { ReflectionWithIncludeContent } from "@/src/api/reflection-api";
 import type { ReflectionsCount } from "@/src/api/reflections-count-api";
+import type { ViewMode } from "@/src/hooks/tabs/useViewMode";
 import { type Folder } from "@/src/api/folder-api";
 import {
   type RandomReflection,
@@ -17,13 +19,16 @@ import { EmptyReflection } from "@/src/features/common/empty-reflection";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 import ReflectionCardListArea from "@/src/features/routes/reflection-list/card-list/ReflectionCardListArea";
 import { GoodJobModal } from "@/src/features/routes/reflection-list/modal";
+import { MonthlyReflectionListFetcher } from "@/src/features/routes/reflection-list/monthly/MonthlyReflectionListFetcher";
 import UserProfileArea from "@/src/features/routes/reflection-list/profile/UserProfileArea";
 import { SelectionHeader } from "@/src/features/routes/reflection-list/selection-header/SelectionHeader";
 import { Sidebar } from "@/src/features/routes/reflection-list/sidebar";
 import { FolderInitializer } from "@/src/features/routes/reflection-list/sidebar/FolderInitializer";
+import { TabsArea } from "@/src/features/routes/reflection-list/tabs/TabsArea";
 import { useFolderSelection } from "@/src/hooks/folder/useFolderSelection";
 import { usePagination } from "@/src/hooks/reflection/usePagination";
 import { useResponsive } from "@/src/hooks/responsive/useResponsive";
+import { useViewMode } from "@/src/hooks/tabs/useViewMode";
 
 type UserReflectionListPageProps = {
   currentUsername: string | null;
@@ -33,12 +38,13 @@ type UserReflectionListPageProps = {
   bio: string;
   website: string;
   reflectionCount: ReflectionsCount;
-  reflections: Reflection[];
+  reflections: (Reflection | ReflectionWithIncludeContent)[];
   currentPage: number;
   totalPage: number;
   tagCountList: ReflectionTagCountList;
   randomReflection: RandomReflection | null;
   folders: Folder[];
+  viewMode: ViewMode;
 };
 
 const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
@@ -54,10 +60,12 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   totalPage,
   tagCountList,
   randomReflection,
-  folders
+  folders,
+  viewMode
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+
   const { isMobile, isPWA } = useResponsive();
   const { handlePageChange } = usePagination();
   const {
@@ -71,12 +79,17 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     handleAddReflectionToFolder,
     getSelectedInfo
   } = useFolderSelection(username);
+  const { currentViewMode, handleViewModeChange } = useViewMode();
 
+  const isModalOpen = searchParams.get("status") === "posted";
   const isCurrentUser = currentUsername === username;
+
+  // NOTE: viewModeがdetail、かつreflectionsの最初の要素がcontentプロパティを持っているかどうかのフラグ
+  const isContentReady = viewMode === "detail" && "content" in reflections[0];
+
   // NOTE: 選択されたフォルダかタグの投稿数と名前を取得
   const selectedInfo = getSelectedInfo(tagCountList);
 
-  const isModalOpen = searchParams.get("status") === "posted";
   const handleCloseModal = () => {
     router.push(`/${username}`);
   };
@@ -108,6 +121,12 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           reflectionCount={reflectionCount}
           isCurrentUser={isCurrentUser}
         />
+        {reflections.length >= 1 && (
+          <TabsArea
+            currentViewMode={currentViewMode}
+            onViewModeChange={handleViewModeChange}
+          />
+        )}
         <SelectionHeader
           selectedInfo={selectedInfo}
           isFolderSelected={isFolderSelected}
@@ -116,31 +135,40 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           onAdd={handleAddReflectionToFolder}
           disableAdd={disableAdd}
         />
-        {reflections.length === 0 ? (
-          <EmptyReflection />
-        ) : (
+        {reflections.length >= 1 ? (
           <>
-            <ArrowPagination
-              currentPage={currentPage}
-              totalPage={totalPage}
-              onChange={handlePageChange}
-            />
-            <ReflectionCardListArea
-              username={username}
-              reflections={reflections}
-              isCurrentUser={isCurrentUser}
-              isSelectMode={isSelectMode}
-              isSelected={(reflectionCUID) =>
-                selectedReflections.includes(reflectionCUID)
-              }
-              onSelect={handleSelect}
-            />
-            <NumberedPagination
-              currentPage={currentPage}
-              totalPage={totalPage}
-              onChange={handlePageChange}
-            />
+            {currentViewMode === "card" ? (
+              <>
+                <ArrowPagination
+                  currentPage={currentPage}
+                  totalPage={totalPage}
+                  onChange={handlePageChange}
+                />
+                <ReflectionCardListArea
+                  username={username}
+                  reflections={reflections}
+                  isCurrentUser={isCurrentUser}
+                  isSelectMode={isSelectMode}
+                  isSelected={(reflectionCUID) =>
+                    selectedReflections.includes(reflectionCUID)
+                  }
+                  onSelect={handleSelect}
+                />
+                <NumberedPagination
+                  currentPage={currentPage}
+                  totalPage={totalPage}
+                  onChange={handlePageChange}
+                />
+              </>
+            ) : (
+              <MonthlyReflectionListFetcher
+                reflections={reflections as ReflectionWithIncludeContent[]}
+                isReady={isContentReady}
+              />
+            )}
           </>
+        ) : (
+          <EmptyReflection />
         )}
         {username && !isPWA && <PostNavigationButton />}
       </Box>

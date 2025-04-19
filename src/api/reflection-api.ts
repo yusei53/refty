@@ -46,8 +46,13 @@ type ReflectionAll = {
   filteredReflectionCount: number;
 };
 
+// TODO: 命名をいい感じにする
+export type ReflectionWithIncludeContent = Reflection & {
+  content: string;
+};
+
 type Reflections = {
-  reflections: Reflection[];
+  reflections: (Reflection | ReflectionWithIncludeContent)[];
   totalPage: number;
   filteredReflectionCount: number;
   tagCountList: ReflectionTagCountList;
@@ -68,12 +73,14 @@ type ReflectionDetail = Reflection & {
 const getQueryParameters = (
   page: number,
   tag?: string,
-  folderUUID?: string
+  folderUUID?: string,
+  isDetailMode: boolean = false
 ) => {
   const params = new URLSearchParams();
   params.append("page", page.toString());
   if (tag) params.append("tag", tag);
   if (folderUUID) params.append("folder", folderUUID);
+  if (isDetailMode) params.append("viewMode", "detail");
   return params;
 };
 
@@ -96,9 +103,10 @@ export const reflectionAPI = {
     username: string,
     page: number = 1,
     tag?: string,
-    folderUUID?: string
+    folderUUID?: string,
+    isDetailMode: boolean = false
   ): Promise<Result<Reflections, 404>> {
-    const q = getQueryParameters(page, tag, folderUUID);
+    const q = getQueryParameters(page, tag, folderUUID, isDetailMode);
     const path = `/api/reflection/${username}?${q.toString()}`;
     const options: FetchURLOptions = {
       method: "GET",
