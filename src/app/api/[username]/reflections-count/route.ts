@@ -7,11 +7,10 @@ import { internalServerError, notFoundError } from "@/src/utils/http-error";
 // MEMO: マイページとレポートページで使用しているので変更時は注意
 export async function GET(
   _: NextRequest,
-  { params }: { params: { username: string } }
+  { params }: { params: Promise<{ username: string }> }
 ) {
+  const { username } = await params;
   try {
-    const { username } = params;
-
     const userId = await getUserIdByUsername(username);
 
     if (!userId) {

@@ -303,24 +303,6 @@ export const reflectionService = {
     });
   },
 
-  async delete(reflectionCUID: string) {
-    return await reflectionRepository.deleteReflection(reflectionCUID);
-  },
-
-  async updatePinned(reflectionCUID: string, isPinned: boolean) {
-    return await reflectionRepository.updatePinnedStatus({
-      reflectionCUID,
-      isPinned
-    });
-  },
-
-  async updatePublic(reflectionCUID: string, isPublic: boolean) {
-    return await reflectionRepository.updatePublicStatus({
-      reflectionCUID,
-      isPublic
-    });
-  },
-
   async getReflectionsByHourGroup(userId: string) {
     const reflections =
       await reflectionRepository.getReflectionsDateByUserId(userId);

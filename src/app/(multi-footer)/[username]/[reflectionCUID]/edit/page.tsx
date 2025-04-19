@@ -10,21 +10,19 @@ import { generateMeta } from "@/src/utils/metadata";
 export const generateMetadata = async ({
   params
 }: {
-  params: { reflectionCUID: string };
+  params: Promise<{ reflectionCUID: string }>;
 }): Promise<Metadata> => {
-  return await generateMeta.reflectionUpdateFormPage(params.reflectionCUID);
+  const { reflectionCUID } = await params;
+  return await generateMeta.reflectionUpdateFormPage(reflectionCUID);
 };
 
-type PageProps = {
-  params: {
-    username: string;
-    reflectionCUID: string;
-  };
-};
-
-const page = async ({ params }: PageProps) => {
-  const { reflectionCUID } = params;
-  const headers = getHeaders();
+const page = async ({
+  params
+}: {
+  params: Promise<{ reflectionCUID: string }>;
+}) => {
+  const { reflectionCUID } = await params;
+  const headers = await getHeaders();
   const session = await getUserSession();
   const reflection = await reflectionAPI.getEditReflectionByCUID(
     headers,

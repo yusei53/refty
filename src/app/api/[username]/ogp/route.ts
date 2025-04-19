@@ -6,11 +6,10 @@ import { internalServerError, notFoundError } from "@/src/utils/http-error";
 
 export async function GET(
   _: NextRequest,
-  { params }: { params: { username: string } }
+  { params }: { params: Promise<{ username: string }> }
 ) {
+  const { username } = await params;
   try {
-    const { username } = params;
-
     const userId = await getUserIdByUsername(username);
 
     if (!userId) {

@@ -1,9 +1,20 @@
 "use client";
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import type { Folder } from "@/src/api/folder-api";
-import ReflectionPostForm from "@/src/features/common/post-form/ReflectionPostForm";
+import { DefaultLoading } from "@/src/components/loading";
 import { useBGMPlayer } from "@/src/hooks/audio/useBGMPlayer";
 import { useUpdateReflectionForm } from "@/src/hooks/reflection/useUpdateReflectionForm";
+
+// NOTE: next15にしてからhydration errorが出るようになったので、一旦dynamic importで回避
+const ReflectionPostForm = dynamic(
+  () => import("@/src/features/common/post-form/ReflectionPostForm"),
+  {
+    loading: () => <DefaultLoading />,
+    ssr: false
+  }
+);
+
 type ReflectionUpdateFormPageProps = {
   username: string;
   reflectionCUID: string;
