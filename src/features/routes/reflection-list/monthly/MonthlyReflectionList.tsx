@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Box, Typography, Grid, Paper } from "@mui/material";
+import { Box, Typography, Grid, Paper, Chip } from "@mui/material";
 import type { ReflectionWithIncludeContent } from "@/src/api/reflection-api";
 import { ReflectionArticle } from "../../reflection-detail/article";
 import { Accordion } from "@/src/components/accordion";
@@ -32,12 +32,10 @@ const groupReflectionsByMonth = (
     {} as Record<string, ReflectionWithIncludeContent[]>
   );
 
-  return Object.entries(groups)
-    .map(([month, items]) => ({
-      month,
-      reflections: items
-    }))
-    .sort((a, b) => b.month.localeCompare(a.month));
+  return Object.entries(groups).map(([month, items]) => ({
+    month,
+    reflections: items
+  }));
 };
 
 export const MonthlyReflectionList = ({
@@ -45,10 +43,10 @@ export const MonthlyReflectionList = ({
   username,
   userImage
 }: Props) => {
-  const groupedReflections = groupReflectionsByMonth(reflections);
   const [expandedMonths, setExpandedMonths] = useState<Record<string, boolean>>(
     {}
   );
+  const [isAscending, setIsAscending] = useState(false);
 
   const toggleMonth = (month: string) => {
     setExpandedMonths((prev) => ({
@@ -57,9 +55,65 @@ export const MonthlyReflectionList = ({
     }));
   };
 
+  const toggleSortOrder = () => {
+    setIsAscending((prev) => !prev);
+  };
+
+  const groupedReflections = groupReflectionsByMonth(reflections);
+  const sortedReflections = [...groupedReflections].sort((a, b) => {
+    const comparison = a.month.localeCompare(b.month);
+    return isAscending ? comparison : -comparison;
+  });
+
   return (
     <Box mx={3}>
-      {groupedReflections.map(({ month, reflections }) => {
+      <Box display="flex" justifyContent="flex-end" gap={1} mb={2} mt={-1}>
+        <Chip
+          label="新しい順"
+          onClick={toggleSortOrder}
+          sx={{
+            backgroundColor: !isAscending
+              ? theme.palette.primary.main
+              : "transparent",
+            "&:hover": {
+              backgroundColor: !isAscending
+                ? theme.palette.primary.main
+                : theme.palette.grey[100]
+            },
+            "& .MuiTouchRipple-root": {
+              display: "none"
+            },
+            "&.MuiChip-clickable": {
+              "&:active": {
+                boxShadow: "none"
+              }
+            }
+          }}
+        />
+        <Chip
+          label="古い順"
+          onClick={toggleSortOrder}
+          sx={{
+            backgroundColor: isAscending
+              ? theme.palette.primary.main
+              : "transparent",
+            "&:hover": {
+              backgroundColor: isAscending
+                ? theme.palette.primary.main
+                : theme.palette.grey[100]
+            },
+            "& .MuiTouchRipple-root": {
+              display: "none"
+            },
+            "&.MuiChip-clickable": {
+              "&:active": {
+                boxShadow: "none"
+              }
+            }
+          }}
+        />
+      </Box>
+      {sortedReflections.map(({ month, reflections }) => {
         const isExpanded = expandedMonths[month];
         const displayReflections = isExpanded
           ? reflections
@@ -68,7 +122,7 @@ export const MonthlyReflectionList = ({
 
         return (
           <Box key={month} mb={4}>
-            <Typography fontSize={20} mb={2}>
+            <Typography fontSize={20} mb={2} pl={0.5}>
               {format(new Date(month), "yyyy年M月", { locale: ja })}
               {` / ${reflections.length}件`}
             </Typography>
@@ -106,7 +160,7 @@ export const MonthlyReflectionList = ({
                           createdAt={reflection.createdAt}
                           title={reflection.title}
                           content={reflection.content}
-                          activeTags={[]}
+                          activeTags={[]} //TODO: API置き換える時に追加
                           reflectionCUID={reflection.reflectionCUID}
                         />
                       </Box>
