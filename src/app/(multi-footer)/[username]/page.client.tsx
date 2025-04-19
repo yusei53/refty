@@ -164,6 +164,8 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
               <MonthlyReflectionListFetcher
                 reflections={reflections as ReflectionWithIncludeContent[]}
                 isReady={isContentReady}
+                username={username}
+                userImage={userImage}
               />
             )}
           </>

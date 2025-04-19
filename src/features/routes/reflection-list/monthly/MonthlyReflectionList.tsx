@@ -1,17 +1,24 @@
+import Link from "next/link";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
-  Accordion,
   AccordionSummary,
   AccordionDetails,
   Box,
-  Typography
+  Typography,
+  Grid,
+  Paper
 } from "@mui/material";
 import type { ReflectionWithIncludeContent } from "@/src/api/reflection-api";
+import { ReflectionArticle } from "../../reflection-detail/article";
+import { Accordion } from "@/src/components/accordion";
+import { theme } from "@/src/utils/theme";
 
 type Props = {
   reflections: ReflectionWithIncludeContent[];
+  username: string;
+  userImage: string;
 };
 
 const groupReflectionsByMonth = (
@@ -37,7 +44,11 @@ const groupReflectionsByMonth = (
     .sort((a, b) => b.month.localeCompare(a.month));
 };
 
-export const MonthlyReflectionList = ({ reflections }: Props) => {
+export const MonthlyReflectionList = ({
+  reflections,
+  username,
+  userImage
+}: Props) => {
   const groupedReflections = groupReflectionsByMonth(reflections);
 
   return (
@@ -53,12 +64,54 @@ export const MonthlyReflectionList = ({ reflections }: Props) => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              {reflections.map((reflection) => (
-                <Box key={reflection.reflectionCUID} sx={{ mb: 2 }}>
-                  <Typography variant="h6">{reflection.title}</Typography>
-                  <Typography>{reflection.content}</Typography>
-                </Box>
-              ))}
+              <Grid container spacing={3}>
+                {reflections.map((reflection) => (
+                  <Grid
+                    key={reflection.reflectionCUID}
+                    size={{ xs: 12, md: 4 }}
+                  >
+                    <Link
+                      href={`/reflection/${reflection.reflectionCUID}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Paper
+                        elevation={0.1}
+                        sx={{
+                          maxHeight: "380px",
+                          height: "100%",
+                          overflow: "hidden",
+                          backgroundColor: theme.palette.background.paper,
+                          border: `1px solid ${theme.palette.grey[300]}`,
+                          "&:hover": {
+                            boxShadow: 2
+                          },
+                          viewTransitionName: "note-card"
+                        }}
+                      >
+                        <Box
+                          width={"145%"}
+                          height={"100%"}
+                          mt={-7}
+                          ml={-7}
+                          sx={{
+                            transform: "scale(0.6)"
+                          }}
+                        >
+                          <ReflectionArticle
+                            username={username}
+                            userImage={userImage}
+                            createdAt={reflection.createdAt}
+                            title={reflection.title}
+                            content={reflection.content}
+                            activeTags={[]}
+                            reflectionCUID={reflection.reflectionCUID}
+                          />
+                        </Box>
+                      </Paper>
+                    </Link>
+                  </Grid>
+                ))}
+              </Grid>
             </AccordionDetails>
           </Accordion>
         ))}
