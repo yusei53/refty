@@ -1,18 +1,14 @@
+import { useState } from "react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import {
-  AccordionSummary,
-  AccordionDetails,
-  Box,
-  Typography,
-  Grid,
-  Paper
-} from "@mui/material";
+import { Box, Typography, Grid, Paper } from "@mui/material";
 import type { ReflectionWithIncludeContent } from "@/src/api/reflection-api";
 import { ReflectionArticle } from "../../reflection-detail/article";
 import { Accordion } from "@/src/components/accordion";
+import { Button } from "@/src/components/button";
 import { theme } from "@/src/utils/theme";
 
 type Props = {
@@ -50,72 +46,106 @@ export const MonthlyReflectionList = ({
   userImage
 }: Props) => {
   const groupedReflections = groupReflectionsByMonth(reflections);
+  const [expandedMonths, setExpandedMonths] = useState<Record<string, boolean>>(
+    {}
+  );
+
+  const toggleMonth = (month: string) => {
+    setExpandedMonths((prev) => ({
+      ...prev,
+      [month]: !prev[month]
+    }));
+  };
 
   return (
-    <div>
-      <h1>内容表示</h1>
-      <Box>
-        {groupedReflections.map(({ month, reflections }) => (
-          <Accordion key={month}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>
-                {format(new Date(month), "yyyy年M月", { locale: ja })}（
-                {reflections.length}件）
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Grid container spacing={3}>
-                {reflections.map((reflection) => (
-                  <Grid
-                    key={reflection.reflectionCUID}
-                    size={{ xs: 12, md: 4 }}
+    <Box mx={3}>
+      {groupedReflections.map(({ month, reflections }) => {
+        const isExpanded = expandedMonths[month];
+        const displayReflections = isExpanded
+          ? reflections
+          : reflections.slice(0, 3);
+        const hasMore = reflections.length > 3;
+
+        return (
+          <Box key={month} mb={4}>
+            <Typography fontSize={20} mb={2}>
+              {format(new Date(month), "yyyy年M月", { locale: ja })}
+              {` / ${reflections.length}件`}
+            </Typography>
+            <Grid container spacing={3}>
+              {displayReflections.map((reflection) => (
+                <Grid key={reflection.reflectionCUID} size={{ xs: 12, md: 4 }}>
+                  <Link
+                    href={`/${username}/${reflection.reflectionCUID}`}
+                    style={{ textDecoration: "none" }}
                   >
-                    <Link
-                      href={`/reflection/${reflection.reflectionCUID}`}
-                      style={{ textDecoration: "none" }}
+                    <Paper
+                      elevation={0.1}
+                      sx={{
+                        maxHeight: "380px",
+                        height: "100%",
+                        overflow: "hidden",
+                        backgroundColor: theme.palette.background.paper,
+                        border: `1px solid ${theme.palette.grey[300]}`
+                      }}
                     >
-                      <Paper
-                        elevation={0.1}
+                      <Box
+                        width={"145%"}
+                        height={"100%"}
+                        mt={-7}
+                        ml={-7}
                         sx={{
-                          maxHeight: "380px",
-                          height: "100%",
-                          overflow: "hidden",
-                          backgroundColor: theme.palette.background.paper,
-                          border: `1px solid ${theme.palette.grey[300]}`,
-                          "&:hover": {
-                            boxShadow: 2
-                          },
-                          viewTransitionName: "note-card"
+                          transform: "scale(0.58)",
+                          transition: "transform 0.3s ease-in-out",
+                          transformOrigin: "center center"
                         }}
                       >
-                        <Box
-                          width={"145%"}
-                          height={"100%"}
-                          mt={-7}
-                          ml={-7}
-                          sx={{
-                            transform: "scale(0.6)"
-                          }}
-                        >
-                          <ReflectionArticle
-                            username={username}
-                            userImage={userImage}
-                            createdAt={reflection.createdAt}
-                            title={reflection.title}
-                            content={reflection.content}
-                            activeTags={[]}
-                            reflectionCUID={reflection.reflectionCUID}
-                          />
-                        </Box>
-                      </Paper>
-                    </Link>
-                  </Grid>
-                ))}
-              </Grid>
-            </AccordionDetails>
-          </Accordion>
-        ))}
-      </Box>
-    </div>
+                        <ReflectionArticle
+                          username={username}
+                          userImage={userImage}
+                          createdAt={reflection.createdAt}
+                          title={reflection.title}
+                          content={reflection.content}
+                          activeTags={[]}
+                          reflectionCUID={reflection.reflectionCUID}
+                        />
+                      </Box>
+                    </Paper>
+                  </Link>
+                </Grid>
+              ))}
+              {hasMore && (
+                <Grid size={12}>
+                  <Accordion
+                    expanded={isExpanded}
+                    onChange={() => toggleMonth(month)}
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      mt: -1
+                    }}
+                  >
+                    <Button
+                      disableRipple
+                      onClick={() => toggleMonth(month)}
+                      sx={{
+                        color: theme.palette.grey[600],
+                        border: "none",
+                        letterSpacing: 0.8
+                      }}
+                    >
+                      {isExpanded ? "閉じる" : "もっと見る"}
+                      {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                    </Button>
+                  </Accordion>
+                </Grid>
+              )}
+            </Grid>
+          </Box>
+        );
+      })}
+    </Box>
   );
 };
