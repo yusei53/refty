@@ -1,18 +1,12 @@
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 export type ViewMode = "card" | "detail";
 
-type UseViewModeProps = {
-  initialViewMode?: ViewMode;
-};
-
-export const useViewMode = ({
-  initialViewMode = "card"
-}: UseViewModeProps = {}) => {
+export const useViewMode = (initialViewMode: ViewMode = "card") => {
   const searchParams = useSearchParams();
-  const urlViewMode = searchParams.get("viewMode") as ViewMode | null;
-
+  const router = useRouter();
+  const urlViewMode = searchParams.get("viewMode") as ViewMode;
   const [currentViewMode, setCurrentViewMode] = useState<ViewMode>(
     urlViewMode || initialViewMode
   );
@@ -22,10 +16,16 @@ export const useViewMode = ({
     newValue: ViewMode
   ) => {
     setCurrentViewMode(newValue);
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+
+    if (newValue === "card") {
+      newSearchParams.delete("viewMode");
+    } else {
+      newSearchParams.set("viewMode", newValue);
+    }
+
+    router.push(`?${newSearchParams.toString()}`);
   };
 
-  return {
-    currentViewMode,
-    handleViewModeChange
-  };
+  return { currentViewMode, handleViewModeChange };
 };
