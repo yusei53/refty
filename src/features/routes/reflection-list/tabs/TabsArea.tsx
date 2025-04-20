@@ -28,8 +28,8 @@ export const TabsArea: React.FC<TabsAreaProps> = ({
           }
         }}
       >
-        <Tab label="カード表示" value="card" disableRipple />
-        <Tab label="内容表示" value="detail" disableRipple />
+        <Tab label="カード" value="card" disableRipple />
+        <Tab label="フルビュー" value="detail" disableRipple sx={{ ml: -2 }} />
       </Tabs>
       <Divider
         sx={{
