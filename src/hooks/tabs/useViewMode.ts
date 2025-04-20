@@ -1,27 +1,30 @@
 import { useState } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 export type ViewMode = "card" | "detail";
 
-export const useViewMode = () => {
-  const [currentViewMode, setCurrentViewMode] = useState<ViewMode>("card");
-  const router = useRouter();
-  const pathname = usePathname();
+export const useViewMode = (initialViewMode: ViewMode = "card") => {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const urlViewMode = searchParams.get("viewMode") as ViewMode;
+  const [currentViewMode, setCurrentViewMode] = useState<ViewMode>(
+    urlViewMode || initialViewMode
+  );
 
   const handleViewModeChange = (
     _: React.SyntheticEvent,
     newValue: ViewMode
   ) => {
-    const params = new URLSearchParams(searchParams);
+    setCurrentViewMode(newValue);
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+
     if (newValue === "card") {
-      params.delete("viewMode");
+      newSearchParams.delete("viewMode");
     } else {
-      params.set("viewMode", newValue);
+      newSearchParams.set("viewMode", newValue);
     }
 
-    router.push(`${pathname}?${params.toString()}`);
-    setCurrentViewMode(newValue);
+    router.push(`?${newSearchParams.toString()}`);
   };
 
   return { currentViewMode, handleViewModeChange };
