@@ -121,7 +121,7 @@ export const MonthlyReflectionList = ({
         const hasMore = reflections.length > 3;
 
         return (
-          <Box key={month} mb={4}>
+          <Box key={month} mb={hasMore ? 4 : 12}>
             <Typography fontSize={20} mb={2} pl={0.5}>
               {format(new Date(month), "yyyy年M月", { locale: ja })}
               {` / ${reflections.length}件`}
