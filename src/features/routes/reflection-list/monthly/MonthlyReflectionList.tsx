@@ -1,9 +1,10 @@
 import { useState } from "react";
+import Link from "next/link";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Box, Typography, Grid, Paper, Chip } from "@mui/material";
+import { Box, Typography, Grid, Chip } from "@mui/material";
 import type { ReflectionWithIncludeContent } from "@/src/api/reflection-api";
 import { ReflectionArticle } from "../../reflection-detail/article";
 import { Accordion } from "@/src/components/accordion";
@@ -128,8 +129,7 @@ export const MonthlyReflectionList = ({
             <Grid container spacing={3}>
               {displayReflections.map((reflection) => (
                 <Grid key={reflection.reflectionCUID} size={{ xs: 12, md: 4 }}>
-                  <Paper
-                    elevation={1}
+                  <Box
                     sx={{
                       display: "flex",
                       justifyContent: "center",
@@ -165,6 +165,17 @@ export const MonthlyReflectionList = ({
                       }
                     }}
                   >
+                    <Link
+                      href={`/${username}/${reflection.reflectionCUID}`}
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        zIndex: 1
+                      }}
+                    />
                     <Box
                       mt={-7}
                       height={"100%"}
@@ -183,7 +194,7 @@ export const MonthlyReflectionList = ({
                         reflectionCUID={reflection.reflectionCUID}
                       />
                     </Box>
-                  </Paper>
+                  </Box>
                 </Grid>
               ))}
               {hasMore && (
