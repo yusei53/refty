@@ -133,8 +133,7 @@ export const MonthlyReflectionList = ({
                     sx={{
                       display: "flex",
                       justifyContent: "center",
-                      maxHeight: "380px",
-                      height: "100%",
+                      height: "380px",
                       overflow: "hidden",
                       backgroundColor: theme.palette.background.paper,
                       border: `1px solid ${theme.palette.grey[300]}`,
