@@ -18,8 +18,8 @@ import {
 import { EmptyReflection } from "@/src/features/common/empty-reflection";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 import ReflectionCardListArea from "@/src/features/routes/reflection-list/card-list/ReflectionCardListArea";
+import { FullViewReflectionListFetcher } from "@/src/features/routes/reflection-list/full-view/FullViewReflectionListFetcher";
 import { GoodJobModal } from "@/src/features/routes/reflection-list/modal";
-import { MonthlyReflectionListFetcher } from "@/src/features/routes/reflection-list/monthly/MonthlyReflectionListFetcher";
 import UserProfileArea from "@/src/features/routes/reflection-list/profile/UserProfileArea";
 import { SelectionHeader } from "@/src/features/routes/reflection-list/selection-header/SelectionHeader";
 import { Sidebar } from "@/src/features/routes/reflection-list/sidebar";
@@ -161,7 +161,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
                 />
               </>
             ) : (
-              <MonthlyReflectionListFetcher
+              <FullViewReflectionListFetcher
                 reflections={reflections as ReflectionWithIncludeContent[]}
                 isReady={isContentReady}
                 username={username}
