@@ -37,7 +37,7 @@ const groupReflectionsByMonth = (
   }));
 };
 
-export const FullViewMonthlyReflectionList: React.FC<
+export const FullViewMonthlyReflectionListArea: React.FC<
   FullViewReflectionPaperListAreaProps
 > = ({ reflections, username, userImage }) => {
   const [expandedMonths, setExpandedMonths] = useState<Record<string, boolean>>(
