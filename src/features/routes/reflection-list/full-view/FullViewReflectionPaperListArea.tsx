@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
@@ -8,6 +7,7 @@ import type { ReflectionWithIncludeContent } from "@/src/api/reflection-api";
 import { FullViewReflectionPaper } from "./FullViewReflectionPaper";
 import { Accordion } from "@/src/components/accordion";
 import { Button } from "@/src/components/button";
+import { useFullViewReflection } from "@/src/hooks/full-view/useFullViewReflection";
 import { theme } from "@/src/utils/theme";
 
 type FullViewReflectionPaperListAreaProps = {
@@ -16,51 +16,16 @@ type FullViewReflectionPaperListAreaProps = {
   userImage: string;
 };
 
-const groupReflectionsByMonth = (
-  reflections: ReflectionWithIncludeContent[]
-) => {
-  const groups = reflections.reduce(
-    (acc, reflection) => {
-      const month = format(new Date(reflection.createdAt), "yyyy-MM");
-      if (!acc[month]) {
-        acc[month] = [];
-      }
-      acc[month].push(reflection);
-      return acc;
-    },
-    {} as Record<string, ReflectionWithIncludeContent[]>
-  );
-
-  return Object.entries(groups).map(([month, items]) => ({
-    month,
-    reflections: items
-  }));
-};
-
-export const FullViewMonthlyReflectionListArea: React.FC<
+export const FullViewReflectionPaperListArea: React.FC<
   FullViewReflectionPaperListAreaProps
 > = ({ reflections, username, userImage }) => {
-  const [expandedMonths, setExpandedMonths] = useState<Record<string, boolean>>(
-    {}
-  );
-  const [isAscending, setIsAscending] = useState(false);
-
-  const toggleMonth = (month: string) => {
-    setExpandedMonths((prev) => ({
-      ...prev,
-      [month]: !prev[month]
-    }));
-  };
-
-  const toggleSortOrder = () => {
-    setIsAscending((prev) => !prev);
-  };
-
-  const groupedReflections = groupReflectionsByMonth(reflections);
-  const sortedReflections = [...groupedReflections].sort((a, b) => {
-    const comparison = a.month.localeCompare(b.month);
-    return isAscending ? comparison : -comparison;
-  });
+  const {
+    expandedMonths,
+    isAscending,
+    toggleMonth,
+    toggleSortOrder,
+    sortedReflections
+  } = useFullViewReflection(reflections);
 
   return (
     <Box mx={3}>
