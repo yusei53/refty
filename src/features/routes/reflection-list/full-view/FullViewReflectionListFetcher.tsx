@@ -9,12 +9,9 @@ type FullViewReflectionListFetcherProps = {
   isReady: boolean;
 };
 
-export const FullViewReflectionListFetcher = ({
-  reflections,
-  username,
-  userImage,
-  isReady
-}: FullViewReflectionListFetcherProps) => {
+export const FullViewReflectionListFetcher: React.FC<
+  FullViewReflectionListFetcherProps
+> = ({ reflections, username, userImage, isReady }) => {
   // TODO: Next.jsのバージョンを15に上げ、PPRを実装する際に消す
   if (!isReady) {
     return <Loading />;
