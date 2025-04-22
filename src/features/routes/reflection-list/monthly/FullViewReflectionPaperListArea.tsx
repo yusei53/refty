@@ -11,7 +11,7 @@ import { Accordion } from "@/src/components/accordion";
 import { Button } from "@/src/components/button";
 import { theme } from "@/src/utils/theme";
 
-type Props = {
+type FullViewReflectionPaperListAreaProps = {
   reflections: ReflectionWithIncludeContent[];
   username: string;
   userImage: string;
@@ -38,11 +38,9 @@ const groupReflectionsByMonth = (
   }));
 };
 
-export const MonthlyReflectionList = ({
-  reflections,
-  username,
-  userImage
-}: Props) => {
+export const FullViewMonthlyReflectionList: React.FC<
+  FullViewReflectionPaperListAreaProps
+> = ({ reflections, username, userImage }) => {
   const [expandedMonths, setExpandedMonths] = useState<Record<string, boolean>>(
     {}
   );
