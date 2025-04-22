@@ -1,5 +1,5 @@
 import type { ReflectionWithIncludeContent } from "@/src/api/reflection-api";
-import { FullViewMonthlyReflectionListArea } from "./FullViewReflectionPaperListArea";
+import { FullViewReflectionPaperListArea } from "./FullViewReflectionPaperListArea";
 import { Loading } from "@/src/components/loading/Loading";
 
 type FullViewReflectionListFetcherProps = {
@@ -21,7 +21,7 @@ export const FullViewReflectionListFetcher = ({
   }
 
   return (
-    <FullViewMonthlyReflectionListArea
+    <FullViewReflectionPaperListArea
       reflections={reflections}
       username={username}
       userImage={userImage}
