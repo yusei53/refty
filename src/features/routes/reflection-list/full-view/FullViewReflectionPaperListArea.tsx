@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { format } from "date-fns";
-import { ja } from "date-fns/locale";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Box, Typography, Grid, Chip } from "@mui/material";
@@ -17,13 +15,15 @@ type FullViewReflectionPaperListAreaProps = {
   userImage: string;
 };
 
+const DEFAULT_DISPLAY_REFLECTION = 3;
+
 export const FullViewReflectionPaperListArea: React.FC<
   FullViewReflectionPaperListAreaProps
 > = ({ reflections, username, userImage }) => {
   const {
     expandedMonths,
     isAscending,
-    toggleMonth,
+    toggleExpansion,
     toggleSortOrder,
     sortedReflections
   } = useFullViewReflection(reflections);
@@ -80,13 +80,13 @@ export const FullViewReflectionPaperListArea: React.FC<
         const isExpanded = expandedMonths[month];
         const displayReflections = isExpanded
           ? reflections
-          : reflections.slice(0, 3);
-        const hasMore = reflections.length > 3;
+          : reflections.slice(0, DEFAULT_DISPLAY_REFLECTION);
+        const hasMore = reflections.length > DEFAULT_DISPLAY_REFLECTION;
 
         return (
           <Box key={month} mb={hasMore ? 4 : 12}>
             <Typography fontSize={20} mb={2} pl={0.5}>
-              {format(new Date(month), "yyyy年M月", { locale: ja })}
+              {month}
               {` / ${reflections.length}件`}
             </Typography>
             <Grid container spacing={3}>
@@ -163,7 +163,6 @@ export const FullViewReflectionPaperListArea: React.FC<
                 <Grid size={12}>
                   <Accordion
                     expanded={isExpanded}
-                    onChange={() => toggleMonth(month)}
                     sx={{
                       display: "flex",
                       justifyContent: "center",
@@ -173,7 +172,7 @@ export const FullViewReflectionPaperListArea: React.FC<
                   >
                     <Button
                       disableRipple
-                      onClick={() => toggleMonth(month)}
+                      onClick={() => toggleExpansion(month)}
                       sx={{
                         color: theme.palette.grey[600],
                         border: "none",
