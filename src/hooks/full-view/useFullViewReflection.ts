@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { format } from "date-fns";
 import type { ReflectionWithIncludeContent } from "@/src/api/reflection-api";
+import { formatDateToMonth } from "@/src/utils/date-helper/date-helpers";
 
 const groupReflectionsByMonth = (
   reflections: ReflectionWithIncludeContent[]
 ): { month: string; reflections: ReflectionWithIncludeContent[] }[] => {
   const groups = reflections.reduce(
     (acc, reflection) => {
-      const month = format(new Date(reflection.createdAt), "yyyy-MM");
+      const month = formatDateToMonth(reflection.createdAt);
       if (!acc[month]) {
         acc[month] = [];
       }
