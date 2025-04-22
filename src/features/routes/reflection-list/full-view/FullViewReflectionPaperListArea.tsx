@@ -64,49 +64,21 @@ export const FullViewMonthlyReflectionListArea: React.FC<
 
   return (
     <Box mx={3}>
-      <Box display="flex" justifyContent="flex-end" gap={1} mb={2} mt={-1}>
+      <Box display={"flex"} justifyContent={"flex-end"} gap={1} mb={2} mt={-1}>
         <Chip
           label="新しい順"
           onClick={toggleSortOrder}
           sx={{
-            backgroundColor: !isAscending
-              ? theme.palette.primary.main
-              : "transparent",
-            "&:hover": {
-              backgroundColor: !isAscending
-                ? theme.palette.primary.main
-                : theme.palette.grey[100]
-            },
-            "& .MuiTouchRipple-root": {
-              display: "none"
-            },
-            "&.MuiChip-clickable": {
-              "&:active": {
-                boxShadow: "none"
-              }
-            }
+            ...chip,
+            ...getChipBackgroundColor(!isAscending)
           }}
         />
         <Chip
           label="古い順"
           onClick={toggleSortOrder}
           sx={{
-            backgroundColor: isAscending
-              ? theme.palette.primary.main
-              : "transparent",
-            "&:hover": {
-              backgroundColor: isAscending
-                ? theme.palette.primary.main
-                : theme.palette.grey[100]
-            },
-            "& .MuiTouchRipple-root": {
-              display: "none"
-            },
-            "&.MuiChip-clickable": {
-              "&:active": {
-                boxShadow: "none"
-              }
-            }
+            ...chip,
+            ...getChipBackgroundColor(isAscending)
           }}
         />
       </Box>
@@ -167,3 +139,23 @@ export const FullViewMonthlyReflectionListArea: React.FC<
     </Box>
   );
 };
+
+const chip = {
+  "& .MuiTouchRipple-root": {
+    display: "none"
+  },
+  "&.MuiChip-clickable": {
+    "&:active": {
+      boxShadow: "none"
+    }
+  }
+};
+
+const getChipBackgroundColor = (isActive: boolean) => ({
+  backgroundColor: isActive ? theme.palette.primary.main : "transparent",
+  "&:hover": {
+    backgroundColor: isActive
+      ? theme.palette.primary.main
+      : theme.palette.grey[100]
+  }
+});
