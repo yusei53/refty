@@ -10,44 +10,26 @@ type FullViewReflectionPaperProps = {
   userImage: string;
 };
 
-export const FullViewReflectionPaper = ({
-  reflection,
-  username,
-  userImage
-}: FullViewReflectionPaperProps) => {
+export const FullViewReflectionPaper: React.FC<
+  FullViewReflectionPaperProps
+> = ({ reflection, username, userImage }) => {
   return (
     <Box
+      display={"flex"}
+      justifyContent={"center"}
+      height={"380px"}
+      overflow={"hidden"}
+      bgcolor={"white"}
+      border={`1px solid ${theme.palette.grey[300]}`}
+      position={"relative"}
+      pr={"4px"}
       sx={{
-        display: "flex",
-        justifyContent: "center",
-        height: "380px",
-        overflow: "hidden",
-        backgroundColor: theme.palette.background.paper,
-        border: `1px solid ${theme.palette.grey[300]}`,
         transition: "transform 0.3s ease-in-out",
-        position: "relative",
-        paddingRight: "4px",
         "&:hover": {
-          paddingRight: "0px",
           transform: "scale(1.2)",
-          boxShadow: `0 6px 24px 0 ${theme.palette.grey[400]}`,
           zIndex: 1,
-          overflow: "auto",
-          overflowX: "hidden",
-          "&::-webkit-scrollbar": {
-            width: "4px"
-          },
-          "&::-webkit-scrollbar-track": {
-            background: theme.palette.grey[100],
-            borderRadius: "2px"
-          },
-          "&::-webkit-scrollbar-thumb": {
-            background: theme.palette.grey[300],
-            borderRadius: "2px",
-            "&:hover": {
-              background: theme.palette.grey[400]
-            }
-          }
+          boxShadow: `0 6px 24px 0 ${theme.palette.grey[400]}`,
+          ...scrollbar
         }
       }}
     >
@@ -55,11 +37,11 @@ export const FullViewReflectionPaper = ({
         href={`/${username}/${reflection.reflectionCUID}`}
         style={{
           position: "absolute",
+          zIndex: 1,
           top: 0,
           left: 0,
           width: "100%",
-          height: "100%",
-          zIndex: 1
+          height: "100%"
         }}
       />
       <Box
@@ -82,4 +64,24 @@ export const FullViewReflectionPaper = ({
       </Box>
     </Box>
   );
+};
+
+const scrollbar = {
+  pr: "0px",
+  overflow: "auto",
+  overflowX: "hidden",
+  "&::-webkit-scrollbar": {
+    width: "4px"
+  },
+  "&::-webkit-scrollbar-track": {
+    background: theme.palette.grey[100],
+    borderRadius: "2px"
+  },
+  "&::-webkit-scrollbar-thumb": {
+    background: theme.palette.grey[300],
+    borderRadius: "2px",
+    "&:hover": {
+      background: theme.palette.grey[400]
+    }
+  }
 };
