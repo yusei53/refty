@@ -17,9 +17,9 @@ const groupReflectionsByMonth = (
     {} as Record<string, ReflectionWithIncludeContent[]>
   );
 
-  return Object.entries(groups).map(([month, items]) => ({
+  return Object.entries(groups).map(([month, reflections]) => ({
     month,
-    reflections: items
+    reflections
   }));
 };
 
@@ -31,7 +31,7 @@ export const useFullViewReflection = (
   );
   const [isAscending, setIsAscending] = useState(false);
 
-  const toggleMonth = (month: string) => {
+  const toggleExpansion = (month: string) => {
     setExpandedMonths((prev) => ({
       ...prev,
       [month]: !prev[month]
@@ -51,7 +51,7 @@ export const useFullViewReflection = (
   return {
     expandedMonths,
     isAscending,
-    toggleMonth,
+    toggleExpansion,
     toggleSortOrder,
     sortedReflections
   };
