@@ -1,7 +1,4 @@
-import { useState } from "react";
 import Link from "next/link";
-import { format } from "date-fns";
-import { ja } from "date-fns/locale";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Box, Typography, Grid, Chip } from "@mui/material";
@@ -9,6 +6,7 @@ import type { ReflectionWithIncludeContent } from "@/src/api/reflection-api";
 import { ReflectionArticle } from "../../reflection-detail/article";
 import { Accordion } from "@/src/components/accordion";
 import { Button } from "@/src/components/button";
+import { useFullViewReflection } from "@/src/hooks/full-view/useFullViewReflection";
 import { theme } from "@/src/utils/theme";
 
 type FullViewReflectionPaperListAreaProps = {
@@ -17,51 +15,18 @@ type FullViewReflectionPaperListAreaProps = {
   userImage: string;
 };
 
-const groupReflectionsByMonth = (
-  reflections: ReflectionWithIncludeContent[]
-) => {
-  const groups = reflections.reduce(
-    (acc, reflection) => {
-      const month = format(new Date(reflection.createdAt), "yyyy-MM");
-      if (!acc[month]) {
-        acc[month] = [];
-      }
-      acc[month].push(reflection);
-      return acc;
-    },
-    {} as Record<string, ReflectionWithIncludeContent[]>
-  );
+const DEFAULT_DISPLAY_REFLECTION = 3;
 
-  return Object.entries(groups).map(([month, items]) => ({
-    month,
-    reflections: items
-  }));
-};
-
-export const FullViewMonthlyReflectionListArea: React.FC<
+export const FullViewReflectionPaperListArea: React.FC<
   FullViewReflectionPaperListAreaProps
 > = ({ reflections, username, userImage }) => {
-  const [expandedMonths, setExpandedMonths] = useState<Record<string, boolean>>(
-    {}
-  );
-  const [isAscending, setIsAscending] = useState(false);
-
-  const toggleMonth = (month: string) => {
-    setExpandedMonths((prev) => ({
-      ...prev,
-      [month]: !prev[month]
-    }));
-  };
-
-  const toggleSortOrder = () => {
-    setIsAscending((prev) => !prev);
-  };
-
-  const groupedReflections = groupReflectionsByMonth(reflections);
-  const sortedReflections = [...groupedReflections].sort((a, b) => {
-    const comparison = a.month.localeCompare(b.month);
-    return isAscending ? comparison : -comparison;
-  });
+  const {
+    expandedMonths,
+    isAscending,
+    toggleExpansion,
+    toggleSortOrder,
+    sortedReflections
+  } = useFullViewReflection(reflections);
 
   return (
     <Box mx={3}>
@@ -87,13 +52,13 @@ export const FullViewMonthlyReflectionListArea: React.FC<
         const isExpanded = expandedMonths[month];
         const displayReflections = isExpanded
           ? reflections
-          : reflections.slice(0, 3);
-        const hasMore = reflections.length > 3;
+          : reflections.slice(0, DEFAULT_DISPLAY_REFLECTION);
+        const hasMore = reflections.length > DEFAULT_DISPLAY_REFLECTION;
 
         return (
           <Box key={month} mb={hasMore ? 4 : 12}>
             <Typography fontSize={20} mb={2} pl={0.5}>
-              {format(new Date(month), "yyyy年M月", { locale: ja })}
+              {month}
               {` / ${reflections.length}件`}
             </Typography>
             <Grid container spacing={3}>
@@ -170,7 +135,6 @@ export const FullViewMonthlyReflectionListArea: React.FC<
                 <Grid size={12}>
                   <Accordion
                     expanded={isExpanded}
-                    onChange={() => toggleMonth(month)}
                     sx={{
                       display: "flex",
                       justifyContent: "center",
@@ -180,7 +144,7 @@ export const FullViewMonthlyReflectionListArea: React.FC<
                   >
                     <Button
                       disableRipple
-                      onClick={() => toggleMonth(month)}
+                      onClick={() => toggleExpansion(month)}
                       sx={{
                         color: theme.palette.grey[600],
                         border: "none",

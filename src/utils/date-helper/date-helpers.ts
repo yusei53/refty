@@ -27,3 +27,7 @@ export const formatDate = (isoString: string): string => {
   const date = new Date(isoString).toISOString().split("T")[0];
   return format(date, "yyyy/MM/dd");
 };
+
+export const formatDateToMonth = (isoString: string): string => {
+  return format(new Date(isoString), "yyyy年M月");
+};
