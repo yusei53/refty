@@ -1,15 +1,8 @@
-
-import Link from "next/link";
-
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Box, Typography, Grid, Chip } from "@mui/material";
 import type { ReflectionWithIncludeContent } from "@/src/api/reflection-api";
-
 import { FullViewReflectionPaper } from "./FullViewReflectionPaper";
-
-import { ReflectionArticle } from "../../reflection-detail/article";
-
 import { Accordion } from "@/src/components/accordion";
 import { Button } from "@/src/components/button";
 import { useFullViewReflection } from "@/src/hooks/full-view/useFullViewReflection";
@@ -70,13 +63,11 @@ export const FullViewReflectionPaperListArea: React.FC<
             <Grid container spacing={3}>
               {displayReflections.map((reflection) => (
                 <Grid key={reflection.reflectionCUID} size={{ xs: 12, md: 4 }}>
-
                   <FullViewReflectionPaper
                     reflection={reflection}
                     username={username}
                     userImage={userImage}
                   />
-
                 </Grid>
               ))}
               {hasMore && (
