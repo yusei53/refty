@@ -1,9 +1,8 @@
-import Link from "next/link";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Box, Typography, Grid, Chip } from "@mui/material";
 import type { ReflectionWithIncludeContent } from "@/src/api/reflection-api";
-import { ReflectionArticle } from "../../reflection-detail/article";
+import { FullViewReflectionPaper } from "./FullViewReflectionPaper";
 import { Accordion } from "@/src/components/accordion";
 import { Button } from "@/src/components/button";
 import { useFullViewReflection } from "@/src/hooks/full-view/useFullViewReflection";
@@ -64,71 +63,11 @@ export const FullViewReflectionPaperListArea: React.FC<
             <Grid container spacing={3}>
               {displayReflections.map((reflection) => (
                 <Grid key={reflection.reflectionCUID} size={{ xs: 12, md: 4 }}>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      height: "380px",
-                      overflow: "hidden",
-                      backgroundColor: theme.palette.background.paper,
-                      border: `1px solid ${theme.palette.grey[300]}`,
-                      transition: "transform 0.3s ease-in-out",
-                      position: "relative",
-                      paddingRight: "4px",
-                      "&:hover": {
-                        paddingRight: "0px",
-                        transform: "scale(1.2)",
-                        boxShadow: `0 6px 24px 0 ${theme.palette.grey[400]}`,
-                        zIndex: 1,
-                        overflow: "auto",
-                        overflowX: "hidden",
-                        "&::-webkit-scrollbar": {
-                          width: "4px"
-                        },
-                        "&::-webkit-scrollbar-track": {
-                          background: theme.palette.grey[100],
-                          borderRadius: "2px"
-                        },
-                        "&::-webkit-scrollbar-thumb": {
-                          background: theme.palette.grey[300],
-                          borderRadius: "2px",
-                          "&:hover": {
-                            background: theme.palette.grey[400]
-                          }
-                        }
-                      }
-                    }}
-                  >
-                    <Link
-                      href={`/${username}/${reflection.reflectionCUID}`}
-                      style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100%",
-                        zIndex: 1
-                      }}
-                    />
-                    <Box
-                      mt={-7}
-                      height={"100%"}
-                      minWidth={"150%"}
-                      sx={{
-                        transform: "scale(0.55)"
-                      }}
-                    >
-                      <ReflectionArticle
-                        username={username}
-                        userImage={userImage}
-                        createdAt={reflection.createdAt}
-                        title={reflection.title}
-                        content={reflection.content}
-                        activeTags={[]} //TODO: API置き換える時に追加
-                        reflectionCUID={reflection.reflectionCUID}
-                      />
-                    </Box>
-                  </Box>
+                  <FullViewReflectionPaper
+                    reflection={reflection}
+                    username={username}
+                    userImage={userImage}
+                  />
                 </Grid>
               ))}
               {hasMore && (
