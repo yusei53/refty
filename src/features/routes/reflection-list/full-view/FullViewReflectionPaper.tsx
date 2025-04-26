@@ -26,7 +26,11 @@ export const FullViewReflectionPaper: React.FC<
       sx={{
         transition: "transform 0.3s ease-in-out",
         "&:hover": {
-          transform: "scale(1.2)",
+          // transform: "scale(1.2)",
+          transform: {
+            xs: "scale(1.05)",
+            sm: "scale(1.2)"
+          },
           zIndex: 1,
           boxShadow: `0 6px 24px 0 ${theme.palette.grey[400]}`,
           ...scrollbar
