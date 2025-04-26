@@ -45,7 +45,7 @@ export const FullViewReflectionPaper: React.FC<
         }}
       />
       <Box
-        mt={-7}
+        mt={-7.5}
         height={"100%"}
         minWidth={"150%"}
         sx={{

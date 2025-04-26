@@ -12,7 +12,7 @@ export const TabsArea: React.FC<TabsAreaProps> = ({
   onViewModeChange
 }) => {
   return (
-    <Box mx={3}>
+    <Box mx={3} mt={{ xs: 2, sm: 0 }}>
       <Tabs
         value={currentViewMode}
         onChange={onViewModeChange}

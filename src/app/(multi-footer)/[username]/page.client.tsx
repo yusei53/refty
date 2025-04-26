@@ -121,7 +121,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
           reflectionCount={reflectionCount}
           isCurrentUser={isCurrentUser}
         />
-        {reflections.length >= 1 && !isMobile && (
+        {reflections.length >= 1 && (
           <TabsArea
             currentViewMode={currentViewMode}
             onViewModeChange={handleViewModeChange}
