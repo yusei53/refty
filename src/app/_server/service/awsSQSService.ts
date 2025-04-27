@@ -1,5 +1,5 @@
 import type { AIFeedbackType } from "@/src/app/_client/api/send-to-sqs-api";
-import { sendMessageToSQS } from "@/src/infrastructure/aws-sqs/aws-sqs.repository";
+import { sendMessageToSQS } from "@/src/app/_server/infrastructure/aws-sqs/aws-sqs.repository";
 
 export const awsSQSService = {
   async publish(params: {

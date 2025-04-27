@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import ReflectionPostFormPage from "./page.client";
 import { folderAPI } from "@/src/app/_client/api/folder-api";
-import { getUserSession } from "@/src/app/_client/utils/get-user-session";
 import { meta } from "@/src/app/_client/utils/metadata";
+import { getUserSession } from "@/src/app/_shared/get-user-session";
 
 export const metadata: Metadata = meta.reflectionPostFormPage;
 

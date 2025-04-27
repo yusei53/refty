@@ -1,5 +1,5 @@
 "use server";
-import prisma from "@/src/lib/prisma";
+import prisma from "@/src/app/_shared/lib/prisma";
 
 // MEMO: route handlerで使用
 export const getUserIdByUsername = async (

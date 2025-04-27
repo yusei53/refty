@@ -1,6 +1,6 @@
 "use server";
-import { getUserIdByUsername } from "./get-userId-by-username";
-import prisma from "@/src/lib/prisma";
+import { getUserIdByUsername } from "../../../_shared/actions/get-userId-by-username";
+import prisma from "@/src/app/_shared/lib/prisma";
 
 type FolderInfo = {
   reflectionCUID: string;

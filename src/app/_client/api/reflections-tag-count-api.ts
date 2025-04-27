@@ -1,6 +1,5 @@
 import type { ReflectionTagCountList } from "./reflection-api";
-import type { FetchURLOptions } from "../utils/fetchURL";
-import type { Result } from "../utils/types/result";
+import type { FetchURLOptions, Result } from "../utils/fetchURL";
 import { fetchURL } from "../utils/fetchURL";
 
 type TagCountList = {

@@ -1,4 +1,4 @@
-import { userRepository } from "../infrastructure/repository/userRepository";
+import { userRepository } from "@/src/app/_server/infrastructure/repository/userRepository";
 
 export const userService = {
   async getProfile(params: { userId: string }) {
