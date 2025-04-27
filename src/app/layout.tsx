@@ -1,7 +1,7 @@
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { getServerSession } from "next-auth/next";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { NextAuthProvider } from "../providers";
+import { NextAuthProvider } from "./_client/providers";
 import { theme } from "./_client/utils/theme/theme";
 import authOptions from "./api/auth/[...nextauth]/options";
 import { Snowfall } from "@/src/app/_client/components/animation";
