@@ -1,5 +1,5 @@
 "use client";
-import { LogoutButton } from "@/src/features/routes/login";
+import { LogoutButton } from "@/src/app/_client/features/routes/login";
 
 const page = () => {
   return <LogoutButton />;

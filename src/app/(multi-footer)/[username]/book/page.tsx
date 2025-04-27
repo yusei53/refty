@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ReflectionsBookPage from "./page.client";
-import { reflectionsBookAPI } from "@/src/api/reflections-book-api";
-import { getUserSession } from "@/src/utils/get-user-session";
-import { meta } from "@/src/utils/metadata";
+import { reflectionsBookAPI } from "@/src/app/_client/api/reflections-book-api";
+import { meta } from "@/src/app/_client/utils/metadata";
+import { getUserSession } from "@/src/app/_shared/get-user-session";
 
 export const generateMetadata = async ({
   params

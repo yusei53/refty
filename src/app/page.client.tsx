@@ -3,18 +3,22 @@ import { Container } from "@mui/material";
 import type {
   ReflectionTagCountList,
   ReflectionWithUser
-} from "../api/reflection-api";
-import { PostNavigationButton } from "../components/button";
-import { Footer } from "../components/footer";
-import { ArrowPagination, NumberedPagination } from "../components/pagination";
-import { SearchBar } from "../features/common/search-bar";
-import { UserMenuHeaderContainer } from "../features/common/user-menu";
-import ReflectionAllCardListArea from "../features/routes/reflection-all-list/card-list/ReflectionAllCardListArea";
-import { ReflectionAllHeader } from "../features/routes/reflection-all-list/header";
-import { usePagination } from "../hooks/reflection/usePagination";
-import { tagMap } from "../hooks/reflection-tag/useExtractTrueTags";
-import { useTagHandler } from "../hooks/reflection-tag/useTagHandler";
-import { useResponsive } from "../hooks/responsive/useResponsive";
+} from "@/src/app/_client/api/reflection-api";
+import { PostNavigationButton } from "@/src/app/_client/components/button";
+import { Footer } from "@/src/app/_client/components/footer";
+import {
+  ArrowPagination,
+  NumberedPagination
+} from "@/src/app/_client/components/pagination";
+import { SearchBar } from "@/src/app/_client/features/common/search-bar";
+import { UserMenuHeaderContainer } from "@/src/app/_client/features/common/user-menu";
+import ReflectionAllCardListArea from "@/src/app/_client/features/routes/reflection-all-list/card-list/ReflectionAllCardListArea";
+import { ReflectionAllHeader } from "@/src/app/_client/features/routes/reflection-all-list/header";
+import { usePagination } from "@/src/app/_client/hooks/reflection/usePagination";
+import { tagMap } from "@/src/app/_client/hooks/reflection-tag/useExtractTrueTags";
+import { useTagHandler } from "@/src/app/_client/hooks/reflection-tag/useTagHandler";
+import { useResponsive } from "@/src/app/_client/hooks/responsive/useResponsive";
+
 type RootPageProps = {
   username: string | null;
   image: string | null;

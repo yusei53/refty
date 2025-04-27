@@ -1,8 +1,11 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { userService } from "@/src/service/userService";
-import { getUserSession } from "@/src/utils/get-user-session";
-import { internalServerError, unauthorizedError } from "@/src/utils/http-error";
+import {
+  internalServerError,
+  unauthorizedError
+} from "@/src/app/_server/http-error";
+import { userService } from "@/src/app/_server/service/userService";
+import { getUserSession } from "@/src/app/_shared/get-user-session";
 
 export async function PATCH(req: NextRequest) {
   try {
