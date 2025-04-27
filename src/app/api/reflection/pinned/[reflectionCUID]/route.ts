@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { internalServerError } from "@/src/app/_client/utils/http-error";
 import { reflectionRepository } from "@/src/app/_server/infrastructure/repository/reflectionRepository";
+import { internalServerError } from "@/src/app/_server/http-error";
 
 export async function PATCH(
   req: NextRequest,

@@ -1,12 +1,12 @@
 import { revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { reflectionService } from "@/src/app/_server/service/reflectionService";
 import {
   internalServerError,
   notFoundError,
   unauthorizedError
-} from "@/src/app/_client/utils/http-error";
-import { reflectionService } from "@/src/app/_server/service/reflectionService";
+} from "@/src/app/_server/http-error";
 import { getUserSession } from "@/src/app/_shared/get-user-session";
 
 export async function GET(req: NextRequest) {

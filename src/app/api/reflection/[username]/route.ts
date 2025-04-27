@@ -1,10 +1,10 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { reflectionService } from "@/src/app/_server/service/reflectionService";
 import {
   internalServerError,
   notFoundError
-} from "@/src/app/_client/utils/http-error";
-import { reflectionService } from "@/src/app/_server/service/reflectionService";
+} from "@/src/app/_server/http-error";
 import { getUserIdByUsername } from "@/src/app/_shared/actions/get-userId-by-username";
 import { getUserSession } from "@/src/app/_shared/get-user-session";
 

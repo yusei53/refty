@@ -1,7 +1,6 @@
 import type { ReflectionTagCountList } from "./reflection-api";
 import type { ReflectionsCount } from "./reflections-count-api";
-import type { FetchURLOptions } from "../utils/fetchURL";
-import type { Result } from "../utils/types/result";
+import type { FetchURLOptions, Result } from "../utils/fetchURL";
 import type { Session } from "next-auth";
 import { fetchURL } from "../utils/fetchURL";
 import { fetchURLDirect } from "../utils/fetchURLDirect";
