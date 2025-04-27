@@ -1,8 +1,8 @@
 import "server-only";
 import type { Metadata } from "next";
 import { REFTY } from "./metadata";
-import opengraphAPI from "@/src/api/opengraph-api";
-import { reflectionAPI } from "@/src/api/reflection-api";
+import opengraphAPI from "@/src/app/_client/api/opengraph-api";
+import { reflectionAPI } from "@/src/app/_client/api/reflection-api";
 
 const notFoundMetadata: Metadata = {
   title: "404",

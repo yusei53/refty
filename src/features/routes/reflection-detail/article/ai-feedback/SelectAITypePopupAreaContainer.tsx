@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { AIFeedbackType } from "@/src/api/send-to-sqs-api";
+import type { AIFeedbackType } from "@/src/app/_client/api/send-to-sqs-api";
 import { SelectAITypePopupArea } from "./SelectAITypePopupArea";
 
 type SelectAITypePopupAreaContainerProps = {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import type { ReflectionTagCountList } from "@/src/api/reflection-api";
+import type { ReflectionTagCountList } from "@/src/app/_client/api/reflection-api";
 import { tagMap } from "./useExtractTrueTags";
 
 export const useTagHandler = () => {

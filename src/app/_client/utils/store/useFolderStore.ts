@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import type { Folder } from "@/src/api/folder-api";
-import { folderAPI } from "@/src/api/folder-api";
+import type { Folder } from "../../api/folder-api";
+import { folderAPI } from "../../api/folder-api";
 
 type FolderStore = {
   folders: Folder[];

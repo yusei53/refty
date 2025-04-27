@@ -1,11 +1,11 @@
 import CloseIcon from "@mui/icons-material/Close";
 import FolderIcon from "@mui/icons-material/Folder";
 import { Box, Fade, Popper, Typography } from "@mui/material";
-import type { Folder } from "@/src/api/folder-api";
+import type { Folder } from "@/src/app/_client/api/folder-api";
 import { EmptyFolder } from "./EmptyFolder";
+import { Button } from "@/src/app/_client/components/button";
+import { label } from "@/src/app/_client/components/button/TagButton";
 import { theme } from "@/src/app/_client/utils/theme";
-import { Button } from "@/src/components/button";
-import { label } from "@/src/components/button/TagButton";
 
 type FolderSettingPopupAreaProps = {
   selectedFolderUUID: string | null;

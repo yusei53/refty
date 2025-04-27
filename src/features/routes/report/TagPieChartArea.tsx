@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Box, Typography } from "@mui/material";
 import { pieArcLabelClasses, PieChart } from "@mui/x-charts";
-import type { ReflectionTagCountList } from "@/src/api/reflection-api";
+import type { ReflectionTagCountList } from "@/src/app/_client/api/reflection-api";
 import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 
 type TagPieChartAreaProps = {

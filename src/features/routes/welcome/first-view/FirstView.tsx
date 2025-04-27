@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { Button } from "@/src/components/button";
+import { Button } from "@/src/app/_client/components/button";
 import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 
 const FirstView = () => {

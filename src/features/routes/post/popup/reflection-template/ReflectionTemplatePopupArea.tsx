@@ -2,8 +2,8 @@ import { Fragment } from "react";
 import { Box, Divider, Fade, Popper, Typography } from "@mui/material";
 import type { ReflectionTemplateType } from "./reflection-templates";
 import { getReflectionTemplateName } from "./reflection-templates";
+import { Button } from "@/src/app/_client/components/button";
 import { theme } from "@/src/app/_client/utils/theme";
-import { Button } from "@/src/components/button";
 
 type ReflectionTemplatePopupAreaProps = {
   anchorEl: HTMLElement | null;

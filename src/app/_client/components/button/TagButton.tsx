@@ -1,5 +1,5 @@
+import { Button } from "./Button";
 import { theme } from "@/src/app/_client/utils/theme";
-import { Button } from "@/src/components/button";
 
 type TagButtonProps = {
   tag: string;

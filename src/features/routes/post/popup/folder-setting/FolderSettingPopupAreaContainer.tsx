@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box } from "@mui/material";
-import type { Folder } from "@/src/api/folder-api";
+import type { Folder } from "@/src/app/_client/api/folder-api";
 import { FolderSettingPopupArea } from "./FolderSettingPopupArea";
 
 type FolderSettingPopupAreaContainerProps = {

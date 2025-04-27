@@ -2,7 +2,7 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { folderAPI } from "@/src/api/folder-api";
+import { folderAPI } from "@/src/app/_client/api/folder-api";
 
 export const createFolderSchema = z.object({
   name: z

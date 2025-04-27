@@ -10,11 +10,11 @@ import {
   type Reflection,
   type ReflectionTagCountList
 } from "@/src/app/_client/api/reflection-api";
-import { PostNavigationButton } from "@/src/components/button";
+import { PostNavigationButton } from "@/src/app/_client/components/button";
 import {
   ArrowPagination,
   NumberedPagination
-} from "@/src/components/pagination";
+} from "@/src/app/_client/components/pagination";
 import { EmptyReflection } from "@/src/features/common/empty-reflection";
 import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
 import ReflectionCardListArea from "@/src/features/routes/reflection-list/card-list/ReflectionCardListArea";

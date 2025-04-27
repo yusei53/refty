@@ -1,5 +1,5 @@
 import { SendMessageCommand } from "@aws-sdk/client-sqs";
-import type { AIFeedbackType } from "@/src/api/send-to-sqs-api";
+import type { AIFeedbackType } from "@/src/app/_client/api/send-to-sqs-api";
 import { sqsClient } from "./aws-sqs.client";
 
 const { NEXT_PUBLIC_SQS_QUEUE_URL } = process.env;

@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import type { CreateReflectionSchemaType } from "./useCreateReflectionForm";
 import { useParseValueToTags } from "../reflection-tag/useParseValueToTags";
 import { createReflectionSchema } from "./useCreateReflectionForm";
-import { reflectionAPI } from "@/src/api/reflection-api";
+import { reflectionAPI } from "@/src/app/_client/api/reflection-api";
 
 export type useUpdateReflectionFormProps = {
   reflectionCUID: string;

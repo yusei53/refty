@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Box } from "@mui/material";
 import { FolderKebabMenuButton } from "./FolderKebabMenuButton";
-import { folderAPI } from "@/src/api/folder-api";
+import { folderAPI } from "@/src/app/_client/api/folder-api";
 
 type FolderKebabButtonPopupContainerProps = {
   folderUUID: string;

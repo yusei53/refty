@@ -3,7 +3,7 @@ import { Tooltip } from "react-tooltip";
 import type {
   ReflectionPerDate,
   ReflectionsCount
-} from "@/src/api/reflections-count-api";
+} from "@/src/app/_client/api/reflections-count-api";
 import type { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
 import CalendarArea from "./CalendarArea";
 import { getColor } from "@/src/app/_client/utils/calendar/get-color";

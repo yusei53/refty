@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import type { ReflectionWithUser } from "@/src/api/reflection-api";
+import type { ReflectionWithUser } from "@/src/app/_client/api/reflection-api";
 import type { User } from "@prisma/client";
 import ReflectionCardWithUser from "./ReflectionCardWithUser";
 import { animation } from "@/src/features/common/animation";

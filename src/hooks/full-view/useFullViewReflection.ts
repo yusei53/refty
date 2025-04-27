@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { ReflectionWithIncludeContent } from "@/src/api/reflection-api";
+import type { ReflectionWithIncludeContent } from "@/src/app/_client/api/reflection-api";
 import { formatDateToMonth } from "@/src/app/_client/utils/date-helper/date-helpers";
 
 const groupReflectionsByMonth = (

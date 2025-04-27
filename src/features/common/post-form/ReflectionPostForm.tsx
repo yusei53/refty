@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Controller } from "react-hook-form";
 import { Box, Stack } from "@mui/material";
 import type { MarkdownEditorRef } from "../../routes/post/markdown-editor";
-import type { Folder } from "@/src/api/folder-api";
+import type { Folder } from "@/src/app/_client/api/folder-api";
 import type { Control, FieldErrors } from "react-hook-form";
 import EmojiPicker from "../../routes/post/emoji/EmojiPicker";
 import { MarkdownEditor } from "../../routes/post/markdown-editor";
@@ -15,14 +15,14 @@ import {
   ReflectionTemplatePopupAreaContainer
 } from "../../routes/post/popup/reflection-template";
 import { SelectTagPopupContainer } from "../../routes/post/popup/select-tag/SelectTagContainer";
-import { ErrorMessage } from "@/src/components/alert";
+import { ErrorMessage } from "@/src/app/_client/components/alert";
 import {
   BirdAnimation,
   RainAnimation,
   StarAnimation
-} from "@/src/components/animation";
-import { Button } from "@/src/components/button";
-import { CustomInput } from "@/src/components/input";
+} from "@/src/app/_client/components/animation";
+import { Button } from "@/src/app/_client/components/button";
+import { CustomInput } from "@/src/app/_client/components/input";
 import { useExtractTrueTags } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 

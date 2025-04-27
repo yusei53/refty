@@ -2,10 +2,10 @@ import Image from "next/image";
 import { Controller } from "react-hook-form";
 import { Box, Modal, Typography } from "@mui/material";
 import type { Control, FieldErrors } from "react-hook-form";
+import { ErrorMessage } from "@/src/app/_client/components/alert";
+import { Button } from "@/src/app/_client/components/button";
+import { CustomInput } from "@/src/app/_client/components/input";
 import { theme } from "@/src/app/_client/utils/theme";
-import { ErrorMessage } from "@/src/components/alert";
-import { Button } from "@/src/components/button";
-import { CustomInput } from "@/src/components/input";
 
 type FormValues = {
   username: string;

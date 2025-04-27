@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { profileAPI } from "@/src/api/profile-api";
+import { profileAPI } from "@/src/app/_client/api/profile-api";
 
 const checkUsernameExists = async (username: string): Promise<boolean> => {
   const result = await profileAPI.checkUsernameExists(username);

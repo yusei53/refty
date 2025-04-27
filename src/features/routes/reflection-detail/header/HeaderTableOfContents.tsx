@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Box, Fade, Popper } from "@mui/material";
-import { Button } from "../../../../components/button";
+import { Button } from "@/src/app/_client/components/button";
 import { theme } from "@/src/app/_client/utils/theme";
 
 type HeaderTableOfContentsProps = {

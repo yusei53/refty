@@ -11,10 +11,10 @@ import {
   TextField,
   useMediaQuery
 } from "@mui/material";
-import type { Folder } from "@/src/api/folder-api";
+import type { Folder } from "@/src/app/_client/api/folder-api";
 import { FolderKebabButtonPopupContainer } from "../kebab-button/FolderKebabMenuButtonContainer";
+import { folderAPI } from "@/src/app/_client/api/folder-api";
 import { theme } from "@/src/app/_client/utils/theme";
-import { folderAPI } from "@/src/api/folder-api";
 
 type FolderItemProps = {
   initialFoldername: string;

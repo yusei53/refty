@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import type { Reflection } from "@/src/api/reflection-api";
+import type { Reflection } from "@/src/app/_client/api/reflection-api";
 import { ReflectionCard } from "./ReflectionCard";
 import { animation } from "@/src/features/common/animation";
 

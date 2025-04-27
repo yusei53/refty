@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { reflectionAPI } from "@/src/api/reflection-api";
+import { reflectionAPI } from "@/src/app/_client/api/reflection-api";
 
 type useUpdatePinnedReflectionProps = {
   reflectionCUID: string;

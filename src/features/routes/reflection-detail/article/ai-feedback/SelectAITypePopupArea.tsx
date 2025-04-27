@@ -1,9 +1,9 @@
 import { Box, Popper, Fade } from "@mui/material";
-import type { AIFeedbackType } from "@/src/api/send-to-sqs-api";
+import type { AIFeedbackType } from "@/src/app/_client/api/send-to-sqs-api";
 import { SelectAIButton } from "./SelectAIButton";
 import { SelectedAITypeButton } from "./SelectedAITypeButton";
+import { Button } from "@/src/app/_client/components/button";
 import { theme } from "@/src/app/_client/utils/theme";
-import { Button } from "@/src/components/button";
 
 type SelectAITypePopupAreaProps = {
   open: boolean;

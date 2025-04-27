@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Box, Typography } from "@mui/material";
-import type { RandomReflection } from "@/src/api/reflection-api";
+import type { RandomReflection } from "@/src/app/_client/api/reflection-api";
 import { formatDate } from "@/src/app/_client/utils/date-helper";
 import { theme } from "@/src/app/_client/utils/theme";
 

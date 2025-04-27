@@ -1,7 +1,7 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, IconButton, Stack, Slide, Typography } from "@mui/material";
+import { TagButton } from "@/src/app/_client/components/button";
 import { theme } from "@/src/app/_client/utils/theme";
-import { TagButton } from "@/src/components/button";
 
 type SearchBarProps = {
   tags: string[];

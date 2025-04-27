@@ -1,6 +1,6 @@
-import type { ReflectionWithIncludeContent } from "@/src/api/reflection-api";
+import type { ReflectionWithIncludeContent } from "@/src/app/_client/api/reflection-api";
 import { FullViewReflectionPaperListArea } from "./FullViewReflectionPaperListArea";
-import { Loading } from "@/src/components/loading/Loading";
+import { Loading } from "@/src/app/_client/components/loading/Loading";
 
 type FullViewReflectionListFetcherProps = {
   reflections: ReflectionWithIncludeContent[];

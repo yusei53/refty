@@ -1,8 +1,8 @@
 import { Controller } from "react-hook-form";
 import { Box, Typography } from "@mui/material";
 import type { Control, FieldErrors } from "react-hook-form";
-import { ErrorMessage } from "@/src/components/alert";
-import { TextArea } from "@/src/components/text-area";
+import { ErrorMessage } from "@/src/app/_client/components/alert";
+import { TextArea } from "@/src/app/_client/components/text-area";
 
 type FormValues = {
   username: string;

@@ -1,8 +1,8 @@
 import Image from "next/image";
 import CheckIcon from "@mui/icons-material/Check";
 import { Box, Typography } from "@mui/material";
+import { Button } from "@/src/app/_client/components/button";
 import { theme } from "@/src/app/_client/utils/theme";
-import { Button } from "@/src/components/button";
 
 type PublishStatusOptionButtonProps = {
   isActive: boolean;

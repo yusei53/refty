@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { IOSSwitch } from "@/src/components/switch";
+import { IOSSwitch } from "@/src/app/_client/components/switch";
 
 type ToggleJapaneseLabelProps = {
   onToggleLabel: () => void;

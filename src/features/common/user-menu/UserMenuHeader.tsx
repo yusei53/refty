@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Box, Fade, Popper } from "@mui/material";
 import type { User } from "@prisma/client";
 import { UserMenuButton } from "./UserMenuButton";
-import { Button } from "@/src/components/button";
+import { Button } from "@/src/app/_client/components/button";
 
 type UserMenuHeaderProps = {
   username: User["username"];

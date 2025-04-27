@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { userReportAPI } from "@/src/api/user-report-api";
+import { userReportAPI } from "@/src/app/_client/api/user-report-api";
 
 type UseUpdateIsReportOpenProps = {
   username: string;

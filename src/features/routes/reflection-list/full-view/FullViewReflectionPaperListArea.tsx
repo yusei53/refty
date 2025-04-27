@@ -1,11 +1,11 @@
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Box, Typography, Grid, Chip } from "@mui/material";
-import type { ReflectionWithIncludeContent } from "@/src/api/reflection-api";
+import type { ReflectionWithIncludeContent } from "@/src/app/_client/api/reflection-api";
 import { FullViewReflectionPaper } from "./FullViewReflectionPaper";
+import { Accordion } from "@/src/app/_client/components/accordion";
+import { Button } from "@/src/app/_client/components/button";
 import { theme } from "@/src/app/_client/utils/theme";
-import { Accordion } from "@/src/components/accordion";
-import { Button } from "@/src/components/button";
 import { useFullViewReflection } from "@/src/hooks/full-view/useFullViewReflection";
 
 type FullViewReflectionPaperListAreaProps = {

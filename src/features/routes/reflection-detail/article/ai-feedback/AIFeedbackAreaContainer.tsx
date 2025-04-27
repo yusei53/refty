@@ -1,12 +1,15 @@
 import { IoArrowUndoSharp } from "react-icons/io5";
 import { AccordionDetails, Box, Typography } from "@mui/material";
-import type { AIFeedbackType } from "@/src/api/send-to-sqs-api";
+import type { AIFeedbackType } from "@/src/app/_client/api/send-to-sqs-api";
 import { AICalling } from "./AICalling";
 import { AIFeedbackArea } from "./AIFeedbackArea";
 import { SelectAITypePopupAreaContainer } from "./SelectAITypePopupAreaContainer";
+import {
+  Accordion,
+  AccordionSummary
+} from "@/src/app/_client/components/accordion";
+import { Button } from "@/src/app/_client/components/button";
 import { theme } from "@/src/app/_client/utils/theme";
-import { Accordion, AccordionSummary } from "@/src/components/accordion";
-import { Button } from "@/src/components/button";
 import { useAIFeedbackHandler } from "@/src/hooks/ai-feedback/useAIFeedbackHandler";
 import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 

@@ -1,10 +1,10 @@
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { getServerSession } from "next-auth/next";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { Snowfall } from "../components/animation";
 import { NextAuthProvider } from "../providers";
 import { theme } from "./_client/utils/theme/theme";
 import authOptions from "./api/auth/[...nextauth]/options";
+import { Snowfall } from "@/src/app/_client/components/animation";
 
 const GA_TAG_ID = process.env.NEXT_PUBLIC_GA_ID as string;
 

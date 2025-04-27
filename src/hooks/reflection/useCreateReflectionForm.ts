@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useParseValueToTags } from "../reflection-tag/useParseValueToTags";
-import { reflectionAPI } from "@/src/api/reflection-api";
+import { reflectionAPI } from "@/src/app/_client/api/reflection-api";
 
 export const createReflectionSchema = z.object({
   title: z

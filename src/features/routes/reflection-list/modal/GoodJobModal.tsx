@@ -1,7 +1,7 @@
 import Image from "next/image";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Divider, IconButton, Modal, Typography } from "@mui/material";
-import type { RandomReflection } from "@/src/api/reflection-api";
+import type { RandomReflection } from "@/src/app/_client/api/reflection-api";
 import { ReflectionCardOfModal } from "./ReflectionCardOfModal";
 import { theme } from "@/src/app/_client/utils/theme";
 
