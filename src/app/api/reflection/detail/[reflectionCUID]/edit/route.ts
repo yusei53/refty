@@ -6,7 +6,7 @@ import {
   internalServerError,
   notFoundError,
   unauthorizedError
-} from "@/src/app/_client/utils/http-error";
+} from "@/src/app/_server/http-error";
 import { reflectionRepository } from "@/src/app/_server/infrastructure/repository/reflectionRepository";
 import { reflectionService } from "@/src/app/_server/service/reflectionService";
 import { getUserSession } from "@/src/app/_shared/get-user-session";

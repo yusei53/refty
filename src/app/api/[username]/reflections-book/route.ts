@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import {
   internalServerError,
   notFoundError
-} from "@/src/app/_client/utils/http-error";
+} from "@/src/app/_server/http-error";
 import { getUserIdByUsername } from "@/src/app/_shared/actions/get-userId-by-username";
 import prisma from "@/src/app/_shared/lib/prisma";
 

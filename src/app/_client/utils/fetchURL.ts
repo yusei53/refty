@@ -1,7 +1,4 @@
-import type { ErrorCode } from "./http-error";
-import type { Result } from "./types/result";
-
-export type HTTPMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+import type { ErrorCode, HTTPMethod } from "@/src/app/_shared/type/httpMethod";
 
 export type FetchURLOptions = {
   method: HTTPMethod;
@@ -14,6 +11,8 @@ export type FetchURLOptions = {
     tags?: string[];
   };
 };
+
+export type Result<T, E = number> = T | E;
 
 const defaultURL = process.env.NEXT_PUBLIC_ROOT_URL;
 
