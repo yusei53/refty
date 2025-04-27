@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
-import type { HTTPMethod } from "./fetchURL";
-
-export type ErrorCode = 400 | 401 | 403 | 404 | 500;
+import type { ErrorCode, HTTPMethod } from "@/src/app/_shared/type/httpMethod";
 
 const httpError = (message: string, status: ErrorCode) =>
   NextResponse.json({ message }, { status });

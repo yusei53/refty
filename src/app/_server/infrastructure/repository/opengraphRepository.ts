@@ -1,4 +1,4 @@
-import prisma from "@/src/lib/prisma";
+import prisma from "@/src/app/_shared/lib/prisma";
 
 export const opengraphRepository = {
   async getTotalReflections(userId: string) {

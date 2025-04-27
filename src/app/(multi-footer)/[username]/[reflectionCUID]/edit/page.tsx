@@ -4,8 +4,8 @@ import ReflectionUpdateFormPage from "./page.client";
 import { folderAPI } from "@/src/app/_client/api/folder-api";
 import { reflectionAPI } from "@/src/app/_client/api/reflection-api";
 import { getHeaders } from "@/src/app/_client/utils/get-headers";
-import { getUserSession } from "@/src/app/_client/utils/get-user-session";
 import { generateMeta } from "@/src/app/_client/utils/metadata";
+import { getUserSession } from "@/src/app/_shared/get-user-session";
 
 export const generateMetadata = async ({
   params

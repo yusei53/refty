@@ -7,7 +7,7 @@ import type {
 import type { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
 import CalendarArea from "./CalendarArea";
 import { getColor } from "@/src/app/_client/utils/calendar/get-color";
-import { getOneYearAgo } from "@/src/app/_client/utils/date-helper/date-helpers";
+import { getOneYearAgo } from "@/src/app/_shared/date-helper/date-helpers";
 
 type CalendarAreaFetcherProps = {
   reflectionCount: ReflectionsCount;

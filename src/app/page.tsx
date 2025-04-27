@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { reflectionAPI } from "./_client/api/reflection-api";
 import { reflectionsTagCountAPI } from "./_client/api/reflections-tag-count-api";
-import { getUserSession } from "./_client/utils/get-user-session";
 import { meta } from "./_client/utils/metadata";
+import { getUserSession } from "./_shared/get-user-session";
 import RootPage from "./page.client";
 
 export const metadata: Metadata = meta.rootPage;

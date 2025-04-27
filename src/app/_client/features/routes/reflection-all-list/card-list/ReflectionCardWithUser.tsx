@@ -3,8 +3,8 @@ import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import type { ReflectionWithUser } from "@/src/app/_client/api/reflection-api";
 import { KebabButtonPopupContainer } from "@/src/app/_client/features/common/kebab-button-popup";
-import { formatDate } from "@/src/app/_client/utils/date-helper";
 import { theme } from "@/src/app/_client/utils/theme";
+import { formatDate } from "@/src/app/_shared/date-helper";
 
 type ReflectionCardWithUserProps = {
   reflection: ReflectionWithUser;

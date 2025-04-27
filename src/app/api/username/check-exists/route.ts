@@ -11,8 +11,8 @@ https://nextjs.org/docs/messages/dynamic-server-error
 
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { internalServerError } from "@/src/app/_client/utils/http-error";
-import prisma from "@/src/lib/prisma";
+import { internalServerError } from "@/src/app/_server/http-error";
+import prisma from "@/src/app/_shared/lib/prisma";
 
 export async function GET(req: NextRequest) {
   try {
