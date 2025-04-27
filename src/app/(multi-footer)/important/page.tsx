@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import ImportantPage from "./page.client";
-import { meta } from "@/src/utils/metadata";
+import { meta } from "@/src/app/_client/utils/metadata";
 
 export const metadata: Metadata = meta.importantPage;
 

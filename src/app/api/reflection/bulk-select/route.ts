@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
-import prisma from "@/src/lib/prisma";
-import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
-import { getUserSession } from "@/src/utils/get-user-session";
 import {
   badRequestError,
   forbiddenError,
   internalServerError,
   unauthorizedError
-} from "@/src/utils/http-error";
+} from "@/src/app/_server/http-error";
+import { getUserIdByUsername } from "@/src/app/_shared/actions/get-userId-by-username";
+import { getUserSession } from "@/src/app/_shared/get-user-session";
+import prisma from "@/src/app/_shared/lib/prisma";
 export async function POST(req: Request) {
   try {
     const body = await req.json();

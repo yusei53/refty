@@ -1,6 +1,6 @@
 "use client";
-import SettingProfileFormField from "@/src/features/routes/settings-profile/SettingProfileFormField";
-import { useUpdateProfileForm } from "@/src/hooks/profile-setting/useUpdateProfileForm";
+import SettingProfileFormField from "@/src/app/_client/features/routes/settings-profile/SettingProfileFormField";
+import { useUpdateProfileForm } from "@/src/app/_client/hooks/profile-setting/useUpdateProfileForm";
 
 type UpdateProfileSettingsPageProps = {
   image: string;

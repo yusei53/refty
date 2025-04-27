@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { UserReportPage } from "./page.client";
-import { userReportAPI } from "@/src/api/user-report-api";
-import { getHeaders } from "@/src/utils/get-headers";
-import { meta } from "@/src/utils/metadata";
-import { removeHtmlTags } from "@/src/utils/remove-html-tags";
+import { userReportAPI } from "@/src/app/_client/api/user-report-api";
+import { getHeaders } from "@/src/app/_client/utils/get-headers";
+import { meta } from "@/src/app/_client/utils/metadata";
+import { removeHtmlTags } from "@/src/app/_client/utils/remove-html-tags";
 
 export const generateMetadata = async ({
   params

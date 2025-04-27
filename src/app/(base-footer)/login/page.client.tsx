@@ -6,8 +6,8 @@ import { FaGithub } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { Box, Divider, Stack, Typography } from "@mui/material";
-import { AuthButton } from "@/src/features/routes/login";
-import { theme } from "@/src/utils/theme";
+import { AuthButton } from "@/src/app/_client/features/routes/login";
+import { theme } from "@/src/app/_client/utils/theme";
 
 const LoginFormPage = () => {
   return (

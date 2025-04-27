@@ -1,8 +1,11 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { userRepository } from "@/src/infrastructure/repository/userRepository";
-import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
-import { internalServerError, notFoundError } from "@/src/utils/http-error";
+import {
+  internalServerError,
+  notFoundError
+} from "@/src/app/_server/http-error";
+import { userRepository } from "@/src/app/_server/infrastructure/repository/userRepository";
+import { getUserIdByUsername } from "@/src/app/_shared/actions/get-userId-by-username";
 
 export async function GET(
   _: NextRequest,

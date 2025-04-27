@@ -1,5 +1,5 @@
 import { Container } from "@mui/material";
-import { Footer } from "@/src/components/footer";
+import { Footer } from "@/src/app/_client/components/footer";
 
 export default function MainLayout({
   children

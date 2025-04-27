@@ -6,7 +6,7 @@ import LineProvider from "next-auth/providers/line";
 import TwitterProvider from "next-auth/providers/twitter";
 import type { NextAuthOptions } from "next-auth";
 import { authJwt } from "@/e2e/mocks/auth/authJwt";
-import prisma from "@/src/lib/prisma";
+import prisma from "@/src/app/_shared/lib/prisma";
 
 const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),

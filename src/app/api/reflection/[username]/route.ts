@@ -1,9 +1,12 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { reflectionService } from "@/src/service/reflectionService";
-import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
-import { getUserSession } from "@/src/utils/get-user-session";
-import { internalServerError, notFoundError } from "@/src/utils/http-error";
+import {
+  internalServerError,
+  notFoundError
+} from "@/src/app/_server/http-error";
+import { reflectionService } from "@/src/app/_server/service/reflectionService";
+import { getUserIdByUsername } from "@/src/app/_shared/actions/get-userId-by-username";
+import { getUserSession } from "@/src/app/_shared/get-user-session";
 
 export async function GET(
   req: NextRequest,
