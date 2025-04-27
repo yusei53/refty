@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { awsSQSService } from "@/src/app/_server/service/awsSQSService";
 import { internalServerError } from "@/src/app/_server/http-error";
+import { awsSQSService } from "@/src/app/_server/service/awsSQSService";
 
 export async function POST(req: NextRequest) {
   try {
