@@ -3,8 +3,8 @@ import Link from "next/link";
 import { Box, styled, Typography } from "@mui/material";
 import { StyledMarkdown } from "./markdown";
 import { label } from "@/src/app/_client/components/button/TagButton";
-import { formatDate } from "@/src/app/_client/utils/date-helper";
 import { theme } from "@/src/app/_client/utils/theme";
+import { formatDate } from "@/src/app/_shared/date-helper";
 
 type ReflectionArticleProps = {
   username: string;

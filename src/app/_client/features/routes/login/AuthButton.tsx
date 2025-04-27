@@ -29,7 +29,6 @@ export const AuthButton: React.FC<AuthButtonProps> = ({
         border: "1px solid #c4c4c4",
         fontWeight: "bold",
         letterSpacing: 1,
-
         ...sx
       }}
     >

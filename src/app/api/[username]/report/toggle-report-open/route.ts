@@ -1,11 +1,11 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { getUserIdByUsername } from "@/src/app/_client/utils/actions/get-userId-by-username";
 import {
   notFoundError,
   internalServerError
 } from "@/src/app/_client/utils/http-error";
-import prisma from "@/src/lib/prisma";
+import { getUserIdByUsername } from "@/src/app/_shared/actions/get-userId-by-username";
+import prisma from "@/src/app/_shared/lib/prisma";
 
 export async function PATCH(
   req: NextRequest,

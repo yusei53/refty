@@ -1,12 +1,12 @@
 import { revalidateTag } from "next/cache";
 import { NextResponse, type NextRequest } from "next/server";
-import { getUserSession } from "@/src/app/_client/utils/get-user-session";
 import {
   internalServerError,
   notFoundError,
   unauthorizedError
 } from "@/src/app/_client/utils/http-error";
-import prisma from "@/src/lib/prisma";
+import { getUserSession } from "@/src/app/_shared/get-user-session";
+import prisma from "@/src/app/_shared/lib/prisma";
 
 export async function DELETE(
   _: NextRequest,
