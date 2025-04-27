@@ -4,7 +4,7 @@ import {
   internalServerError,
   notFoundError
 } from "@/src/app/_client/utils/http-error";
-import { opengraphRepository } from "@/src/infrastructure/repository/opengraphRepository";
+import { opengraphRepository } from "@/src/app/_server/infrastructure/repository/opengraphRepository";
 
 export async function GET(
   _: NextRequest,

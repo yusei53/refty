@@ -5,7 +5,7 @@ import {
   internalServerError,
   notFoundError
 } from "@/src/app/_client/utils/http-error";
-import { reflectionService } from "@/src/service/reflectionService";
+import { reflectionService } from "@/src/app/_server/service/reflectionService";
 
 // MEMO: マイページとレポートページで使用しているので変更時は注意
 export async function GET(

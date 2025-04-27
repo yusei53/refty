@@ -1,6 +1,6 @@
-import { toJST } from "../app/_client/utils/date-helper";
-import { notFoundError } from "../app/_client/utils/http-error";
-import { reflectionRepository } from "../infrastructure/repository/reflectionRepository";
+import { toJST } from "@/src/app/_client/utils/date-helper";
+import { notFoundError } from "@/src/app/_client/utils/http-error";
+import { reflectionRepository } from "@/src/app/_server/infrastructure/repository/reflectionRepository";
 import prisma from "@/src/lib/prisma";
 
 const COUNT_PER_PAGE = 12;

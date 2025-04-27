@@ -5,7 +5,7 @@ import {
   internalServerError,
   notFoundError
 } from "@/src/app/_client/utils/http-error";
-import { reflectionRepository } from "@/src/infrastructure/repository/reflectionRepository";
+import { reflectionRepository } from "@/src/app/_server/infrastructure/repository/reflectionRepository";
 
 export async function GET(
   _: NextRequest,

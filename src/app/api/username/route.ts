@@ -5,7 +5,7 @@ import {
   internalServerError,
   unauthorizedError
 } from "@/src/app/_client/utils/http-error";
-import { userService } from "@/src/service/userService";
+import { userService } from "@/src/app/_server/service/userService";
 
 export async function PATCH(req: NextRequest) {
   try {

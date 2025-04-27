@@ -6,8 +6,8 @@ import {
   notFoundError,
   unauthorizedError
 } from "@/src/app/_client/utils/http-error";
-import { reflectionRepository } from "@/src/infrastructure/repository/reflectionRepository";
-import { reflectionService } from "@/src/service/reflectionService";
+import { reflectionRepository } from "@/src/app/_server/infrastructure/repository/reflectionRepository";
+import { reflectionService } from "@/src/app/_server/service/reflectionService";
 
 export async function GET(
   _: NextRequest,
