@@ -2,8 +2,8 @@ import { Fragment } from "react";
 import { Box, Divider, Fade, Popper, Typography } from "@mui/material";
 import type { ReflectionTemplateType } from "./reflection-templates";
 import { getReflectionTemplateName } from "./reflection-templates";
+import { theme } from "@/src/app/_client/utils/theme";
 import { Button } from "@/src/components/button";
-import { theme } from "@/src/utils/theme";
 
 type ReflectionTemplatePopupAreaProps = {
   anchorEl: HTMLElement | null;
@@ -47,7 +47,13 @@ const ReflectionTemplatePopupArea: React.FC<
       >
         テンプレートを使う
       </Button>
-      <Popper disablePortal open={open} anchorEl={anchorEl} transition sx={{ zIndex: 2 }}>
+      <Popper
+        disablePortal
+        open={open}
+        anchorEl={anchorEl}
+        transition
+        sx={{ zIndex: 2 }}
+      >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
             <Box

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import SettingUsernameModalPage from "./page.client";
-import { reflectionAPI } from "@/src/api/reflection-api";
-import { reflectionsTagCountAPI } from "@/src/api/reflections-tag-count-api";
-import { getUserSession } from "@/src/utils/get-user-session";
-import { meta } from "@/src/utils/metadata";
+import { reflectionAPI } from "@/src/app/_client/api/reflection-api";
+import { reflectionsTagCountAPI } from "@/src/app/_client/api/reflections-tag-count-api";
+import { getUserSession } from "@/src/app/_client/utils/get-user-session";
+import { meta } from "@/src/app/_client/utils/metadata";
 
 export const metadata: Metadata = meta.settingUsernamePage;
 

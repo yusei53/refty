@@ -1,7 +1,7 @@
 import { Box, Divider, Typography } from "@mui/material";
 import type { AIFeedbackType } from "@/src/api/send-to-sqs-api";
+import { theme } from "@/src/app/_client/utils/theme";
 import { Button } from "@/src/components/button";
-import { theme } from "@/src/utils/theme";
 
 type SelectAIButtonProps = {
   onAITypeSelect: (type: AIFeedbackType) => void;

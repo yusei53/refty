@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { Box, styled, Typography } from "@mui/material";
 import { CountBarChart } from "./CountBarChart";
+import { theme } from "@/src/app/_client/utils/theme";
 import { useResponsive } from "@/src/hooks/responsive/useResponsive";
-import { theme } from "@/src/utils/theme";
 
 type PostingSummaryStatsProps = {
   publicCount: number;

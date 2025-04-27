@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Box, Typography } from "@mui/material";
-import { theme } from "@/src/utils/theme";
+import { theme } from "@/src/app/_client/utils/theme";
 
 type ToReportPageLinkProps = {
   username: string;

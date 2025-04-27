@@ -3,7 +3,7 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { Box, Fade, Popper, Tooltip, Typography } from "@mui/material";
 import MarkdownSection from "./MarkDownSection";
 import { markdownList } from "./markdown-list";
-import { theme } from "@/src/utils/theme";
+import { theme } from "@/src/app/_client/utils/theme";
 
 type MarkdownSupportPopupAreaProps = {
   anchorEl: HTMLElement | null;

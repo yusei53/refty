@@ -2,8 +2,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import TagIcon from "@mui/icons-material/Tag";
 import { Box, Fade, Popper, Typography } from "@mui/material";
 import { label, TagButton } from "../../../../../components/button/TagButton";
+import { theme } from "@/src/app/_client/utils/theme";
 import { Button } from "@/src/components/button";
-import { theme } from "@/src/utils/theme";
 
 type TagSelectionPopupProps = {
   open: boolean;

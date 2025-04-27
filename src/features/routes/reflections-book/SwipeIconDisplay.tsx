@@ -1,6 +1,6 @@
 import SwipeIcon from "@mui/icons-material/Swipe";
 import { Box } from "@mui/material";
-import { theme } from "@/src/utils/theme";
+import { theme } from "@/src/app/_client/utils/theme";
 
 type SwipeIconProps = {
   isVisible: boolean;

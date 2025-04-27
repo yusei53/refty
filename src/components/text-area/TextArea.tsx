@@ -1,5 +1,5 @@
 import TextField from "@mui/material/TextField";
-import { theme } from "@/src/utils/theme";
+import { theme } from "@/src/app/_client/utils/theme";
 
 type TextAreaProps = {
   placeholder: string;

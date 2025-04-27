@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { StyledMarkdown } from "../markdown";
-import { theme } from "@/src/utils/theme";
+import { theme } from "@/src/app/_client/utils/theme";
 
 type AIFeedbackAreaProps = {
   AIFeedback: string;

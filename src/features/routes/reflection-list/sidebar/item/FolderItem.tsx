@@ -13,8 +13,8 @@ import {
 } from "@mui/material";
 import type { Folder } from "@/src/api/folder-api";
 import { FolderKebabButtonPopupContainer } from "../kebab-button/FolderKebabMenuButtonContainer";
+import { theme } from "@/src/app/_client/utils/theme";
 import { folderAPI } from "@/src/api/folder-api";
-import { theme } from "@/src/utils/theme";
 
 type FolderItemProps = {
   initialFoldername: string;

@@ -1,8 +1,11 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { getUserIdByUsername } from "@/src/app/_client/utils/actions/get-userId-by-username";
+import {
+  internalServerError,
+  notFoundError
+} from "@/src/app/_client/utils/http-error";
 import { reflectionService } from "@/src/service/reflectionService";
-import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
-import { internalServerError, notFoundError } from "@/src/utils/http-error";
 
 // MEMO: マイページとレポートページで使用しているので変更時は注意
 export async function GET(

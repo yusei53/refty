@@ -1,14 +1,14 @@
 import { revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { userService } from "@/src/service/userService";
-import { getUserIdByUsername } from "@/src/utils/actions/get-userId-by-username";
-import { getUserSession } from "@/src/utils/get-user-session";
+import { getUserIdByUsername } from "@/src/app/_client/utils/actions/get-userId-by-username";
+import { getUserSession } from "@/src/app/_client/utils/get-user-session";
 import {
   internalServerError,
   notFoundError,
   unauthorizedError
-} from "@/src/utils/http-error";
+} from "@/src/app/_client/utils/http-error";
+import { userService } from "@/src/service/userService";
 
 export async function GET(
   _: NextRequest,

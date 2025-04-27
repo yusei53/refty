@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth/next";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Snowfall } from "../components/animation";
 import { NextAuthProvider } from "../providers";
-import { theme } from "../utils/theme/theme";
+import { theme } from "./_client/utils/theme/theme";
 import authOptions from "./api/auth/[...nextauth]/options";
 
 const GA_TAG_ID = process.env.NEXT_PUBLIC_GA_ID as string;

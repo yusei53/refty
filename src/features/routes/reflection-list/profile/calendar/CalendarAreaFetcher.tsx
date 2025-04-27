@@ -6,8 +6,8 @@ import type {
 } from "@/src/api/reflections-count-api";
 import type { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
 import CalendarArea from "./CalendarArea";
-import { getColor } from "@/src/utils/calendar/get-color";
-import { getOneYearAgo } from "@/src/utils/date-helper/date-helpers";
+import { getColor } from "@/src/app/_client/utils/calendar/get-color";
+import { getOneYearAgo } from "@/src/app/_client/utils/date-helper/date-helpers";
 
 type CalendarAreaFetcherProps = {
   reflectionCount: ReflectionsCount;

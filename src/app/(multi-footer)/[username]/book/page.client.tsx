@@ -6,7 +6,8 @@ import { EffectCards, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import FolderIcon from "@mui/icons-material/Folder";
 import { Box, Typography } from "@mui/material";
-import type { ReflectionBook } from "@/src/api/reflections-book-api";
+import type { ReflectionBook } from "@/src/app/_client/api/reflections-book-api";
+import { theme } from "@/src/app/_client/utils/theme";
 import { EmptyReflection } from "@/src/features/common/empty-reflection";
 import { ReflectionArticle } from "@/src/features/routes/reflection-detail/article";
 import { SwipeIconDisplay } from "@/src/features/routes/reflections-book/SwipeIconDisplay";
@@ -14,7 +15,6 @@ import "@/src/features/routes/reflections-book/my-swiper.css";
 import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
 import { useSwipeIconVisibility } from "@/src/hooks/reflections-book/useSwipeIconVisibility";
 import { useResponsive } from "@/src/hooks/responsive/useResponsive";
-import { theme } from "@/src/utils/theme";
 
 type ReflectionsBookPageProps = {
   reflections: ReflectionBook[];

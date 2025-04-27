@@ -4,11 +4,11 @@ import type { AIFeedbackType } from "@/src/api/send-to-sqs-api";
 import { AICalling } from "./AICalling";
 import { AIFeedbackArea } from "./AIFeedbackArea";
 import { SelectAITypePopupAreaContainer } from "./SelectAITypePopupAreaContainer";
+import { theme } from "@/src/app/_client/utils/theme";
 import { Accordion, AccordionSummary } from "@/src/components/accordion";
 import { Button } from "@/src/components/button";
 import { useAIFeedbackHandler } from "@/src/hooks/ai-feedback/useAIFeedbackHandler";
 import { useResponsive } from "@/src/hooks/responsive/useResponsive";
-import { theme } from "@/src/utils/theme";
 
 type AIFeedbackAreaContainerProps = {
   isCurrentUser: boolean;

@@ -1,15 +1,15 @@
 import { revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { reflectionRepository } from "@/src/infrastructure/repository/reflectionRepository";
-import { reflectionService } from "@/src/service/reflectionService";
-import { getUserSession } from "@/src/utils/get-user-session";
+import { getUserSession } from "@/src/app/_client/utils/get-user-session";
 import {
   forbiddenError,
   internalServerError,
   notFoundError,
   unauthorizedError
-} from "@/src/utils/http-error";
+} from "@/src/app/_client/utils/http-error";
+import { reflectionRepository } from "@/src/infrastructure/repository/reflectionRepository";
+import { reflectionService } from "@/src/service/reflectionService";
 
 export async function GET(
   _: NextRequest,

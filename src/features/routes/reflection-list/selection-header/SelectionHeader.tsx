@@ -1,8 +1,8 @@
 import FolderIcon from "@mui/icons-material/Folder";
 import TagIcon from "@mui/icons-material/Tag";
 import { Box, Typography } from "@mui/material";
+import { theme } from "@/src/app/_client/utils/theme";
 import { Button } from "@/src/components/button";
-import { theme } from "@/src/utils/theme";
 
 type SelectionHeaderProps = {
   selectedInfo: { name: string; count: number } | null;

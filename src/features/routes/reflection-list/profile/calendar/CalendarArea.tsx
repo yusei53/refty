@@ -6,9 +6,9 @@ import "react-calendar-heatmap/dist/styles.css";
 import Calendar from "./Calendar";
 import "./calendar.css";
 import ToggleJapaneseLabel from "./ToggleJapaneseLabel";
+import { theme } from "@/src/app/_client/utils/theme";
 import { useToggleJapaneseLabels } from "@/src/hooks/calendar/useToggleJapaneseLabels";
 import { useResponsive } from "@/src/hooks/responsive/useResponsive";
-import { theme } from "@/src/utils/theme";
 
 type CalendarAreaProps = {
   startDate: Date;

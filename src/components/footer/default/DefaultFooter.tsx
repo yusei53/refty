@@ -4,8 +4,8 @@ import { useSession } from "next-auth/react";
 import { Box, Container, Typography } from "@mui/material";
 import { LogoutButton } from "../../../features/routes/login";
 import { CustomLink } from "./CustomLink";
+import { theme } from "@/src/app/_client/utils/theme";
 import { useResponsive } from "@/src/hooks/responsive/useResponsive";
-import { theme } from "@/src/utils/theme";
 
 export const DefaultFooter = () => {
   const { data: session } = useSession();

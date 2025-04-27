@@ -4,7 +4,7 @@ import { Box, styled, Typography } from "@mui/material";
 import { Button } from "../components/button";
 import { Footer } from "../components/footer";
 import { animation } from "../features/common/animation";
-import { theme } from "../utils/theme";
+import { theme } from "./_client/utils/theme";
 
 const NotFound = () => {
   return (

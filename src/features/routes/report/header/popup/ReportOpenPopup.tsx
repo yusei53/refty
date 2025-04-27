@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Box, Fade, Popper } from "@mui/material";
+import { theme } from "@/src/app/_client/utils/theme";
 import { PopupButton } from "@/src/features/common/kebab-button-popup/PopupButton";
-import { theme } from "@/src/utils/theme";
 
 type ReportOpenPopupProps = {
   anchorEl: HTMLElement | null;

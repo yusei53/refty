@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Box } from "@mui/material";
 import type { AIFeedbackType } from "@/src/api/send-to-sqs-api";
-import { sqsAPI } from "@/src/api/send-to-sqs-api";
 import { animation } from "@/src/features/common/animation";
 import { ReflectionArticle } from "@/src/features/routes/reflection-detail/article";
 import { AIFeedbackAreaContainer } from "@/src/features/routes/reflection-detail/article/ai-feedback";
@@ -11,6 +10,7 @@ import ReflectionSettingHeader from "@/src/features/routes/reflection-detail/hea
 import { UserInformationSection } from "@/src/features/routes/reflection-detail/user-information";
 import { useCreateTableOfContents } from "@/src/hooks/reflection/useCreateTableOfContents";
 import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
+import { sqsAPI } from "@/src/api/send-to-sqs-api";
 
 type ReflectionDetailPageProps = {
   title: string;

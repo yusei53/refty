@@ -3,9 +3,9 @@ import FolderIcon from "@mui/icons-material/Folder";
 import { Box, Fade, Popper, Typography } from "@mui/material";
 import type { Folder } from "@/src/api/folder-api";
 import { EmptyFolder } from "./EmptyFolder";
+import { theme } from "@/src/app/_client/utils/theme";
 import { Button } from "@/src/components/button";
 import { label } from "@/src/components/button/TagButton";
-import { theme } from "@/src/utils/theme";
 
 type FolderSettingPopupAreaProps = {
   selectedFolderUUID: string | null;

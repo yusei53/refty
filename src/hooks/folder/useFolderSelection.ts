@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { ReflectionTagCountList } from "@/src/api/reflection-api";
 import { tagMap, type TagType } from "../reflection-tag/useExtractTrueTags";
+import { getReflectionWithFolderInfo } from "@/src/app/_client/utils/actions/get-reflection-with-folder-info";
+import { useFolderStore } from "@/src/app/_client/utils/store/useFolderStore";
 import { folderAPI } from "@/src/api/folder-api";
 import { reflectionAPI } from "@/src/api/reflection-api";
-import { getReflectionWithFolderInfo } from "@/src/utils/actions/get-reflection-with-folder-info";
-import { useFolderStore } from "@/src/utils/store/useFolderStore";
 
 export const useFolderSelection = (username: string) => {
   const [isLoading, setIsLoading] = useState(false);

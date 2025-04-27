@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import type { Folder } from "@/src/api/folder-api";
+import type { Folder } from "@/src/app/_client/api/folder-api";
 import { DefaultLoading } from "@/src/components/loading";
 import { useBGMPlayer } from "@/src/hooks/audio/useBGMPlayer";
 import { useUpdateReflectionForm } from "@/src/hooks/reflection/useUpdateReflectionForm";

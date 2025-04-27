@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { BarChart } from "@mui/x-charts/BarChart";
+import { theme } from "@/src/app/_client/utils/theme";
 import { useResponsive } from "@/src/hooks/responsive/useResponsive";
-import { theme } from "@/src/utils/theme";
 
 type BarChartAreaProps = {
   hourlyPostCount: { hour: number; count: number }[];

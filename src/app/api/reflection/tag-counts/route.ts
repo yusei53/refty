@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
+import { internalServerError } from "@/src/app/_client/utils/http-error";
 import { reflectionService } from "@/src/service/reflectionService";
-import { internalServerError } from "@/src/utils/http-error";
 
 export async function GET() {
   try {

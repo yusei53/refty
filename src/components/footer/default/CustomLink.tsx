@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { styled } from "@mui/material";
-import { theme } from "@/src/utils/theme";
+import { theme } from "@/src/app/_client/utils/theme";
 
 type CustomLinkProps = {
   href: string;

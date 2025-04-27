@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { Box, Button as MuiButton, Typography } from "@mui/material";
-import { theme } from "@/src/utils/theme";
+import { theme } from "@/src/app/_client/utils/theme";
 
 type EmojiPickerProps = {
   selectedEmoji: string;

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Box, Divider, Typography } from "@mui/material";
 import { link } from "../article";
-import { theme } from "@/src/utils/theme";
+import { theme } from "@/src/app/_client/utils/theme";
 
 type UserInformationSectionProps = {
   username: string;

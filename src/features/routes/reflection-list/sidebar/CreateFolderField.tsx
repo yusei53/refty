@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Controller } from "react-hook-form";
 import AddIcon from "@mui/icons-material/Add";
 import { Box, TextField, Typography, useMediaQuery } from "@mui/material";
+import { theme } from "@/src/app/_client/utils/theme";
 import { ErrorMessage } from "@/src/components/alert";
 import { Button } from "@/src/components/button";
 import { useCreateFolder } from "@/src/hooks/folder/useCreateFolder";
-import { theme } from "@/src/utils/theme";
 
 type CreateFolderFieldProps = {
   username: string;

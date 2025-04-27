@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
+import { removeHtmlTags } from "@/src/app/_client/utils/remove-html-tags";
 import { useAIFeedbackWatcher } from "@/src/hooks/ai-feedback/useAIFeedbackWatcher";
-import { removeHtmlTags } from "@/src/utils/remove-html-tags";
 
 export const useAIFeedbackHandler = (
   reflectionCUID: string,

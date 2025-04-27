@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Button, Box } from "@mui/material";
-import { theme } from "@/src/utils/theme";
+import { theme } from "@/src/app/_client/utils/theme";
 
 type PopupButtonProps = {
   text: string;

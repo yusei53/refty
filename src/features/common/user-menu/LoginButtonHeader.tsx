@@ -1,6 +1,6 @@
 import LoginIcon from "@mui/icons-material/Login";
 import { Box, IconButton } from "@mui/material";
-import { theme } from "@/src/utils/theme";
+import { theme } from "@/src/app/_client/utils/theme";
 
 export const LoginButtonHeader = () => {
   return (

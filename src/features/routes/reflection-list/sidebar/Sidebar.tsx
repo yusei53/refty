@@ -6,9 +6,9 @@ import type { ReflectionTagCountList } from "@/src/api/reflection-api";
 import type { TagType } from "@/src/hooks/reflection-tag/useExtractTrueTags";
 import { CreateFolderField } from "./CreateFolderField";
 import { FolderItem, TagItem } from "./item";
+import { useFolderStore } from "@/src/app/_client/utils/store/useFolderStore";
+import { theme } from "@/src/app/_client/utils/theme";
 import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
-import { useFolderStore } from "@/src/utils/store/useFolderStore";
-import { theme } from "@/src/utils/theme";
 
 type SidebarProps = {
   username: string;

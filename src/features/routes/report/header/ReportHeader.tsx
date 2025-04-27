@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Box, Typography } from "@mui/material";
 import ReportOpenPopupContainer from "./popup/ReportOpenPopupContainer";
-import { theme } from "@/src/utils/theme";
+import { theme } from "@/src/app/_client/utils/theme";
 
 type ReportHeaderProps = {
   userImage: string;

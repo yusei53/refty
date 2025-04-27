@@ -2,7 +2,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Box, Fade, Popper } from "@mui/material";
 import { Button } from "../../../../components/button";
-import { theme } from "@/src/utils/theme";
+import { theme } from "@/src/app/_client/utils/theme";
 
 type HeaderTableOfContentsProps = {
   tocArray: { href: string; title: string }[];
@@ -43,7 +43,7 @@ const HeaderTableOfContents: React.FC<HeaderTableOfContentsProps> = ({
       >
         目次
       </Button>
-      { /* TODO: disablePortal の動作を確認する */ }
+      {/* TODO: disablePortal の動作を確認する */}
       <Popper
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}

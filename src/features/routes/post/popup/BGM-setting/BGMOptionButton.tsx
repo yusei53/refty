@@ -1,7 +1,7 @@
 import CheckIcon from "@mui/icons-material/Check";
 import { Box, Typography } from "@mui/material";
+import { theme } from "@/src/app/_client/utils/theme";
 import { Button } from "@/src/components/button";
-import { theme } from "@/src/utils/theme";
 
 type BGMOptionButtonProps = {
   currentTrack: string;

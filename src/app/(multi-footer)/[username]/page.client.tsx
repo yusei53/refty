@@ -1,15 +1,15 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Box } from "@mui/material";
-import type { ReflectionWithIncludeContent } from "@/src/api/reflection-api";
-import type { ReflectionsCount } from "@/src/api/reflections-count-api";
+import type { ReflectionWithIncludeContent } from "@/src/app/_client/api/reflection-api";
+import type { ReflectionsCount } from "@/src/app/_client/api/reflections-count-api";
 import type { ViewMode } from "@/src/hooks/tabs/useViewMode";
-import { type Folder } from "@/src/api/folder-api";
+import { type Folder } from "@/src/app/_client/api/folder-api";
 import {
   type RandomReflection,
   type Reflection,
   type ReflectionTagCountList
-} from "@/src/api/reflection-api";
+} from "@/src/app/_client/api/reflection-api";
 import { PostNavigationButton } from "@/src/components/button";
 import {
   ArrowPagination,

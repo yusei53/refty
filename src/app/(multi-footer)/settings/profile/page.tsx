@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import UpdateProfileSettingsPage from "./page.client";
-import { profileAPI } from "@/src/api/profile-api";
-import { getUserSession } from "@/src/utils/get-user-session";
-import { meta } from "@/src/utils/metadata";
+import { profileAPI } from "@/src/app/_client/api/profile-api";
+import { getUserSession } from "@/src/app/_client/utils/get-user-session";
+import { meta } from "@/src/app/_client/utils/metadata";
 
 export const metadata: Metadata = meta.settingProfilePage;
 

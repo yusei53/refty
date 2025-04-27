@@ -3,10 +3,10 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Box, Typography, Grid, Chip } from "@mui/material";
 import type { ReflectionWithIncludeContent } from "@/src/api/reflection-api";
 import { FullViewReflectionPaper } from "./FullViewReflectionPaper";
+import { theme } from "@/src/app/_client/utils/theme";
 import { Accordion } from "@/src/components/accordion";
 import { Button } from "@/src/components/button";
 import { useFullViewReflection } from "@/src/hooks/full-view/useFullViewReflection";
-import { theme } from "@/src/utils/theme";
 
 type FullViewReflectionPaperListAreaProps = {
   reflections: ReflectionWithIncludeContent[];

@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { Box, Fade, Popper } from "@mui/material";
 import { red } from "@mui/material/colors";
+import { theme } from "@/src/app/_client/utils/theme";
 import { PopupButton } from "@/src/features/common/kebab-button-popup/PopupButton";
-import { theme } from "@/src/utils/theme";
 
 type FolderKebabMenuButtonProps = {
   anchorEl: HTMLElement | null;

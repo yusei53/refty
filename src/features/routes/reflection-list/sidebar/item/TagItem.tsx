@@ -2,7 +2,7 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import TagIcon from "@mui/icons-material/Tag";
 import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
-import { theme } from "@/src/utils/theme";
+import { theme } from "@/src/app/_client/utils/theme";
 
 type TagItemProps = {
   tagKey: string;

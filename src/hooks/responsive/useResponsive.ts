@@ -1,10 +1,10 @@
 import { useMediaQuery } from "@mui/material";
-import { theme } from "@/src/utils/theme";
+import { theme } from "@/src/app/_client/utils/theme";
 
 type UseResponsive = {
   isMobile: boolean;
   isPWA: boolean;
-}
+};
 
 export const useResponsive = (): UseResponsive => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -12,6 +12,6 @@ export const useResponsive = (): UseResponsive => {
 
   return {
     isMobile,
-    isPWA,
+    isPWA
   };
 };

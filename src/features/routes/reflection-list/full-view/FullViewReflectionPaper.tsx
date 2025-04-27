@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Box } from "@mui/material";
 import type { ReflectionWithIncludeContent } from "@/src/api/reflection-api";
 import { ReflectionArticle } from "../../reflection-detail/article";
-import { theme } from "@/src/utils/theme";
+import { theme } from "@/src/app/_client/utils/theme";
 
 type FullViewReflectionPaperProps = {
   reflection: ReflectionWithIncludeContent;

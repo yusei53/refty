@@ -1,7 +1,7 @@
 import { Box, Divider, Fade, Popper } from "@mui/material";
 import { BGMOptionButton } from "./BGMOptionButton";
+import { theme } from "@/src/app/_client/utils/theme";
 import { Button } from "@/src/components/button";
-import { theme } from "@/src/utils/theme";
 
 type BGMSettingPopupAreaProps = {
   currentTrack: string;

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ReflectionDetailPage from "./page.client";
-import { reflectionAPI } from "@/src/api/reflection-api";
-import { addIdsToHeadings } from "@/src/utils/add-ids-to-headings";
-import { getUserSession } from "@/src/utils/get-user-session";
-import { generateMeta } from "@/src/utils/metadata";
+import { reflectionAPI } from "@/src/app/_client/api/reflection-api";
+import { addIdsToHeadings } from "@/src/app/_client/utils/add-ids-to-headings";
+import { getUserSession } from "@/src/app/_client/utils/get-user-session";
+import { generateMeta } from "@/src/app/_client/utils/metadata";
 
 export const generateMetadata = async ({
   params

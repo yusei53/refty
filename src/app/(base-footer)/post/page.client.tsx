@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import type { Folder } from "@/src/api/folder-api";
+import type { Folder } from "@/src/app/_client/api/folder-api";
 import ReflectionPostForm from "@/src/features/common/post-form/ReflectionPostForm";
 import { useBGMPlayer } from "@/src/hooks/audio/useBGMPlayer";
 import { useCreateReflectionForm } from "@/src/hooks/reflection/useCreateReflectionForm";

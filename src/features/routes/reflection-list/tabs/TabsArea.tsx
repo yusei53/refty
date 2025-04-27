@@ -1,6 +1,6 @@
 import { Box, Divider, Tab, Tabs } from "@mui/material";
 import type { ViewMode } from "@/src/hooks/tabs/useViewMode";
-import { theme } from "@/src/utils/theme";
+import { theme } from "@/src/app/_client/utils/theme";
 
 type TabsAreaProps = {
   currentViewMode: ViewMode;

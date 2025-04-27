@@ -4,7 +4,7 @@ import { Box, Fade, Popper } from "@mui/material";
 import { red } from "@mui/material/colors";
 import { DeleteConfirmationModal } from "./DeleteConfirmationModal";
 import { PopupButton } from "./PopupButton";
-import { theme } from "@/src/utils/theme";
+import { theme } from "@/src/app/_client/utils/theme";
 
 type KebabMenuButtonProps = {
   reflectionCUID: string;

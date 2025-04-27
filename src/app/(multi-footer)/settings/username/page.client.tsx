@@ -2,7 +2,7 @@
 import type {
   ReflectionTagCountList,
   ReflectionWithUser
-} from "@/src/api/reflection-api";
+} from "@/src/app/_client/api/reflection-api";
 import RootPage from "@/src/app/page.client";
 import SettingUsernameModalContainer from "@/src/features/routes/setting-username/SettingUsernameModalContainer";
 

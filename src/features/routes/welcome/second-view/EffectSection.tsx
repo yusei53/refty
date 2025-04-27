@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Box, Typography, useMediaQuery } from "@mui/material";
+import { theme } from "@/src/app/_client/utils/theme";
 import { useResponsive } from "@/src/hooks/responsive/useResponsive";
-import { theme } from "@/src/utils/theme";
 
 type EffectSectionProps = {
   image: string;

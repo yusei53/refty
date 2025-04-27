@@ -1,7 +1,10 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import {
+  internalServerError,
+  notFoundError
+} from "@/src/app/_client/utils/http-error";
 import { opengraphRepository } from "@/src/infrastructure/repository/opengraphRepository";
-import { internalServerError, notFoundError } from "@/src/utils/http-error";
 
 export async function GET(
   _: NextRequest,

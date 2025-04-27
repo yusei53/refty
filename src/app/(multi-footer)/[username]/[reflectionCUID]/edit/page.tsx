@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import ReflectionUpdateFormPage from "./page.client";
-import { folderAPI } from "@/src/api/folder-api";
-import { reflectionAPI } from "@/src/api/reflection-api";
-import { getHeaders } from "@/src/utils/get-headers";
-import { getUserSession } from "@/src/utils/get-user-session";
-import { generateMeta } from "@/src/utils/metadata";
+import { folderAPI } from "@/src/app/_client/api/folder-api";
+import { reflectionAPI } from "@/src/app/_client/api/reflection-api";
+import { getHeaders } from "@/src/app/_client/utils/get-headers";
+import { getUserSession } from "@/src/app/_client/utils/get-user-session";
+import { generateMeta } from "@/src/app/_client/utils/metadata";
 
 export const generateMetadata = async ({
   params
