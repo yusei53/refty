@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import {
   internalServerError,
   notFoundError
-} from "@/src/app/_client/utils/http-error";
+} from "@/src/app/_server/http-error";
 import { opengraphRepository } from "@/src/app/_server/infrastructure/repository/opengraphRepository";
 
 export async function GET(

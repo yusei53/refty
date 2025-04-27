@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import {
   internalServerError,
   unauthorizedError
-} from "@/src/app/_client/utils/http-error";
+} from "@/src/app/_server/http-error";
 import { userService } from "@/src/app/_server/service/userService";
 import { getUserSession } from "@/src/app/_shared/get-user-session";
 

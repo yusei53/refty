@@ -1,4 +1,4 @@
-import { notFoundError } from "@/src/app/_client/utils/http-error";
+import { notFoundError } from "../http-error";
 import { reflectionRepository } from "@/src/app/_server/infrastructure/repository/reflectionRepository";
 import { toJST } from "@/src/app/_shared/date-helper";
 import prisma from "@/src/app/_shared/lib/prisma";
