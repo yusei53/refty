@@ -4,14 +4,13 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Box } from "@mui/material";
 import type { AIFeedbackType } from "@/src/app/_client/api/send-to-sqs-api";
 import { sqsAPI } from "@/src/app/_client/api/send-to-sqs-api";
-import { animation } from "@/src/features/common/animation";
-import { ReflectionArticle } from "@/src/features/routes/reflection-detail/article";
-import { AIFeedbackAreaContainer } from "@/src/features/routes/reflection-detail/article/ai-feedback";
-import ReflectionSettingHeader from "@/src/features/routes/reflection-detail/header/ReflectionSettingHeader";
-import { UserInformationSection } from "@/src/features/routes/reflection-detail/user-information";
-import { useCreateTableOfContents } from "@/src/hooks/reflection/useCreateTableOfContents";
-import { useParseTagsToValue } from "@/src/hooks/reflection-tag/useParseTagsToValue";
-
+import { animation } from "@/src/app/_client/features/common/animation";
+import { ReflectionArticle } from "@/src/app/_client/features/routes/reflection-detail/article";
+import { AIFeedbackAreaContainer } from "@/src/app/_client/features/routes/reflection-detail/article/ai-feedback";
+import ReflectionSettingHeader from "@/src/app/_client/features/routes/reflection-detail/header/ReflectionSettingHeader";
+import { UserInformationSection } from "@/src/app/_client/features/routes/reflection-detail/user-information";
+import { useCreateTableOfContents } from "@/src/app/_client/hooks/reflection/useCreateTableOfContents";
+import { useParseTagsToValue } from "@/src/app/_client/hooks/reflection-tag/useParseTagsToValue";
 type ReflectionDetailPageProps = {
   title: string;
   content: string;

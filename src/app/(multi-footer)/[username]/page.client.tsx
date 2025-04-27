@@ -3,7 +3,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Box } from "@mui/material";
 import type { ReflectionWithIncludeContent } from "@/src/app/_client/api/reflection-api";
 import type { ReflectionsCount } from "@/src/app/_client/api/reflections-count-api";
-import type { ViewMode } from "@/src/hooks/tabs/useViewMode";
+import type { ViewMode } from "@/src/app/_client/hooks/tabs/useViewMode";
 import { type Folder } from "@/src/app/_client/api/folder-api";
 import {
   type RandomReflection,
@@ -15,20 +15,20 @@ import {
   ArrowPagination,
   NumberedPagination
 } from "@/src/app/_client/components/pagination";
-import { EmptyReflection } from "@/src/features/common/empty-reflection";
-import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
-import ReflectionCardListArea from "@/src/features/routes/reflection-list/card-list/ReflectionCardListArea";
-import { FullViewReflectionListFetcher } from "@/src/features/routes/reflection-list/full-view/FullViewReflectionListFetcher";
-import { GoodJobModal } from "@/src/features/routes/reflection-list/modal";
-import UserProfileArea from "@/src/features/routes/reflection-list/profile/UserProfileArea";
-import { SelectionHeader } from "@/src/features/routes/reflection-list/selection-header/SelectionHeader";
-import { Sidebar } from "@/src/features/routes/reflection-list/sidebar";
-import { FolderInitializer } from "@/src/features/routes/reflection-list/sidebar/FolderInitializer";
-import { TabsArea } from "@/src/features/routes/reflection-list/tabs/TabsArea";
-import { useFolderSelection } from "@/src/hooks/folder/useFolderSelection";
-import { usePagination } from "@/src/hooks/reflection/usePagination";
-import { useResponsive } from "@/src/hooks/responsive/useResponsive";
-import { useViewMode } from "@/src/hooks/tabs/useViewMode";
+import { EmptyReflection } from "@/src/app/_client/features/common/empty-reflection";
+import { UserMenuHeaderContainer } from "@/src/app/_client/features/common/user-menu";
+import ReflectionCardListArea from "@/src/app/_client/features/routes/reflection-list/card-list/ReflectionCardListArea";
+import { FullViewReflectionListFetcher } from "@/src/app/_client/features/routes/reflection-list/full-view/FullViewReflectionListFetcher";
+import { GoodJobModal } from "@/src/app/_client/features/routes/reflection-list/modal";
+import UserProfileArea from "@/src/app/_client/features/routes/reflection-list/profile/UserProfileArea";
+import { SelectionHeader } from "@/src/app/_client/features/routes/reflection-list/selection-header/SelectionHeader";
+import { Sidebar } from "@/src/app/_client/features/routes/reflection-list/sidebar";
+import { FolderInitializer } from "@/src/app/_client/features/routes/reflection-list/sidebar/FolderInitializer";
+import { TabsArea } from "@/src/app/_client/features/routes/reflection-list/tabs/TabsArea";
+import { useFolderSelection } from "@/src/app/_client/hooks/folder/useFolderSelection";
+import { usePagination } from "@/src/app/_client/hooks/reflection/usePagination";
+import { useResponsive } from "@/src/app/_client/hooks/responsive/useResponsive";
+import { useViewMode } from "@/src/app/_client/hooks/tabs/useViewMode";
 
 type UserReflectionListPageProps = {
   currentUsername: string | null;

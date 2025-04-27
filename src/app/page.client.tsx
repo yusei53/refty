@@ -10,14 +10,15 @@ import {
   ArrowPagination,
   NumberedPagination
 } from "@/src/app/_client/components/pagination";
-import { SearchBar } from "@/src/features/common/search-bar";
-import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
-import ReflectionAllCardListArea from "@/src/features/routes/reflection-all-list/card-list/ReflectionAllCardListArea";
-import { ReflectionAllHeader } from "@/src/features/routes/reflection-all-list/header";
-import { usePagination } from "@/src/hooks/reflection/usePagination";
-import { tagMap } from "@/src/hooks/reflection-tag/useExtractTrueTags";
-import { useTagHandler } from "@/src/hooks/reflection-tag/useTagHandler";
-import { useResponsive } from "@/src/hooks/responsive/useResponsive";
+import { SearchBar } from "@/src/app/_client/features/common/search-bar";
+import { UserMenuHeaderContainer } from "@/src/app/_client/features/common/user-menu";
+import ReflectionAllCardListArea from "@/src/app/_client/features/routes/reflection-all-list/card-list/ReflectionAllCardListArea";
+import { ReflectionAllHeader } from "@/src/app/_client/features/routes/reflection-all-list/header";
+import { usePagination } from "@/src/app/_client/hooks/reflection/usePagination";
+import { tagMap } from "@/src/app/_client/hooks/reflection-tag/useExtractTrueTags";
+import { useTagHandler } from "@/src/app/_client/hooks/reflection-tag/useTagHandler";
+import { useResponsive } from "@/src/app/_client/hooks/responsive/useResponsive";
+
 type RootPageProps = {
   username: string | null;
   image: string | null;

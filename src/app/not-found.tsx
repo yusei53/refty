@@ -3,8 +3,8 @@ import Image from "next/image";
 import { Box, styled, Typography } from "@mui/material";
 import { Button } from "@/src/app/_client/components/button";
 import { Footer } from "@/src/app/_client/components/footer";
+import { animation } from "@/src/app/_client/features/common/animation";
 import { theme } from "@/src/app/_client/utils/theme";
-import { animation } from "@/src/features/common/animation";
 
 const NotFound = () => {
   return (

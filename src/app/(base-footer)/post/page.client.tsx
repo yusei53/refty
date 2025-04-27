@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
 import type { Folder } from "@/src/app/_client/api/folder-api";
-import ReflectionPostForm from "@/src/features/common/post-form/ReflectionPostForm";
-import { useBGMPlayer } from "@/src/hooks/audio/useBGMPlayer";
-import { useCreateReflectionForm } from "@/src/hooks/reflection/useCreateReflectionForm";
-import { useWarningDialog } from "@/src/hooks/reflection/useWarningDialog";
+import ReflectionPostForm from "@/src/app/_client/features/common/post-form/ReflectionPostForm";
+import { useBGMPlayer } from "@/src/app/_client/hooks/audio/useBGMPlayer";
+import { useCreateReflectionForm } from "@/src/app/_client/hooks/reflection/useCreateReflectionForm";
+import { useWarningDialog } from "@/src/app/_client/hooks/reflection/useWarningDialog";
 type ReflectionPostFormPageProps = {
   username: string;
   folders: Folder[];

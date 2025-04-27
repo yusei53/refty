@@ -1,6 +1,6 @@
 "use client";
-import SecondView from "../../../features/routes/important/second-view/SecondView";
-import FirstView from "@/src/features/routes/important/first-view/FirstView";
+import FirstView from "@/src/app/_client/features/routes/important/first-view/FirstView";
+import SecondView from "@/src/app/_client/features/routes/important/second-view/SecondView";
 
 const ImportantPage = () => {
   return (

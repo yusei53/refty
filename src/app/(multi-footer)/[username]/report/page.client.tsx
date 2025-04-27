@@ -5,18 +5,18 @@ import { Box, Divider as MUIDivider } from "@mui/material";
 import type { ReflectionTagCountList } from "@/src/app/_client/api/reflection-api";
 import type { ReflectionsCount } from "@/src/app/_client/api/reflections-count-api";
 import { LinearLoading } from "@/src/app/_client/components/loading";
+import { UserMenuHeaderContainer } from "@/src/app/_client/features/common/user-menu";
+import { BarChartArea } from "@/src/app/_client/features/routes/report/BarChartArea";
+import { PostingSummaryStats } from "@/src/app/_client/features/routes/report/PostingSummaryStats";
+import TagPieChartArea from "@/src/app/_client/features/routes/report/TagPieChartArea";
+import { ReportHeader } from "@/src/app/_client/features/routes/report/header/ReportHeader";
+import { useResponsive } from "@/src/app/_client/hooks/responsive/useResponsive";
 import { theme } from "@/src/app/_client/utils/theme";
-import { UserMenuHeaderContainer } from "@/src/features/common/user-menu";
-import { BarChartArea } from "@/src/features/routes/report/BarChartArea";
-import { PostingSummaryStats } from "@/src/features/routes/report/PostingSummaryStats";
-import TagPieChartArea from "@/src/features/routes/report/TagPieChartArea";
-import { ReportHeader } from "@/src/features/routes/report/header/ReportHeader";
-import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 
 const CalendarAreaFetcher = dynamic(
   () =>
     import(
-      "@/src/features/routes/reflection-list/profile/calendar/CalendarAreaFetcher"
+      "@/src/app/_client/features/routes/reflection-list/profile/calendar/CalendarAreaFetcher"
     ).then((mod) => mod.CalendarAreaFetcher),
   {
     loading: () => <LinearLoading />,

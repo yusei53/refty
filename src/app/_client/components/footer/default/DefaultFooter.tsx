@@ -3,9 +3,9 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { Box, Container, Typography } from "@mui/material";
 import { CustomLink } from "./CustomLink";
+import { LogoutButton } from "@/src/app/_client/features/routes/login";
+import { useResponsive } from "@/src/app/_client/hooks/responsive/useResponsive";
 import { theme } from "@/src/app/_client/utils/theme";
-import { LogoutButton } from "@/src/features/routes/login";
-import { useResponsive } from "@/src/hooks/responsive/useResponsive";
 
 export const DefaultFooter = () => {
   const { data: session } = useSession();

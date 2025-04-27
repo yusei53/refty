@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import type { ViewMode } from "@/src/hooks/tabs/useViewMode";
+import type { ViewMode } from "@/src/app/_client/hooks/tabs/useViewMode";
 import UserReflectionListPage from "./page.client";
 import { folderAPI } from "@/src/app/_client/api/folder-api";
 import { profileAPI } from "@/src/app/_client/api/profile-api";
