@@ -23,6 +23,7 @@ model User {
   goal               String?
   website            String?
   isReportOpen       Boolean           @default(false)
+  reflectionImages   ReflectionImage[]
 }
 
 model Reflection {
@@ -73,9 +74,11 @@ model Account {
 
 model ReflectionImage {
   id              String     @id @default(uuid())
+  userId          String
   reflectionCUID  String
   imageUrl        String
   orderIndex      Int
   createdAt       DateTime   @default(now())
   reflection      Reflection @relation(fields: [reflectionCUID], references: [reflectionCUID], onDelete: Cascade)
+  user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
