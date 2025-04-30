@@ -43,6 +43,7 @@ model Reflection {
   folderUUID        String?
   user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   folder            ReflectionFolder? @relation("ReflectionFolder", fields: [folderUUID], references: [folderUUID])
+  images            ReflectionImage[]
 }
 
 model ReflectionFolder {
@@ -51,6 +52,16 @@ model ReflectionFolder {
   userId      String
   reflections Reflection[] @relation("ReflectionFolder")
   user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+
+model ReflectionImage {
+  id              String     @id @default(uuid())
+  reflectionCUID  String
+  imageUrl        String
+  orderIndex      Int
+  createdAt       DateTime   @default(now())
+  reflection      Reflection @relation(fields: [reflectionCUID], references: [reflectionCUID], onDelete: Cascade)
 }
 
 model Account {
@@ -69,3 +80,4 @@ model Account {
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@unique([provider, providerAccountId])
 }
+
