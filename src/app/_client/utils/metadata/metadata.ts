@@ -59,6 +59,23 @@ export const meta = {
     }
   },
 
+  termsPage: {
+    ...baseMetadata,
+    title: `利用規約 | ${REFTY}`,
+    description: `${REFTY}の利用規約のページ`,
+    openGraph: {
+      ...baseMetadata.openGraph,
+      url: "https://www.refty.jp/terms",
+      title: `利用規約 | ${REFTY}`,
+      description: `${REFTY}の利用規約のページ`
+    },
+    twitter: {
+      ...baseMetadata.twitter,
+      title: `利用規約 | ${REFTY}`,
+      description: `${REFTY}の利用規約のページ`
+    }
+  },
+
   settingUsernamePage: {
     ...baseMetadata,
     title: `ユーザーネーム設定 | ${REFTY}`,
