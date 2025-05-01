@@ -50,6 +50,7 @@ export const DefaultFooter = () => {
                 <CustomLink href="/welcome">リフティとは</CustomLink>
                 <CustomLink href="/important">振り返りをする理由</CustomLink>
                 <CustomLink href="/">みんなの振り返り</CustomLink>
+                <CustomLink href="/terms">利用規約</CustomLink>
               </Box>
               <Box display={"flex"} flexDirection={"column"} gap={2}>
                 {session ? (
