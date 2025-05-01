@@ -28,7 +28,7 @@ const Section: React.FC<SectionProps> = ({ title, description }) => {
       </Typography>
       <Typography
         letterSpacing={"0.03em"}
-        fontSize={{ xs: 15, md: 17 }}
+        fontSize={{ xs: 15, md: 16 }}
         lineHeight={"2rem"}
         whiteSpace={"pre-line"}
         sx={{
