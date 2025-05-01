@@ -13,7 +13,7 @@
     "lint:fix": "next lint --fix"
   },
   "dependencies": {
-    "@aws-sdk/client-sqs": "^3.716.0",
+    "@aws-sdk/client-sqs": "^3.799.0",
     "@emoji-mart/data": "^1.2.1",
     "@emoji-mart/react": "^1.1.1",
     "@emotion/react": "^11.13.3",
