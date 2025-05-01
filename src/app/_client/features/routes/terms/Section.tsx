@@ -31,9 +31,17 @@ const Section: React.FC<SectionProps> = ({ title, description }) => {
         fontSize={{ xs: 15, md: 17 }}
         lineHeight={"2rem"}
         whiteSpace={"pre-line"}
-      >
-        {description}
-      </Typography>
+        sx={{
+          "& ol": {
+            marginBlock: 0,
+            paddingLeft: 2
+          },
+          "& li": {
+            marginBottom: "0"
+          }
+        }}
+        dangerouslySetInnerHTML={{ __html: description }}
+      />
     </Box>
   );
 };
