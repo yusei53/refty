@@ -1,10 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Folder } from "@/src/app/_client/api/folder-api";
 import ReflectionPostForm from "@/src/app/_client/features/common/post-form/ReflectionPostForm";
 import { useBGMPlayer } from "@/src/app/_client/hooks/audio/useBGMPlayer";
+import { useAutoSave } from "@/src/app/_client/hooks/reflection/useAutoSave";
 import { useCreateReflectionForm } from "@/src/app/_client/hooks/reflection/useCreateReflectionForm";
 import { useWarningDialog } from "@/src/app/_client/hooks/reflection/useWarningDialog";
+
 type ReflectionPostFormPageProps = {
   username: string;
   folders: Folder[];
@@ -33,8 +35,27 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
     handleEmojiChange,
     selectedFolderUUID,
     handleFolderChange,
-    handleTagChange
+    handleTagChange,
+    watch,
+    reset
   } = useCreateReflectionForm(username, stop);
+
+  const { loadDraft } = useAutoSave(
+    watch,
+    selectedEmoji,
+    selectedFolderUUID,
+    isSubmitSuccessful
+  );
+
+  useEffect(() => {
+    const draft = loadDraft();
+    if (draft) {
+      reset(draft.formData);
+      handleEmojiChange(draft.selectedEmoji);
+      handleFolderChange(draft.selectedFolderUUID);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useWarningDialog(isDirty, isSubmitSuccessful);
 
