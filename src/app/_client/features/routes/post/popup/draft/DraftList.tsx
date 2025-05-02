@@ -48,7 +48,7 @@ export const DraftList: React.FC<DraftListProps> = ({
 
   return (
     <Box sx={{ position: "relative", minWidth: isMobile ? "100%" : 220 }}>
-      <Button onClick={onToggle} sx={{ border: "none" }}>
+      <Button onClick={onToggle} onBlur={onClose} sx={{ border: "none" }}>
         下書き一覧
       </Button>
       {isMobile ? (
