@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import type { Folder } from "@/src/app/_client/api/folder-api";
 import ReflectionPostForm from "@/src/app/_client/features/common/post-form/ReflectionPostForm";
 import { useBGMPlayer } from "@/src/app/_client/hooks/audio/useBGMPlayer";
@@ -40,22 +40,16 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
     reset
   } = useCreateReflectionForm(username, stop);
 
-  const { loadDraft } = useAutoSave(
-    watch,
-    selectedEmoji,
-    selectedFolderUUID,
-    isSubmitSuccessful
-  );
-
-  useEffect(() => {
-    const draft = loadDraft();
-    if (draft) {
-      reset(draft.formData);
-      handleEmojiChange(draft.selectedEmoji);
-      handleFolderChange(draft.selectedFolderUUID);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { deleteDraft, draftList, currentDraftId, handleDraftChange } =
+    useAutoSave(
+      watch,
+      selectedEmoji,
+      selectedFolderUUID,
+      isSubmitSuccessful,
+      reset,
+      handleEmojiChange,
+      handleFolderChange
+    );
 
   useWarningDialog(isDirty, isSubmitSuccessful);
 
@@ -66,25 +60,31 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
   };
 
   return (
-    <ReflectionPostForm
-      control={control}
-      isSubmitting={isSubmitting}
-      isSubmitSuccessful={isSubmitSuccessful}
-      errors={errors}
-      onSubmit={handleSubmit}
-      selectedEmoji={selectedEmoji}
-      onEmojiChange={handleEmojiChange}
-      selectedFolderUUID={selectedFolderUUID}
-      onFolderChange={handleFolderChange}
-      onTagChange={handleTagChange}
-      folders={folders}
-      playTrack={playTrack}
-      stop={stop}
-      currentTrack={currentTrack}
-      getBGMName={getBGMName}
-      isNightMode={isNightMode}
-      setIsNightMode={setIsNightMode}
-    />
+    <>
+      <ReflectionPostForm
+        control={control}
+        isSubmitting={isSubmitting}
+        isSubmitSuccessful={isSubmitSuccessful}
+        errors={errors}
+        onSubmit={handleSubmit}
+        selectedEmoji={selectedEmoji}
+        onEmojiChange={handleEmojiChange}
+        selectedFolderUUID={selectedFolderUUID}
+        onFolderChange={handleFolderChange}
+        onTagChange={handleTagChange}
+        folders={folders}
+        playTrack={playTrack}
+        stop={stop}
+        currentTrack={currentTrack}
+        getBGMName={getBGMName}
+        isNightMode={isNightMode}
+        setIsNightMode={setIsNightMode}
+        draftList={draftList}
+        currentDraftId={currentDraftId}
+        handleDraftChange={handleDraftChange}
+        deleteDraft={deleteDraft}
+      />
+    </>
   );
 };
 

@@ -1,12 +1,14 @@
 import { useRef, useState } from "react";
 import { Controller } from "react-hook-form";
 import { Box, Stack } from "@mui/material";
+import type { DraftDataList } from "../../../hooks/reflection/useAutoSave";
 import type { MarkdownEditorRef } from "../../routes/post/markdown-editor";
 import type { Folder } from "@/src/app/_client/api/folder-api";
 import type { Control, FieldErrors } from "react-hook-form";
 import EmojiPicker from "../../routes/post/emoji/EmojiPicker";
 import { MarkdownEditor } from "../../routes/post/markdown-editor";
 import { BGMSettingPopupAreaContainer } from "../../routes/post/popup/BGM-setting/BGMSettingPopupAreaContainer";
+import { DraftListContainer } from "../../routes/post/popup/draft/DraftListContainer";
 import { FolderSettingPopupAreaContainer } from "../../routes/post/popup/folder-setting";
 import { MarkdownSupportPopupAreaContainer } from "../../routes/post/popup/markdown-support";
 import { PublishSettingPopupAreaContainer } from "../../routes/post/popup/publish-setting";
@@ -63,6 +65,10 @@ type ReflectionPostFormProps = {
   getBGMName: () => string;
   isNightMode: boolean;
   setIsNightMode: (isNightMode: boolean) => void;
+  draftList: DraftDataList;
+  currentDraftId: string;
+  handleDraftChange: (draftId: string) => void;
+  deleteDraft: (draftId: string) => void;
 };
 
 const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
@@ -87,7 +93,11 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   currentTrack,
   getBGMName,
   isNightMode,
-  setIsNightMode
+  setIsNightMode,
+  draftList,
+  currentDraftId,
+  handleDraftChange,
+  deleteDraft
 }) => {
   const [isComposing, setIsComposing] = useState(false);
   const editorRef = useRef<MarkdownEditorRef>(null);
@@ -179,14 +189,22 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
             <Box display={"flex"}>
               <MarkdownSupportPopupAreaContainer />
               {!isMobile && (
-                <BGMSettingPopupAreaContainer
-                  currentTrack={currentTrack ?? ""}
-                  playTrack={playTrack}
-                  stop={stop}
-                  isNightMode={isNightMode}
-                  toggleNightMode={toggleNightMode}
-                  getBGMName={getBGMName}
-                />
+                <>
+                  <BGMSettingPopupAreaContainer
+                    currentTrack={currentTrack ?? ""}
+                    playTrack={playTrack}
+                    stop={stop}
+                    isNightMode={isNightMode}
+                    toggleNightMode={toggleNightMode}
+                    getBGMName={getBGMName}
+                  />
+                  <DraftListContainer
+                    draftList={draftList}
+                    currentDraftId={currentDraftId}
+                    onDraftChange={handleDraftChange}
+                    deleteDraft={deleteDraft}
+                  />
+                </>
               )}
             </Box>
             <Box display={"flex"}>
@@ -245,6 +263,12 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
                     folders={folders}
                   />
                 )}
+              />
+              <DraftListContainer
+                draftList={draftList}
+                currentDraftId={currentDraftId}
+                onDraftChange={handleDraftChange}
+                deleteDraft={deleteDraft}
               />
             </Box>
           )}
