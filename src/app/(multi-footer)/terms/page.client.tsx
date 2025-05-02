@@ -4,7 +4,7 @@ import Section from "@/src/app/_client/features/routes/terms/Section";
 
 const TermsPage = () => {
   return (
-    <Box my={{ xs: 6, md: 10 }} mx={{ xs: 2, md: 8 }}>
+    <Box my={{ xs: 6, sm: 10 }} mx={{ xs: 2, sm: 8 }}>
       <Typography component={"h1"} fontSize={"1.5rem"} fontWeight={"bold"}>
         利用規約
       </Typography>
