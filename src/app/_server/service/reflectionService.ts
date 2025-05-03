@@ -219,6 +219,7 @@ export const reflectionService = {
     isMonologue: boolean;
     userId: string;
     folderUUID?: string;
+    imageUrls?: string[];
   }) {
     const {
       title,
@@ -231,7 +232,8 @@ export const reflectionService = {
       isInputLog,
       isMonologue,
       userId,
-      folderUUID
+      folderUUID,
+      imageUrls
     } = params;
 
     const now = new Date();
@@ -249,7 +251,8 @@ export const reflectionService = {
       isMonologue,
       createdAt: jstDate,
       userId,
-      folderUUID
+      folderUUID,
+      imageUrls
     });
   },
 
