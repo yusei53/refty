@@ -12,7 +12,6 @@ export async function POST(
 ) {
   try {
     const { reflectionCUID } = await params;
-    console.log("reflectionCUID", reflectionCUID);
     const body = await req.json();
     const { imageUrls }: { imageUrls: string[] } = body;
 
