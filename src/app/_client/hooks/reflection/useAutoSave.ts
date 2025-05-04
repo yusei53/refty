@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import type { CreateReflectionSchemaType } from "./useCreateReflectionForm";
 import type { UseFormReset, UseFormWatch } from "react-hook-form";
@@ -24,35 +24,73 @@ export const useAutoSave = (
   handleFolderChange: (folderUUID: string | null) => void
 ) => {
   const timeoutRef = useRef<NodeJS.Timeout>();
-  // 初期値はSSR/CSRで同じ値にする
   const [draftList, setDraftList] = useState<DraftDataList>({});
   const [currentDraftId, setCurrentDraftId] = useState<string>("");
+  const formValuesRef = useRef<CreateReflectionSchemaType>(watch());
+  const selectedEmojiRef = useRef(selectedEmoji);
+  const selectedFolderUUIDRef = useRef(selectedFolderUUID);
+  const isFirstRender = useRef(true);
+  const draftListRef = useRef<DraftDataList>({});
 
-  // フォーム全体を監視
-  const formValues = watch();
-
-  // クライアントでのみlocalStorageやuuidv4()を使う
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const list = localStorage.getItem("reflectionDraftList");
-      const listData = list ? JSON.parse(list) : {};
-      setDraftList(listData);
-      setCurrentDraftId(uuidv4());
+  // 保存処理を useCallback で定義
+  const saveToLocalStorage = useCallback(() => {
+    const currentFormValues = formValuesRef.current;
+    if (currentFormValues.title === "" && currentFormValues.content === "") {
+      return;
     }
-  }, []);
 
+    const draftData: DraftData = {
+      formData: currentFormValues,
+      selectedEmoji: selectedEmojiRef.current,
+      selectedFolderUUID: selectedFolderUUIDRef.current,
+      lastSaved: Date.now()
+    };
+
+    const newDraftList = {
+      ...draftListRef.current,
+      [currentDraftId]: draftData
+    };
+
+    localStorage.setItem("reflectionDraftList", JSON.stringify(newDraftList));
+    draftListRef.current = newDraftList;
+    setDraftList(newDraftList);
+  }, [currentDraftId]);
+
+  // フォームの値を監視
   useEffect(() => {
-    // 投稿成功時は下書きを削除
-    if (isSubmitSuccessful) {
-      if (draftList[currentDraftId]) {
-        const newDraftList = { ...draftList };
-        delete newDraftList[currentDraftId];
-        localStorage.setItem(
-          "reflectionDraftList",
-          JSON.stringify(newDraftList)
-        );
-        setDraftList(newDraftList);
+    const subscription = watch((value) => {
+      formValuesRef.current = value as CreateReflectionSchemaType;
+
+      // 初回レンダリング時は保存しない
+      if (isFirstRender.current) {
+        isFirstRender.current = false;
+        return;
       }
+
+      // 前回のタイマーをクリア
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
+      // 2秒間の無操作後に保存
+      timeoutRef.current = setTimeout(saveToLocalStorage, 2000);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [watch, saveToLocalStorage]);
+
+  // 絵文字とフォルダーの変更を監視
+  useEffect(() => {
+    selectedEmojiRef.current = selectedEmoji;
+    selectedFolderUUIDRef.current = selectedFolderUUID;
+
+    // 初回レンダリング時は保存しない
+    if (isFirstRender.current) {
       return;
     }
 
@@ -62,48 +100,42 @@ export const useAutoSave = (
     }
 
     // 2秒間の無操作後に保存
-    timeoutRef.current = setTimeout(() => {
-      if (formValues.title === "" && formValues.content === "") {
-        return;
-      }
-
-      const draftData: DraftData = {
-        formData: formValues,
-        selectedEmoji,
-        selectedFolderUUID,
-        lastSaved: Date.now()
-      };
-      const draftDataList: DraftDataList = {
-        ...draftList,
-        [currentDraftId]: draftData
-      };
-      localStorage.setItem(
-        "reflectionDraftList",
-        JSON.stringify(draftDataList)
-      );
-      setDraftList(draftDataList);
-    }, 2000);
+    timeoutRef.current = setTimeout(saveToLocalStorage, 2000);
 
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [
-    formValues,
-    selectedEmoji,
-    selectedFolderUUID,
-    isSubmitSuccessful,
-    currentDraftId,
-    draftList
-  ]);
+  }, [selectedEmoji, selectedFolderUUID, saveToLocalStorage]);
 
+  // クライアントでのみlocalStorageやuuidv4()を使う
   useEffect(() => {
-    // 保存された下書きを取得
-    const loadDraft = (): DraftData | null => {
-      const savedDraft = draftList[currentDraftId];
-      if (!savedDraft) return null;
+    if (typeof window !== "undefined") {
+      const list = localStorage.getItem("reflectionDraftList");
+      const listData = list ? JSON.parse(list) : {};
+      draftListRef.current = listData;
+      setDraftList(listData);
+      setCurrentDraftId(uuidv4());
+    }
+  }, []);
 
+  // 投稿成功時の処理
+  useEffect(() => {
+    if (isSubmitSuccessful && draftListRef.current[currentDraftId]) {
+      const newDraftList = { ...draftListRef.current };
+      delete newDraftList[currentDraftId];
+      localStorage.setItem("reflectionDraftList", JSON.stringify(newDraftList));
+      draftListRef.current = newDraftList;
+      setDraftList(newDraftList);
+    }
+  }, [isSubmitSuccessful, currentDraftId]);
+
+  // 下書きの読み込み
+  useEffect(() => {
+    const loadDraft = (): DraftData | null => {
+      const savedDraft = draftListRef.current[currentDraftId];
+      if (!savedDraft) return null;
       return savedDraft;
     };
     const draft = loadDraft();
@@ -120,10 +152,10 @@ export const useAutoSave = (
     const listData = list ? JSON.parse(list) : {};
     delete listData[id];
     localStorage.setItem("reflectionDraftList", JSON.stringify(listData));
+    draftListRef.current = listData;
     setDraftList(listData);
   };
 
-  // 下書きの切り替え処理
   const handleDraftChange = (draftId: string) => {
     setCurrentDraftId(draftId);
   };
