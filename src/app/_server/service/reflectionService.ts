@@ -236,10 +236,16 @@ export const reflectionService = {
       imageUrls
     } = params;
 
+    console.log("params240", params);
+
     const now = new Date();
     const jstDate = toJST(now);
 
-    return await reflectionRepository.createReflection({
+    const validImageUrls = imageUrls?.filter(
+      (url): url is string => url !== null
+    );
+
+    const reflection = await reflectionRepository.createReflection({
       title,
       content,
       charStamp,
@@ -252,8 +258,12 @@ export const reflectionService = {
       createdAt: jstDate,
       userId,
       folderUUID,
-      imageUrls
+      imageUrls: validImageUrls
     });
+
+    console.log("reflection", reflection);
+
+    return reflection;
   },
 
   async update(params: {
