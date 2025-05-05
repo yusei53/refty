@@ -9,7 +9,8 @@
     "supabase",
     "REFTY",
     "networkidle",
-    "yusei53"
+    "yusei53",
+    "uuidv4"
   ],
 
   "editor.tabSize": 2,
