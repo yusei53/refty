@@ -3,7 +3,6 @@ import { useState } from "react";
 import type { Folder } from "@/src/app/_client/api/folder-api";
 import ReflectionPostForm from "@/src/app/_client/features/common/post-form/ReflectionPostForm";
 import { useBGMPlayer } from "@/src/app/_client/hooks/audio/useBGMPlayer";
-import { useAutoSave } from "@/src/app/_client/hooks/reflection/useAutoSave";
 import { useCreateReflectionForm } from "@/src/app/_client/hooks/reflection/useCreateReflectionForm";
 import { useWarningDialog } from "@/src/app/_client/hooks/reflection/useWarningDialog";
 
@@ -40,9 +39,6 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
     reset
   } = useCreateReflectionForm(username, stop);
 
-  const { deleteDraft, draftList, currentDraftId, handleDraftChange } =
-    useAutoSave(watch, isSubmitSuccessful, reset);
-
   useWarningDialog(isDirty, isSubmitSuccessful);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -71,10 +67,9 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
         getBGMName={getBGMName}
         isNightMode={isNightMode}
         setIsNightMode={setIsNightMode}
-        draftList={draftList}
-        currentDraftId={currentDraftId}
-        handleDraftChange={handleDraftChange}
-        deleteDraft={deleteDraft}
+        watch={watch}
+        reset={reset}
+        isPostPage
       />
     </>
   );

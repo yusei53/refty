@@ -65,7 +65,9 @@ const ReflectionUpdateFormPage: React.FC<ReflectionUpdateFormPageProps> = ({
     handleEmojiChange,
     handleTagChange,
     selectedFolderUUID,
-    handleFolderChange
+    handleFolderChange,
+    watch,
+    reset
   } = useUpdateReflectionForm({
     reflectionCUID,
     username,
@@ -111,6 +113,9 @@ const ReflectionUpdateFormPage: React.FC<ReflectionUpdateFormPageProps> = ({
       getBGMName={getBGMName}
       isNightMode={isNightMode}
       setIsNightMode={setIsNightMode}
+      // TODO: watchとresetは本来要らないので削除する(ReflectionPostFormのリファクタリング)
+      watch={watch}
+      reset={reset}
     />
   );
 };
