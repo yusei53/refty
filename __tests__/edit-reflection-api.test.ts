@@ -6,7 +6,7 @@ import {
   yusei53Reflection
 } from "@/e2e/mocks/reflection/reflection";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = process.env.NEXT_PUBLIC_ROOT_URL || "http://localhost:3000";
 
 const createAuthHeaders = () => ({
   "Content-Type": "application/json",
