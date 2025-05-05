@@ -10,7 +10,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_ROOT_URL || "http://localhost:3000";
 
 const createAuthHeaders = () => ({
   "Content-Type": "application/json",
-  Cookie: `${authSessionCookie.name}=${authSessionCookie.value}`
+  Cookie: `${authSessionCookie.name}=${authSessionCookie.value}; Path=/; Domain=${process.env.NEXT_PUBLIC_ROOT_URL ? new URL(process.env.NEXT_PUBLIC_ROOT_URL).hostname : "localhost"}`
 });
 
 describe("未認証ユーザー", () => {
