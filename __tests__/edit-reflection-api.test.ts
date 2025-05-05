@@ -8,16 +8,10 @@ import {
 
 const BASE_URL = process.env.NEXT_PUBLIC_ROOT_URL || "http://localhost:3000";
 
-const createAuthHeaders = () => {
-  const domain = process.env.NEXT_PUBLIC_ROOT_URL
-    ? new URL(process.env.NEXT_PUBLIC_ROOT_URL).hostname
-    : "localhost";
-
-  return {
-    "Content-Type": "application/json",
-    Cookie: `${authSessionCookie.name}=${authSessionCookie.value}; Path=/; Domain=${domain}; SameSite=Lax`
-  };
-};
+const createAuthHeaders = () => ({
+  "Content-Type": "application/json",
+  Cookie: `${authSessionCookie.name}=${authSessionCookie.value}`
+});
 
 describe("未認証ユーザー", () => {
   test("編集ページにアクセスした場合、401エラーが返される", async () => {

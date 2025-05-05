@@ -70,6 +70,11 @@ jobs:
         env:
           NEXT_PUBLIC_TEST_ENV: "test"
 
+      - name: Start development server
+        run: npm run dev:test &
+        env:
+          NEXT_PUBLIC_TEST_ENV: "test"
+
       - name: Run Jest tests
         run: npx jest
         env:
