@@ -41,15 +41,7 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
   } = useCreateReflectionForm(username, stop);
 
   const { deleteDraft, draftList, currentDraftId, handleDraftChange } =
-    useAutoSave(
-      watch,
-      selectedEmoji,
-      selectedFolderUUID,
-      isSubmitSuccessful,
-      reset,
-      handleEmojiChange,
-      handleFolderChange
-    );
+    useAutoSave(watch, isSubmitSuccessful, reset);
 
   useWarningDialog(isDirty, isSubmitSuccessful);
 
