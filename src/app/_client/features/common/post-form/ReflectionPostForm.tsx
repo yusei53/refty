@@ -65,6 +65,8 @@ type ReflectionPostFormProps = {
   getBGMName: () => string;
   isNightMode: boolean;
   setIsNightMode: (isNightMode: boolean) => void;
+  addImageUrl: (url: string) => void;
+  removeImageUrl: (url: string) => void;
 };
 
 const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
@@ -89,7 +91,9 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   currentTrack,
   getBGMName,
   isNightMode,
-  setIsNightMode
+  setIsNightMode,
+  addImageUrl,
+  removeImageUrl
 }) => {
   const [isComposing, setIsComposing] = useState(false);
   const editorRef = useRef<OriginalMarkdownEditorRef>(null);
@@ -160,7 +164,13 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
     if (imageUrl) {
       editorRef.current?.insertImage(imageUrl);
     }
+
+    addImageUrl(imageUrl);
   };
+
+  // const handleRemoveImage = (url: string) => {
+  //   removeImageUrl(url);
+  // };
 
   return (
     <>
