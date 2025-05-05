@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
       return unauthorizedError("認証されていません");
     }
 
-    if (process.env.NEXT_PUBLIC_APP_ENV === "playwright") {
+    if (process.env.NEXT_PUBLIC_TEST_ENV === "test") {
       return NextResponse.json({ id: "dummy-id", ...body }, { status: 201 });
     }
     const reflection = await reflectionService.create({
