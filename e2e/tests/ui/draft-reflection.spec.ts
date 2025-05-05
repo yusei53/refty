@@ -8,13 +8,14 @@ test.describe("認証済みユーザー", () => {
     await page.locator("input#title").fill("下書きテストのtitle");
     await page.locator(".tiptap.ProseMirror").fill("下書きテストのcontent");
 
+    // NOTE: 投稿ページを離れ、再度投稿ページにアクセスし下書きリストの閲覧ケースを再現
     await page.goto("/");
     await page.goto("/post");
 
     await page.locator(".draft-list").click();
   });
 
-  test("titleとcontentが入力された状態でページを離れ、再度アクセスし下書き一覧ボタンをクリックすると、ポップアップに「下書きのタイトル」が表示される", async ({
+  test("下書き一覧ボタンをクリックすると、ポップアップに「下書きのタイトル」が表示される", async ({
     page
   }) => {
     const draftTitle = await page
