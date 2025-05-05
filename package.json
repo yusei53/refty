@@ -75,6 +75,7 @@
     "prettier-plugin-organize-imports": "^4.1.0",
     "react-calendar-heatmap": "^1.10.0",
     "ts-jest": "^29.3.2",
+    "ts-node": "^10.9.2",
     "typescript": "5.4.x"
   },
   "overrides": {
