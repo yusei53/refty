@@ -5,7 +5,7 @@ import { useDraftId } from "./useDraftId";
 
 export type DraftData = {
   formData: CreateReflectionSchemaType;
-  lastSaved: number;
+  lastSaved: number; // NOTE: 経過時間の計算だけなら number型でOK
 };
 
 export type DraftDataList = {
