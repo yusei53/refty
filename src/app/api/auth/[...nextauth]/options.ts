@@ -38,8 +38,7 @@ const authOptions: NextAuthOptions = {
     strategy: "jwt"
   },
   ...(process.env.NEXT_PUBLIC_TEST_ENV === "test" && {
-    jwt: authJwt,
-    debug: true
+    jwt: authJwt
   }),
   callbacks: {
     async jwt({ token, user, trigger, session }) {

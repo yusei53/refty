@@ -67,19 +67,9 @@ jobs:
 
       - name: Build Next.js app
         run: npm run build
-        env:
-          NEXT_PUBLIC_TEST_ENV: "test"
-
-      - name: Start development server
-        run: npm run dev:test &
-        env:
-          NEXT_PUBLIC_TEST_ENV: "test"
 
       - name: Run Jest tests
         run: npx jest
-        env:
-          NEXT_PUBLIC_TEST_ENV: "test"
-          NEXT_PUBLIC_ROOT_URL: "https://www.refty.jp"
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
