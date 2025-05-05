@@ -34,7 +34,7 @@ test.describe("認証済みユーザー", () => {
     expect(content).toContain("下書きテストのcontent");
   });
 
-  test("下書き一覧で下書きを削除すると、下書きが削除される", async ({
+  test("下書き一覧で下書きを削除ボタンを押すと、下書きが削除される", async ({
     page
   }) => {
     await page.locator(".MuiIconButton-root").click();
