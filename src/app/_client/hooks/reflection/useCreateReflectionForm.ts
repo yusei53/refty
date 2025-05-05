@@ -22,7 +22,8 @@ export const createReflectionSchema = z.object({
   isAwareness: z.boolean().default(false),
   isInputLog: z.boolean().default(false),
   isMonologue: z.boolean().default(false),
-  folderUUID: z.string().optional()
+  folderUUID: z.string().optional(),
+  imageUrls: z.string().array().optional()
 });
 
 export type CreateReflectionSchemaType = z.infer<typeof createReflectionSchema>;
@@ -36,6 +37,7 @@ export const useCreateReflectionForm = (
   const [selectedFolderUUID, setSelectedFolderUUID] = useState<string | null>(
     null
   );
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   const {
     handleSubmit,
@@ -65,6 +67,21 @@ export const useCreateReflectionForm = (
   const handleFolderChange = (folderUUID: string | null) => {
     setSelectedFolderUUID(folderUUID);
     setValue("folderUUID", folderUUID ?? undefined);
+  };
+
+  // MEMO: 画像URLを重複しないように追加する関数
+  const addImageUrl = (url: string) => {
+    if (!imageUrls.includes(url)) {
+      const newUrls = [...imageUrls, url];
+      setImageUrls(newUrls);
+      setValue("imageUrls", newUrls);
+    }
+  };
+
+  const removeImageUrl = (url: string) => {
+    const newUrls = imageUrls.filter((imageUrl) => imageUrl !== url);
+    setImageUrls(newUrls);
+    setValue("imageUrls", newUrls);
   };
 
   const { handleTagChange } = useParseValueToTags({ setValue });
@@ -106,6 +123,8 @@ export const useCreateReflectionForm = (
     handleEmojiChange,
     selectedFolderUUID,
     handleFolderChange,
-    handleTagChange
+    handleTagChange,
+    addImageUrl,
+    removeImageUrl
   };
 };
