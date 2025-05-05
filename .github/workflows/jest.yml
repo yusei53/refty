@@ -68,11 +68,6 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
-      - name: Start development server
-        run: npm run dev:test &
-        env:
-          NEXT_PUBLIC_TEST_ENV: "test"
-
       - name: Run Jest tests
         run: npx jest
 
