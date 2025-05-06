@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Controller } from "react-hook-form";
 import { Box, Stack } from "@mui/material";
-import type { MarkdownEditorRef as OriginalMarkdownEditorRef } from "../../routes/post/markdown-editor";
+import type { MarkdownEditorRef } from "../../routes/post/markdown-editor";
 import type { Folder } from "@/src/app/_client/api/folder-api";
 import type { Control, FieldErrors } from "react-hook-form";
 import { reflectionAPI } from "../../../api/reflection-api";
@@ -96,7 +96,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   handleEditorChange
 }) => {
   const [isComposing, setIsComposing] = useState(false);
-  const editorRef = useRef<OriginalMarkdownEditorRef>(null);
+  const editorRef = useRef<MarkdownEditorRef>(null);
   const { isMobile } = useResponsive();
 
   const activeTags = useExtractTrueTags({
