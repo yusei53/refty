@@ -17,14 +17,25 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
   };
 
   return (
-    <Box mb={2}>
+    <Box
+      position="fixed"
+      bottom={16}
+      right={16}
+      zIndex={1000}
+      sx={{
+        backgroundColor: "background.paper",
+        borderRadius: 1,
+        boxShadow: 3,
+        p: 1
+      }}
+    >
       <Button
         variant="contained"
         component="label"
         sx={{
-          backgroundColor: "primary.main",
+          backgroundColor: "#1976d2",
           "&:hover": {
-            backgroundColor: "primary.dark"
+            backgroundColor: "#1565c0"
           }
         }}
       >
