@@ -38,6 +38,7 @@ export default defineConfig({
       testDir: "./e2e/tests/api",
       use: { ...devices["Pixel 5"] }
     },
+
     {
       name: "Mobile Chrome",
       testDir: "./e2e/tests/ui",
