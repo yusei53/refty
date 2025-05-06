@@ -1,8 +1,10 @@
 import { Box, Button } from "@mui/material";
 
 type ImageUploadButtonProps = {
-  onImageSelect: (file: File, url: string) => void;
+  onImageSelect: (file: File) => void;
 };
+
+// MEMO: 仕様が決まっていないので仮のコンポーネント;
 
 export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
   onImageSelect
@@ -11,14 +13,7 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
     const files = event.target.files;
     if (!files || files.length === 0) return;
 
-    // 選択された各画像に対して
-    Array.from(files).forEach((file) => {
-      // 一時的なURLを生成
-      const previewUrl = URL.createObjectURL(file);
-
-      // 親コンポーネントに通知
-      onImageSelect(file, previewUrl);
-    });
+    onImageSelect(files[0]);
   };
 
   return (
