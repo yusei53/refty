@@ -32,6 +32,7 @@ export const DraftOptionButton: React.FC<DraftOptionButtonProps> = ({
         width: "100%",
         borderRadius: "none",
         position: "relative",
+        textTransform: "none",
         "&:hover": { backgroundColor: theme.palette.primary.contrastText }
       }}
     >
