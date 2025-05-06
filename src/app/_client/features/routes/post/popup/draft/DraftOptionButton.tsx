@@ -36,7 +36,8 @@ export const DraftOptionButton: React.FC<DraftOptionButtonProps> = ({
       }}
     >
       <Box display={"flex"} alignItems={"center"}>
-        <Box
+        <Typography
+          fontSize={13.5}
           maxWidth={"145px"}
           overflow={"hidden"}
           textOverflow={"ellipsis"}
@@ -48,12 +49,12 @@ export const DraftOptionButton: React.FC<DraftOptionButtonProps> = ({
           }}
         >
           {draft.formData.title || "無題の投稿"}
-        </Box>
+        </Typography>
         {draftId == currentDraftId && (
           <CheckIcon fontSize="small" sx={{ pl: 0.5 }} />
         )}
       </Box>
-      <Typography fontSize={12} color={theme.palette.grey[600]}>
+      <Typography fontSize={11.5} color={theme.palette.grey[600]}>
         最終更新:
         {formatDistanceToNow(draft.lastSaved, {
           addSuffix: true,
@@ -68,7 +69,7 @@ export const DraftOptionButton: React.FC<DraftOptionButtonProps> = ({
           opacity: 0.7,
           position: "absolute",
           right: 12,
-          top: 20,
+          top: 16,
           ":hover": { color: "error.main", opacity: 1 }
         }}
       />
