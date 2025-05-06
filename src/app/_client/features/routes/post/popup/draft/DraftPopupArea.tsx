@@ -1,4 +1,4 @@
-import { Box, Popper, Fade, Divider } from "@mui/material";
+import { Box, Popper, Fade, Divider, Typography } from "@mui/material";
 import type { DraftDataList } from "../../../../../hooks/reflection/useAutoSave";
 import { DraftOptionButton } from "./DraftOptionButton";
 import { Button } from "@/src/app/_client/components/button";
@@ -73,6 +73,17 @@ export const DraftPopupArea: React.FC<DraftPopupAreaProps> = ({
                   )}
                 </Box>
               ))}
+              <Typography
+                fontSize={11.5}
+                color={theme.palette.grey[600]}
+                py={0.5}
+                px={1}
+                pl={2}
+                bgcolor={theme.palette.primary.contrastText}
+                borderRadius={"0 0 8px 8px"}
+              >
+                下書きは自動で保存されます
+              </Typography>
             </Box>
           </Fade>
         )}
