@@ -48,7 +48,10 @@ export const useUpdateReflectionForm = ({
     handleSubmit,
     control,
     setValue,
-    formState: { isSubmitting, isSubmitSuccessful, errors }
+    formState: { isSubmitting, isSubmitSuccessful, errors },
+    // TODO: watchとresetは本来要らないので削除する
+    watch,
+    reset
   } = useForm<CreateReflectionSchemaType>({
     resolver: zodResolver(createReflectionSchema),
     defaultValues: {
@@ -113,6 +116,8 @@ export const useUpdateReflectionForm = ({
     handleEmojiChange,
     handleTagChange,
     selectedFolderUUID,
-    handleFolderChange
+    handleFolderChange,
+    watch,
+    reset
   };
 };

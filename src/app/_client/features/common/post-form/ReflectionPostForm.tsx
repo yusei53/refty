@@ -1,10 +1,15 @@
 import { useRef, useState } from "react";
 import { Controller } from "react-hook-form";
 import { Box, Stack } from "@mui/material";
-import type { DraftDataList } from "../../../hooks/reflection/useAutoSave";
 import type { MarkdownEditorRef } from "../../routes/post/markdown-editor";
 import type { Folder } from "@/src/app/_client/api/folder-api";
-import type { Control, FieldErrors } from "react-hook-form";
+import type {
+  Control,
+  FieldErrors,
+  UseFormReset,
+  UseFormWatch
+} from "react-hook-form";
+import { useAutoSave } from "../../../hooks/reflection/useAutoSave";
 import EmojiPicker from "../../routes/post/emoji/EmojiPicker";
 import { MarkdownEditor } from "../../routes/post/markdown-editor";
 import { BGMSettingPopupAreaContainer } from "../../routes/post/popup/BGM-setting/BGMSettingPopupAreaContainer";
@@ -65,10 +70,9 @@ type ReflectionPostFormProps = {
   getBGMName: () => string;
   isNightMode: boolean;
   setIsNightMode: (isNightMode: boolean) => void;
-  draftList: DraftDataList;
-  currentDraftId: string;
-  handleDraftChange: (draftId: string) => void;
-  deleteDraft: (draftId: string) => void;
+  watch: UseFormWatch<FormValues>;
+  reset: UseFormReset<FormValues>;
+  isPostPage?: boolean;
 };
 
 const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
@@ -94,10 +98,9 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   getBGMName,
   isNightMode,
   setIsNightMode,
-  draftList,
-  currentDraftId,
-  handleDraftChange,
-  deleteDraft
+  watch,
+  reset,
+  isPostPage = false
 }) => {
   const [isComposing, setIsComposing] = useState(false);
   const editorRef = useRef<MarkdownEditorRef>(null);
@@ -110,6 +113,9 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
     isInputLog,
     isMonologue
   });
+
+  const { deleteDraft, draftList, currentDraftId, handleDraftChange } =
+    useAutoSave(watch, isSubmitSuccessful, reset);
 
   const handleEnter = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
@@ -198,12 +204,14 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
                     toggleNightMode={toggleNightMode}
                     getBGMName={getBGMName}
                   />
-                  <DraftListContainer
-                    draftList={draftList}
-                    currentDraftId={currentDraftId}
-                    onDraftChange={handleDraftChange}
-                    deleteDraft={deleteDraft}
-                  />
+                  {isPostPage && (
+                    <DraftListContainer
+                      draftList={draftList}
+                      currentDraftId={currentDraftId}
+                      onDraftChange={handleDraftChange}
+                      deleteDraft={deleteDraft}
+                    />
+                  )}
                 </>
               )}
             </Box>
@@ -264,12 +272,14 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
                   />
                 )}
               />
-              <DraftListContainer
-                draftList={draftList}
-                currentDraftId={currentDraftId}
-                onDraftChange={handleDraftChange}
-                deleteDraft={deleteDraft}
-              />
+              {isPostPage && (
+                <DraftListContainer
+                  draftList={draftList}
+                  currentDraftId={currentDraftId}
+                  onDraftChange={handleDraftChange}
+                  deleteDraft={deleteDraft}
+                />
+              )}
             </Box>
           )}
         </Box>
