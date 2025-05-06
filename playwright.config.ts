@@ -42,7 +42,7 @@ export default defineConfig({
     {
       name: "Mobile Chrome",
       testDir: "./e2e/tests/ui",
-      use: { ...devices["iPhone 13 Pro"] }
+      use: { ...devices["Pixel 5"] }
     },
 
     {
