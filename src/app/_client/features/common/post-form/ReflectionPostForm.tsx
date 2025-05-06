@@ -13,7 +13,7 @@ import { useAutoSave } from "../../../hooks/reflection/useAutoSave";
 import EmojiPicker from "../../routes/post/emoji/EmojiPicker";
 import { MarkdownEditor } from "../../routes/post/markdown-editor";
 import { BGMSettingPopupAreaContainer } from "../../routes/post/popup/BGM-setting/BGMSettingPopupAreaContainer";
-import { DraftListContainer } from "../../routes/post/popup/draft/DraftListContainer";
+import { DraftPopupAreaContainer } from "../../routes/post/popup/draft/DraftPopupAreaContainer";
 import { FolderSettingPopupAreaContainer } from "../../routes/post/popup/folder-setting";
 import { MarkdownSupportPopupAreaContainer } from "../../routes/post/popup/markdown-support";
 import { PublishSettingPopupAreaContainer } from "../../routes/post/popup/publish-setting";
@@ -205,7 +205,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
                     getBGMName={getBGMName}
                   />
                   {isPostPage && (
-                    <DraftListContainer
+                    <DraftPopupAreaContainer
                       draftList={draftList}
                       currentDraftId={currentDraftId}
                       onDraftChange={handleDraftChange}
@@ -273,7 +273,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
                 )}
               />
               {isPostPage && (
-                <DraftListContainer
+                <DraftPopupAreaContainer
                   draftList={draftList}
                   currentDraftId={currentDraftId}
                   onDraftChange={handleDraftChange}

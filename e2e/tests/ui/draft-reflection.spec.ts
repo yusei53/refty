@@ -12,14 +12,15 @@ test.describe("認証済みユーザー", () => {
     await page.goto("/");
     await page.goto("/post");
 
-    await page.locator(".draft-list").click();
+    await page.locator("[data-testid='draft-list']").click();
   });
 
   test("下書き一覧ボタンをクリックすると、ポップアップに「下書きのタイトル」が表示される", async ({
     page
   }) => {
     const draftTitle = await page
-      .locator(".MuiListItemText-primary")
+      .locator("button >> div >> p")
+      .first()
       .textContent();
     expect(draftTitle).toBe("下書きテストのtitle");
   });
@@ -27,18 +28,21 @@ test.describe("認証済みユーザー", () => {
   test("下書き一覧で下書きを選択すると、その内容がフォームに表示される", async ({
     page
   }) => {
-    await page.getByText("下書きテストのtitle").click();
+    await page.getByRole("button", { name: /下書きテストのtitle/i }).click();
 
-    const title = await page.locator("input#title").inputValue();
-    const content = await page.locator(".tiptap.ProseMirror").textContent();
-    expect(title).toBe("下書きテストのtitle");
-    expect(content).toContain("下書きテストのcontent");
+    const titleInForm = await page.locator("input#title").inputValue();
+    const contentInForm = await page
+      .locator(".tiptap.ProseMirror")
+      .textContent();
+
+    expect(titleInForm).toBe("下書きテストのtitle");
+    expect(contentInForm).toContain("下書きテストのcontent");
   });
 
   test("下書き一覧で下書きを削除ボタンを押すと、下書きが削除される", async ({
     page
   }) => {
-    await page.locator(".MuiIconButton-root").click();
-    await expect(page.getByText("下書きはありません")).toBeVisible();
+    await page.locator("[data-testid='delete-draft-icon']").click();
+    await expect(page.getByText("下書き一覧")).toBeHidden();
   });
 });
