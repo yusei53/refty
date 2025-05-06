@@ -65,7 +65,9 @@ const ReflectionUpdateFormPage: React.FC<ReflectionUpdateFormPageProps> = ({
     handleEmojiChange,
     handleTagChange,
     selectedFolderUUID,
-    handleFolderChange
+    handleFolderChange,
+    addImageUrl,
+    handleEditorChange
   } = useUpdateReflectionForm({
     reflectionCUID,
     username,
@@ -111,6 +113,8 @@ const ReflectionUpdateFormPage: React.FC<ReflectionUpdateFormPageProps> = ({
       getBGMName={getBGMName}
       isNightMode={isNightMode}
       setIsNightMode={setIsNightMode}
+      addImageUrl={addImageUrl}
+      handleEditorChange={handleEditorChange}
     />
   );
 };
