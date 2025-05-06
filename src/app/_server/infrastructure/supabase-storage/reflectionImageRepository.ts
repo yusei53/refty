@@ -16,6 +16,7 @@ export const reflectionImageRepository = {
     path
   }: UploadReflectionImageItem): Promise<string | null> {
     try {
+      // TODO:認証の処理を入れる
       const { error } = await supabase.storage
         .from("refty-storage")
         .upload(path, file);
@@ -39,6 +40,25 @@ export const reflectionImageRepository = {
     } catch (err) {
       console.error("Upload promise error:", file.name, err);
       return null;
+    }
+  },
+
+  async deleteImage(path: string): Promise<boolean> {
+    try {
+      // TODO:認証の処理を入れる
+      const { error } = await supabase.storage
+        .from("refty-storage")
+        .remove([path]);
+
+      if (error) {
+        console.error("Delete error:", path, error);
+        return false;
+      }
+
+      return true;
+    } catch (err) {
+      console.error("Delete promise error:", path, err);
+      return false;
     }
   }
 };
