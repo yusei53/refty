@@ -65,6 +65,7 @@ export const DraftOptionButton: React.FC<DraftOptionButtonProps> = ({
       <DeleteIcon
         fontSize="small"
         onClick={() => deleteDraft(draftId)}
+        data-testid="delete-draft-icon"
         sx={{
           color: theme.palette.grey[600],
           opacity: 0.7,

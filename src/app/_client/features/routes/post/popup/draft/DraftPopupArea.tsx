@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Box, Popper, Fade, Divider, Typography } from "@mui/material";
 import type { DraftDataList } from "../../../../../hooks/reflection/useAutoSave";
 import { DraftOptionButton } from "./DraftOptionButton";
@@ -36,7 +37,7 @@ export const DraftPopupArea: React.FC<DraftPopupAreaProps> = ({
         onClick={onToggle}
         onBlur={onClose}
         sx={{ border: "none" }}
-        className="draft-list"
+        data-testid="draft-list"
       >
         下書き一覧
       </Button>
@@ -60,7 +61,7 @@ export const DraftPopupArea: React.FC<DraftPopupAreaProps> = ({
               color={"black !important"}
             >
               {draftEntries.map(([draftId, draft], idx) => (
-                <Box key={draftId}>
+                <Fragment key={draftId}>
                   <DraftOptionButton
                     draftId={draftId}
                     currentDraftId={currentDraftId}
@@ -71,7 +72,7 @@ export const DraftPopupArea: React.FC<DraftPopupAreaProps> = ({
                   {idx < draftEntries.length - 1 && (
                     <Divider sx={{ borderColor: theme.palette.grey[400] }} />
                   )}
-                </Box>
+                </Fragment>
               ))}
               <Typography
                 fontSize={11.5}
