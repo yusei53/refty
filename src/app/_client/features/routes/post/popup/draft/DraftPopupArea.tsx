@@ -3,6 +3,7 @@ import { Box, Popper, Fade, Divider, Typography } from "@mui/material";
 import type { DraftDataList } from "../../../../../hooks/reflection/useAutoSave";
 import { DraftOptionButton } from "./DraftOptionButton";
 import { Button } from "@/src/app/_client/components/button";
+import { useResponsive } from "@/src/app/_client/hooks/responsive/useResponsive";
 import { theme } from "@/src/app/_client/utils/theme";
 
 type DraftPopupAreaProps = {
@@ -26,6 +27,7 @@ export const DraftPopupArea: React.FC<DraftPopupAreaProps> = ({
   onToggle,
   onClose
 }) => {
+  const { isMobile } = useResponsive();
   const draftEntries = Object.entries(draftList);
   if (draftEntries.length === 0) {
     return null;
@@ -36,7 +38,7 @@ export const DraftPopupArea: React.FC<DraftPopupAreaProps> = ({
       <Button
         onClick={onToggle}
         onBlur={onClose}
-        sx={{ border: "none" }}
+        sx={isMobile ? mobileButton : { border: "none" }}
         data-testid="draft-list"
       >
         下書き一覧
@@ -91,4 +93,15 @@ export const DraftPopupArea: React.FC<DraftPopupAreaProps> = ({
       </Popper>
     </Box>
   );
+};
+
+const mobileButton = {
+  mx: 0.5,
+  bgcolor: theme.palette.primary.main,
+  border: `1px solid ${theme.palette.grey[400]}`,
+  borderRadius: 2,
+  height: "30px",
+  display: "flex",
+  alignItems: "center",
+  p: 1
 };
