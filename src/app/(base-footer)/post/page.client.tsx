@@ -33,7 +33,9 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
     handleEmojiChange,
     selectedFolderUUID,
     handleFolderChange,
-    handleTagChange
+    handleTagChange,
+    addImageUrl,
+    handleEditorChange
   } = useCreateReflectionForm(username, stop);
 
   useWarningDialog(isDirty, isSubmitSuccessful);
@@ -63,6 +65,8 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
       getBGMName={getBGMName}
       isNightMode={isNightMode}
       setIsNightMode={setIsNightMode}
+      addImageUrl={addImageUrl}
+      handleEditorChange={handleEditorChange}
     />
   );
 };
