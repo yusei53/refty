@@ -78,10 +78,42 @@ export const useCreateReflectionForm = (
     }
   };
 
+  // MEMO: 画像URLを投稿用のimageUrlsから削除する関数
   const removeImageUrl = (url: string) => {
     const newUrls = imageUrls.filter((imageUrl) => imageUrl !== url);
     setImageUrls(newUrls);
     setValue("imageUrls", newUrls);
+  };
+
+  const getFileNameFromUrl = (url: string): string | null => {
+    const match = url.match(/\/([^/]+)$/);
+    return match ? match[1] : null;
+  };
+
+  const handleEditorChange = (val: string) => {
+    // MEMO: HTMLからimgタグのsrcをすべて抽出
+    const doc = new DOMParser().parseFromString(val, "text/html");
+    const currentImageUrls = Array.from(doc.querySelectorAll("img"))
+      .map((img) => img.getAttribute("src") || "")
+      .filter(Boolean);
+
+    // MEMO: 既存のimageUrlsと比較し、消えたURLを検出
+    const removedUrls = imageUrls.filter(
+      (url) => !currentImageUrls.includes(url)
+    );
+    removedUrls.forEach(async (url) => {
+      // MEMO: 画像URLを送信するFormDataから削除
+      removeImageUrl(url);
+
+      const fileName = getFileNameFromUrl(url);
+      if (fileName) {
+        await reflectionAPI.deleteReflectionImage(fileName);
+      }
+    });
+
+    // MEMO: imageUrlsを最新に
+    setImageUrls(currentImageUrls);
+    setValue("imageUrls", currentImageUrls);
   };
 
   const { handleTagChange } = useParseValueToTags({ setValue });
@@ -125,6 +157,6 @@ export const useCreateReflectionForm = (
     handleFolderChange,
     handleTagChange,
     addImageUrl,
-    removeImageUrl
+    handleEditorChange
   };
 };
