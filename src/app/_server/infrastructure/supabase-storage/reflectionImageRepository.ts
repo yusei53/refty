@@ -43,7 +43,8 @@ export const reflectionImageRepository = {
     }
   },
 
-  async deleteImage(path: string): Promise<boolean> {
+  async deleteImage(fileName: string): Promise<boolean> {
+    const path = `reflection-images/${fileName}`;
     try {
       // TODO:認証の処理を入れる
       const { error } = await supabase.storage
