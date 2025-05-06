@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { DraftDataList } from "@/src/app/_client/hooks/reflection/useAutoSave";
-import { DraftList } from "./DraftList";
+import { DraftPopupArea } from "./DraftPopupArea";
 
 type DraftListContainerProps = {
   draftList: DraftDataList;
@@ -26,7 +26,7 @@ export const DraftListContainer: React.FC<DraftListContainerProps> = ({
   };
 
   return (
-    <DraftList
+    <DraftPopupArea
       draftList={draftList}
       currentDraftId={currentDraftId}
       open={Boolean(anchorEl)}
