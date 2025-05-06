@@ -31,8 +31,6 @@ export async function POST(req: NextRequest) {
       uploadReflectionImageItem
     );
 
-    console.log("imageUrl", imageUrl);
-
     revalidateTag("reflections-all");
 
     return NextResponse.json({ imageUrl }, { status: 201 });

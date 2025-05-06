@@ -236,8 +236,6 @@ export const reflectionService = {
       imageUrls
     } = params;
 
-    console.log("params240", params);
-
     const now = new Date();
     const jstDate = toJST(now);
 
@@ -260,8 +258,6 @@ export const reflectionService = {
       folderUUID,
       imageUrls: validImageUrls
     });
-
-    console.log("reflection", reflection);
 
     return reflection;
   },
