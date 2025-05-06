@@ -35,17 +35,23 @@ export const DraftOptionButton: React.FC<DraftOptionButtonProps> = ({
         "&:hover": { backgroundColor: theme.palette.primary.contrastText }
       }}
     >
-      <Box
-        width={"160px"}
-        overflow={"hidden"}
-        textOverflow={"ellipsis"}
-        sx={{
-          display: "-webkit-box",
-          WebkitBoxOrient: "vertical",
-          WebkitLineClamp: 1
-        }}
-      >
-        {draft.formData.title || "無題の投稿"}
+      <Box display={"flex"} alignItems={"center"}>
+        <Box
+          maxWidth={"145px"}
+          overflow={"hidden"}
+          textOverflow={"ellipsis"}
+          position={"relative"}
+          sx={{
+            display: "-webkit-box",
+            WebkitBoxOrient: "vertical",
+            WebkitLineClamp: 1
+          }}
+        >
+          {draft.formData.title || "無題の投稿"}
+        </Box>
+        {draftId == currentDraftId && (
+          <CheckIcon fontSize="small" sx={{ pl: 0.5 }} />
+        )}
       </Box>
       <Typography fontSize={12} color={theme.palette.grey[600]}>
         最終更新:
@@ -54,16 +60,6 @@ export const DraftOptionButton: React.FC<DraftOptionButtonProps> = ({
           locale: ja
         })}
       </Typography>
-      {draftId == currentDraftId && (
-        <CheckIcon
-          fontSize="small"
-          sx={{
-            position: "absolute",
-            right: 48,
-            top: 12
-          }}
-        />
-      )}
       <DeleteIcon
         fontSize="small"
         onClick={() => deleteDraft(draftId)}
