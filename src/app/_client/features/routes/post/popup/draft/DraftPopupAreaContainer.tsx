@@ -2,19 +2,16 @@ import React, { useState } from "react";
 import type { DraftDataList } from "@/src/app/_client/hooks/reflection/useAutoSave";
 import { DraftPopupArea } from "./DraftPopupArea";
 
-type DraftListContainerProps = {
+type DraftPopupAreaContainerProps = {
   draftList: DraftDataList;
   currentDraftId: string;
   onDraftChange: (draftId: string) => void;
   deleteDraft: (draftId: string) => void;
 };
 
-export const DraftListContainer: React.FC<DraftListContainerProps> = ({
-  draftList,
-  currentDraftId,
-  onDraftChange,
-  deleteDraft
-}) => {
+export const DraftPopupAreaContainer: React.FC<
+  DraftPopupAreaContainerProps
+> = ({ draftList, currentDraftId, onDraftChange, deleteDraft }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
