@@ -39,12 +39,11 @@ export default defineConfig({
       use: { ...devices["Pixel 5"] }
     },
 
-    // TODO: 下書きがモバイル対応今していないため、モバイル対応したらコメント外す
-    // {
-    //   name: "Mobile Chrome",
-    //   testDir: "./e2e/tests/ui",
-    //   use: { ...devices["iPhone 13 Pro"] }
-    // },
+    {
+      name: "Mobile Chrome",
+      testDir: "./e2e/tests/ui",
+      use: { ...devices["iPhone 13 Pro"] }
+    },
 
     {
       name: "Google Chrome",
