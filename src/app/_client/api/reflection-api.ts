@@ -327,5 +327,13 @@ export const reflectionAPI = {
       body: reflectionImageFormData
     };
     return await fetchFormDataURL<{ imageUrl: string }, 401>(path, options);
+  },
+
+  async deleteReflectionImage(fileName: string): Promise<Result<void, 401>> {
+    const path = `/api/reflection/image/${fileName}`;
+    const options: FetchURLOptions = {
+      method: "DELETE"
+    };
+    return await fetchURL<void, 401>(path, options);
   }
 };
