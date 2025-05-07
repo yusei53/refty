@@ -66,7 +66,7 @@ type ReflectionPostFormProps = {
   isNightMode: boolean;
   setIsNightMode: (isNightMode: boolean) => void;
   addImageUrl: (url: string) => void;
-  handleEditorChange: (val: string) => void;
+  handleEditorChange: (editorContent: string) => void;
 };
 
 const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
@@ -329,9 +329,9 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
                   <MarkdownEditor
                     value={field.value}
                     ref={editorRef}
-                    onChange={(val) => {
-                      handleEditorChange(val);
-                      field.onChange(val);
+                    onChange={(editorContent) => {
+                      handleEditorChange(editorContent);
+                      field.onChange(editorContent);
                     }}
                   />
                   {errors.content && (

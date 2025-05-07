@@ -90,9 +90,9 @@ export const useCreateReflectionForm = (
     return match ? match[1] : null;
   };
 
-  const handleEditorChange = (val: string) => {
+  const handleEditorChange = (editorContent: string) => {
     // MEMO: HTMLからimgタグのsrcをすべて抽出
-    const doc = new DOMParser().parseFromString(val, "text/html");
+    const doc = new DOMParser().parseFromString(editorContent, "text/html");
     const currentImageUrls = Array.from(doc.querySelectorAll("img"))
       .map((img) => img.getAttribute("src") || "")
       .filter(Boolean);
