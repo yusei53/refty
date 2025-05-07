@@ -2,6 +2,7 @@ import { revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import {
+  badRequestError,
   internalServerError,
   unauthorizedError
 } from "@/src/app/_server/http-error";
@@ -19,7 +20,7 @@ export async function POST(req: NextRequest) {
     const file = formData.get("file") as File | null;
 
     if (!file) {
-      return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
+      return badRequestError("ファイルがありません");
     }
 
     const uploadReflectionImageItem = {
