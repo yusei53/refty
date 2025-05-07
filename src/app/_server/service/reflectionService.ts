@@ -244,7 +244,7 @@ export const reflectionService = {
       (url): url is string => url !== null
     );
 
-    const reflection = await reflectionRepository.createReflection({
+    return await reflectionRepository.createReflection({
       title,
       content,
       charStamp,
@@ -259,8 +259,6 @@ export const reflectionService = {
       folderUUID,
       imageUrls: validImageUrls
     });
-
-    return reflection;
   },
 
   async update(params: {
