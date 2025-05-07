@@ -6,17 +6,11 @@ export type UploadReflectionImageItem = {
 };
 
 export const reflectionImageRepository = {
-  /**
-   * 1画像をSupabase Storageにアップロードし、公開URLを返す
-   * @param uploadItem - { file, path }
-   * @returns 公開URL（失敗時はnull）
-   */
   async uploadImage({
     file,
     path
   }: UploadReflectionImageItem): Promise<string | null> {
     try {
-      // TODO:認証の処理を入れる
       const { error } = await supabase.storage
         .from("refty-storage")
         .upload(path, file);
@@ -46,7 +40,6 @@ export const reflectionImageRepository = {
   async deleteImage(fileName: string): Promise<boolean> {
     const path = `reflection-images/${fileName}`;
     try {
-      // TODO:認証の処理を入れる
       const { error } = await supabase.storage
         .from("refty-storage")
         .remove([path]);
