@@ -8,7 +8,7 @@ import { reflectionImageRepository } from "@/src/app/_server/infrastructure/supa
 import { getUserSession } from "@/src/app/_shared/get-user-session";
 
 export async function DELETE(
-  req: NextRequest,
+  _: NextRequest,
   { params }: { params: Promise<{ fileName: string }> }
 ) {
   try {
