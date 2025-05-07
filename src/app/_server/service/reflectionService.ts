@@ -239,6 +239,7 @@ export const reflectionService = {
     const now = new Date();
     const jstDate = toJST(now);
 
+    // NOTE: 配列からnullを除外する（stringのみの配列にする）
     const validImageUrls = imageUrls?.filter(
       (url): url is string => url !== null
     );
