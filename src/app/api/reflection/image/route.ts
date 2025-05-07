@@ -1,4 +1,3 @@
-import { revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import {
@@ -31,8 +30,6 @@ export async function POST(req: NextRequest) {
     const imageUrl = await reflectionImageRepository.uploadImage(
       uploadReflectionImageItem
     );
-
-    revalidateTag("reflections-all");
 
     return NextResponse.json({ imageUrl }, { status: 201 });
   } catch (error) {
