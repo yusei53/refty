@@ -71,10 +71,21 @@ export const reflectionService = {
     page: number,
     tag?: string,
     folderUUID?: string,
-    isDetailMode: boolean = false
+    isDetailMode: boolean = false,
+    createdAt?: string
   ) {
     const tagFilter = tag ? { [tag]: true } : undefined;
     const folderFilter = folderUUID ?? undefined;
+    const createdAtJST = createdAt ? toJST(new Date(createdAt)) : undefined;
+    const jstStart = createdAtJST
+      ? toJST(new Date(createdAtJST.setHours(0, 0, 0, 0)))
+      : undefined;
+    const jstEnd = createdAtJST
+      ? toJST(new Date(createdAtJST.setHours(23, 59, 59, 999)))
+      : undefined;
+    const createdAtFilter = createdAtJST
+      ? { gte: jstStart, lt: jstEnd }
+      : undefined;
 
     // NOTE: isDetailMode時は全件取得するため、offset/limitは使用しない
     const offset = isDetailMode ? undefined : (page - 1) * COUNT_PER_PAGE;
@@ -85,7 +96,8 @@ export const reflectionService = {
         userId,
         isCurrentUser,
         tagFilter,
-        folderFilter
+        folderFilter,
+        dateFilter: createdAtFilter as { gte: Date; lt: Date } | undefined
       });
 
     // isDetailMode時は全件表示するため、totalPageは1とする
@@ -100,7 +112,8 @@ export const reflectionService = {
       folderFilter,
       offset,
       limit,
-      isDetailMode
+      isDetailMode,
+      dateFilter: createdAtFilter as { gte: Date; lt: Date } | undefined
     });
 
     // MEMO: タグ別の投稿数を全て取得しておく

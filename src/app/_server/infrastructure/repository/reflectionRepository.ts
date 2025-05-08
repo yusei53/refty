@@ -59,6 +59,7 @@ export const reflectionRepository = {
     offset?: number;
     limit?: number;
     isDetailMode: boolean;
+    dateFilter?: { gte: Date; lt: Date };
   }) {
     const {
       userId,
@@ -67,14 +68,18 @@ export const reflectionRepository = {
       folderFilter,
       offset,
       limit,
-      isDetailMode
+      isDetailMode,
+      dateFilter
     } = params;
     return prisma.reflection.findMany({
       where: {
         userId,
         isPublic: isCurrentUser ? undefined : true,
         ...tagFilter,
-        folderUUID: folderFilter
+        folderUUID: folderFilter,
+        ...(dateFilter
+          ? { createdAt: { gte: dateFilter.gte, lt: dateFilter.lt } }
+          : {})
       },
       orderBy: isDetailMode
         ? [{ createdAt: "desc" }]
@@ -121,14 +126,19 @@ export const reflectionRepository = {
     isCurrentUser: boolean;
     tagFilter?: Record<string, boolean>;
     folderFilter?: string;
+    dateFilter?: { gte: Date; lt: Date };
   }) {
-    const { userId, isCurrentUser, tagFilter, folderFilter } = params;
+    const { userId, isCurrentUser, tagFilter, folderFilter, dateFilter } =
+      params;
     return await prisma.reflection.count({
       where: {
         userId,
         isPublic: isCurrentUser ? undefined : true,
         ...tagFilter,
-        folderUUID: folderFilter
+        folderUUID: folderFilter,
+        ...(dateFilter
+          ? { createdAt: { gte: dateFilter.gte, lt: dateFilter.lt } }
+          : {})
       }
     });
   },
