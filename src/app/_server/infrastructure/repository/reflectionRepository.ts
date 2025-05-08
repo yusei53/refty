@@ -1,3 +1,4 @@
+import type { Prisma } from "@prisma/client";
 import prisma from "@/src/app/_shared/lib/prisma";
 
 export const reflectionRepository = {
@@ -59,7 +60,7 @@ export const reflectionRepository = {
     offset?: number;
     limit?: number;
     isDetailMode: boolean;
-    dateFilter?: { gte: Date; lt: Date };
+    dateFilter?: Record<string, Prisma.DateTimeFilter<"Reflection">>;
   }) {
     const {
       userId,
@@ -77,9 +78,7 @@ export const reflectionRepository = {
         isPublic: isCurrentUser ? undefined : true,
         ...tagFilter,
         folderUUID: folderFilter,
-        ...(dateFilter
-          ? { createdAt: { gte: dateFilter.gte, lt: dateFilter.lt } }
-          : {})
+        ...(dateFilter ? { ...dateFilter } : {})
       },
       orderBy: isDetailMode
         ? [{ createdAt: "desc" }]
@@ -126,7 +125,7 @@ export const reflectionRepository = {
     isCurrentUser: boolean;
     tagFilter?: Record<string, boolean>;
     folderFilter?: string;
-    dateFilter?: { gte: Date; lt: Date };
+    dateFilter?: Record<string, Prisma.DateTimeFilter<"Reflection">>;
   }) {
     const { userId, isCurrentUser, tagFilter, folderFilter, dateFilter } =
       params;
@@ -136,9 +135,7 @@ export const reflectionRepository = {
         isPublic: isCurrentUser ? undefined : true,
         ...tagFilter,
         folderUUID: folderFilter,
-        ...(dateFilter
-          ? { createdAt: { gte: dateFilter.gte, lt: dateFilter.lt } }
-          : {})
+        ...(dateFilter ? { ...dateFilter } : {})
       }
     });
   },

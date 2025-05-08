@@ -84,7 +84,7 @@ export const reflectionService = {
       ? toJST(new Date(createdAtJST.setHours(23, 59, 59, 999)))
       : undefined;
     const createdAtFilter = createdAtJST
-      ? { gte: jstStart, lt: jstEnd }
+      ? { createdAt: { gte: jstStart, lt: jstEnd } }
       : undefined;
 
     // NOTE: isDetailMode時は全件取得するため、offset/limitは使用しない
@@ -97,7 +97,7 @@ export const reflectionService = {
         isCurrentUser,
         tagFilter,
         folderFilter,
-        dateFilter: createdAtFilter as { gte: Date; lt: Date } | undefined
+        dateFilter: createdAtFilter
       });
 
     // isDetailMode時は全件表示するため、totalPageは1とする
@@ -113,7 +113,7 @@ export const reflectionService = {
       offset,
       limit,
       isDetailMode,
-      dateFilter: createdAtFilter as { gte: Date; lt: Date } | undefined
+      dateFilter: createdAtFilter
     });
 
     // MEMO: タグ別の投稿数を全て取得しておく
