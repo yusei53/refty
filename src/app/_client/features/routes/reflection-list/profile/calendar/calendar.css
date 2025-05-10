@@ -6,3 +6,7 @@
 .react-calendar-heatmap rect:hover {
   stroke: none;
 }
+
+.clickable {
+  cursor: pointer;
+}

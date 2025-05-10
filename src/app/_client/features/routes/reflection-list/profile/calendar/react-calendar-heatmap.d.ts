@@ -16,6 +16,7 @@ declare module "react-calendar-heatmap" {
     showWeekdayLabels?: boolean;
     gutterSize: number;
     horizontal?: boolean;
+    onClick: (value: ReactCalendarHeatmapValue<T> | undefined) => void;
   }
 
   export default class CalendarHeatmap extends React.Component<ReactCalendarHeatmapProps> {
