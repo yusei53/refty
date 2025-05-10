@@ -60,7 +60,6 @@ export const reflectionRepository = {
     offset?: number;
     limit?: number;
     isDetailMode: boolean;
-    dateFilter?: Record<string, Prisma.DateTimeFilter<"Reflection">>;
   }) {
     const {
       userId,
@@ -69,16 +68,14 @@ export const reflectionRepository = {
       folderFilter,
       offset,
       limit,
-      isDetailMode,
-      dateFilter
+      isDetailMode
     } = params;
     return prisma.reflection.findMany({
       where: {
         userId,
         isPublic: isCurrentUser ? undefined : true,
         ...tagFilter,
-        folderUUID: folderFilter,
-        ...(dateFilter ? { ...dateFilter } : {})
+        folderUUID: folderFilter
       },
       orderBy: isDetailMode
         ? [{ createdAt: "desc" }]
@@ -125,17 +122,14 @@ export const reflectionRepository = {
     isCurrentUser: boolean;
     tagFilter?: Record<string, boolean>;
     folderFilter?: string;
-    dateFilter?: Record<string, Prisma.DateTimeFilter<"Reflection">>;
   }) {
-    const { userId, isCurrentUser, tagFilter, folderFilter, dateFilter } =
-      params;
+    const { userId, isCurrentUser, tagFilter, folderFilter } = params;
     return await prisma.reflection.count({
       where: {
         userId,
         isPublic: isCurrentUser ? undefined : true,
         ...tagFilter,
-        folderUUID: folderFilter,
-        ...(dateFilter ? { ...dateFilter } : {})
+        folderUUID: folderFilter
       }
     });
   },
@@ -220,6 +214,20 @@ export const reflectionRepository = {
   async getReflectionRecord(reflectionCUID: string) {
     return prisma.reflection.findUnique({
       where: { reflectionCUID }
+    });
+  },
+
+  async getReflectionsByDate(
+    userId: string,
+    isCurrentUser: boolean,
+    dateFilter?: Record<string, Prisma.DateTimeFilter<"Reflection">>
+  ) {
+    return prisma.reflection.findMany({
+      where: {
+        userId,
+        isPublic: isCurrentUser ? undefined : true,
+        ...dateFilter
+      }
     });
   },
 

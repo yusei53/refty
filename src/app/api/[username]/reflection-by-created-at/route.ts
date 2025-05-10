@@ -17,36 +17,25 @@ export async function GET(
   if (!userId) {
     return notFoundError("ユーザーが見つかりません");
   }
+
   const session = await getUserSession();
   const isCurrentUser = session?.username === username;
 
+  const reflectionDate =
+    req.nextUrl.searchParams.get("reflectionDate") ?? undefined;
+
   try {
-    const page = parseInt(req.nextUrl.searchParams.get("page") || "1", 10);
-    const tag = req.nextUrl.searchParams.get("tag") ?? undefined;
-    const folder = req.nextUrl.searchParams.get("folder") ?? undefined;
-    // TODO: isDetailModeをパラメータを渡された時のものは、Next15に移行したらAPIを別で作成する
-    const isDetailMode = req.nextUrl.searchParams.get("viewMode") === "detail";
+    const reflectionsByDate = await reflectionService.getReflectionsByDate(
+      userId,
+      isCurrentUser,
+      reflectionDate
+    );
 
-    const { reflections, totalPage, filteredReflectionCount, tagCountList } =
-      await reflectionService.getByUsername(
-        userId,
-        isCurrentUser,
-        page,
-        tag,
-        folder,
-        isDetailMode
-      );
-
-    if (!reflections) {
+    if (!reflectionsByDate) {
       return notFoundError("ユーザーの振り返り一覧が見つかりません");
     }
 
-    return NextResponse.json({
-      reflections,
-      totalPage,
-      filteredReflectionCount,
-      tagCountList
-    });
+    return NextResponse.json(reflectionsByDate);
   } catch (error) {
     return internalServerError("GET", "ユーザーの振り返り一覧", error);
   }
