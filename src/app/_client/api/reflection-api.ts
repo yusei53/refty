@@ -1,6 +1,7 @@
 import type { FetchURLOptions, Result } from "../utils/fetchURL";
 import { fetchURL } from "../utils/fetchURL";
 
+// TODO: 命名をいい感じにする
 export type RandomReflection = {
   reflectionCUID: string;
   title: string;
@@ -147,6 +148,19 @@ export const reflectionAPI = {
       headers: headers
     };
     return await fetchURL<RandomReflection, 403 | 404>(path, options);
+  },
+
+  async getReflectionsByDate(
+    headers: HeadersInit | undefined,
+    username: string,
+    reflectionDate: string
+  ): Promise<Result<RandomReflection[], 404>> {
+    const path = `/api/${username}/reflection-by-created-at?reflectionDate=${reflectionDate}`;
+    const options: FetchURLOptions = {
+      method: "GET",
+      headers: headers
+    };
+    return await fetchURL<RandomReflection[], 404>(path, options);
   },
 
   async createReflection({
