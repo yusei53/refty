@@ -18,7 +18,7 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
   };
 
   return (
-    <IconButton aria-label="画像を追加">
+    <IconButton aria-label="画像を追加" component="label">
       <Image src="/add-photo.svg" alt="画像を追加" width={24} height={24} />
       <input type="file" hidden accept="image/*" onChange={handleImageUpload} />
     </IconButton>
