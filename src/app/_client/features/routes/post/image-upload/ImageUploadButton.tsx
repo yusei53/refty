@@ -1,4 +1,5 @@
-import { Box, Button } from "@mui/material";
+import Image from "next/image";
+import { IconButton } from "@mui/material";
 
 type ImageUploadButtonProps = {
   onImageSelect: (file: File) => void;
@@ -17,36 +18,9 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
   };
 
   return (
-    <Box
-      position="fixed"
-      bottom={16}
-      right={16}
-      zIndex={1000}
-      sx={{
-        backgroundColor: "background.paper",
-        borderRadius: 1,
-        boxShadow: 3,
-        p: 1
-      }}
-    >
-      <Button
-        variant="contained"
-        component="label"
-        sx={{
-          backgroundColor: "#1976d2",
-          "&:hover": {
-            backgroundColor: "#1565c0"
-          }
-        }}
-      >
-        画像を選択
-        <input
-          type="file"
-          hidden
-          accept="image/*"
-          onChange={handleImageUpload}
-        />
-      </Button>
-    </Box>
+    <IconButton aria-label="画像を追加" component="label" sx={{ mx: 1 }}>
+      <Image src="/add-photo.svg" alt="画像を追加" width={24} height={24} />
+      <input type="file" hidden accept="image/*" onChange={handleImageUpload} />
+    </IconButton>
   );
 };
