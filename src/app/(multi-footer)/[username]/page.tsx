@@ -30,6 +30,7 @@ const page = async ({
     status?: string;
     folder?: string;
     viewMode: ViewMode;
+    reflectionDate: string;
   }>;
 }) => {
   const { username } = await params;
@@ -38,15 +39,18 @@ const page = async ({
     tag: tagParameter,
     status: statusParameter,
     folder: folderParameter,
-    viewMode: viewModeParameter
+    viewMode: viewModeParameter,
+    reflectionDate: reflectionDateParameter
   } = await searchParams;
   const session = await getUserSession();
   const headers = await getHeaders();
   const currentPage = pageParameter ? parseInt(pageParameter, 10) : 1;
   const selectedTag = tagParameter || undefined;
   const selectedFolder = folderParameter || undefined;
-  const status = statusParameter || undefined;
   const viewMode = viewModeParameter === "detail" ? "detail" : "card";
+
+  const status = statusParameter || undefined;
+  const reflectionDate = reflectionDateParameter;
 
   const [profile, reflectionCount, reflectionInfo, folders] = await Promise.all(
     [
@@ -71,6 +75,18 @@ const page = async ({
     folders === 404
   ) {
     return notFound();
+  }
+
+  let reflectionsByDate = null;
+  if (reflectionDate !== undefined) {
+    reflectionsByDate = await reflectionAPI.getReflectionsByDate(
+      headers,
+      username,
+      reflectionDate
+    );
+    if (reflectionsByDate === 404) {
+      reflectionsByDate = null;
+    }
   }
 
   let randomReflection = null;
@@ -101,6 +117,7 @@ const page = async ({
       currentPage={currentPage}
       totalPage={reflectionInfo.totalPage}
       tagCountList={reflectionInfo.tagCountList}
+      reflectionsByDate={reflectionsByDate}
       randomReflection={randomReflection}
       folders={folders}
       viewMode={viewMode}

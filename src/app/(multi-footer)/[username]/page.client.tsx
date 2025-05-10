@@ -19,7 +19,10 @@ import { EmptyReflection } from "@/src/app/_client/features/common/empty-reflect
 import { UserMenuHeaderContainer } from "@/src/app/_client/features/common/user-menu";
 import ReflectionCardListArea from "@/src/app/_client/features/routes/reflection-list/card-list/ReflectionCardListArea";
 import { FullViewReflectionListFetcher } from "@/src/app/_client/features/routes/reflection-list/full-view/FullViewReflectionListFetcher";
-import { GoodJobModal } from "@/src/app/_client/features/routes/reflection-list/modal";
+import {
+  GoodJobModal,
+  ReflectionDateModal
+} from "@/src/app/_client/features/routes/reflection-list/modal";
 import UserProfileArea from "@/src/app/_client/features/routes/reflection-list/profile/UserProfileArea";
 import { SelectionHeader } from "@/src/app/_client/features/routes/reflection-list/selection-header/SelectionHeader";
 import { Sidebar } from "@/src/app/_client/features/routes/reflection-list/sidebar";
@@ -42,6 +45,7 @@ type UserReflectionListPageProps = {
   currentPage: number;
   totalPage: number;
   tagCountList: ReflectionTagCountList;
+  reflectionsByDate: RandomReflection[] | null;
   randomReflection: RandomReflection | null;
   folders: Folder[];
   viewMode: ViewMode;
@@ -60,11 +64,17 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   totalPage,
   tagCountList,
   randomReflection,
+  reflectionsByDate,
   folders,
   viewMode
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const isGoodJobModalOpen = searchParams.get("status") === "posted";
+  const isReflectionDateModalOpen = searchParams.get("reflectionDate") !== null;
+  const isCurrentUser = currentUsername === username;
+  // NOTE: viewModeがdetail、かつreflectionsの最初の要素がcontentプロパティを持っているかどうかのフラグ
+  const isContentReady = viewMode === "detail" && "content" in reflections[0];
 
   const { isMobile, isPWA } = useResponsive();
   const { handlePageChange } = usePagination();
@@ -80,12 +90,6 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
     getSelectedInfo
   } = useFolderSelection(username);
   const { currentViewMode, handleViewModeChange } = useViewMode();
-
-  const isModalOpen = searchParams.get("status") === "posted";
-  const isCurrentUser = currentUsername === username;
-
-  // NOTE: viewModeがdetail、かつreflectionsの最初の要素がcontentプロパティを持っているかどうかのフラグ
-  const isContentReady = viewMode === "detail" && "content" in reflections[0];
 
   // NOTE: 選択されたフォルダかタグの投稿数と名前を取得
   const selectedInfo = getSelectedInfo(tagCountList);
@@ -174,9 +178,17 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
         )}
         {username && !isPWA && <PostNavigationButton />}
       </Box>
-      {isModalOpen && (
+      {isReflectionDateModalOpen && (
+        <ReflectionDateModal
+          open={isReflectionDateModalOpen}
+          onClose={handleCloseModal}
+          username={username}
+          reflectionsByDate={reflectionsByDate}
+        />
+      )}
+      {isGoodJobModalOpen && (
         <GoodJobModal
-          open={isModalOpen}
+          open={isGoodJobModalOpen}
           onClose={handleCloseModal}
           username={username}
           randomReflection={randomReflection}

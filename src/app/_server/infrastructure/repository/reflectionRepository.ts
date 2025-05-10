@@ -1,3 +1,4 @@
+import type { Prisma } from "@prisma/client";
 import prisma from "@/src/app/_shared/lib/prisma";
 
 export const reflectionRepository = {
@@ -213,6 +214,20 @@ export const reflectionRepository = {
   async getReflectionRecord(reflectionCUID: string) {
     return prisma.reflection.findUnique({
       where: { reflectionCUID }
+    });
+  },
+
+  async getReflectionsByDate(
+    userId: string,
+    isCurrentUser: boolean,
+    dateFilter?: Record<string, Prisma.DateTimeFilter<"Reflection">>
+  ) {
+    return prisma.reflection.findMany({
+      where: {
+        userId,
+        isPublic: isCurrentUser ? undefined : true,
+        ...dateFilter
+      }
     });
   },
 
