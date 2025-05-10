@@ -17,8 +17,8 @@ const modal = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: { xs: "90%", sm: 500 },
-  maxHeight: "50vh",
+  width: { xs: "95%", sm: 500 },
+  maxHeight: { xs: "60%", sm: "50vh" },
   bgcolor: "background.paper",
   boxShadow: 4,
   p: 4,
@@ -57,7 +57,8 @@ export const ReflectionDateModal: React.FC<ReflectionDateModalProps> = ({
             </Typography>
             <Box
               sx={{
-                overflowY: "auto"
+                overflowY: "auto",
+                overflowX: "hidden"
               }}
             >
               <Box display={"flex"} flexDirection={"column"} gap={2}>
