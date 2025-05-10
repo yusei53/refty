@@ -3,8 +3,8 @@ import { Box, Typography } from "@mui/material";
 import type { ReflectionPerDate } from "@/src/app/_client/api/reflections-count-api";
 import type { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
-import Calendar from "./Calendar";
 import "./calendar.css";
+import Calendar from "./Calendar";
 import ToggleJapaneseLabel from "./ToggleJapaneseLabel";
 import { useToggleJapaneseLabels } from "@/src/app/_client/hooks/calendar/useToggleJapaneseLabels";
 import { useResponsive } from "@/src/app/_client/hooks/responsive/useResponsive";
@@ -21,6 +21,7 @@ type CalendarAreaProps = {
     value: ReactCalendarHeatmapValue<string> | undefined
   ) => Record<string, string>;
   totalReflections: string;
+  onClick: (value: ReactCalendarHeatmapValue<string> | undefined) => void;
 };
 
 const CalendarArea: React.FC<CalendarAreaProps> = ({
@@ -29,7 +30,8 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
   values,
   classForValue,
   tooltipDataAttrs,
-  totalReflections
+  totalReflections,
+  onClick
 }) => {
   const { isMobile } = useResponsive();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -85,10 +87,14 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
               startDate={startDate}
               endDate={endDate}
               values={values}
-              classForValue={classForValue}
+              classForValue={(value) => {
+                const baseClass = classForValue(value);
+                return `${baseClass} ${value ? "clickable" : ""}`;
+              }}
               tooltipDataAttrs={tooltipDataAttrs}
               showWeekdayLabels
               gutterSize={2}
+              onClick={onClick}
             />
           </Box>
         </Box>
