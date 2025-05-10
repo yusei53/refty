@@ -219,6 +219,7 @@ export const reflectionService = {
     isMonologue: boolean;
     userId: string;
     folderUUID?: string;
+    imageUrls?: string[];
   }) {
     const {
       title,
@@ -231,11 +232,17 @@ export const reflectionService = {
       isInputLog,
       isMonologue,
       userId,
-      folderUUID
+      folderUUID,
+      imageUrls
     } = params;
 
     const now = new Date();
     const jstDate = toJST(now);
+
+    // NOTE: 配列からnullを除外する（stringのみの配列にする）
+    const validImageUrls = imageUrls?.filter(
+      (url): url is string => url !== null
+    );
 
     return await reflectionRepository.createReflection({
       title,
@@ -249,7 +256,8 @@ export const reflectionService = {
       isMonologue,
       createdAt: jstDate,
       userId,
-      folderUUID
+      folderUUID,
+      imageUrls: validImageUrls
     });
   },
 

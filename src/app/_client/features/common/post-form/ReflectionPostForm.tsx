@@ -4,7 +4,9 @@ import { Box, Stack } from "@mui/material";
 import type { MarkdownEditorRef } from "../../routes/post/markdown-editor";
 import type { Folder } from "@/src/app/_client/api/folder-api";
 import type { Control, FieldErrors } from "react-hook-form";
+import { reflectionAPI } from "../../../api/reflection-api";
 import EmojiPicker from "../../routes/post/emoji/EmojiPicker";
+import { ImageUploadButton } from "../../routes/post/image-upload/ImageUploadButton";
 import { MarkdownEditor } from "../../routes/post/markdown-editor";
 import { BGMSettingPopupAreaContainer } from "../../routes/post/popup/BGM-setting/BGMSettingPopupAreaContainer";
 import { FolderSettingPopupAreaContainer } from "../../routes/post/popup/folder-setting";
@@ -63,6 +65,8 @@ type ReflectionPostFormProps = {
   getBGMName: () => string;
   isNightMode: boolean;
   setIsNightMode: (isNightMode: boolean) => void;
+  addImageUrl: (url: string) => void;
+  handleEditorChange: (editorContent: string) => void;
 };
 
 const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
@@ -87,7 +91,9 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   currentTrack,
   getBGMName,
   isNightMode,
-  setIsNightMode
+  setIsNightMode,
+  addImageUrl,
+  handleEditorChange
 }) => {
   const [isComposing, setIsComposing] = useState(false);
   const editorRef = useRef<MarkdownEditorRef>(null);
@@ -141,6 +147,34 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   };
 
   const toggleNightMode = () => setIsNightMode(!isNightMode);
+
+  const handleInsertImage = async (file: File) => {
+    // TODO: 切り出し
+
+    // NOTE: 画像のサイズを5MBに制限
+    const MAX_FILE_SIZE = 5 * 1024 * 1024;
+    if (file.size > MAX_FILE_SIZE) {
+      console.error("画像のサイズが5MBを超えています");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await reflectionAPI.uploadReflectionImage(formData);
+
+    if (res === 401) {
+      console.error("画像アップロードに失敗しました");
+      return;
+    }
+
+    const imageUrl = res.imageUrl;
+    if (imageUrl) {
+      editorRef.current?.insertImage(imageUrl);
+    }
+
+    addImageUrl(imageUrl);
+  };
 
   return (
     <>
@@ -251,6 +285,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
         </Box>
         <Box my={{ xs: 14, md: 10 }} mx={{ xs: 0.5, md: 12 }}>
           <Stack gap={3} m={{ md: 2 }}>
+            <ImageUploadButton onImageSelect={handleInsertImage} />
             <Controller
               name="title"
               control={control}
@@ -302,7 +337,10 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
                   <MarkdownEditor
                     value={field.value}
                     ref={editorRef}
-                    onChange={field.onChange}
+                    onChange={(editorContent) => {
+                      handleEditorChange(editorContent);
+                      field.onChange(editorContent);
+                    }}
                   />
                   {errors.content && (
                     <ErrorMessage message={errors.content.message} />

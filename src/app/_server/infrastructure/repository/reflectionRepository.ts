@@ -176,6 +176,7 @@ export const reflectionRepository = {
     createdAt: Date;
     userId: string;
     folderUUID?: string;
+    imageUrls?: string[];
   }) {
     const {
       title,
@@ -189,24 +190,38 @@ export const reflectionRepository = {
       isMonologue,
       createdAt,
       userId,
-      folderUUID
+      folderUUID,
+      imageUrls
     } = params;
 
-    return prisma.reflection.create({
-      data: {
-        title,
-        content,
-        charStamp,
-        isPublic,
-        isDailyReflection,
-        isLearning,
-        isAwareness,
-        isInputLog,
-        isMonologue,
-        createdAt,
-        userId,
-        folderUUID
+    return prisma.$transaction(async (tx) => {
+      const createdReflection = await tx.reflection.create({
+        data: {
+          title,
+          content,
+          charStamp,
+          isPublic,
+          isDailyReflection,
+          isLearning,
+          isAwareness,
+          isInputLog,
+          isMonologue,
+          createdAt,
+          userId,
+          folderUUID
+        }
+      });
+
+      if (imageUrls && imageUrls.length > 0) {
+        await tx.reflectionImage.createMany({
+          data: imageUrls.map((imageUrl: string, index: number) => ({
+            reflectionCUID: createdReflection.reflectionCUID,
+            imageUrl,
+            orderIndex: index
+          }))
+        });
       }
+      return createdReflection;
     });
   },
 
