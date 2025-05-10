@@ -1,7 +1,7 @@
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, IconButton, Modal, Typography } from "@mui/material";
 import type { RandomReflection } from "@/src/app/_client/api/reflection-api";
-import { ForbiddenMessage } from "../../../common/forbidden-message/forbiddenMessage";
+import { ForbiddenMessage } from "../../../common/forbidden-message";
 import { ReflectionCardOfModal } from "./ReflectionCardOfModal";
 import { formatDate } from "@/src/app/_shared/date-helper";
 
