@@ -24,7 +24,6 @@ export async function GET(
     const page = parseInt(req.nextUrl.searchParams.get("page") || "1", 10);
     const tag = req.nextUrl.searchParams.get("tag") ?? undefined;
     const folder = req.nextUrl.searchParams.get("folder") ?? undefined;
-    const createdAt = req.nextUrl.searchParams.get("createdAt") ?? undefined; // NOTE: format: YYYY-MM-DD
     // TODO: isDetailModeをパラメータを渡された時のものは、Next15に移行したらAPIを別で作成する
     const isDetailMode = req.nextUrl.searchParams.get("viewMode") === "detail";
 
@@ -35,8 +34,7 @@ export async function GET(
         page,
         tag,
         folder,
-        isDetailMode,
-        createdAt
+        isDetailMode
       );
 
     if (!reflections) {
