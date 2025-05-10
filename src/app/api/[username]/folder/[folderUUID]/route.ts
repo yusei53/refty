@@ -1,54 +1,37 @@
 import { revalidateTag } from "next/cache";
 import { NextResponse, type NextRequest } from "next/server";
-import {
-  internalServerError,
-  notFoundError,
-  unauthorizedError
-} from "@/src/app/_server/http-error";
-import { getUserSession } from "@/src/app/_shared/get-user-session";
+import { notFoundError } from "@/src/app/_server/http-error";
+import { sessionHandler } from "@/src/app/_server/session-handler";
 import prisma from "@/src/app/_shared/lib/prisma";
 
 export async function DELETE(
-  _: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ username: string; folderUUID: string }> }
 ) {
-  const { folderUUID } = await params;
-  try {
-    const session = await getUserSession();
-
-    if (!session) {
-      return unauthorizedError("認証されていません");
-    }
-
+  return sessionHandler(req, "フォルダ削除", async ({ session }) => {
+    // username, session.usernameの比較してない
+    const { folderUUID } = await params;
     const folder = await prisma.reflectionFolder.delete({
-      where: {
-        folderUUID
-      }
+      where: { folderUUID }
     });
 
     if (!folder) {
       return notFoundError("フォルダが見つかりません");
     }
+
     revalidateTag(`${session.username}-folder`);
+
     return NextResponse.json(folder, { status: 200 });
-  } catch (error) {
-    console.error(error);
-    return internalServerError("DELETE", "フォルダ", error);
-  }
+  });
 }
 
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ username: string; folderUUID: string }> }
 ) {
-  const { folderUUID } = await params;
-  try {
+  return sessionHandler(req, "フォルダ更新", async ({ session }) => {
+    const { folderUUID } = await params;
     const { name } = await req.json();
-    const session = await getUserSession();
-
-    if (!session) {
-      return unauthorizedError("認証されていません");
-    }
 
     const folder = await prisma.reflectionFolder.update({
       where: { folderUUID },
@@ -62,8 +45,5 @@ export async function PATCH(
     revalidateTag(`${session.username}-folder`);
 
     return NextResponse.json(folder, { status: 200 });
-  } catch (error) {
-    console.error(error);
-    return internalServerError("PATCH", "フォルダ", error);
-  }
+  });
 }

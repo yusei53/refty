@@ -1,26 +1,17 @@
 import { revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import {
-  forbiddenError,
-  internalServerError,
-  notFoundError,
-  unauthorizedError
-} from "@/src/app/_server/http-error";
+import { forbiddenError, notFoundError } from "@/src/app/_server/http-error";
 import { reflectionRepository } from "@/src/app/_server/infrastructure/repository/reflectionRepository";
 import { reflectionService } from "@/src/app/_server/service/reflectionService";
-import { getUserSession } from "@/src/app/_shared/get-user-session";
+import { sessionHandler } from "@/src/app/_server/session-handler";
 
 export async function GET(
-  _: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ reflectionCUID: string }> }
 ) {
-  try {
+  return sessionHandler(req, "編集", async ({ session }) => {
     const { reflectionCUID } = await params;
-    const session = await getUserSession();
-    if (!session) {
-      return unauthorizedError("認証されていません");
-    }
 
     const reflection = await reflectionService.getDetail(reflectionCUID);
     if (!reflection) {
@@ -32,23 +23,16 @@ export async function GET(
     }
 
     return NextResponse.json(reflection);
-  } catch (error) {
-    return internalServerError("GET", "編集", error);
-  }
+  });
 }
 
 export async function PATCH(
   req: NextRequest,
-  props: { params: Promise<{ reflectionCUID: string }> }
+  { params }: { params: Promise<{ reflectionCUID: string }> }
 ) {
-  const params = await props.params;
-  try {
+  return sessionHandler(req, "編集", async ({ session }) => {
+    const { reflectionCUID } = await params;
     const body = await req.json();
-    const { reflectionCUID } = params;
-    const session = await getUserSession();
-    if (!session) {
-      return unauthorizedError("認証されていません");
-    }
 
     const reflection =
       await reflectionRepository.getReflectionRecord(reflectionCUID);
@@ -69,7 +53,5 @@ export async function PATCH(
     revalidateTag("reflections-all");
 
     return NextResponse.json(updatedReflection, { status: 200 });
-  } catch (error) {
-    return internalServerError("PATCH", "編集", error);
-  }
+  });
 }

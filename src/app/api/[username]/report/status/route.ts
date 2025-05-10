@@ -1,25 +1,21 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import {
-  forbiddenError,
-  internalServerError,
-  notFoundError
-} from "@/src/app/_server/http-error";
+import { forbiddenError, notFoundError } from "@/src/app/_server/http-error";
+import { sessionHandler } from "@/src/app/_server/session-handler";
 import { getUserIdByUsername } from "@/src/app/_shared/actions/get-userId-by-username";
-import { getUserSession } from "@/src/app/_shared/get-user-session";
 import prisma from "@/src/app/_shared/lib/prisma";
 
 export async function GET(
-  _: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ username: string }> }
 ) {
-  const { username } = await params;
-  const userId = await getUserIdByUsername(username);
-  if (!userId) {
-    return notFoundError("ユーザーが見つかりません");
-  }
-  const session = await getUserSession();
-  try {
+  return sessionHandler(req, "レポートステータス取得", async ({ session }) => {
+    const { username } = await params;
+    const userId = await getUserIdByUsername(username);
+    if (!userId) {
+      return notFoundError("ユーザーが見つかりません");
+    }
+
     const user = await prisma.user.findUnique({
       where: { id: userId },
       select: { image: true, isReportOpen: true }
@@ -34,11 +30,5 @@ export async function GET(
       userImage: user?.image,
       session
     });
-  } catch (error) {
-    return internalServerError(
-      "GET",
-      "ユーザーのレポートステータス取得",
-      error
-    );
-  }
+  });
 }

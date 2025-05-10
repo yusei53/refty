@@ -2,12 +2,11 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import {
   internalServerError,
-  notFoundError,
-  unauthorizedError
+  notFoundError
 } from "@/src/app/_server/http-error";
 import { reflectionRepository } from "@/src/app/_server/infrastructure/repository/reflectionRepository";
 import { reflectionService } from "@/src/app/_server/service/reflectionService";
-import { getUserSession } from "@/src/app/_shared/get-user-session";
+import { sessionHandler } from "@/src/app/_server/session-handler";
 
 export async function GET(
   _: NextRequest,
@@ -26,25 +25,16 @@ export async function GET(
 }
 
 export async function DELETE(
-  _: NextRequest,
-  props: { params: Promise<{ reflectionCUID: string }> }
+  req: NextRequest,
+  { params }: { params: Promise<{ reflectionCUID: string }> }
 ) {
-  const params = await props.params;
-  const { reflectionCUID } = params;
-  try {
-    const session = await getUserSession();
-    if (!session) {
-      return unauthorizedError("認証されていません");
-    }
+  return sessionHandler(req, "振り返り削除", async () => {
+    const { reflectionCUID } = await params;
     const reflection =
       await reflectionRepository.deleteReflection(reflectionCUID);
-
     if (!reflection) {
       return notFoundError("振り返りが見つかりません");
     }
-
     return NextResponse.json({ status: 200 });
-  } catch (error) {
-    return internalServerError("DELETE", "詳細ページ", error);
-  }
+  });
 }
