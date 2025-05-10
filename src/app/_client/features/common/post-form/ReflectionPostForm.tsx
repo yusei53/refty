@@ -150,6 +150,14 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
 
   const handleInsertImage = async (file: File) => {
     // TODO: 切り出し
+
+    // NOTE: 画像のサイズを5MBに制限
+    const MAX_FILE_SIZE = 5 * 1024 * 1024;
+    if (file.size > MAX_FILE_SIZE) {
+      console.error("画像のサイズが5MBを超えています");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("file", file);
 
