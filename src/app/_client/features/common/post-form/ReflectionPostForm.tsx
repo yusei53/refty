@@ -211,16 +211,18 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
             }}
           >
             <Box display={"flex"}>
-              <MarkdownSupportPopupAreaContainer />
               {!isMobile && (
-                <BGMSettingPopupAreaContainer
-                  currentTrack={currentTrack ?? ""}
-                  playTrack={playTrack}
-                  stop={stop}
-                  isNightMode={isNightMode}
-                  toggleNightMode={toggleNightMode}
-                  getBGMName={getBGMName}
-                />
+                <>
+                  <MarkdownSupportPopupAreaContainer />
+                  <BGMSettingPopupAreaContainer
+                    currentTrack={currentTrack ?? ""}
+                    playTrack={playTrack}
+                    stop={stop}
+                    isNightMode={isNightMode}
+                    toggleNightMode={toggleNightMode}
+                    getBGMName={getBGMName}
+                  />
+                </>
               )}
             </Box>
             <Box display={"flex"}>
