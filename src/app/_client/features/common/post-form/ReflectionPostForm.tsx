@@ -211,19 +211,22 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
             }}
           >
             <Box display={"flex"}>
-              <MarkdownSupportPopupAreaContainer />
               {!isMobile && (
-                <BGMSettingPopupAreaContainer
-                  currentTrack={currentTrack ?? ""}
-                  playTrack={playTrack}
-                  stop={stop}
-                  isNightMode={isNightMode}
-                  toggleNightMode={toggleNightMode}
-                  getBGMName={getBGMName}
-                />
+                <>
+                  <MarkdownSupportPopupAreaContainer />
+                  <BGMSettingPopupAreaContainer
+                    currentTrack={currentTrack ?? ""}
+                    playTrack={playTrack}
+                    stop={stop}
+                    isNightMode={isNightMode}
+                    toggleNightMode={toggleNightMode}
+                    getBGMName={getBGMName}
+                  />
+                </>
               )}
             </Box>
             <Box display={"flex"}>
+              <ImageUploadButton onImageSelect={handleInsertImage} />
               <ReflectionTemplatePopupAreaContainer
                 onInsertTemplate={handleInsertTemplate}
                 onClearContent={handleClearContent}
@@ -285,7 +288,6 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
         </Box>
         <Box my={{ xs: 14, md: 10 }} mx={{ xs: 0.5, md: 12 }}>
           <Stack gap={3} m={{ md: 2 }}>
-            <ImageUploadButton onImageSelect={handleInsertImage} />
             <Controller
               name="title"
               control={control}
