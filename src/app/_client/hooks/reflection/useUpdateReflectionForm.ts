@@ -63,7 +63,8 @@ export const useUpdateReflectionForm = ({
       isLearning: isLearning,
       isAwareness: isAwareness,
       isInputLog: isInputLog,
-      isMonologue: isMonologue
+      isMonologue: isMonologue,
+      folderUUID: folderUUID
     }
   });
 
