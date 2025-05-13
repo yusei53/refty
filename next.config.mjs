@@ -6,7 +6,8 @@ const nextConfig = {
       "cdn.discordapp.com",
       "profile.line-scdn.net",
       "pbs.twimg.com",
-      "avatars.githubusercontent.com"
+      "avatars.githubusercontent.com",
+      "mtpidqywlapgncmxwyih.supabase.co"
     ]
   }
 };

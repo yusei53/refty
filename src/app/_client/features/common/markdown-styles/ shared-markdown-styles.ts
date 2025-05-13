@@ -128,6 +128,13 @@ export const sharedMarkdownStyles = (theme: Theme) => ({
       border: "#7d8186",
       borderTop: "1px solid grey",
       margin: "2rem 0"
+    },
+
+    img: {
+      maxWidth: "100%",
+      height: "auto",
+      display: "block",
+      margin: "1rem 0"
     }
   }
 });
