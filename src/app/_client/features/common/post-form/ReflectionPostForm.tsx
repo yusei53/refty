@@ -43,7 +43,7 @@ type FormValues = {
   isAwareness: boolean;
   isInputLog: boolean;
   isMonologue: boolean;
-  folderUUID?: string;
+  folderUUID?: string | null;
 };
 
 type ReflectionPostFormProps = {
