@@ -16,9 +16,6 @@ export async function GET(
     "ランダムなReflection取得",
     async ({ session }) => {
       const { username } = await params;
-      if (!username) {
-        return notFoundError("ユーザーネームが見つかりません");
-      }
 
       const userId = await getUserIdByUsername(username);
       if (!userId) {
