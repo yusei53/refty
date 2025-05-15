@@ -1,20 +1,11 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import {
-  internalServerError,
-  unauthorizedError
-} from "@/src/app/_server/http-error";
+import { sessionHandler } from "../../_server/session-handler";
 import { userService } from "@/src/app/_server/service/userService";
-import { getUserSession } from "@/src/app/_shared/get-user-session";
 
 export async function PATCH(req: NextRequest) {
-  try {
+  return sessionHandler(req, "ユーザー名変更", async ({ session }) => {
     const { username } = await req.json();
-    const session = await getUserSession();
-
-    if (!session) {
-      return unauthorizedError("認証されていません");
-    }
 
     const res = await userService.updateUsername({
       userId: session.id,
@@ -22,8 +13,5 @@ export async function PATCH(req: NextRequest) {
     });
 
     return NextResponse.json(res, { status: 201 });
-  } catch (error) {
-    console.error(error);
-    return internalServerError("PATCH", "ユーザー名変更", error);
-  }
+  });
 }

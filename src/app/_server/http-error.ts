@@ -21,5 +21,8 @@ export const internalServerError = (
     `${domain}の${httpMethod}メソッドで500エラーが発生しました`,
     error
   );
-  httpError(`${domain}の${httpMethod}メソッドで500エラーが発生しました`, 500);
+  return httpError(
+    `${domain}の${httpMethod}メソッドで500エラーが発生しました`,
+    500
+  );
 };
