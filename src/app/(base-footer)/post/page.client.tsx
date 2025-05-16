@@ -36,10 +36,9 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
     handleFolderChange,
     handleTagChange,
     addImageUrl,
-    handleEditorChange
+    handleEditorChange,
     watch,
     reset
-
   } = useCreateReflectionForm(username, stop);
 
   useWarningDialog(isDirty, isSubmitSuccessful);
@@ -51,7 +50,6 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
   };
 
   return (
-
     <ReflectionPostForm
       control={control}
       isSubmitting={isSubmitting}
@@ -76,7 +74,6 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
       reset={reset}
       isPostPage
     />
-
   );
 };
 

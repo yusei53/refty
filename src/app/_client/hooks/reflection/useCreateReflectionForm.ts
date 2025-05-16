@@ -22,7 +22,7 @@ export const createReflectionSchema = z.object({
   isAwareness: z.boolean().default(false),
   isInputLog: z.boolean().default(false),
   isMonologue: z.boolean().default(false),
-  folderUUID: z.string().nullable().optional()
+  folderUUID: z.string().nullable().optional(),
   imageUrls: z.string().array().optional()
 });
 
@@ -162,7 +162,7 @@ export const useCreateReflectionForm = (
     handleFolderChange,
     handleTagChange,
     addImageUrl,
-    handleEditorChange
+    handleEditorChange,
     watch,
     reset
   };

@@ -3,13 +3,13 @@ import { Controller } from "react-hook-form";
 import { Box, Stack } from "@mui/material";
 import type { MarkdownEditorRef } from "../../routes/post/markdown-editor";
 import type { Folder } from "@/src/app/_client/api/folder-api";
-import { reflectionAPI } from "../../../api/reflection-api";
 import type {
   Control,
   FieldErrors,
   UseFormReset,
   UseFormWatch
 } from "react-hook-form";
+import { reflectionAPI } from "../../../api/reflection-api";
 import { useAutoSave } from "../../../hooks/reflection/useAutoSave";
 import EmojiPicker from "../../routes/post/emoji/EmojiPicker";
 import { ImageUploadButton } from "../../routes/post/image-upload/ImageUploadButton";
@@ -103,7 +103,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   isNightMode,
   setIsNightMode,
   addImageUrl,
-  handleEditorChange
+  handleEditorChange,
   watch,
   reset,
   isPostPage = false
@@ -247,7 +247,6 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
                       deleteDraft={deleteDraft}
                     />
                   )}
-
                 </>
               )}
             </Box>
