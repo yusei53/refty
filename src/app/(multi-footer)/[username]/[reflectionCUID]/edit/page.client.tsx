@@ -67,10 +67,9 @@ const ReflectionUpdateFormPage: React.FC<ReflectionUpdateFormPageProps> = ({
     selectedFolderUUID,
     handleFolderChange,
     addImageUrl,
-    handleEditorChange
+    handleEditorChange,
     watch,
     reset
-
   } = useUpdateReflectionForm({
     reflectionCUID,
     username,
@@ -121,7 +120,6 @@ const ReflectionUpdateFormPage: React.FC<ReflectionUpdateFormPageProps> = ({
       // TODO: watchとresetは本来要らないので削除する(ReflectionPostFormのリファクタリング)
       watch={watch}
       reset={reset}
-
     />
   );
 };
