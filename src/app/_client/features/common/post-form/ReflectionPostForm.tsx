@@ -3,12 +3,19 @@ import { Controller } from "react-hook-form";
 import { Box, Stack } from "@mui/material";
 import type { MarkdownEditorRef } from "../../routes/post/markdown-editor";
 import type { Folder } from "@/src/app/_client/api/folder-api";
-import type { Control, FieldErrors } from "react-hook-form";
 import { reflectionAPI } from "../../../api/reflection-api";
+import type {
+  Control,
+  FieldErrors,
+  UseFormReset,
+  UseFormWatch
+} from "react-hook-form";
+import { useAutoSave } from "../../../hooks/reflection/useAutoSave";
 import EmojiPicker from "../../routes/post/emoji/EmojiPicker";
 import { ImageUploadButton } from "../../routes/post/image-upload/ImageUploadButton";
 import { MarkdownEditor } from "../../routes/post/markdown-editor";
 import { BGMSettingPopupAreaContainer } from "../../routes/post/popup/BGM-setting/BGMSettingPopupAreaContainer";
+import { DraftPopupAreaContainer } from "../../routes/post/popup/draft/DraftPopupAreaContainer";
 import { FolderSettingPopupAreaContainer } from "../../routes/post/popup/folder-setting";
 import { MarkdownSupportPopupAreaContainer } from "../../routes/post/popup/markdown-support";
 import { PublishSettingPopupAreaContainer } from "../../routes/post/popup/publish-setting";
@@ -38,7 +45,7 @@ type FormValues = {
   isAwareness: boolean;
   isInputLog: boolean;
   isMonologue: boolean;
-  folderUUID?: string;
+  folderUUID?: string | null;
 };
 
 type ReflectionPostFormProps = {
@@ -67,6 +74,9 @@ type ReflectionPostFormProps = {
   setIsNightMode: (isNightMode: boolean) => void;
   addImageUrl: (url: string) => void;
   handleEditorChange: (editorContent: string) => void;
+  watch: UseFormWatch<FormValues>;
+  reset: UseFormReset<FormValues>;
+  isPostPage?: boolean;
 };
 
 const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
@@ -94,6 +104,9 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   setIsNightMode,
   addImageUrl,
   handleEditorChange
+  watch,
+  reset,
+  isPostPage = false
 }) => {
   const [isComposing, setIsComposing] = useState(false);
   const editorRef = useRef<MarkdownEditorRef>(null);
@@ -106,6 +119,9 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
     isInputLog,
     isMonologue
   });
+
+  const { deleteDraft, draftList, currentDraftId, handleDraftChange } =
+    useAutoSave(watch, isSubmitSuccessful, reset);
 
   const handleEnter = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
@@ -222,6 +238,16 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
                     toggleNightMode={toggleNightMode}
                     getBGMName={getBGMName}
                   />
+
+                  {isPostPage && (
+                    <DraftPopupAreaContainer
+                      draftList={draftList}
+                      currentDraftId={currentDraftId}
+                      onDraftChange={handleDraftChange}
+                      deleteDraft={deleteDraft}
+                    />
+                  )}
+
                 </>
               )}
             </Box>
@@ -283,6 +309,14 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
                   />
                 )}
               />
+              {isPostPage && (
+                <DraftPopupAreaContainer
+                  draftList={draftList}
+                  currentDraftId={currentDraftId}
+                  onDraftChange={handleDraftChange}
+                  deleteDraft={deleteDraft}
+                />
+              )}
             </Box>
           )}
         </Box>

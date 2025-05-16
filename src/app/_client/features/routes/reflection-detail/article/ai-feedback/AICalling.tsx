@@ -4,7 +4,7 @@ import { AILoading } from "@/src/app/_client/components/loading";
 export const AICalling = () => {
   return (
     <Box display={"flex"} alignItems={"center"}>
-      <Typography mr={1}>考えてます</Typography>
+      <Typography mr={1}>考えています</Typography>
       <AILoading />
     </Box>
   );

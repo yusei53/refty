@@ -22,7 +22,7 @@ export const createReflectionSchema = z.object({
   isAwareness: z.boolean().default(false),
   isInputLog: z.boolean().default(false),
   isMonologue: z.boolean().default(false),
-  folderUUID: z.string().optional(),
+  folderUUID: z.string().nullable().optional()
   imageUrls: z.string().array().optional()
 });
 
@@ -43,7 +43,9 @@ export const useCreateReflectionForm = (
     handleSubmit,
     control,
     setValue,
-    formState: { isDirty, isSubmitting, isSubmitSuccessful, errors }
+    formState: { isDirty, isSubmitting, isSubmitSuccessful, errors },
+    watch,
+    reset
   } = useForm<CreateReflectionSchemaType>({
     resolver: zodResolver(createReflectionSchema),
     defaultValues: {
@@ -120,7 +122,10 @@ export const useCreateReflectionForm = (
 
   const onSubmit = handleSubmit(
     async (formData: CreateReflectionSchemaType) => {
-      const res = await reflectionAPI.createReflection(formData);
+      const res = await reflectionAPI.createReflection({
+        ...formData,
+        folderUUID: formData.folderUUID ?? undefined
+      });
       if (res === 401) {
         router.push(`/login`);
         return;
@@ -158,5 +163,7 @@ export const useCreateReflectionForm = (
     handleTagChange,
     addImageUrl,
     handleEditorChange
+    watch,
+    reset
   };
 };

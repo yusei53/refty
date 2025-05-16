@@ -49,7 +49,10 @@ export const useUpdateReflectionForm = ({
     handleSubmit,
     control,
     setValue,
-    formState: { isSubmitting, isSubmitSuccessful, errors }
+    formState: { isSubmitting, isSubmitSuccessful, errors },
+    // TODO: watchとresetは本来要らないので削除する
+    watch,
+    reset
   } = useForm<CreateReflectionSchemaType>({
     resolver: zodResolver(createReflectionSchema),
     defaultValues: {
@@ -61,7 +64,8 @@ export const useUpdateReflectionForm = ({
       isLearning: isLearning,
       isAwareness: isAwareness,
       isInputLog: isInputLog,
-      isMonologue: isMonologue
+      isMonologue: isMonologue,
+      folderUUID: folderUUID
     }
   });
 
@@ -137,7 +141,7 @@ export const useUpdateReflectionForm = ({
         isAwareness: formData.isAwareness,
         isInputLog: formData.isInputLog,
         isMonologue: formData.isMonologue,
-        folderUUID: formData.folderUUID
+        folderUUID: formData.folderUUID ?? undefined
       });
 
       if (res === 401) {
@@ -164,5 +168,7 @@ export const useUpdateReflectionForm = ({
     handleFolderChange,
     addImageUrl,
     handleEditorChange
+    watch,
+    reset
   };
 };

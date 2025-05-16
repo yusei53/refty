@@ -1,1 +1,1 @@
-export { MobileFooter } from "./MobileFooter";
+export { PWAFooter } from "./PWAFooter";

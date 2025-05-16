@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import { MobileFooterButton } from "./MobileFooterButton";
 import { theme } from "@/src/app/_client/utils/theme";
 
-export const MobileFooter = () => {
+export const PWAFooter = () => {
   const { data: session } = useSession();
 
   return (
@@ -19,6 +19,7 @@ export const MobileFooter = () => {
       pb={3.5}
       position={"sticky"}
       bottom={0}
+      zIndex={1}
     >
       <MobileFooterButton
         href={"/"}
