@@ -20,7 +20,7 @@ export async function DELETE(
       return unauthorizedError("認証されていません");
     }
 
-    const folder = await prisma.reflectionFolder.delete({
+    const folder = await prisma.reflectionFolder.findUnique({
       where: {
         folderUUID
       }
@@ -29,8 +29,19 @@ export async function DELETE(
     if (!folder) {
       return notFoundError("フォルダが見つかりません");
     }
+
+    if (process.env.NEXT_PUBLIC_TEST_ENV === "test") {
+      return NextResponse.json(null, { status: 200 });
+    }
+
+    await prisma.reflectionFolder.delete({
+      where: {
+        folderUUID
+      }
+    });
+
     revalidateTag(`${session.username}-folder`);
-    return NextResponse.json(folder, { status: 200 });
+    return NextResponse.json(null, { status: 200 });
   } catch (error) {
     console.error(error);
     return internalServerError("DELETE", "フォルダ", error);

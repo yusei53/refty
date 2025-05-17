@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (process.env.NEXT_PUBLIC_TEST_ENV === "test") {
-      return NextResponse.json({ id: "dummy-id", ...body }, { status: 201 });
+      return NextResponse.json(null, { status: 201 });
     }
     const reflection = await reflectionService.create({
       ...body,
