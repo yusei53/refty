@@ -1,3 +1,4 @@
+// MEMO: ファイル名を安全な形式に変換する関数
 export const sanitizeFileName = (fileName: string): string => {
   // MEMO: 拡張子を取得
   const extension = fileName.split(".").pop() || "";
