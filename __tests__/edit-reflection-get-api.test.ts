@@ -1,4 +1,4 @@
-import { request } from "./util/fetchURL";
+import { request } from "./util/request";
 import {
   reflection,
   yusei53Reflection
