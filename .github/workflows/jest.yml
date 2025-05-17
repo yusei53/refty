@@ -1,15 +1,15 @@
-name: Playwright Tests
+name: Jest Tests
 
 on:
   push:
     branches: [main, master]
     paths:
       - "src/**"
-      - "e2e/**"
+      - "__tests__/**"
       - "package.json"
       - "package-lock.json"
-      - ".github/workflows/playwright.yml"
-      - "playwright.config.ts"
+      - ".github/workflows/jest.yml"
+      - "jest.config.js"
       - "tsconfig.json"
       - "next.config.mjs"
       - "prisma/**"
@@ -18,17 +18,18 @@ on:
     branches: [main, master]
     paths:
       - "src/**"
-      - "e2e/**"
+      - "__tests__/**"
       - "package.json"
       - "package-lock.json"
-      - ".github/workflows/playwright.yml"
-      - "playwright.config.ts"
+      - ".github/workflows/jest.yml"
+      - "jest.config.js"
       - "tsconfig.json"
       - "next.config.mjs"
       - "prisma/**"
+
 jobs:
   test:
-    timeout-minutes: 60
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     env:
       NEXT_PUBLIC_AWS_REGION: ${{ secrets.NEXT_PUBLIC_AWS_REGION }}
@@ -53,6 +54,7 @@ jobs:
       NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
       NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
       NEXT_PUBLIC_TEST_ENV: "test"
+
     steps:
       - uses: actions/checkout@v4
 
@@ -66,15 +68,17 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+      - name: Start development server
+        run: npm run dev:test &
+        env:
+          NEXT_PUBLIC_TEST_ENV: "test"
 
-      - name: Run Playwright tests
-        run: npx playwright test
+      - name: Run Jest tests
+        run: npx jest
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: playwright-report
-          path: playwright-report/
+          name: jest-report
+          path: coverage/
           retention-days: 30

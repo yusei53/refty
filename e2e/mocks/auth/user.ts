@@ -11,3 +11,9 @@ export const refty = {
   website: "https://refty.com",
   isReportOpen: false
 };
+
+export const reftyFolder = {
+  folderUUID: "94031101816045aa9ded22c93691693a",
+  name: "リフティ公式のフォルダ",
+  userId: refty.id
+};
