@@ -1,4 +1,4 @@
-import { request } from "./util/request";
+import { request } from "../../util/request";
 import { requestReflection } from "@/e2e/mocks/reflection/reflection";
 
 describe("未認証ユーザー", () => {
@@ -7,16 +7,16 @@ describe("未認証ユーザー", () => {
       "/api/reflection",
       requestReflection
     );
-    expect(response).toBe(401);
+    expect(response.status).toBe(401);
   });
 });
 
 describe("認証済みユーザー", () => {
-  test("リクエストが許可され、201が返る", async () => {
+  test("リクエストが許可され、201が返される", async () => {
     const response = await request.authorized.POST(
       "/api/reflection",
       requestReflection
     );
-    expect(response).toBe(201);
+    expect(response.status).toBe(201);
   });
 });
