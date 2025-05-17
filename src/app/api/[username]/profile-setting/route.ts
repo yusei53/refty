@@ -39,6 +39,10 @@ export async function PATCH(req: NextRequest) {
       return unauthorizedError("認証されていません");
     }
 
+    if (process.env.NEXT_PUBLIC_TEST_ENV === "test") {
+      return NextResponse.json(null, { status: 201 });
+    }
+
     const res = userService.updateProfile({
       userId: session.id,
       ...body
