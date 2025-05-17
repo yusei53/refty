@@ -1,4 +1,4 @@
-import { request } from "./util/request";
+import { request } from "../../util/request";
 import {
   reflection,
   requestReflection,
@@ -11,7 +11,7 @@ describe("未認証ユーザー", () => {
       `/api/reflection/detail/${reflection.reflectionCUID}/edit`,
       requestReflection
     );
-    expect(response).toBe(401);
+    expect(response.status).toBe(401);
   });
 });
 
@@ -21,7 +21,7 @@ describe("認証済みユーザー", () => {
       `/api/reflection/detail/${yusei53Reflection.reflectionCUID}/edit`,
       requestReflection
     );
-    expect(response).toBe(403);
+    expect(response.status).toBe(403);
   });
 
   test("指定されたreflectionCUIDが存在せず、編集するリクエストが飛ばされた場合、404エラーが返される", async () => {
@@ -29,7 +29,7 @@ describe("認証済みユーザー", () => {
       `/api/reflection/detail/not-exist-reflection-cuid/edit`,
       requestReflection
     );
-    expect(response).toBe(404);
+    expect(response.status).toBe(404);
   });
 
   test("指定されたreflectionCUIDが自身の投稿であり、編集するリクエストが飛ばされた場合、200が返される", async () => {
@@ -37,6 +37,6 @@ describe("認証済みユーザー", () => {
       `/api/reflection/detail/${reflection.reflectionCUID}/edit`,
       requestReflection
     );
-    expect(response).toBe(200);
+    expect(response.status).toBe(200);
   });
 });

@@ -16,10 +16,16 @@ type RequestOptions = {
 
 type StatusCode = 200 | 201 | 400 | 401 | 403 | 404;
 
+type Response = {
+  status: StatusCode;
+  data?: Record<string, unknown>;
+};
+
 type RequestHandler = {
-  GET: (path: string) => Promise<StatusCode>;
-  POST: (path: string, body: Record<string, unknown>) => Promise<StatusCode>;
-  PATCH: (path: string, body: Record<string, unknown>) => Promise<StatusCode>;
+  GET: (path: string) => Promise<Response>;
+  POST: (path: string, body: Record<string, unknown>) => Promise<Response>;
+  PATCH: (path: string, body: Record<string, unknown>) => Promise<Response>;
+  DELETE: (path: string) => Promise<Response>;
 };
 
 type Request = {
@@ -45,9 +51,11 @@ const createRequestOptions = (
 const fetchRequest = async (
   path: string,
   options: RequestOptions
-): Promise<StatusCode> => {
+): Promise<Response> => {
   const response = await fetch(`${API_CONFIG.BASE_URL}${path}`, options);
-  return response.status as StatusCode;
+  const status = response.status as StatusCode;
+  const data = await response.json();
+  return { status, data };
 };
 
 export const request: Request = {
@@ -57,7 +65,9 @@ export const request: Request = {
     POST: (path: string, body: Record<string, unknown>) =>
       fetchRequest(path, createRequestOptions("POST", false, body)),
     PATCH: (path: string, body: Record<string, unknown>) =>
-      fetchRequest(path, createRequestOptions("PATCH", false, body))
+      fetchRequest(path, createRequestOptions("PATCH", false, body)),
+    DELETE: (path: string) =>
+      fetchRequest(path, createRequestOptions("DELETE", false))
   },
   authorized: {
     GET: (path: string) =>
@@ -65,6 +75,8 @@ export const request: Request = {
     POST: (path: string, body: Record<string, unknown>) =>
       fetchRequest(path, createRequestOptions("POST", true, body)),
     PATCH: (path: string, body: Record<string, unknown>) =>
-      fetchRequest(path, createRequestOptions("PATCH", true, body))
+      fetchRequest(path, createRequestOptions("PATCH", true, body)),
+    DELETE: (path: string) =>
+      fetchRequest(path, createRequestOptions("DELETE", true))
   }
 };

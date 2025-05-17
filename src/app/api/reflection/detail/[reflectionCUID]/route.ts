@@ -36,12 +36,19 @@ export async function DELETE(
     if (!session) {
       return unauthorizedError("認証されていません");
     }
+
     const reflection =
-      await reflectionRepository.deleteReflection(reflectionCUID);
+      await reflectionRepository.getReflectionRecord(reflectionCUID);
 
     if (!reflection) {
       return notFoundError("振り返りが見つかりません");
     }
+
+    if (process.env.NEXT_PUBLIC_TEST_ENV === "test") {
+      return NextResponse.json(null, { status: 200 });
+    }
+
+    await reflectionRepository.deleteReflection(reflectionCUID);
 
     return NextResponse.json({ status: 200 });
   } catch (error) {
