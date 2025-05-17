@@ -11,6 +11,7 @@ import type {
 } from "react-hook-form";
 import { reflectionAPI } from "../../../api/reflection-api";
 import { useAutoSave } from "../../../hooks/reflection/useAutoSave";
+import { sanitizeFileName } from "../../../utils/sanitize-file-name";
 import EmojiPicker from "../../routes/post/emoji/EmojiPicker";
 import { ImageUploadButton } from "../../routes/post/image-upload/ImageUploadButton";
 import { MarkdownEditor } from "../../routes/post/markdown-editor";
@@ -164,9 +165,9 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
 
   const toggleNightMode = () => setIsNightMode(!isNightMode);
 
-  const handleInsertImage = async (file: File) => {
-    // TODO: 切り出し
+  //TODO: 切り出し
 
+  const handleFileUpload = async (file: File) => {
     // NOTE: 画像のサイズを5MBに制限
     const MAX_FILE_SIZE = 5 * 1024 * 1024;
     if (file.size > MAX_FILE_SIZE) {
@@ -174,8 +175,17 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
       return;
     }
 
+    // MEMO: ファイル名を安全な形式に変換
+    const safeFileName = sanitizeFileName(file.name);
+
+    // MEMO: 新しいFileオブジェクトを作成（元のファイルの内容はそのまま）
+    const safeFile = new File([file], safeFileName, {
+      type: file.type,
+      lastModified: file.lastModified
+    });
+
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", safeFile);
 
     const res = await reflectionAPI.uploadReflectionImage(formData);
 
@@ -251,7 +261,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
               )}
             </Box>
             <Box display={"flex"}>
-              <ImageUploadButton onImageSelect={handleInsertImage} />
+              <ImageUploadButton onImageSelect={handleFileUpload} />
               <ReflectionTemplatePopupAreaContainer
                 onInsertTemplate={handleInsertTemplate}
                 onClearContent={handleClearContent}
