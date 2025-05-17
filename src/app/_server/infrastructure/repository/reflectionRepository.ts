@@ -195,8 +195,8 @@ export const reflectionRepository = {
       imageUrls
     } = params;
 
-    return prisma.$transaction(async (tx) => {
-      const createdReflection = await tx.reflection.create({
+    return prisma.$transaction(async (transaction) => {
+      const createdReflection = await transaction.reflection.create({
         data: {
           title,
           content,
@@ -214,7 +214,7 @@ export const reflectionRepository = {
       });
 
       if (imageUrls && imageUrls.length > 0) {
-        await tx.reflectionImage.createMany({
+        await transaction.reflectionImage.createMany({
           data: imageUrls.map((imageUrl: string, index: number) => ({
             reflectionCUID: createdReflection.reflectionCUID,
             imageUrl,
@@ -278,8 +278,8 @@ export const reflectionRepository = {
     } = params;
 
     // MEMO: 画像の差分（追加と削除）についてトランザクション内で処理
-    return prisma.$transaction(async (tx) => {
-      const updatedReflection = await tx.reflection.update({
+    return prisma.$transaction(async (transaction) => {
+      const updatedReflection = await transaction.reflection.update({
         where: { reflectionCUID },
         data: {
           title,
@@ -295,7 +295,7 @@ export const reflectionRepository = {
         }
       });
       if (addImageUrls && addImageUrls.length > 0) {
-        await tx.reflectionImage.createMany({
+        await transaction.reflectionImage.createMany({
           data: addImageUrls.map((imageUrl: string, index: number) => ({
             reflectionCUID,
             imageUrl,
@@ -304,7 +304,7 @@ export const reflectionRepository = {
         });
       }
       if (deleteImageUrls && deleteImageUrls.length > 0) {
-        await tx.reflectionImage.deleteMany({
+        await transaction.reflectionImage.deleteMany({
           where: {
             reflectionCUID,
             imageUrl: {
