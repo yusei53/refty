@@ -25,7 +25,9 @@ describe("認証済みユーザー", () => {
     expect(response.status).toBe(404);
   });
 
-  test("非公開かつ自身のレポートにアクセスした場合、200が返される", async () => {
+  // TODO: 非公開かつ他人のレポートにアクセスした場合、403エラーが返されるテストを追加
+
+  test("非公開かつ他人のレポートにアクセスした場合、403エラーが返される", async () => {
     const response = await request.authorized.GET(
       `/api/${refty.username}/report/reflection-time`
     );

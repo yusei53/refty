@@ -17,6 +17,8 @@ describe("未認証ユーザー", () => {
   });
 });
 
+// TODO: 非公開かつ他人のレポートにアクセスした場合、403エラーが返されるテストを追加
+
 describe("認証済みユーザー", () => {
   test("指定したユーザーネームが存在しない場合、404エラーが返される", async () => {
     const response = await request.authorized.GET(
