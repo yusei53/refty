@@ -273,6 +273,7 @@ export const reflectionService = {
     isInputLog: boolean;
     isMonologue: boolean;
     folderUUID?: string;
+    imageUrls?: string[];
   }) {
     const {
       reflectionCUID,
@@ -285,16 +286,32 @@ export const reflectionService = {
       isAwareness,
       isInputLog,
       isMonologue,
-      folderUUID
+      folderUUID,
+      imageUrls
     } = params;
 
     const reflection = await prisma.reflection.findUnique({
-      where: { reflectionCUID }
+      where: { reflectionCUID },
+      include: {
+        images: true
+      }
     });
 
     if (!reflection) {
       return notFoundError("振り返りが見つかりません");
     }
+
+    // MEMO: DBにある画像と編集時の画像を比較して追加と削除の画像配列を作成
+    const existingImageUrls =
+      reflection.images?.map((img) => img.imageUrl) || [];
+    const newImageUrls = imageUrls || [];
+
+    const addImageUrls = newImageUrls.filter(
+      (url) => !existingImageUrls.includes(url)
+    );
+    const deleteImageUrls = existingImageUrls.filter(
+      (url) => !newImageUrls.includes(url)
+    );
 
     return await reflectionRepository.updateReflection({
       reflectionCUID,
@@ -307,7 +324,9 @@ export const reflectionService = {
       isAwareness,
       isInputLog,
       isMonologue,
-      folderUUID
+      folderUUID,
+      addImageUrls,
+      deleteImageUrls
     });
   },
 
