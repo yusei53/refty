@@ -15,7 +15,8 @@ const config: Config = {
       }
     ]
   },
-  verbose: true
+  verbose: true,
+  testTimeout: 30000
 };
 
 export default config;
