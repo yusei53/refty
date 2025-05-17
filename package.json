@@ -6,7 +6,7 @@
     "dev": "next dev",
     "dev:test": "NEXT_PUBLIC_TEST_ENV=test next dev",
     "test:e2e": "playwright test",
-    "test:jest": "jest",
+    "test:jest": "jest --maxWorkers=4",
     "test:ui": "playwright test --ui",
     "build": "prisma generate && next build",
     "start": "next start",
