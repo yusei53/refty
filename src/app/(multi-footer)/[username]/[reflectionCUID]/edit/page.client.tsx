@@ -66,6 +66,8 @@ const ReflectionUpdateFormPage: React.FC<ReflectionUpdateFormPageProps> = ({
     handleTagChange,
     selectedFolderUUID,
     handleFolderChange,
+    addImageUrl,
+    handleEditorChange,
     watch,
     reset
   } = useUpdateReflectionForm({
@@ -113,6 +115,8 @@ const ReflectionUpdateFormPage: React.FC<ReflectionUpdateFormPageProps> = ({
       getBGMName={getBGMName}
       isNightMode={isNightMode}
       setIsNightMode={setIsNightMode}
+      addImageUrl={addImageUrl}
+      handleEditorChange={handleEditorChange}
       // TODO: watchとresetは本来要らないので削除する(ReflectionPostFormのリファクタリング)
       watch={watch}
       reset={reset}

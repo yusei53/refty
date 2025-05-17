@@ -1,5 +1,6 @@
 import { forwardRef, useImperativeHandle, useEffect } from "react";
 import Highlight from "@tiptap/extension-highlight";
+import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import Typography from "@tiptap/extension-typography";
@@ -7,7 +8,6 @@ import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { StyledEditorContent } from "./StyledEditorContent";
 import HighlightMark from "./highlight-mark";
-
 type MarkdownEditorProps = {
   value: string;
   onChange: (content: string) => void;
@@ -17,6 +17,7 @@ export type MarkdownEditorRef = {
   focus: () => void;
   insertText: (text: string) => void;
   clearContent: () => void;
+  insertImage: (url: string) => void;
 };
 
 export const MarkdownEditor = forwardRef<
@@ -35,7 +36,8 @@ export const MarkdownEditor = forwardRef<
       Link.configure({
         openOnClick: true, // クリックでリンクを開く
         autolink: true // 自動リンク化
-      })
+      }),
+      Image
     ],
     content: value,
     onUpdate: ({ editor }) => {
@@ -61,6 +63,11 @@ export const MarkdownEditor = forwardRef<
       },
       clearContent: () => {
         editor?.commands.setContent("");
+      },
+      insertImage: (url: string) => {
+        if (editor) {
+          editor.chain().focus().setImage({ src: url }).run();
+        }
       }
     }),
     [editor]

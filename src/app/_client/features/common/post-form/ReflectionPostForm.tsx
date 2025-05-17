@@ -9,8 +9,11 @@ import type {
   UseFormReset,
   UseFormWatch
 } from "react-hook-form";
+import { reflectionAPI } from "../../../api/reflection-api";
 import { useAutoSave } from "../../../hooks/reflection/useAutoSave";
+import { sanitizeFileName } from "../../../utils/sanitize-file-name";
 import EmojiPicker from "../../routes/post/emoji/EmojiPicker";
+import { ImageUploadButton } from "../../routes/post/image-upload/ImageUploadButton";
 import { MarkdownEditor } from "../../routes/post/markdown-editor";
 import { BGMSettingPopupAreaContainer } from "../../routes/post/popup/BGM-setting/BGMSettingPopupAreaContainer";
 import { DraftPopupAreaContainer } from "../../routes/post/popup/draft/DraftPopupAreaContainer";
@@ -70,6 +73,8 @@ type ReflectionPostFormProps = {
   getBGMName: () => string;
   isNightMode: boolean;
   setIsNightMode: (isNightMode: boolean) => void;
+  addImageUrl: (url: string) => void;
+  handleEditorChange: (editorContent: string) => void;
   watch: UseFormWatch<FormValues>;
   reset: UseFormReset<FormValues>;
   isPostPage?: boolean;
@@ -98,6 +103,8 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   getBGMName,
   isNightMode,
   setIsNightMode,
+  addImageUrl,
+  handleEditorChange,
   watch,
   reset,
   isPostPage = false
@@ -158,6 +165,43 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
 
   const toggleNightMode = () => setIsNightMode(!isNightMode);
 
+  //TODO: 切り出し
+
+  const handleFileUpload = async (file: File) => {
+    // NOTE: 画像のサイズを5MBに制限
+    const MAX_FILE_SIZE = 5 * 1024 * 1024;
+    if (file.size > MAX_FILE_SIZE) {
+      console.error("画像のサイズが5MBを超えています");
+      return;
+    }
+
+    // MEMO: ファイル名を安全な形式に変換
+    const safeFileName = sanitizeFileName(file.name);
+
+    // MEMO: 新しいFileオブジェクトを作成（元のファイルの内容はそのまま）
+    const safeFile = new File([file], safeFileName, {
+      type: file.type,
+      lastModified: file.lastModified
+    });
+
+    const formData = new FormData();
+    formData.append("file", safeFile);
+
+    const res = await reflectionAPI.uploadReflectionImage(formData);
+
+    if (res === 401) {
+      console.error("画像アップロードに失敗しました");
+      return;
+    }
+
+    const imageUrl = res.imageUrl;
+    if (imageUrl) {
+      editorRef.current?.insertImage(imageUrl);
+    }
+
+    addImageUrl(imageUrl);
+  };
+
   return (
     <>
       {animationWithSelectedBGM()}
@@ -193,9 +237,9 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
             }}
           >
             <Box display={"flex"}>
-              <MarkdownSupportPopupAreaContainer />
               {!isMobile && (
                 <>
+                  <MarkdownSupportPopupAreaContainer />
                   <BGMSettingPopupAreaContainer
                     currentTrack={currentTrack ?? ""}
                     playTrack={playTrack}
@@ -204,6 +248,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
                     toggleNightMode={toggleNightMode}
                     getBGMName={getBGMName}
                   />
+
                   {isPostPage && (
                     <DraftPopupAreaContainer
                       draftList={draftList}
@@ -216,6 +261,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
               )}
             </Box>
             <Box display={"flex"}>
+              <ImageUploadButton onImageSelect={handleFileUpload} />
               <ReflectionTemplatePopupAreaContainer
                 onInsertTemplate={handleInsertTemplate}
                 onClearContent={handleClearContent}
@@ -336,7 +382,10 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
                   <MarkdownEditor
                     value={field.value}
                     ref={editorRef}
-                    onChange={field.onChange}
+                    onChange={(editorContent) => {
+                      handleEditorChange(editorContent);
+                      field.onChange(editorContent);
+                    }}
                   />
                   {errors.content && (
                     <ErrorMessage message={errors.content.message} />
