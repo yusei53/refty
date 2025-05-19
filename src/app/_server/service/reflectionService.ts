@@ -344,6 +344,29 @@ export const reflectionService = {
       public: publicCount,
       private: privateCount
     };
+  },
+
+  async getReflectionsByDate(
+    userId: string,
+    isCurrentUser: boolean,
+    createdAt?: string
+  ) {
+    const createdAtJST = createdAt ? toJST(new Date(createdAt)) : undefined;
+    const jstStart = createdAtJST
+      ? toJST(new Date(createdAtJST.setHours(0, 0, 0, 0)))
+      : undefined;
+    const jstEnd = createdAtJST
+      ? toJST(new Date(createdAtJST.setHours(23, 59, 59, 999)))
+      : undefined;
+    const createdAtFilter = createdAtJST
+      ? { createdAt: { gte: jstStart, lt: jstEnd } }
+      : undefined;
+
+    return await reflectionRepository.getReflectionsByDate(
+      userId,
+      isCurrentUser,
+      createdAtFilter
+    );
   }
 };
 

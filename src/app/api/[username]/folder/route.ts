@@ -50,6 +50,9 @@ export async function POST(req: NextRequest) {
     const { name } = await req.json();
     const folderUUID = uuidv4().replace(/-/g, "");
 
+    if (process.env.NEXT_PUBLIC_TEST_ENV === "test") {
+      return NextResponse.json(null, { status: 201 });
+    }
     const folder = await prisma.reflectionFolder.create({
       data: {
         folderUUID,

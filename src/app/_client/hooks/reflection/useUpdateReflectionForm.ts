@@ -63,7 +63,8 @@ export const useUpdateReflectionForm = ({
       isLearning: isLearning,
       isAwareness: isAwareness,
       isInputLog: isInputLog,
-      isMonologue: isMonologue
+      isMonologue: isMonologue,
+      folderUUID: folderUUID
     }
   });
 
@@ -92,7 +93,7 @@ export const useUpdateReflectionForm = ({
         isAwareness: formData.isAwareness,
         isInputLog: formData.isInputLog,
         isMonologue: formData.isMonologue,
-        folderUUID: formData.folderUUID
+        folderUUID: formData.folderUUID ?? undefined
       });
 
       if (res === 401) {

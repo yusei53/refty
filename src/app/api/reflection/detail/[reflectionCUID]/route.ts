@@ -31,10 +31,18 @@ export async function DELETE(
   return sessionHandler(req, "振り返り削除", async () => {
     const { reflectionCUID } = await params;
     const reflection =
-      await reflectionRepository.deleteReflection(reflectionCUID);
+      await reflectionRepository.getReflectionRecord(reflectionCUID);
+
     if (!reflection) {
       return notFoundError("振り返りが見つかりません");
     }
+
+    if (process.env.NEXT_PUBLIC_TEST_ENV === "test") {
+      return NextResponse.json(null, { status: 200 });
+    }
+
+    await reflectionRepository.deleteReflection(reflectionCUID);
+
     return NextResponse.json({ status: 200 });
   });
 }

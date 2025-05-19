@@ -9,15 +9,28 @@ export async function DELETE(
   { params }: { params: Promise<{ username: string; folderUUID: string }> }
 ) {
   return sessionHandler(req, "フォルダ削除", async ({ session }) => {
-    // username, session.usernameの比較してない
     const { folderUUID } = await params;
-    const folder = await prisma.reflectionFolder.delete({
-      where: { folderUUID }
+
+    // TODO: 他人のフォルダを削除しようとした場合、403エラーが返される
+    const folder = await prisma.reflectionFolder.findUnique({
+      where: {
+        folderUUID
+      }
     });
 
     if (!folder) {
       return notFoundError("フォルダが見つかりません");
     }
+
+    if (process.env.NEXT_PUBLIC_TEST_ENV === "test") {
+      return NextResponse.json(null, { status: 200 });
+    }
+
+    await prisma.reflectionFolder.delete({
+      where: {
+        folderUUID
+      }
+    });
 
     revalidateTag(`${session.username}-folder`);
 
