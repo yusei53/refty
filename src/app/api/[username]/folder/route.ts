@@ -4,11 +4,10 @@ import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 import {
   internalServerError,
-  notFoundError,
-  unauthorizedError
+  notFoundError
 } from "@/src/app/_server/http-error";
+import { sessionHandler } from "@/src/app/_server/session-handler";
 import { getUserIdByUsername } from "@/src/app/_shared/actions/get-userId-by-username";
-import { getUserSession } from "@/src/app/_shared/get-user-session";
 import prisma from "@/src/app/_shared/lib/prisma";
 
 export async function GET(
@@ -47,14 +46,8 @@ export async function GET(
 }
 
 export async function POST(req: NextRequest) {
-  try {
+  return sessionHandler(req, "フォルダ作成", async ({ session }) => {
     const { name } = await req.json();
-    const session = await getUserSession();
-
-    if (!session) {
-      return unauthorizedError("認証されていません");
-    }
-
     const folderUUID = uuidv4().replace(/-/g, "");
 
     if (process.env.NEXT_PUBLIC_TEST_ENV === "test") {
@@ -67,11 +60,9 @@ export async function POST(req: NextRequest) {
         userId: session.id
       }
     });
+
     revalidateTag(`${session.username}-folder`);
 
     return NextResponse.json(folder, { status: 201 });
-  } catch (error) {
-    console.error(error);
-    return internalServerError("POST", "フォルダ", error);
-  }
+  });
 }
