@@ -1,8 +1,13 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import prismaRandom from "prisma-extension-random";
-import { forbiddenError, notFoundError } from "@/src/app/_server/http-error";
 import { sessionHandler } from "@/src/app/_server/session-handler";
+import {
+  forbiddenError,
+  internalServerError,
+  notFoundError,
+  unauthorizedError
+} from "@/src/app/_server/http-error";
 import { getUserIdByUsername } from "@/src/app/_shared/actions/get-userId-by-username";
 import prisma from "@/src/app/_shared/lib/prisma";
 
