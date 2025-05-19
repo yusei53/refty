@@ -4,7 +4,8 @@ import prismaRandom from "prisma-extension-random";
 import {
   forbiddenError,
   internalServerError,
-  notFoundError
+  notFoundError,
+  unauthorizedError
 } from "@/src/app/_server/http-error";
 import { getUserIdByUsername } from "@/src/app/_shared/actions/get-userId-by-username";
 import { getUserSession } from "@/src/app/_shared/get-user-session";
@@ -27,6 +28,9 @@ export async function GET(
   }
 
   const session = await getUserSession();
+  if (!session) {
+    return unauthorizedError("認証されていません");
+  }
 
   const isCurrentUser = session?.username === username;
   if (!isCurrentUser) {

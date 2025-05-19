@@ -6,7 +6,7 @@ describe("未認証ユーザー", () => {
     const response = await request.unauthorized.GET(
       `/api/${refty.username}/random-reflection`
     );
-    expect(response.status).toBe(403);
+    expect(response.status).toBe(401);
   });
 });
 
