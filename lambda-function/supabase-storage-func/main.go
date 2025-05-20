@@ -169,11 +169,10 @@ func handler(ctx context.Context) {
 		} else {
 			if len(removedFiles) > 0 {
 				log.Printf("%d 個のファイルがSupabase Storageから正常に削除されました:\n", len(removedFiles))
-				for _, removedFile := range removedFiles {
-					log.Printf("- 削除されたファイルキー: %s\n", removedFile.Key) 
+				for i := range removedFiles {
+					log.Printf("- 削除されたファイル: %s\n", filesToDelete[i])
 				}
 			} else {
-				// NOTE: RemoveFileが成功しても、実際に削除対象が存在しなかった場合など
 				log.Println("実際には削除されたファイルはありませんでした。RemoveFileは成功しましたが、対象が見つからなかったか、既に削除されていた可能性があります。")
 			}
 		}
