@@ -19,7 +19,7 @@ import (
 var isDevelopment bool
 
 func init() {
-	isDevelopment = os.Getenv("AWS_LAMBDA_FUNCTION_NAME") == ""
+	isDevelopment = true
 }
 
 func main() {
