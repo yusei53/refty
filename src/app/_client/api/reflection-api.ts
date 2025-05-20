@@ -224,7 +224,8 @@ export const reflectionAPI = {
     isAwareness,
     isInputLog,
     isMonologue,
-    folderUUID
+    folderUUID,
+    imageUrls
   }: {
     reflectionCUID: string;
     title: string;
@@ -237,6 +238,7 @@ export const reflectionAPI = {
     isInputLog: boolean;
     isMonologue: boolean;
     folderUUID?: string;
+    imageUrls?: string[];
   }): Promise<Result<void, 401 | 403 | 404>> {
     const path = `/api/reflection/detail/${reflectionCUID}/edit`;
     const options: FetchURLOptions = {
@@ -251,7 +253,8 @@ export const reflectionAPI = {
         isAwareness,
         isInputLog,
         isMonologue,
-        folderUUID: folderUUID || null
+        folderUUID: folderUUID || null,
+        imageUrls: imageUrls || null
       },
       headers: {
         "Content-Type": "application/json"
