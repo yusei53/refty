@@ -15,6 +15,13 @@ import (
 	//"github.com/aws/aws-lambda-go/lambda"
 )
 
+// NOTE: 現在の環境を判定する変数
+var isDevelopment bool
+
+func init() {
+	isDevelopment = os.Getenv("AWS_LAMBDA_FUNCTION_NAME") == ""
+}
+
 func main() {
 	// NOTE: .envファイルの読み込み
 	err := godotenv.Load()
@@ -22,8 +29,7 @@ func main() {
 		log.Fatalf(".envファイルの読み込みに失敗しました: %v", err)
 	}
 
-	// NOTE: ローカル実行時は直接ハンドラーを呼び出し、Lambda環境ではlambda.Startを使用
-	if os.Getenv("AWS_LAMBDA_FUNCTION_NAME") == "" {
+	if isDevelopment {
 		log.Println("ローカル環境で実行します。")
 		handler(context.Background())
 	} else {
