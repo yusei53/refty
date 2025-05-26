@@ -1,18 +1,22 @@
 import { revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { notFoundError } from "@/src/app/_server/http-error";
+import {
+  internalServerError,
+  notFoundError
+} from "@/src/app/_server/http-error";
 import { userService } from "@/src/app/_server/service/userService";
 import { sessionHandler } from "@/src/app/_server/session-handler";
 import { getUserIdByUsername } from "@/src/app/_shared/actions/get-userId-by-username";
 
 export async function GET(
-  req: NextRequest,
+  _: NextRequest,
   { params }: { params: Promise<{ username: string }> }
 ) {
-  return sessionHandler(req, "プロフィール設定ページ", async () => {
-    const { username } = await params;
+  const { username } = await params;
+  try {
     const userId = await getUserIdByUsername(username);
+
     if (!userId) {
       return notFoundError("ユーザーが見つかりません");
     }
@@ -20,7 +24,9 @@ export async function GET(
     const profile = await userService.getProfile({ userId });
 
     return NextResponse.json(profile, { status: 200 });
-  });
+  } catch (error) {
+    return internalServerError("GET", "プロフィール設定ページ", error);
+  }
 }
 
 export async function PATCH(req: NextRequest) {
