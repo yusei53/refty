@@ -33,6 +33,10 @@ export async function PATCH(req: NextRequest) {
   return sessionHandler(req, "プロフィール設定", async ({ session }) => {
     const body = await req.json();
 
+    if (process.env.NEXT_PUBLIC_TEST_ENV === "test") {
+      return NextResponse.json(null, { status: 201 });
+    }
+
     const res = userService.updateProfile({
       userId: session.id,
       ...body

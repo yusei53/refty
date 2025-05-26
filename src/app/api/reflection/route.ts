@@ -35,8 +35,8 @@ export async function POST(req: NextRequest) {
   return sessionHandler(req, "新規投稿", async ({ session }) => {
     const body = await req.json();
 
-    if (process.env.NEXT_PUBLIC_APP_ENV === "playwright") {
-      return NextResponse.json({ id: "dummy-id", ...body }, { status: 201 });
+    if (process.env.NEXT_PUBLIC_TEST_ENV === "test") {
+      return NextResponse.json(null, { status: 201 });
     }
 
     const reflection = await reflectionService.create({

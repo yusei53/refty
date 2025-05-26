@@ -22,7 +22,7 @@ export const createReflectionSchema = z.object({
   isAwareness: z.boolean().default(false),
   isInputLog: z.boolean().default(false),
   isMonologue: z.boolean().default(false),
-  folderUUID: z.string().optional()
+  folderUUID: z.string().nullable().optional()
 });
 
 export type CreateReflectionSchemaType = z.infer<typeof createReflectionSchema>;
@@ -73,7 +73,10 @@ export const useCreateReflectionForm = (
 
   const onSubmit = handleSubmit(
     async (formData: CreateReflectionSchemaType) => {
-      const res = await reflectionAPI.createReflection(formData);
+      const res = await reflectionAPI.createReflection({
+        ...formData,
+        folderUUID: formData.folderUUID ?? undefined
+      });
       if (res === 401) {
         router.push(`/login`);
         return;
