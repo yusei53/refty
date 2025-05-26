@@ -46,6 +46,7 @@ type FormValues = {
   isInputLog: boolean;
   isMonologue: boolean;
   folderUUID?: string | null;
+  imageUrls?: string[];
 };
 
 type ReflectionPostFormProps = {
@@ -73,6 +74,7 @@ type ReflectionPostFormProps = {
   isNightMode: boolean;
   setIsNightMode: (isNightMode: boolean) => void;
   addImageUrl: (url: string) => void;
+  imageUrls: string[];
   handleEditorChange: (editorContent: string) => void;
   watch: UseFormWatch<FormValues>;
   reset: UseFormReset<FormValues>;
@@ -103,6 +105,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   isNightMode,
   setIsNightMode,
   addImageUrl,
+  imageUrls,
   handleEditorChange,
   watch,
   reset,
@@ -171,6 +174,14 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
     const MAX_FILE_SIZE = 5 * 1024 * 1024;
     if (file.size > MAX_FILE_SIZE) {
       console.error("画像のサイズが5MBを超えています");
+      alert("画像のサイズが5MBを超えています");
+      return;
+    }
+
+    // NOTE: 画像の投稿上限を5つに制限
+    if (imageUrls.length >= 5) {
+      console.error("画像の投稿上限に達しています");
+      alert("画像の投稿上限に達しています");
       return;
     }
 
@@ -188,7 +199,6 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
     if (imageUrl) {
       editorRef.current?.insertImage(imageUrl);
     }
-
     addImageUrl(imageUrl);
   };
 

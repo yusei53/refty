@@ -161,6 +161,7 @@ export const useCreateReflectionForm = (
     selectedFolderUUID,
     handleFolderChange,
     handleTagChange,
+    imageUrls,
     addImageUrl,
     handleEditorChange,
     watch,
