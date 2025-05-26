@@ -168,6 +168,7 @@ export const useUpdateReflectionForm = ({
     selectedFolderUUID,
     handleFolderChange,
     addImageUrl,
+    imageUrls,
     handleEditorChange,
     watch,
     reset
