@@ -1,13 +1,12 @@
 import { revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { sessionHandler } from "../../_server/session-handler";
 import {
   internalServerError,
-  notFoundError,
-  unauthorizedError
+  notFoundError
 } from "@/src/app/_server/http-error";
 import { reflectionService } from "@/src/app/_server/service/reflectionService";
-import { getUserSession } from "@/src/app/_shared/get-user-session";
 
 export async function GET(req: NextRequest) {
   try {
@@ -33,16 +32,13 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  try {
+  return sessionHandler(req, "新規投稿", async ({ session }) => {
     const body = await req.json();
-    const session = await getUserSession();
-    if (!session) {
-      return unauthorizedError("認証されていません");
-    }
 
     if (process.env.NEXT_PUBLIC_TEST_ENV === "test") {
       return NextResponse.json(null, { status: 201 });
     }
+
     const reflection = await reflectionService.create({
       ...body,
       userId: session.id
@@ -52,8 +48,5 @@ export async function POST(req: NextRequest) {
     revalidateTag("reflections-all");
 
     return NextResponse.json(reflection, { status: 201 });
-  } catch (error) {
-    console.error(error);
-    return internalServerError("POST", "新規投稿", error);
-  }
+  });
 }

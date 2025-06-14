@@ -1,15 +1,12 @@
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import {
-  badRequestError,
-  forbiddenError,
-  internalServerError,
-  unauthorizedError
-} from "@/src/app/_server/http-error";
+import { badRequestError, forbiddenError } from "@/src/app/_server/http-error";
+import { sessionHandler } from "@/src/app/_server/session-handler";
 import { getUserIdByUsername } from "@/src/app/_shared/actions/get-userId-by-username";
-import { getUserSession } from "@/src/app/_shared/get-user-session";
 import prisma from "@/src/app/_shared/lib/prisma";
-export async function POST(req: Request) {
-  try {
+
+export async function POST(req: NextRequest) {
+  return sessionHandler(req, "投稿一括選択", async () => {
     const body = await req.json();
     const {
       reflectionCUID: selectedReflectionList,
@@ -17,11 +14,6 @@ export async function POST(req: Request) {
       username
     } = body;
     const userId = await getUserIdByUsername(username);
-
-    const session = await getUserSession();
-    if (!session) {
-      return unauthorizedError("認証されていません");
-    }
 
     if (!Array.isArray(selectedReflectionList) || !folderUUID || !userId) {
       return badRequestError(
@@ -70,7 +62,5 @@ export async function POST(req: Request) {
       { message: "選択した投稿をフォルダに更新しました" },
       { status: 200 }
     );
-  } catch (error) {
-    internalServerError("POST", "投稿一括選択", error);
-  }
+  });
 }
