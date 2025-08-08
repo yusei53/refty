@@ -170,14 +170,6 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   const handleInsertImage = async (file: File) => {
     // TODO: 切り出し
 
-    // NOTE: 画像のサイズを5MBに制限
-    const MAX_FILE_SIZE = 5 * 1024 * 1024;
-    if (file.size > MAX_FILE_SIZE) {
-      console.error("画像のサイズが5MBを超えています");
-      alert("画像のサイズが5MBを超えています");
-      return;
-    }
-
     // NOTE: 画像の投稿上限を5つに制限
     if (imageUrls.length >= 5) {
       console.error("画像の投稿上限に達しています");
@@ -185,8 +177,61 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
       return;
     }
 
+    // MEMO: HEIC/HEIFかどうかをMIMEタイプと拡張子の両方で判定
+    const isHeicOrHeif: (file: File) => boolean = (file) => {
+      const mime = (file.type || "").toLowerCase();
+      const name = (file.name || "").toLowerCase();
+      return (
+        mime === "image/heic" ||
+        mime === "image/heif" ||
+        name.endsWith(".heic") ||
+        name.endsWith(".heif")
+      );
+    };
+
+    let fileToUpload: File = file;
+
+    // NOTE: HEIC/HEIFの場合はクライアントでJPEGに変換してからアップロード
+    if (isHeicOrHeif(file)) {
+      try {
+        // MEMO: heic2anyライブラリを動的にインポート
+        const heic2any = (await import("heic2any")).default as (options: {
+          blob: Blob;
+          toType?: string;
+          quality?: number;
+        }) => Promise<Blob>;
+
+        const convertedBlob = await heic2any({
+          blob: file,
+          toType: "image/jpeg",
+          quality: 0.9
+        });
+
+        // MEMO: 元ファイル名を維持しつつ拡張子を.jpgへ
+        const newName = file.name
+          ? file.name.replace(/\.(heic|heif)$/i, ".jpg")
+          : `converted-${Date.now()}.jpg`;
+
+        fileToUpload = new File([convertedBlob], newName, {
+          type: "image/jpeg"
+        });
+      } catch (error) {
+        console.error("HEIC/HEIF の変換に失敗しました", error);
+        alert("HEIC/HEIF 画像の変換に失敗しました。別の画像をご利用ください。");
+        return;
+      }
+    }
+
+    // NOTE: 画像のサイズを5MBに制限（アップロード対象のファイルに対してチェック）
+    const MAX_FILE_SIZE = 5 * 1024 * 1024;
+    if (fileToUpload.size > MAX_FILE_SIZE) {
+      console.error("画像のサイズが5MBを超えています");
+      alert("画像のサイズが5MBを超えています");
+      return;
+    }
+
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", fileToUpload);
 
     const res = await reflectionAPI.uploadReflectionImage(formData);
 
