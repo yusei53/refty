@@ -11,7 +11,6 @@ import type {
 } from "react-hook-form";
 import { reflectionAPI } from "../../../api/reflection-api";
 import { useAutoSave } from "../../../hooks/reflection/useAutoSave";
-import { sanitizeFileName } from "../../../utils/sanitize-file-name";
 import EmojiPicker from "../../routes/post/emoji/EmojiPicker";
 import { ImageUploadButton } from "../../routes/post/image-upload/ImageUploadButton";
 import { MarkdownEditor } from "../../routes/post/markdown-editor";
@@ -168,7 +167,8 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
 
   const toggleNightMode = () => setIsNightMode(!isNightMode);
 
-  //TODO: 切り出し
+  const handleFileUpload = async (file: File) => {
+    // TODO: 切り出し
 
     // NOTE: 画像の投稿上限を5つに制限
     if (imageUrls.length >= 5) {
@@ -233,18 +233,8 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
       return;
     }
 
-    // MEMO: ファイル名を安全な形式に変換
-    const safeFileName = sanitizeFileName(file.name);
-
-    // MEMO: 新しいFileオブジェクトを作成（元のファイルの内容はそのまま）
-    const safeFile = new File([file], safeFileName, {
-      type: file.type,
-      lastModified: file.lastModified
-    });
-
     const formData = new FormData();
     formData.append("file", fileToUpload);
-
 
     const res = await reflectionAPI.uploadReflectionImage(formData);
 
