@@ -194,17 +194,20 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
     // NOTE: HEIC/HEIFの場合はクライアントでJPEGに変換してからアップロード
     if (isHeicOrHeif(file)) {
       try {
-        // MEMO: heic2anyライブラリを動的にインポート
-        const heic2any = (await import("heic2any")).default as (options: {
+        type Heic2anyOptions = {
           blob: Blob;
           toType?: string;
           quality?: number;
-        }) => Promise<Blob>;
+        };
+        type Heic2any = (options: Heic2anyOptions) => Promise<Blob>;
+
+        // MEMO: heic2anyライブラリを動的にインポート
+        const heic2any = (await import("heic2any")).default as Heic2any;
 
         const convertedBlob = await heic2any({
           blob: file,
           toType: "image/jpeg",
-          quality: 0.9
+          quality: 0.9 // MEMO: 5MBに収まるように不具合があれば修正する
         });
 
         // MEMO: 元ファイル名を維持しつつ拡張子を.jpgへ
