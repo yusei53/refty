@@ -34,65 +34,66 @@ export const useUploadReflectionImage = ({
       );
     };
 
-    let fileToUpload: File = file;
+    const convertHeicToJpeg = async (file: File) => {
+      type Heic2anyOptions = {
+        blob: Blob;
+        toType?: string;
+        quality?: number;
+      };
+      type Heic2any = (options: Heic2anyOptions) => Promise<Blob>;
 
-    // NOTE: HEIC/HEIFの場合はクライアントでJPEGに変換してからアップロード
-    if (isHeicOrHeif(file)) {
-      try {
-        type Heic2anyOptions = {
-          blob: Blob;
-          toType?: string;
-          quality?: number;
-        };
-        type Heic2any = (options: Heic2anyOptions) => Promise<Blob>;
+      // MEMO: heic2anyライブラリを動的にインポート
+      const heic2any = (await import("heic2any")).default as Heic2any;
 
-        // MEMO: heic2anyライブラリを動的にインポート
-        const heic2any = (await import("heic2any")).default as Heic2any;
+      const convertedBlob = await heic2any({
+        blob: file,
+        toType: "image/jpeg",
+        quality: 0.9 // MEMO: 5MBに収まるように不具合があれば修正する
+      });
 
-        const convertedBlob = await heic2any({
-          blob: file,
-          toType: "image/jpeg",
-          quality: 0.9 // MEMO: 5MBに収まるように不具合があれば修正する
-        });
+      // MEMO: 元ファイル名を維持しつつ拡張子を.jpgへ
+      const newName = file.name
+        ? file.name.replace(/\.(heic|heif)$/i, ".jpg")
+        : `converted-${Date.now()}.jpg`;
 
-        // MEMO: 元ファイル名を維持しつつ拡張子を.jpgへ
-        const newName = file.name
-          ? file.name.replace(/\.(heic|heif)$/i, ".jpg")
-          : `converted-${Date.now()}.jpg`;
+      return new File([convertedBlob], newName, {
+        type: "image/jpeg"
+      });
+    };
 
-        fileToUpload = new File([convertedBlob], newName, {
-          type: "image/jpeg"
-        });
-      } catch (error) {
-        console.error("HEIC/HEIF の変換に失敗しました", error);
-        alert("HEIC/HEIF 画像の変換に失敗しました。別の画像をご利用ください。");
+    try {
+      const fileToUpload: File = isHeicOrHeif(file)
+        ? await convertHeicToJpeg(file)
+        : file;
+
+      // NOTE: 画像のサイズを5MBに制限（アップロード対象のファイルに対してチェック）
+      const MAX_FILE_SIZE = 5 * 1024 * 1024;
+      if (fileToUpload.size > MAX_FILE_SIZE) {
+        console.error("画像のサイズが5MBを超えています");
+        alert("画像のサイズが5MBを超えています");
         return;
       }
-    }
 
-    // NOTE: 画像のサイズを5MBに制限（アップロード対象のファイルに対してチェック）
-    const MAX_FILE_SIZE = 5 * 1024 * 1024;
-    if (fileToUpload.size > MAX_FILE_SIZE) {
-      console.error("画像のサイズが5MBを超えています");
-      alert("画像のサイズが5MBを超えています");
-      return;
-    }
+      const formData = new FormData();
+      formData.append("file", fileToUpload);
 
-    const formData = new FormData();
-    formData.append("file", fileToUpload);
+      const res = await reflectionAPI.uploadReflectionImage(formData);
 
-    const res = await reflectionAPI.uploadReflectionImage(formData);
+      if (res === 401) {
+        console.error("画像アップロードに失敗しました");
+        return;
+      }
 
-    if (res === 401) {
-      console.error("画像アップロードに失敗しました");
-      return;
-    }
+      const imageUrl = res.imageUrl;
 
-    const imageUrl = res.imageUrl;
-    if (imageUrl) {
+      if (!imageUrl) return;
+
       editorRef.current?.insertImage(imageUrl);
+      addImageUrl(imageUrl);
+    } catch (error) {
+      console.error("画像アップロードに失敗しました", error);
+      alert("画像アップロードに失敗しました");
     }
-    addImageUrl(imageUrl);
   };
 
   return {
