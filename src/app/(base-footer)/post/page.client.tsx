@@ -36,6 +36,7 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
     handleFolderChange,
     handleTagChange,
     addImageUrl,
+    imageUrls,
     handleEditorChange,
     watch,
     reset
@@ -69,6 +70,7 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
       isNightMode={isNightMode}
       setIsNightMode={setIsNightMode}
       addImageUrl={addImageUrl}
+      imageUrls={imageUrls}
       handleEditorChange={handleEditorChange}
       watch={watch}
       reset={reset}

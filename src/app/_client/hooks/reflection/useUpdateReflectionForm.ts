@@ -141,7 +141,8 @@ export const useUpdateReflectionForm = ({
         isAwareness: formData.isAwareness,
         isInputLog: formData.isInputLog,
         isMonologue: formData.isMonologue,
-        folderUUID: formData.folderUUID ?? undefined
+        folderUUID: formData.folderUUID ?? undefined,
+        imageUrls: imageUrls
       });
 
       if (res === 401) {
@@ -167,6 +168,7 @@ export const useUpdateReflectionForm = ({
     selectedFolderUUID,
     handleFolderChange,
     addImageUrl,
+    imageUrls,
     handleEditorChange,
     watch,
     reset
