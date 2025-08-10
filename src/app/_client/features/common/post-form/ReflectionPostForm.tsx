@@ -167,9 +167,8 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
 
   const toggleNightMode = () => setIsNightMode(!isNightMode);
 
+  // TODO: 切り出し（別ブランチで対応）
   const handleFileUpload = async (file: File) => {
-    // TODO: 切り出し
-
     // NOTE: 画像の投稿上限を5つに制限
     if (imageUrls.length >= 5) {
       console.error("画像の投稿上限に達しています");
