@@ -22,7 +22,7 @@
     "@hookform/resolvers": "^3.9.0",
     "@mui/icons-material": "^7.0.0",
     "@mui/material": "^7.0.0",
-    "@mui/x-charts": "^7.28.0",
+    "@mui/x-charts": "^8.9.2",
     "@next-auth/prisma-adapter": "^1.0.7",
     "@next/third-parties": "15.3.0",
     "@prisma/client": "^6.7.0",
