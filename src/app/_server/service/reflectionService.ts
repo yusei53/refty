@@ -219,6 +219,7 @@ export const reflectionService = {
     isMonologue: boolean;
     userId: string;
     folderUUID?: string;
+    imageUrls?: string[];
   }) {
     const {
       title,
@@ -231,11 +232,17 @@ export const reflectionService = {
       isInputLog,
       isMonologue,
       userId,
-      folderUUID
+      folderUUID,
+      imageUrls
     } = params;
 
     const now = new Date();
     const jstDate = toJST(now);
+
+    // NOTE: 配列からnullを除外する（stringのみの配列にする）
+    const validImageUrls = imageUrls?.filter(
+      (url): url is string => url !== null
+    );
 
     return await reflectionRepository.createReflection({
       title,
@@ -249,7 +256,8 @@ export const reflectionService = {
       isMonologue,
       createdAt: jstDate,
       userId,
-      folderUUID
+      folderUUID,
+      imageUrls: validImageUrls
     });
   },
 
@@ -265,6 +273,7 @@ export const reflectionService = {
     isInputLog: boolean;
     isMonologue: boolean;
     folderUUID?: string;
+    imageUrls?: string[];
   }) {
     const {
       reflectionCUID,
@@ -277,16 +286,32 @@ export const reflectionService = {
       isAwareness,
       isInputLog,
       isMonologue,
-      folderUUID
+      folderUUID,
+      imageUrls
     } = params;
 
     const reflection = await prisma.reflection.findUnique({
-      where: { reflectionCUID }
+      where: { reflectionCUID },
+      include: {
+        images: true
+      }
     });
 
     if (!reflection) {
       return notFoundError("振り返りが見つかりません");
     }
+
+    // MEMO: DBにある画像と編集時の画像を比較して追加と削除の画像配列を作成
+    const existingImageUrls =
+      reflection.images?.map((img) => img.imageUrl) || [];
+    const newImageUrls = imageUrls || [];
+
+    const addImageUrls = newImageUrls.filter(
+      (url) => !existingImageUrls.includes(url)
+    );
+    const deleteImageUrls = existingImageUrls.filter(
+      (url) => !newImageUrls.includes(url)
+    );
 
     return await reflectionRepository.updateReflection({
       reflectionCUID,
@@ -299,7 +324,9 @@ export const reflectionService = {
       isAwareness,
       isInputLog,
       isMonologue,
-      folderUUID
+      folderUUID,
+      addImageUrls,
+      deleteImageUrls
     });
   },
 

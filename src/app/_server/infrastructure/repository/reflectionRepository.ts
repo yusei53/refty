@@ -177,6 +177,7 @@ export const reflectionRepository = {
     createdAt: Date;
     userId: string;
     folderUUID?: string;
+    imageUrls?: string[];
   }) {
     const {
       title,
@@ -190,24 +191,38 @@ export const reflectionRepository = {
       isMonologue,
       createdAt,
       userId,
-      folderUUID
+      folderUUID,
+      imageUrls
     } = params;
 
-    return prisma.reflection.create({
-      data: {
-        title,
-        content,
-        charStamp,
-        isPublic,
-        isDailyReflection,
-        isLearning,
-        isAwareness,
-        isInputLog,
-        isMonologue,
-        createdAt,
-        userId,
-        folderUUID
+    return prisma.$transaction(async (transaction) => {
+      const createdReflection = await transaction.reflection.create({
+        data: {
+          title,
+          content,
+          charStamp,
+          isPublic,
+          isDailyReflection,
+          isLearning,
+          isAwareness,
+          isInputLog,
+          isMonologue,
+          createdAt,
+          userId,
+          folderUUID
+        }
+      });
+
+      if (imageUrls && imageUrls.length > 0) {
+        await transaction.reflectionImage.createMany({
+          data: imageUrls.map((imageUrl: string, index: number) => ({
+            reflectionCUID: createdReflection.reflectionCUID,
+            imageUrl,
+            orderIndex: index
+          }))
+        });
       }
+      return createdReflection;
     });
   },
 
@@ -243,6 +258,8 @@ export const reflectionRepository = {
     isInputLog: boolean;
     isMonologue: boolean;
     folderUUID?: string;
+    addImageUrls?: string[];
+    deleteImageUrls?: string[];
   }) {
     const {
       reflectionCUID,
@@ -255,23 +272,48 @@ export const reflectionRepository = {
       isAwareness,
       isInputLog,
       isMonologue,
-      folderUUID
+      folderUUID,
+      addImageUrls,
+      deleteImageUrls
     } = params;
 
-    return prisma.reflection.update({
-      where: { reflectionCUID },
-      data: {
-        title,
-        content,
-        charStamp,
-        isPublic,
-        isDailyReflection,
-        isLearning,
-        isAwareness,
-        isInputLog,
-        isMonologue,
-        folderUUID
+    // MEMO: 画像の差分（追加と削除）についてトランザクション内で処理
+    return prisma.$transaction(async (transaction) => {
+      const updatedReflection = await transaction.reflection.update({
+        where: { reflectionCUID },
+        data: {
+          title,
+          content,
+          charStamp,
+          isPublic,
+          isDailyReflection,
+          isLearning,
+          isAwareness,
+          isInputLog,
+          isMonologue,
+          folderUUID
+        }
+      });
+      if (addImageUrls && addImageUrls.length > 0) {
+        await transaction.reflectionImage.createMany({
+          data: addImageUrls.map((imageUrl: string, index: number) => ({
+            reflectionCUID,
+            imageUrl,
+            orderIndex: index
+          }))
+        });
       }
+      if (deleteImageUrls && deleteImageUrls.length > 0) {
+        await transaction.reflectionImage.deleteMany({
+          where: {
+            reflectionCUID,
+            imageUrl: {
+              in: deleteImageUrls
+            }
+          }
+        });
+      }
+      return updatedReflection;
     });
   },
 

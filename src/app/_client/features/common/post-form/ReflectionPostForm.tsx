@@ -10,7 +10,9 @@ import type {
   UseFormWatch
 } from "react-hook-form";
 import { useAutoSave } from "../../../hooks/reflection/useAutoSave";
+import { useUploadReflectionImage } from "../../../hooks/reflection/useUploadReflectionImage";
 import EmojiPicker from "../../routes/post/emoji/EmojiPicker";
+import { ImageUploadButton } from "../../routes/post/image-upload/ImageUploadButton";
 import { MarkdownEditor } from "../../routes/post/markdown-editor";
 import { BGMSettingPopupAreaContainer } from "../../routes/post/popup/BGM-setting/BGMSettingPopupAreaContainer";
 import { DraftPopupAreaContainer } from "../../routes/post/popup/draft/DraftPopupAreaContainer";
@@ -44,6 +46,7 @@ type FormValues = {
   isInputLog: boolean;
   isMonologue: boolean;
   folderUUID?: string | null;
+  imageUrls?: string[];
 };
 
 type ReflectionPostFormProps = {
@@ -70,6 +73,9 @@ type ReflectionPostFormProps = {
   getBGMName: () => string;
   isNightMode: boolean;
   setIsNightMode: (isNightMode: boolean) => void;
+  addImageUrl: (url: string) => void;
+  imageUrls: string[];
+  handleEditorChange: (editorContent: string) => void;
   watch: UseFormWatch<FormValues>;
   reset: UseFormReset<FormValues>;
   isPostPage?: boolean;
@@ -98,6 +104,9 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
   getBGMName,
   isNightMode,
   setIsNightMode,
+  addImageUrl,
+  imageUrls,
+  handleEditorChange,
   watch,
   reset,
   isPostPage = false
@@ -158,6 +167,12 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
 
   const toggleNightMode = () => setIsNightMode(!isNightMode);
 
+  const { handleFileUpload } = useUploadReflectionImage({
+    imageUrls,
+    addImageUrl,
+    editorRef
+  });
+
   return (
     <>
       {animationWithSelectedBGM()}
@@ -193,9 +208,9 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
             }}
           >
             <Box display={"flex"}>
-              <MarkdownSupportPopupAreaContainer />
               {!isMobile && (
                 <>
+                  <MarkdownSupportPopupAreaContainer />
                   <BGMSettingPopupAreaContainer
                     currentTrack={currentTrack ?? ""}
                     playTrack={playTrack}
@@ -204,6 +219,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
                     toggleNightMode={toggleNightMode}
                     getBGMName={getBGMName}
                   />
+
                   {isPostPage && (
                     <DraftPopupAreaContainer
                       draftList={draftList}
@@ -216,6 +232,7 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
               )}
             </Box>
             <Box display={"flex"}>
+              <ImageUploadButton onImageSelect={handleFileUpload} />
               <ReflectionTemplatePopupAreaContainer
                 onInsertTemplate={handleInsertTemplate}
                 onClearContent={handleClearContent}
@@ -336,7 +353,10 @@ const ReflectionPostForm: React.FC<ReflectionPostFormProps> = ({
                   <MarkdownEditor
                     value={field.value}
                     ref={editorRef}
-                    onChange={field.onChange}
+                    onChange={(editorContent) => {
+                      handleEditorChange(editorContent);
+                      field.onChange(editorContent);
+                    }}
                   />
                   {errors.content && (
                     <ErrorMessage message={errors.content.message} />

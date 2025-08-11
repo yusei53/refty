@@ -1,4 +1,6 @@
+import type { FetchFormDataURLOptions } from "../utils/fetchFormDataURL";
 import type { FetchURLOptions, Result } from "../utils/fetchURL";
+import { fetchFormDataURL } from "../utils/fetchFormDataURL";
 import { fetchURL } from "../utils/fetchURL";
 
 // TODO: 命名をいい感じにする
@@ -173,7 +175,8 @@ export const reflectionAPI = {
     isAwareness,
     isInputLog,
     isMonologue,
-    folderUUID
+    folderUUID,
+    imageUrls
   }: {
     title: string;
     content: string;
@@ -185,6 +188,7 @@ export const reflectionAPI = {
     isInputLog: boolean;
     isMonologue: boolean;
     folderUUID?: string;
+    imageUrls?: string[];
   }): Promise<Result<void, 401>> {
     const path = `/api/reflection`;
     const options: FetchURLOptions = {
@@ -199,7 +203,8 @@ export const reflectionAPI = {
         isAwareness,
         isInputLog,
         isMonologue,
-        folderUUID: folderUUID || null
+        folderUUID: folderUUID || null,
+        imageUrls: imageUrls || null
       },
       headers: {
         "Content-Type": "application/json"
@@ -219,7 +224,8 @@ export const reflectionAPI = {
     isAwareness,
     isInputLog,
     isMonologue,
-    folderUUID
+    folderUUID,
+    imageUrls
   }: {
     reflectionCUID: string;
     title: string;
@@ -232,6 +238,7 @@ export const reflectionAPI = {
     isInputLog: boolean;
     isMonologue: boolean;
     folderUUID?: string;
+    imageUrls?: string[];
   }): Promise<Result<void, 401 | 403 | 404>> {
     const path = `/api/reflection/detail/${reflectionCUID}/edit`;
     const options: FetchURLOptions = {
@@ -246,7 +253,8 @@ export const reflectionAPI = {
         isAwareness,
         isInputLog,
         isMonologue,
-        folderUUID: folderUUID || null
+        folderUUID: folderUUID || null,
+        imageUrls: imageUrls || null
       },
       headers: {
         "Content-Type": "application/json"
@@ -323,6 +331,25 @@ export const reflectionAPI = {
       headers: {
         "Content-Type": "application/json"
       }
+    };
+    return await fetchURL<void, 401>(path, options);
+  },
+
+  async uploadReflectionImage(
+    reflectionImageFormData: FormData
+  ): Promise<Result<{ imageUrl: string }, 401>> {
+    const path = `/api/reflection/image`;
+    const options: FetchFormDataURLOptions = {
+      method: "POST",
+      body: reflectionImageFormData
+    };
+    return await fetchFormDataURL<{ imageUrl: string }, 401>(path, options);
+  },
+
+  async deleteReflectionImage(fileName: string): Promise<Result<void, 401>> {
+    const path = `/api/reflection/image/${fileName}`;
+    const options: FetchURLOptions = {
+      method: "DELETE"
     };
     return await fetchURL<void, 401>(path, options);
   }

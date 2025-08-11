@@ -35,6 +35,9 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
     selectedFolderUUID,
     handleFolderChange,
     handleTagChange,
+    addImageUrl,
+    imageUrls,
+    handleEditorChange,
     watch,
     reset
   } = useCreateReflectionForm(username, stop);
@@ -48,30 +51,31 @@ const ReflectionPostFormPage: React.FC<ReflectionPostFormPageProps> = ({
   };
 
   return (
-    <>
-      <ReflectionPostForm
-        control={control}
-        isSubmitting={isSubmitting}
-        isSubmitSuccessful={isSubmitSuccessful}
-        errors={errors}
-        onSubmit={handleSubmit}
-        selectedEmoji={selectedEmoji}
-        onEmojiChange={handleEmojiChange}
-        selectedFolderUUID={selectedFolderUUID}
-        onFolderChange={handleFolderChange}
-        onTagChange={handleTagChange}
-        folders={folders}
-        playTrack={playTrack}
-        stop={stop}
-        currentTrack={currentTrack}
-        getBGMName={getBGMName}
-        isNightMode={isNightMode}
-        setIsNightMode={setIsNightMode}
-        watch={watch}
-        reset={reset}
-        isPostPage
-      />
-    </>
+    <ReflectionPostForm
+      control={control}
+      isSubmitting={isSubmitting}
+      isSubmitSuccessful={isSubmitSuccessful}
+      errors={errors}
+      onSubmit={handleSubmit}
+      selectedEmoji={selectedEmoji}
+      onEmojiChange={handleEmojiChange}
+      selectedFolderUUID={selectedFolderUUID}
+      onFolderChange={handleFolderChange}
+      onTagChange={handleTagChange}
+      folders={folders}
+      playTrack={playTrack}
+      stop={stop}
+      currentTrack={currentTrack}
+      getBGMName={getBGMName}
+      isNightMode={isNightMode}
+      setIsNightMode={setIsNightMode}
+      addImageUrl={addImageUrl}
+      imageUrls={imageUrls}
+      handleEditorChange={handleEditorChange}
+      watch={watch}
+      reset={reset}
+      isPostPage
+    />
   );
 };
 

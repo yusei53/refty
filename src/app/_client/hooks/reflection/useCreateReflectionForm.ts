@@ -22,7 +22,8 @@ export const createReflectionSchema = z.object({
   isAwareness: z.boolean().default(false),
   isInputLog: z.boolean().default(false),
   isMonologue: z.boolean().default(false),
-  folderUUID: z.string().nullable().optional()
+  folderUUID: z.string().nullable().optional(),
+  imageUrls: z.string().array().optional()
 });
 
 export type CreateReflectionSchemaType = z.infer<typeof createReflectionSchema>;
@@ -36,6 +37,7 @@ export const useCreateReflectionForm = (
   const [selectedFolderUUID, setSelectedFolderUUID] = useState<string | null>(
     null
   );
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   const {
     handleSubmit,
@@ -67,6 +69,53 @@ export const useCreateReflectionForm = (
   const handleFolderChange = (folderUUID: string | null) => {
     setSelectedFolderUUID(folderUUID);
     setValue("folderUUID", folderUUID ?? undefined);
+  };
+
+  // MEMO: 画像URLを重複しないように追加する関数
+  const addImageUrl = (url: string) => {
+    if (!imageUrls.includes(url)) {
+      const newUrls = [...imageUrls, url];
+      setImageUrls(newUrls);
+      setValue("imageUrls", newUrls);
+    }
+  };
+
+  // MEMO: 画像URLを投稿用のimageUrlsから削除する関数
+  const removeImageUrl = (url: string) => {
+    const newUrls = imageUrls.filter((imageUrl) => imageUrl !== url);
+    setImageUrls(newUrls);
+    setValue("imageUrls", newUrls);
+  };
+
+  const getFileNameFromUrl = (url: string): string | null => {
+    const match = url.match(/\/([^/]+)$/);
+    return match ? match[1] : null;
+  };
+
+  const handleEditorChange = (editorContent: string) => {
+    // MEMO: HTMLからimgタグのsrcをすべて抽出
+    const doc = new DOMParser().parseFromString(editorContent, "text/html");
+    const currentImageUrls = Array.from(doc.querySelectorAll("img"))
+      .map((img) => img.getAttribute("src") || "")
+      .filter(Boolean);
+
+    // MEMO: 既存のimageUrlsと比較し、消えたURLを検出
+    const removedUrls = imageUrls.filter(
+      (url) => !currentImageUrls.includes(url)
+    );
+    removedUrls.forEach(async (url) => {
+      // MEMO: 画像URLを送信するFormDataから削除
+      removeImageUrl(url);
+
+      const fileName = getFileNameFromUrl(url);
+      if (fileName) {
+        await reflectionAPI.deleteReflectionImage(fileName);
+      }
+    });
+
+    // MEMO: imageUrlsを最新に
+    setImageUrls(currentImageUrls);
+    setValue("imageUrls", currentImageUrls);
   };
 
   const { handleTagChange } = useParseValueToTags({ setValue });
@@ -112,6 +161,9 @@ export const useCreateReflectionForm = (
     selectedFolderUUID,
     handleFolderChange,
     handleTagChange,
+    imageUrls,
+    addImageUrl,
+    handleEditorChange,
     watch,
     reset
   };

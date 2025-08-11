@@ -43,6 +43,7 @@ export const useUpdateReflectionForm = ({
   const [selectedFolderUUID, setSelectedFolderUUID] = useState<string | null>(
     folderUUID ?? null
   );
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   const {
     handleSubmit,
@@ -78,6 +79,53 @@ export const useUpdateReflectionForm = ({
     setValue("folderUUID", folderUUID ?? undefined);
   };
 
+  // MEMO: 画像URLを重複しないように追加する関数
+  const addImageUrl = (url: string) => {
+    if (!imageUrls.includes(url)) {
+      const newUrls = [...imageUrls, url];
+      setImageUrls(newUrls);
+      setValue("imageUrls", newUrls);
+    }
+  };
+
+  // MEMO: 画像URLを投稿用のimageUrlsから削除する関数
+  const removeImageUrl = (url: string) => {
+    const newUrls = imageUrls.filter((imageUrl) => imageUrl !== url);
+    setImageUrls(newUrls);
+    setValue("imageUrls", newUrls);
+  };
+
+  const getFileNameFromUrl = (url: string): string | null => {
+    const match = url.match(/\/([^/]+)$/);
+    return match ? match[1] : null;
+  };
+
+  const handleEditorChange = (val: string) => {
+    // MEMO: HTMLからimgタグのsrcをすべて抽出
+    const doc = new DOMParser().parseFromString(val, "text/html");
+    const currentImageUrls = Array.from(doc.querySelectorAll("img"))
+      .map((img) => img.getAttribute("src") || "")
+      .filter(Boolean);
+
+    // MEMO: 既存のimageUrlsと比較し、消えたURLを検出
+    const removedUrls = imageUrls.filter(
+      (url) => !currentImageUrls.includes(url)
+    );
+    removedUrls.forEach(async (url) => {
+      // MEMO: 画像URLを送信するFormDataから削除
+      removeImageUrl(url);
+
+      const fileName = getFileNameFromUrl(url);
+      if (fileName) {
+        await reflectionAPI.deleteReflectionImage(fileName);
+      }
+    });
+
+    // MEMO: imageUrlsを最新に
+    setImageUrls(currentImageUrls);
+    setValue("imageUrls", currentImageUrls);
+  };
+
   const { handleTagChange } = useParseValueToTags({ setValue });
 
   const onSubmit = handleSubmit(
@@ -93,7 +141,8 @@ export const useUpdateReflectionForm = ({
         isAwareness: formData.isAwareness,
         isInputLog: formData.isInputLog,
         isMonologue: formData.isMonologue,
-        folderUUID: formData.folderUUID ?? undefined
+        folderUUID: formData.folderUUID ?? undefined,
+        imageUrls: imageUrls
       });
 
       if (res === 401) {
@@ -118,6 +167,9 @@ export const useUpdateReflectionForm = ({
     handleTagChange,
     selectedFolderUUID,
     handleFolderChange,
+    addImageUrl,
+    imageUrls,
+    handleEditorChange,
     watch,
     reset
   };
