@@ -8,6 +8,7 @@ import { getUserSession } from "@/src/app/_shared/get-user-session";
 export const metadata: Metadata = meta.settingProfilePage;
 
 const page = async () => {
+  // TODO: api側で404を返す
   const session = await getUserSession();
   if (!session?.username) {
     return notFound();
