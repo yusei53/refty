@@ -3,12 +3,11 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import {
   internalServerError,
-  notFoundError,
-  unauthorizedError
+  notFoundError
 } from "@/src/app/_server/http-error";
 import { userService } from "@/src/app/_server/service/userService";
+import { sessionHandler } from "@/src/app/_server/session-handler";
 import { getUserIdByUsername } from "@/src/app/_shared/actions/get-userId-by-username";
-import { getUserSession } from "@/src/app/_shared/get-user-session";
 
 export async function GET(
   _: NextRequest,
@@ -31,13 +30,8 @@ export async function GET(
 }
 
 export async function PATCH(req: NextRequest) {
-  try {
+  return sessionHandler(req, "プロフィール設定", async ({ session }) => {
     const body = await req.json();
-
-    const session = await getUserSession();
-    if (!session) {
-      return unauthorizedError("認証されていません");
-    }
 
     if (process.env.NEXT_PUBLIC_TEST_ENV === "test") {
       return NextResponse.json(null, { status: 201 });
@@ -50,8 +44,5 @@ export async function PATCH(req: NextRequest) {
 
     revalidateTag(`profile-${session.username}`);
     return NextResponse.json(res, { status: 201 });
-  } catch (error) {
-    console.error(error);
-    return internalServerError("PATCH", "プロフィール設定", error);
-  }
+  });
 }

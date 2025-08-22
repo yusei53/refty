@@ -24,11 +24,9 @@ export async function GET(
       where: { id: userId },
       select: { image: true, isReportOpen: true }
     });
-
     if (user?.isReportOpen === false && session?.username !== username) {
       return forbiddenError("閲覧権限がありません");
     }
-
     return NextResponse.json({
       isReportOpen: user?.isReportOpen,
       userImage: user?.image,
