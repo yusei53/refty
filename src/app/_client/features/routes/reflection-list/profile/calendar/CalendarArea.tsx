@@ -22,6 +22,7 @@ type CalendarAreaProps = {
   ) => Record<string, string>;
   totalReflections: string;
   onClick: (value: ReactCalendarHeatmapValue<string> | undefined) => void;
+  onYearClick: (year: number) => void;
 };
 
 const YEAR_BUTTONS = [2025, 2024];
@@ -33,7 +34,8 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
   classForValue,
   tooltipDataAttrs,
   totalReflections,
-  onClick
+  onClick,
+  onYearClick
 }) => {
   const { isMobile } = useResponsive();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -105,7 +107,11 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
       </Box>
       <Box display={"flex"} flexDirection={"column"} mt={5} gap={2}>
         {YEAR_BUTTONS.map((year) => (
-          <Button key={year} sx={{ backgroundColor: theme.palette.grey[100] }}>
+          <Button
+            key={year}
+            onClick={() => onYearClick(year)}
+            sx={{ backgroundColor: theme.palette.grey[100] }}
+          >
             {year}
           </Button>
         ))}
