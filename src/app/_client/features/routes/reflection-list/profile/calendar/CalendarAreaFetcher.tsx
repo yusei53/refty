@@ -8,7 +8,7 @@ import type {
 import type { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
 import CalendarArea from "./CalendarArea";
 import { getColor } from "./get-color";
-import { getOneYearAgo } from "@/src/app/_shared/date-helper/date-helpers";
+import { useReflectionHeatmap } from "@/src/app/_client/hooks/calendar/useReflectionHeatmap";
 type CalendarAreaFetcherProps = {
   reflectionCount: ReflectionsCount;
 };
@@ -24,22 +24,7 @@ export const CalendarAreaFetcher: React.FC<CalendarAreaFetcherProps> = ({
   const parsedYear = yearParam ? Number.parseInt(yearParam, 10) : NaN;
   const targetYear = Number.isNaN(parsedYear) ? null : parsedYear;
 
-  const startDateCalc = (targetYear: number | null): Date => {
-    if (targetYear !== null) {
-      return new Date(targetYear, 0, 1);
-    }
-    return getOneYearAgo();
-  };
-
-  const endDateCalc = (targetYear: number | null): Date => {
-    if (targetYear !== null) {
-      return new Date(targetYear, 11, 31);
-    }
-    return new Date();
-  };
-
-  const startDate = startDateCalc(targetYear);
-  const endDate = endDateCalc(targetYear);
+  const { startDate, endDate } = useReflectionHeatmap(targetYear);
 
   const classForValue = useCallback(
     (value: ReactCalendarHeatmapValue<string> | undefined): string => {
