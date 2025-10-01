@@ -24,7 +24,10 @@ export const CalendarAreaFetcher: React.FC<CalendarAreaFetcherProps> = ({
   const parsedYear = yearParam ? Number.parseInt(yearParam, 10) : NaN;
   const targetYear = Number.isNaN(parsedYear) ? null : parsedYear;
 
-  const { startDate, endDate } = useReflectionHeatmap(targetYear);
+  const { startDate, endDate, totalReflections } = useReflectionHeatmap({
+    targetYear,
+    reflectionCount
+  });
 
   const classForValue = useCallback(
     (value: ReactCalendarHeatmapValue<string> | undefined): string => {
@@ -85,7 +88,8 @@ export const CalendarAreaFetcher: React.FC<CalendarAreaFetcherProps> = ({
         values={reflectionCount.reflectionsPerDate}
         classForValue={classForValue}
         tooltipDataAttrs={tooltipDataAttrs}
-        totalReflections={reflectionCount.totalReflections}
+        totalReflections={totalReflections}
+        targetYear={targetYear}
         onClick={handleCalendarClick}
         onYearClick={handleYearClick}
       />

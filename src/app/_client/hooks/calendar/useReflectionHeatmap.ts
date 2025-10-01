@@ -1,6 +1,16 @@
+import { useMemo } from "react";
+import type { ReflectionsCount } from "../../api/reflections-count-api";
 import { getOneYearAgo } from "@/src/app/_shared/date-helper/date-helpers";
 
-export const useReflectionHeatmap = (targetYear: number | null) => {
+type UseReflectionHeatmapProps = {
+  targetYear: number | null;
+  reflectionCount: ReflectionsCount;
+};
+
+export const useReflectionHeatmap = ({
+  targetYear,
+  reflectionCount
+}: UseReflectionHeatmapProps) => {
   const startDateCalc = (targetYear: number | null): Date => {
     if (targetYear !== null) {
       return new Date(targetYear, 0, 1);
@@ -17,5 +27,20 @@ export const useReflectionHeatmap = (targetYear: number | null) => {
 
   const startDate = startDateCalc(targetYear);
   const endDate = endDateCalc(targetYear);
-  return { startDate, endDate };
+
+  // MEMO: 年ごとの投稿数を計算する
+  const totalReflections = useMemo(() => {
+    if (targetYear !== null) {
+      return String(
+        reflectionCount.reflectionsPerDate
+          .filter((reflection) =>
+            reflection.date.startsWith(targetYear.toString())
+          )
+          .reduce((acc, reflection) => acc + reflection.countReflections, 0)
+      );
+    }
+    return String(reflectionCount.totalReflections);
+  }, [targetYear, reflectionCount]);
+
+  return { startDate, endDate, totalReflections };
 };

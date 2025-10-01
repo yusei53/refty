@@ -21,6 +21,7 @@ type CalendarAreaProps = {
     value: ReactCalendarHeatmapValue<string> | undefined
   ) => Record<string, string>;
   totalReflections: string;
+  targetYear: number | null;
   onClick: (value: ReactCalendarHeatmapValue<string> | undefined) => void;
   onYearClick: (year: number) => void;
 };
@@ -34,6 +35,7 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
   classForValue,
   tooltipDataAttrs,
   totalReflections,
+  targetYear,
   onClick,
   onYearClick
 }) => {
@@ -67,8 +69,8 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
         >
           <Typography mx={1} fontSize={15}>
             {isJapanese
-              ? `直近1年間で ${totalReflections} 回振り返りをしています`
-              : `${totalReflections} reflections in the last year`}
+              ? `${targetYear ? `${targetYear}年に` : "直近1年間で"} ${totalReflections} 回振り返りをしています`
+              : `${totalReflections} reflections in ${targetYear || "the last year"}`}
           </Typography>
           {!isMobile && (
             <ToggleJapaneseLabel onToggleLabel={handleToggleLabels} />
