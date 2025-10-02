@@ -1,11 +1,12 @@
 import { memo, useEffect, useRef } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import type { ReflectionPerDate } from "@/src/app/_client/api/reflections-count-api";
 import type { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 import "./calendar.css";
 import Calendar from "./Calendar";
 import ToggleJapaneseLabel from "./ToggleJapaneseLabel";
+import { Button } from "@/src/app/_client/components/button";
 import { useToggleJapaneseLabels } from "@/src/app/_client/hooks/calendar/useToggleJapaneseLabels";
 import { useResponsive } from "@/src/app/_client/hooks/responsive/useResponsive";
 import { theme } from "@/src/app/_client/utils/theme";
@@ -108,11 +109,20 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
         </Box>
       </Box>
       <Box display={"flex"} flexDirection={"column"} mt={5} gap={2}>
-        {reflectionYears.map((year) => (
+        {[...reflectionYears].reverse().map((year) => (
           <Button
             key={year}
             onClick={() => onYearClick(year)}
-            sx={{ backgroundColor: theme.palette.grey[100] }}
+            sx={{
+              backgroundColor:
+                targetYear === year ? theme.palette.grey[200] : "white",
+              color: theme.palette.grey[600],
+              border: "none",
+              borderRadius: 1.5,
+              "&:hover": {
+                backgroundColor: theme.palette.grey[100]
+              }
+            }}
           >
             {year}
           </Button>
