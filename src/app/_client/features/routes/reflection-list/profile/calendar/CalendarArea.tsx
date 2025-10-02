@@ -22,11 +22,10 @@ type CalendarAreaProps = {
   ) => Record<string, string>;
   totalReflections: string;
   targetYear: number | null;
+  reflectionYears: number[];
   onClick: (value: ReactCalendarHeatmapValue<string> | undefined) => void;
   onYearClick: (year: number) => void;
 };
-
-const YEAR_BUTTONS = [2025, 2024];
 
 const CalendarArea: React.FC<CalendarAreaProps> = ({
   startDate,
@@ -36,6 +35,7 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
   tooltipDataAttrs,
   totalReflections,
   targetYear,
+  reflectionYears,
   onClick,
   onYearClick
 }) => {
@@ -108,7 +108,7 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
         </Box>
       </Box>
       <Box display={"flex"} flexDirection={"column"} mt={5} gap={2}>
-        {YEAR_BUTTONS.map((year) => (
+        {reflectionYears.map((year) => (
           <Button
             key={year}
             onClick={() => onYearClick(year)}

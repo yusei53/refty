@@ -42,5 +42,24 @@ export const useReflectionHeatmap = ({
     return String(reflectionCount.totalReflections);
   }, [targetYear, reflectionCount]);
 
-  return { startDate, endDate, totalReflections };
+  const oldestYear = useMemo(() => {
+    return reflectionCount.reflectionsPerDate.reduce((acc, reflection) => {
+      return Math.min(acc, Number(reflection.date.split("-")[0]));
+    }, Infinity);
+  }, [reflectionCount]);
+
+  const newestYear = useMemo(() => {
+    return new Date().getFullYear();
+  }, []);
+
+  // MEMO: 投稿がある一番古い年からの配列
+  const reflectionYears = useMemo(() => {
+    const years = [];
+    for (let i = oldestYear; i <= newestYear; i++) {
+      years.push(i);
+    }
+    return years;
+  }, [oldestYear, newestYear]);
+
+  return { startDate, endDate, totalReflections, reflectionYears };
 };
