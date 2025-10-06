@@ -140,19 +140,23 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
               sx={selectStyles.select}
             >
               <MenuItem value="" disabled sx={selectStyles.menuItem}>
-                <Box width={36} />
-                Year
+                <Box component="span" pl={4.5}>
+                  Year
+                </Box>
               </MenuItem>
               {[...reflectionYears].reverse().map((year) => (
                 <MenuItem key={year} value={year} sx={selectStyles.menuItem}>
-                  <ListItemIcon sx={selectStyles.listItemIcon}>
-                    {selectedYear === year ? (
+                  {selectedYear === year && (
+                    <ListItemIcon sx={selectStyles.listItemIcon}>
                       <CheckIcon fontSize="small" />
-                    ) : (
-                      <Box width={20} />
-                    )}
-                  </ListItemIcon>
-                  {year}年
+                    </ListItemIcon>
+                  )}
+                  <Box
+                    component="span"
+                    sx={{ pl: selectedYear === year ? 0 : 4.5 }}
+                  >
+                    {year}年
+                  </Box>
                 </MenuItem>
               ))}
             </Select>
@@ -204,7 +208,8 @@ const selectStyles = {
     mt: 0.5
   },
   menuItem: {
-    pr: 5
+    pr: 5,
+    pl: 2
   },
   listItemIcon: {
     minWidth: 28
