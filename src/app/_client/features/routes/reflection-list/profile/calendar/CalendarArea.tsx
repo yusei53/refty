@@ -113,10 +113,13 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
               value={targetYear || ""}
               onChange={(e) => onYearClick(Number(e.target.value))}
               displayEmpty
+              size="small"
               sx={{
                 backgroundColor: theme.palette.grey[100],
                 color: theme.palette.grey[600],
                 borderRadius: 1.5,
+                minWidth: 120,
+                fontSize: 14,
                 "& .MuiOutlinedInput-notchedOutline": {
                   borderColor: theme.palette.grey[400]
                 },
