@@ -1,5 +1,5 @@
 import { memo, useEffect, useRef } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Select, MenuItem } from "@mui/material";
 import type { ReflectionPerDate } from "@/src/app/_client/api/reflections-count-api";
 import type { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
@@ -107,27 +107,58 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
             </Box>
           </Box>
         </Box>
+        {isMobile && (
+          <Box mt={2} display={"flex"} justifyContent={"flex-end"}>
+            <Select
+              value={targetYear || ""}
+              onChange={(e) => onYearClick(Number(e.target.value))}
+              displayEmpty
+              sx={{
+                backgroundColor: theme.palette.grey[100],
+                color: theme.palette.grey[600],
+                borderRadius: 1.5,
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: theme.palette.grey[400]
+                },
+                "&:hover .MuiOutlinedInput-notchedOutline": {
+                  borderColor: theme.palette.grey[500]
+                }
+              }}
+            >
+              <MenuItem value="" disabled>
+                Year
+              </MenuItem>
+              {[...reflectionYears].reverse().map((year) => (
+                <MenuItem key={year} value={year}>
+                  {year}年
+                </MenuItem>
+              ))}
+            </Select>
+          </Box>
+        )}
       </Box>
-      <Box display={"flex"} flexDirection={"column"} mt={5} gap={2}>
-        {[...reflectionYears].reverse().map((year) => (
-          <Button
-            key={year}
-            onClick={() => onYearClick(year)}
-            sx={{
-              backgroundColor:
-                targetYear === year ? theme.palette.grey[200] : "white",
-              color: theme.palette.grey[600],
-              border: "none",
-              borderRadius: 1.5,
-              "&:hover": {
-                backgroundColor: theme.palette.grey[100]
-              }
-            }}
-          >
-            {year}
-          </Button>
-        ))}
-      </Box>
+      {!isMobile && (
+        <Box display={"flex"} flexDirection={"column"} mt={5} gap={2}>
+          {[...reflectionYears].reverse().map((year) => (
+            <Button
+              key={year}
+              onClick={() => onYearClick(year)}
+              sx={{
+                backgroundColor:
+                  targetYear === year ? theme.palette.grey[200] : "white",
+                color: theme.palette.grey[600],
+                border: "none",
+                borderRadius: 1.5,
+                "&:hover": {
+                  backgroundColor: theme.palette.grey[100]
+                }
+              }}
+            >
+              {year}
+            </Button>
+          ))}
+        </Box>
+      )}
     </Box>
   );
 };
