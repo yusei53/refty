@@ -134,33 +134,18 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
               }}
               MenuProps={{
                 PaperProps: {
-                  sx: {
-                    borderRadius: 3,
-                    mt: 0.5
-                  }
+                  sx: selectStyles.menuPaper
                 }
               }}
-              sx={{
-                backgroundColor: theme.palette.grey[100],
-                color: theme.palette.grey[600],
-                borderRadius: 1.5,
-                minWidth: 120,
-                fontSize: 14,
-                "& .MuiOutlinedInput-notchedOutline": {
-                  borderColor: theme.palette.grey[400]
-                },
-                "&:hover .MuiOutlinedInput-notchedOutline": {
-                  borderColor: theme.palette.grey[500]
-                }
-              }}
+              sx={selectStyles.select}
             >
-              <MenuItem value="" disabled sx={{ pr: 5 }}>
+              <MenuItem value="" disabled sx={selectStyles.menuItem}>
                 <Box width={36} />
                 Year
               </MenuItem>
               {[...reflectionYears].reverse().map((year) => (
-                <MenuItem key={year} value={year} sx={{ pr: 5 }}>
-                  <ListItemIcon sx={{ minWidth: 28 }}>
+                <MenuItem key={year} value={year} sx={selectStyles.menuItem}>
+                  <ListItemIcon sx={selectStyles.listItemIcon}>
                     {selectedYear === year ? (
                       <CheckIcon fontSize="small" />
                     ) : (
@@ -198,6 +183,32 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
       )}
     </Box>
   );
+};
+
+const selectStyles = {
+  select: {
+    backgroundColor: theme.palette.grey[100],
+    color: theme.palette.grey[600],
+    borderRadius: 1.5,
+    minWidth: 120,
+    fontSize: 14,
+    "& .MuiOutlinedInput-notchedOutline": {
+      borderColor: theme.palette.grey[400]
+    },
+    "&:hover .MuiOutlinedInput-notchedOutline": {
+      borderColor: theme.palette.grey[500]
+    }
+  },
+  menuPaper: {
+    borderRadius: 3,
+    mt: 0.5
+  },
+  menuItem: {
+    pr: 5
+  },
+  listItemIcon: {
+    minWidth: 28
+  }
 };
 
 export default memo(CalendarArea);
