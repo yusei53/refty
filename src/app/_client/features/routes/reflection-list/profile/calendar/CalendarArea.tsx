@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { Box, Typography, Select, MenuItem } from "@mui/material";
 import type { ReflectionPerDate } from "@/src/app/_client/api/reflections-count-api";
 import type { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
@@ -42,6 +42,13 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
 }) => {
   const { isMobile } = useResponsive();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [selectedYear, setSelectedYear] = useState<number | null>(targetYear);
+
+  // MEMO: targetYearが変更されたらselectedYearも同期する
+  // TODO: React v19にしたらuseOptimisticで代替する
+  useEffect(() => {
+    setSelectedYear(targetYear);
+  }, [targetYear]);
 
   // MEMO: 画面幅が小さい場合、カレンダーのスクロールを右端に移動する。useEffectでエラー回避
   useEffect(() => {
@@ -110,8 +117,12 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
         {isMobile && (
           <Box mt={2} display={"flex"} justifyContent={"flex-end"}>
             <Select
-              value={targetYear || ""}
-              onChange={(e) => onYearClick(Number(e.target.value))}
+              value={selectedYear || ""}
+              onChange={(e) => {
+                const year = Number(e.target.value);
+                setSelectedYear(year);
+                onYearClick(year);
+              }}
               displayEmpty
               size="small"
               sx={{
