@@ -1,5 +1,6 @@
 import { memo, useEffect, useRef, useState } from "react";
-import { Box, Typography, Select, MenuItem } from "@mui/material";
+import CheckIcon from "@mui/icons-material/Check";
+import { Box, Typography, Select, MenuItem, ListItemIcon } from "@mui/material";
 import type { ReflectionPerDate } from "@/src/app/_client/api/reflections-count-api";
 import type { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
@@ -125,6 +126,20 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
               }}
               displayEmpty
               size="small"
+              renderValue={(selected) => {
+                if (!selected) {
+                  return "Year";
+                }
+                return `${selected}年`;
+              }}
+              MenuProps={{
+                PaperProps: {
+                  sx: {
+                    borderRadius: 3,
+                    mt: 0.5
+                  }
+                }
+              }}
               sx={{
                 backgroundColor: theme.palette.grey[100],
                 color: theme.palette.grey[600],
@@ -139,11 +154,19 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
                 }
               }}
             >
-              <MenuItem value="" disabled>
+              <MenuItem value="" disabled sx={{ pr: 5 }}>
+                <Box width={36} />
                 Year
               </MenuItem>
               {[...reflectionYears].reverse().map((year) => (
-                <MenuItem key={year} value={year}>
+                <MenuItem key={year} value={year} sx={{ pr: 5 }}>
+                  <ListItemIcon sx={{ minWidth: 28 }}>
+                    {selectedYear === year ? (
+                      <CheckIcon fontSize="small" />
+                    ) : (
+                      <Box width={20} />
+                    )}
+                  </ListItemIcon>
                   {year}年
                 </MenuItem>
               ))}
