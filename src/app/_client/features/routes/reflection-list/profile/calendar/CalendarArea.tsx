@@ -1,5 +1,6 @@
-import { memo, useEffect, useRef } from "react";
-import { Box, Typography } from "@mui/material";
+import { memo, useEffect, useRef, useState } from "react";
+import CheckIcon from "@mui/icons-material/Check";
+import { Box, Typography, Select, MenuItem, ListItemIcon } from "@mui/material";
 import type { ReflectionPerDate } from "@/src/app/_client/api/reflections-count-api";
 import type { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
@@ -42,6 +43,13 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
 }) => {
   const { isMobile } = useResponsive();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [selectedYear, setSelectedYear] = useState<number | null>(targetYear);
+
+  // MEMO: targetYearが変更されたらselectedYearも同期する
+  // TODO: React v19にしたらuseOptimisticで代替する
+  useEffect(() => {
+    setSelectedYear(targetYear);
+  }, [targetYear]);
 
   // MEMO: 画面幅が小さい場合、カレンダーのスクロールを右端に移動する。useEffectでエラー回避
   useEffect(() => {
@@ -107,29 +115,105 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
             </Box>
           </Box>
         </Box>
+        {isMobile && (
+          <Box mt={2} display={"flex"} justifyContent={"flex-end"}>
+            <Select
+              value={selectedYear || ""}
+              onChange={(e) => {
+                const year = Number(e.target.value);
+                setSelectedYear(year);
+                onYearClick(year);
+              }}
+              displayEmpty
+              size="small"
+              renderValue={(selected) => {
+                if (!selected) {
+                  return "Year";
+                }
+                return `${selected}年`;
+              }}
+              MenuProps={{
+                PaperProps: {
+                  sx: selectStyles.menuPaper
+                }
+              }}
+              sx={selectStyles.select}
+            >
+              <MenuItem value="" disabled sx={selectStyles.menuItem}>
+                <Box component="span" pl={4.5}>
+                  Year
+                </Box>
+              </MenuItem>
+              {[...reflectionYears].reverse().map((year) => (
+                <MenuItem key={year} value={year} sx={selectStyles.menuItem}>
+                  {selectedYear === year && (
+                    <ListItemIcon sx={selectStyles.listItemIcon}>
+                      <CheckIcon fontSize="small" />
+                    </ListItemIcon>
+                  )}
+                  <Box
+                    component="span"
+                    sx={{ pl: selectedYear === year ? 0 : 4.5 }}
+                  >
+                    {year}年
+                  </Box>
+                </MenuItem>
+              ))}
+            </Select>
+          </Box>
+        )}
       </Box>
-      <Box display={"flex"} flexDirection={"column"} mt={5} gap={2}>
-        {[...reflectionYears].reverse().map((year) => (
-          <Button
-            key={year}
-            onClick={() => onYearClick(year)}
-            sx={{
-              backgroundColor:
-                targetYear === year ? theme.palette.grey[200] : "white",
-              color: theme.palette.grey[600],
-              border: "none",
-              borderRadius: 1.5,
-              "&:hover": {
-                backgroundColor: theme.palette.grey[100]
-              }
-            }}
-          >
-            {year}
-          </Button>
-        ))}
-      </Box>
+      {!isMobile && (
+        <Box display={"flex"} flexDirection={"column"} mt={5} gap={2}>
+          {[...reflectionYears].reverse().map((year) => (
+            <Button
+              key={year}
+              onClick={() => onYearClick(year)}
+              sx={{
+                backgroundColor:
+                  targetYear === year ? theme.palette.grey[200] : "white",
+                color: theme.palette.grey[600],
+                border: "none",
+                borderRadius: 1.5,
+                "&:hover": {
+                  backgroundColor: theme.palette.grey[100]
+                }
+              }}
+            >
+              {year}
+            </Button>
+          ))}
+        </Box>
+      )}
     </Box>
   );
+};
+
+const selectStyles = {
+  select: {
+    backgroundColor: theme.palette.grey[100],
+    color: theme.palette.grey[600],
+    borderRadius: 1.5,
+    minWidth: 120,
+    fontSize: 14,
+    "& .MuiOutlinedInput-notchedOutline": {
+      borderColor: theme.palette.grey[400]
+    },
+    "&:hover .MuiOutlinedInput-notchedOutline": {
+      borderColor: theme.palette.grey[500]
+    }
+  },
+  menuPaper: {
+    borderRadius: 3,
+    mt: 0.5
+  },
+  menuItem: {
+    pr: 5,
+    pl: 2
+  },
+  listItemIcon: {
+    minWidth: 28
+  }
 };
 
 export default memo(CalendarArea);
