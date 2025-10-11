@@ -8,8 +8,7 @@ import type {
 import type { ReactCalendarHeatmapValue } from "react-calendar-heatmap";
 import CalendarArea from "./CalendarArea";
 import { getColor } from "./get-color";
-import { getOneYearAgo } from "@/src/app/_shared/date-helper/date-helpers";
-
+import { useReflectionHeatmap } from "@/src/app/_client/hooks/calendar/useReflectionHeatmap";
 type CalendarAreaFetcherProps = {
   reflectionCount: ReflectionsCount;
 };
@@ -20,8 +19,16 @@ export const CalendarAreaFetcher: React.FC<CalendarAreaFetcherProps> = ({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const startDate = getOneYearAgo();
-  const endDate = new Date();
+
+  const yearParam = searchParams?.get("year") ?? null;
+  const parsedYear = yearParam ? Number.parseInt(yearParam, 10) : NaN;
+  const targetYear = Number.isNaN(parsedYear) ? null : parsedYear;
+
+  const { startDate, endDate, totalReflections, reflectionYears } =
+    useReflectionHeatmap({
+      targetYear,
+      reflectionCount
+    });
 
   const classForValue = useCallback(
     (value: ReactCalendarHeatmapValue<string> | undefined): string => {
@@ -62,6 +69,18 @@ export const CalendarAreaFetcher: React.FC<CalendarAreaFetcherProps> = ({
     [router, pathname, searchParams]
   );
 
+  const handleYearClick = useCallback(
+    (year: number) => {
+      if (!searchParams) {
+        return;
+      }
+      const current = new URLSearchParams(Array.from(searchParams.entries()));
+      current.set("year", String(year));
+      router.push(`${pathname}?${current.toString()}`);
+    },
+    [router, pathname, searchParams]
+  );
+
   return (
     <>
       <CalendarArea
@@ -70,8 +89,11 @@ export const CalendarAreaFetcher: React.FC<CalendarAreaFetcherProps> = ({
         values={reflectionCount.reflectionsPerDate}
         classForValue={classForValue}
         tooltipDataAttrs={tooltipDataAttrs}
-        totalReflections={reflectionCount.totalReflections}
+        totalReflections={totalReflections}
+        targetYear={targetYear}
+        reflectionYears={reflectionYears}
         onClick={handleCalendarClick}
+        onYearClick={handleYearClick}
       />
       <Tooltip id="tooltip-data-attrs" />
     </>

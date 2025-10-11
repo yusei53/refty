@@ -68,6 +68,7 @@ export const UserMenuHeader: React.FC<UserMenuHeaderProps> = ({
         transition
         placement={"bottom-end"}
         disablePortal
+        sx={{ zIndex: 1 }}
         modifiers={[
           {
             name: "offset",
