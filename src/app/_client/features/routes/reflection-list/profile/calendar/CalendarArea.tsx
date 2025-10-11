@@ -130,7 +130,7 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
                 if (!selected) {
                   return "Year";
                 }
-                return `${selected}年`;
+                return `${selected}`;
               }}
               MenuProps={{
                 PaperProps: {
@@ -155,7 +155,7 @@ const CalendarArea: React.FC<CalendarAreaProps> = ({
                     component="span"
                     sx={{ pl: selectedYear === year ? 0 : 4.5 }}
                   >
-                    {year}年
+                    {year}
                   </Box>
                 </MenuItem>
               ))}
