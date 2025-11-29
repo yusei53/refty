@@ -26,7 +26,7 @@ export const generateMeta = {
       description: `${username} has ${userInformation.totalReflections} reflections.`,
       openGraph: {
         type: "website",
-        url: `https://www.refty.jp/${username}`,
+        url: `https://refty.vercel.app/${username}`,
         title: `${username} | ${REFTY}`,
         description: `${username} has ${userInformation.totalReflections} reflections.`,
         siteName: REFTY
@@ -72,7 +72,7 @@ export const generateMeta = {
       description: `${reflection.title}に関する詳細ページの編集画面です`,
       openGraph: {
         type: "website",
-        url: `https://www.refty.jp/${reflectionCUID}`,
+        url: `https://refty.vercel.app/${reflectionCUID}`,
         title: `${reflection.title}を編集 | ${REFTY}`,
         description: `${reflection.title}に関する詳細ページの編集画面です`
       },
