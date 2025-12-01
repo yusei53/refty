@@ -91,7 +91,7 @@ const UserReflectionListPage: React.FC<UserReflectionListPageProps> = ({
   } = useFolderSelection(username);
   const { currentViewMode, handleViewModeChange } = useViewMode();
 
-  // NOTE: 選択されたフォルダかタグの投稿数と名前を取得
+  // NOTE:選択されたフォルダかタグの投稿数と名前を取得
   const selectedInfo = getSelectedInfo(tagCountList);
 
   const handleCloseModal = () => {
