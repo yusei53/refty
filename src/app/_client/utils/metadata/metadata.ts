@@ -13,7 +13,7 @@ const baseMetadata: Metadata = {
   description: description,
   openGraph: {
     type: "website",
-    url: "https://refty.vercel.app/",
+    url: "https://www.refty.jp/",
     title: siteName,
     description: description,
     siteName: REFTY
@@ -33,7 +33,7 @@ export const meta = {
     title: `${REFTY}とは | ${REFTY}`,
     openGraph: {
       ...baseMetadata.openGraph,
-      url: "https://refty.vercel.app/welcome",
+      url: "https://www.refty.jp/welcome",
       title: `${REFTY}とは | ${REFTY}`
     },
     twitter: {
@@ -48,7 +48,7 @@ export const meta = {
     description: `振り返りの大切さを学ぶページ`,
     openGraph: {
       ...baseMetadata.openGraph,
-      url: "https://refty.vercel.app/important",
+      url: "https://www.refty.jp/important",
       title: `振り返りの大切さ | ${REFTY}`,
       description: `振り返りの大切さを学ぶページ`
     },
@@ -65,7 +65,7 @@ export const meta = {
     description: `${REFTY}の利用規約のページ`,
     openGraph: {
       ...baseMetadata.openGraph,
-      url: "https://refty.vercel.app/terms",
+      url: "https://www.refty.jp/terms",
       title: `利用規約 | ${REFTY}`,
       description: `${REFTY}の利用規約のページ`
     },
@@ -82,7 +82,7 @@ export const meta = {
     description: `${REFTY}のユーザーネーム設定ページ`,
     openGraph: {
       ...baseMetadata.openGraph,
-      url: "https://refty.vercel.app/settings/username",
+      url: "https://www.refty.jp/settings/username",
       title: `ユーザーネーム設定 | ${REFTY}`,
       description: `${REFTY}のユーザーネーム設定ページ`
     },
@@ -99,7 +99,7 @@ export const meta = {
     description: `${REFTY}のプロフィール設定ページ`,
     openGraph: {
       ...baseMetadata.openGraph,
-      url: "https://refty.vercel.app/settings/profile",
+      url: "https://www.refty.jp/settings/profile",
       title: `プロフィール設定 | ${REFTY}`,
       description: `${REFTY}のプロフィール設定ページ`
     },
@@ -116,7 +116,7 @@ export const meta = {
     description: `${REFTY}のログインページ`,
     openGraph: {
       ...baseMetadata.openGraph,
-      url: "https://refty.vercel.app/login",
+      url: "https://www.refty.jp/login",
       title: `ログイン | ${REFTY}`,
       description: `${REFTY}のログインページ`
     },
@@ -133,7 +133,7 @@ export const meta = {
     description: `${REFTY}の投稿作成ページ`,
     openGraph: {
       ...baseMetadata.openGraph,
-      url: "https://refty.vercel.app/post",
+      url: "https://www.refty.jp/post",
       title: `投稿作成 | ${REFTY}`,
       description: `${REFTY}の投稿作成ページ`
     },
@@ -151,7 +151,7 @@ export const meta = {
       description: `${username}さんだけの振り返りブックページ`,
       openGraph: {
         type: "website",
-        url: `https://refty.vercel.app/${username}`,
+        url: `https://www.refty.jp/${username}`,
         title: `${username}さんの振り返りブック | ${REFTY}`,
         description: `${username}さんだけの振り返りブックページ`,
         siteName: REFTY
@@ -170,7 +170,7 @@ export const meta = {
       description: `${username}さんのレポートページ`,
       openGraph: {
         type: "website",
-        url: `https://refty.vercel.app/${username}/report`,
+        url: `https://www.refty.jp/${username}/report`,
         title: `${username}さんのレポート | ${REFTY}`,
         description: `${username}さんのレポートページ`,
         siteName: REFTY
