@@ -107,7 +107,7 @@ const SettingProfileFormField: React.FC<SettingProfileFormFieldProps> = ({
         />
         <FieldInput
           name="website"
-          placeholder="https://www.refty.jp/welcome"
+          placeholder="https://refty.vercel.app/welcome"
           rows={1}
           control={control}
           errors={errors}

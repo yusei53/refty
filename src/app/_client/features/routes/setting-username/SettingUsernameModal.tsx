@@ -68,7 +68,7 @@ export const SettingUsernameModal: React.FC<SettingUsernameModalProps> = ({
             <Box my={5}>
               <Box display={"flex"} whiteSpace={"nowrap"}>
                 <Typography letterSpacing={0.5}>
-                  https://www.refty.jp/
+                  https://refty.vercel.app/
                 </Typography>
                 <Controller
                   name="username"
