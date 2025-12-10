@@ -49,7 +49,7 @@ export const FieldInput: React.FC<FieldInputProps> = ({
           fontSize={16}
           letterSpacing={0.8}
         >
-          https://refty.vercel.app/
+          https://www.refty.jp/
         </Typography>
         <Controller
           name={name}
