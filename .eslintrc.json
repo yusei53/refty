@@ -84,6 +84,21 @@
         "prefer": "type-imports",
         "fixStyle": "separate-type-imports"
       }
+    ],
+    "import/no-unused-modules": [
+      "error",
+      {
+        "unusedExports": true,
+        "missingExports": false,
+        "src": ["src"],
+        "ignoreExports": [
+          "src/app/**/page.tsx",
+          "src/app/**/layout.tsx",
+          "src/app/**/route.ts",
+          "src/app/**/not-found.tsx",
+          "src/app/**/loading.tsx"
+        ]
+      }
     ]
   }
 }
