@@ -1,3 +1,4 @@
+import type { Result } from "./fetchURL";
 import type { ErrorCode, HTTPMethod } from "@/src/app/_shared/type/httpMethod";
 
 export type FetchFormDataURLOptions = {
@@ -10,8 +11,6 @@ export type FetchFormDataURLOptions = {
     tags?: string[];
   };
 };
-
-export type Result<T, E = number> = T | E;
 
 const defaultURL = process.env.NEXT_PUBLIC_ROOT_URL;
 
