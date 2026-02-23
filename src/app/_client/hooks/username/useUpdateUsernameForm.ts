@@ -36,7 +36,7 @@ const updateUsernameSchema = z
     }
   );
 
-export type UpdateUsernameSchemaType = z.infer<typeof updateUsernameSchema>;
+type UpdateUsernameSchemaType = z.infer<typeof updateUsernameSchema>;
 
 export const useUpdateUsernameForm = () => {
   const router = useRouter();

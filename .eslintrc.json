@@ -96,7 +96,9 @@
           "src/app/**/layout.tsx",
           "src/app/**/route.ts",
           "src/app/**/not-found.tsx",
-          "src/app/**/loading.tsx"
+          "src/app/**/loading.tsx",
+          "src/app/_client/features/routes/reflection-list/profile/calendar/react-calendar-heatmap.d.ts",
+          "src/app/**/opengraph-image.tsx"
         ]
       }
     ]

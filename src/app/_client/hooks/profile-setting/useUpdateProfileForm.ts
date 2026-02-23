@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { profileAPI } from "@/src/app/_client/api/profile-api";
 
-export type useUpdateProfileProps = {
+type useUpdateProfileProps = {
   username: string;
   bio: string;
   goal: string;

@@ -1,6 +1,6 @@
 import supabase from "@/src/app/_shared/lib/supabase";
 
-export type UploadReflectionImageItem = {
+type UploadReflectionImageItem = {
   file: File;
   path: string;
 };

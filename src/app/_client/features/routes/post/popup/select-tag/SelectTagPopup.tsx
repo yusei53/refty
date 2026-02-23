@@ -16,13 +16,7 @@ type TagSelectionPopupProps = {
   onToggleTag: (tag: string) => void;
 };
 
-export const TAGS = [
-  "振り返り",
-  "学び",
-  "気づき",
-  "ひとりごと",
-  "インプットの記録"
-];
+const TAGS = ["振り返り", "学び", "気づき", "ひとりごと", "インプットの記録"];
 
 export const SelectTagPopup: React.FC<TagSelectionPopupProps> = ({
   open,
