@@ -7,7 +7,7 @@ import { useParseValueToTags } from "../reflection-tag/useParseValueToTags";
 import { createReflectionSchema } from "./useCreateReflectionForm";
 import { reflectionAPI } from "@/src/app/_client/api/reflection-api";
 
-export type useUpdateReflectionFormProps = {
+type useUpdateReflectionFormProps = {
   reflectionCUID: string;
   username: string;
   title: string;

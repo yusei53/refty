@@ -1,11 +1,10 @@
 import { ImageResponse } from "next/og";
 import opengraphAPI from "@/src/app/_client/api/opengraph-api";
 
-export const size = {
+const size = {
   width: 1200,
   height: 630
 };
-export const contentType = "image/png";
 
 export default async function Image({
   params

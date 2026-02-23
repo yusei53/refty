@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { folderAPI } from "@/src/app/_client/api/folder-api";
 
-export const createFolderSchema = z.object({
+const createFolderSchema = z.object({
   name: z
     .string()
     .min(1, { message: "フォルダ名は1文字以上で入力してください。" })
@@ -14,7 +14,7 @@ export const createFolderSchema = z.object({
     })
 });
 
-export type CreateFolderSchemaType = z.infer<typeof createFolderSchema>;
+type CreateFolderSchemaType = z.infer<typeof createFolderSchema>;
 
 type UseCreateFolderProps = {
   username: string | undefined;

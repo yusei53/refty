@@ -1,6 +1,6 @@
 import "./color.css";
 
-export type HeatmapColorClass =
+type HeatmapColorClass =
   | "color-empty"
   | "color-scale-1"
   | "color-scale-2"
